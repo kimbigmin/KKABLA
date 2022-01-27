@@ -1,8 +1,15 @@
-import logo from "./logo.svg";
-import "./App.css";
+import './App.css';
+import Header from './components/common/header/Header';
+import { Container } from '@mui/material';
+import Footer from './components/common/footer/Footer';
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <Container>
+      <Header />
+      <Footer />
+    </Container>
+  );
 }
 
 export default App;
