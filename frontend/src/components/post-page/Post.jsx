@@ -84,6 +84,6 @@ const ContentsTextField = styled(TextField)`
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 93%;
+  left: 91.5%;
   font-weight: bold;
 `;
