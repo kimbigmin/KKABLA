@@ -1,11 +1,12 @@
 import './App.css';
-import Header from './components/common/Header';
+import Header from './components/common/header/Header';
+import { Container } from '@mui/material';
 
 function App() {
   return (
-    <div className="App">
+    <Container>
       <Header />
-    </div>
+    </Container>
   );
 }
 

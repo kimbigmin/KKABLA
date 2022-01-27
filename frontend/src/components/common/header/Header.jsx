@@ -1,33 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Search from './Search';
 import logo from './logo.png';
-
+import SearchAppBar from './SerachBar';
 import styled from 'styled-components';
+import { useMediaQuery } from 'react-responsive';
 
-function Header() {
+function Header({ isLogin }) {
   return (
-    <Container>
+    <Nav>
       <Link to="/">
         <img src={logo} alt="logo" />
-      </Link>
-      <Link to="/topic" className="link">
-        토픽게시판
-      </Link>
-      <Link to="/free" className="link">
-        자유게시판
       </Link>
       <Link to="/review" className="link">
         리뷰게시판
       </Link>
-      <Link to="/mypage" className="link">
-        마이페이지
+      <Link to="/free" className="link">
+        자유게시판
       </Link>
-    </Container>
+      <Link to="/develop" className="link">
+        개발이야기
+      </Link>
+
+      {isLogin ? (
+        <Link to="/mypage" className="link">
+          마이페이지
+        </Link>
+      ) : null}
+
+      <SearchAppBar />
+    </Nav>
   );
 }
 
-const Container = styled.header`
+const Nav = styled.header`
   margin: 1rem;
   display: flex;
   width: 100%;
@@ -35,7 +40,7 @@ const Container = styled.header`
   align-items: center;
 
   img {
-    width: 150px;
+    width: 160px;
   }
 
   .link {
