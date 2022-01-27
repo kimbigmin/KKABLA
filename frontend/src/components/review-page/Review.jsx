@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Review() {
-  return;
+  return <></>;
 }
 
 export default Review;
