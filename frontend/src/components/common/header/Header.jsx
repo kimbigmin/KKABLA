@@ -5,6 +5,8 @@ import SearchAppBar from './SerachBar';
 import styled from 'styled-components';
 
 function Header({ isLogin }) {
+  isLogin = true;
+
   return (
     <Nav>
       <Link to="/">
@@ -25,7 +27,15 @@ function Header({ isLogin }) {
           마이페이지
         </Link>
       ) : null}
-
+      {isLogin ? (
+        <Link className="log" to="/logout">
+          로그아웃
+        </Link>
+      ) : (
+        <Link className="log" to="/login">
+          로그인
+        </Link>
+      )}
       <SearchAppBar />
     </Nav>
   );
@@ -54,6 +64,13 @@ const Nav = styled.header`
       transition-property: color;
       transition-duration: 0.5s;
     }
+  }
+
+  .log {
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4586ff;
   }
 `;
 

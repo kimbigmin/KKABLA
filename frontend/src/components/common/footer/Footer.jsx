@@ -78,7 +78,7 @@ const FooterBar = styled.footer`
   }
 
   ul {
-    margin: 1rem;
+    margin: 0.4rem;
   }
 
   li {
