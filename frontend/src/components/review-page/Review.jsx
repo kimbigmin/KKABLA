@@ -1,8 +1,7 @@
 import React from 'react';
 
 function Review() {
-  return;
-  <>화이팅</>;
+  return <></>;
 }
 
 export default Review;
