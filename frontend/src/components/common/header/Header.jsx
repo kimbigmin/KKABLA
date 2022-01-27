@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from './logo.png';
 import SearchAppBar from './SerachBar';
 import styled from 'styled-components';
-import { useMediaQuery } from 'react-responsive';
 
 function Header({ isLogin }) {
   return (
