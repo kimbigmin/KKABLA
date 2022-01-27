@@ -16,7 +16,9 @@ function Footer() {
         <div className="lists">
           <ul>
             <li>
-              <a href="#">안용연</a>
+              <a href="#" target="_blank">
+                안용연
+              </a>
             </li>
             <li>
               <a href="https://github.com/kimbigmin" target="_blank">
@@ -26,18 +28,26 @@ function Footer() {
           </ul>
           <ul>
             <li>
-              <a href="#">배대철</a>
+              <a href="#" target="_blank">
+                배대철
+              </a>
             </li>
             <li>
-              <a href="#">이가은</a>
+              <a href="#" target="_blank">
+                이가은
+              </a>
             </li>
           </ul>
           <ul>
             <li>
-              <a href="#">이하현</a>
+              <a href="#" target="_blank">
+                이하현
+              </a>
             </li>
             <li>
-              <a href="#">김예찬</a>
+              <a href="#" target="_blank">
+                김예찬
+              </a>
             </li>
           </ul>
         </div>
@@ -54,18 +64,7 @@ const FooterBar = styled.footer`
   height: 150px;
   color: rgba(0, 0, 0, 0.365);
   font-size: 0.8rem;
-
   border-top: 1px solid rgba(0, 0, 0, 0.105);
-
-  img {
-    width: 160px;
-    opacity: 0.8;
-  }
-
-  p {
-    display: flex;
-    justify-content: center;
-  }
 
   .github-list {
     display: flex;
@@ -75,6 +74,16 @@ const FooterBar = styled.footer`
     display: flex;
     margin-left: 1rem;
     font-size: 0.8rem;
+  }
+
+  img {
+    width: 160px;
+    opacity: 0.8;
+  }
+
+  p {
+    display: flex;
+    justify-content: center;
   }
 
   ul {
