@@ -22,12 +22,13 @@ function PostFree() {
               width: 200,
               height: 40,
               bgcolor: '#A2D2FF',
-              color: 'white',
+              color: 'black',
               textAlign: 'center',
               lineHeight: '40px',
               margin: '10px',
               borderRadius: '8px',
               fontWeight: 'bold',
+              border: '1px solid black',
             }}
           >
             리뷰게시판

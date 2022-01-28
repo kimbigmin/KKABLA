@@ -21,7 +21,7 @@ function PostFree({ name }) {
               width: 200,
               height: 40,
               bgcolor: '#A2D2FF',
-              color: 'white',
+              color: 'black',
               textAlign: 'center',
               lineHeight: '40px',
               margin: '10px',
