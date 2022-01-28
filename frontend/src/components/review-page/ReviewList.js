@@ -3,7 +3,9 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { List, Score, Contents, Date } from '../../styles/review-page/styled';
 
-function ReviewList() {
+function ReviewList({ isLogin }) {
+  isLogin = false;
+
   return (
     <List>
       <Score>
@@ -24,17 +26,17 @@ function ReviewList() {
         <p className="content">
           <h4 className="title">장점</h4>
           <div>
-            {
-              '아주 좋습니다~아주 좋습니다~아주 좋습니다~아주 좋습니다~아주 좋습니다~아주 좋습니다~'
-            }
+            {isLogin
+              ? '로그인시 보이는 내용 로그인시 보이는 내용 로그인시 보이는 내용 로그인시 보이는 내용 로그인시 보이는 내용'
+              : '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'}
           </div>
         </p>
         <p className="content">
           <h4 className="title">단점</h4>
           <div>
-            {
-              '아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.아주 좋습니다.'
-            }
+            {isLogin
+              ? '로그인시 보이는 내용 로그인시 보이는 내용 로그인시 보이는 내용 로그인시 보이는 내용 로그인시 보이는 내용'
+              : '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'}
           </div>
         </p>
       </Contents>

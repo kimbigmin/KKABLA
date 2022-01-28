@@ -5,7 +5,6 @@ import logo from '../../images/logo.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import ReviewList from './ReviewList';
-import styled from 'styled-components';
 import {
   Introduction,
   Info,
