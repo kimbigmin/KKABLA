@@ -13,9 +13,12 @@ import {
   IntroBar,
 } from '../../styles/review-page/styled';
 import { Grid } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
-function DetailPage({ isLogin }) {
-  isLogin = false;
+function DetailPage() {
+  const location = useLocation();
+  const { isLogin } = location.state;
+  console.log(isLogin);
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
@@ -63,8 +66,8 @@ function DetailPage({ isLogin }) {
       </ListTopBar>
       <Blind>
         {!isLogin && <div class="blind">로그인 후 이용이 가능합니다. 😢</div>}
-        <ReviewList />
-        <ReviewList />
+        <ReviewList isLogin={isLogin} />
+        <ReviewList isLogin={isLogin} />
       </Blind>
     </Container>
   );

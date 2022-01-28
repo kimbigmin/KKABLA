@@ -4,8 +4,6 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { List, Score, Contents, Date } from '../../styles/review-page/styled';
 
 function ReviewList({ isLogin }) {
-  isLogin = false;
-
   return (
     <List>
       <Score>

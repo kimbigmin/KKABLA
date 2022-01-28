@@ -4,7 +4,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { Box } from '../../styles/review-page/styled';
 
-function Card({ data }) {
+function Card({ isLogin }) {
   return (
     <>
       <Box>
