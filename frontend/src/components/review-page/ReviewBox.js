@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
 import { Top } from '../../styles/review-page/styled';
 import Card from './Card';
+import { Link } from 'react-router-dom';
 
 function ReviewBox() {
   const list = Array(24)
@@ -11,7 +12,9 @@ function ReviewBox() {
       if (!item) {
         return (
           <Grid item xs={3}>
-            <Card></Card>
+            <Link to="/review-detail">
+              <Card></Card>
+            </Link>
           </Grid>
         );
       }
