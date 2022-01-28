@@ -160,3 +160,28 @@ export const Contents = styled.div`
 export const Date = styled.div`
   display: flex;
 `;
+
+export const Blind = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .blind {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.036);
+    color: #4586ff;
+
+    position: absolute;
+    width: 100%;
+    height: 70%;
+
+    font-size: 2rem;
+    font-weight: bold;
+  }
+`;

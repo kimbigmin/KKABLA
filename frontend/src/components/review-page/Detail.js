@@ -5,13 +5,17 @@ import logo from '../../images/logo.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import ReviewList from './ReviewList';
+import styled from 'styled-components';
 import {
   Introduction,
   Info,
   ListTopBar,
+  Blind,
 } from '../../styles/review-page/styled';
 
-function Detail() {
+function Detail({ isLogin }) {
+  isLogin = false;
+
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
       <Top>
@@ -38,11 +42,14 @@ function Detail() {
       <ListTopBar>
         <div className="list-topbar">
           <h3>{2}개의 리뷰</h3>
-          <button>리뷰작성하기</button>
+          {isLogin && <button>리뷰작성하기</button>}
         </div>
       </ListTopBar>
-      <ReviewList />
-      <ReviewList />
+      <Blind>
+        {!isLogin && <div class="blind">로그인 후 이용이 가능합니다.</div>}
+        <ReviewList />
+        <ReviewList />
+      </Blind>
     </Container>
   );
 }
