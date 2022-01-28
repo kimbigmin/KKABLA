@@ -56,18 +56,30 @@ export const Box = styled.div`
 
 export const Introduction = styled.div`
   display: flex;
-  justify-content: flex-start;
-  padding: 3rem;
   align-items: center;
+  justify-content: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 2rem;
+
+  h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #4586ffb2;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
 `;
 
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
+  margin-right: 2rem;
 
   img {
     width: 13rem;
@@ -175,7 +187,7 @@ export const Blind = styled.div`
 
     backdrop-filter: blur(5px);
     background-color: rgba(255, 255, 255, 0.036);
-    color: #4586ff;
+    color: #4d4d4d;
 
     position: absolute;
     width: 100%;
@@ -184,4 +196,11 @@ export const Blind = styled.div`
     font-size: 2rem;
     font-weight: bold;
   }
+`;
+
+export const IntroBar = styled.h3`
+  font-size: 1rem;
+  font-weight: bold;
+  color: #575757;
+  margin-bottom: 1rem;
 `;

@@ -12,7 +12,10 @@ function ReviewBox() {
       if (!item) {
         return (
           <Grid item xs={3}>
-            <Link to="/review-detail">
+            <Link
+              to="/review-detail"
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
               <Card></Card>
             </Link>
           </Grid>
