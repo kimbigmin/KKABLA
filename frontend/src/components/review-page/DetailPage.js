@@ -41,7 +41,7 @@ function DetailPage() {
             <p>3.5</p>
           </div>
         </Info>
-        <Grid container spacing={3} sx={{ textAlign: 'center' }}>
+        <Grid container spacing={3} sx={{ textAlign: 'left' }}>
           <Grid item xs={12}>
             <h4>홈페이지</h4>
             <a href="#" target="_blank">
