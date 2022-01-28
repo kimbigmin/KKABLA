@@ -1,7 +1,7 @@
 import React from 'react';
 import CopyrightIcon from '@mui/icons-material/Copyright';
-import styled from 'styled-components';
-import logo from '../header/logo.png';
+import logo from '../../../images/logo.png';
+import { FooterBar } from '../../../styles/common/styled';
 
 function Footer() {
   return (
@@ -55,52 +55,5 @@ function Footer() {
     </FooterBar>
   );
 }
-
-const FooterBar = styled.footer`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 150px;
-  color: rgba(0, 0, 0, 0.365);
-  font-size: 0.8rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.105);
-
-  .github-list {
-    display: flex;
-    align-items: center;
-  }
-  .lists {
-    display: flex;
-    margin-left: 1rem;
-    font-size: 0.8rem;
-  }
-
-  img {
-    width: 160px;
-    opacity: 0.8;
-  }
-
-  p {
-    display: flex;
-    justify-content: center;
-  }
-
-  ul {
-    margin: 0.4rem;
-  }
-
-  li {
-    margin: 0.3rem;
-  }
-  a {
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.365);
-
-    &:hover {
-      color: rgba(0, 0, 0, 0.589);
-    }
-  }
-`;
 
 export default Footer;

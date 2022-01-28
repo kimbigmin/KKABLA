@@ -1,14 +1,14 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
-import styled from 'styled-components';
+import { Top } from '../../styles/review-page/styled';
 import Card from './Card';
 
 function ReviewBox() {
   const list = Array(24)
     .fill(null)
     .map((item) => {
-      if (item === null) {
+      if (!item) {
         return (
           <Grid item xs={3}>
             <Card></Card>
@@ -16,8 +16,6 @@ function ReviewBox() {
         );
       }
     });
-
-  console.log(list);
 
   return (
     <Container sx={{ marginBottom: '5rem' }}>
@@ -33,25 +31,5 @@ function ReviewBox() {
     </Container>
   );
 }
-
-const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 7rem;
-  margin-bottom: 5rem;
-  align-items: center;
-
-  h2 {
-    font-size: 1.7rem;
-    font-weight: bold;
-    color: #484848ea;
-  }
-
-  span {
-    font-size: 0.8rem;
-    color: #484848ea;
-    cursor: pointer;
-  }
-`;
 
 export default ReviewBox;
