@@ -127,7 +127,7 @@ export const List = styled.div`
   align-items: center;
   padding-top: 2rem;
   color: #000000a6;
-  background-color: #e6e6e65d;
+  background-color: #e6e6e62c;
 `;
 
 export const Score = styled.div`
