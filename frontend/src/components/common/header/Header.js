@@ -5,8 +5,7 @@ import SearchAppBar from './SerachBar';
 import { Nav } from '../../../styles/common/styled';
 
 function Header({ isLogin }) {
-  isLogin = true;
-
+  console.log(isLogin);
   return (
     <Nav>
       <Link to="/">
