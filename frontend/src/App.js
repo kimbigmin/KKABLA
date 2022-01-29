@@ -5,6 +5,7 @@ import Footer from './components/common/footer/Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ReviewPage from './components/review-page/ReviewPage';
 import Detail from './components/review-page/Detail';
+import BoardForm from './components/Board/CommonBoard/BoardForm';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/review" element={<ReviewPage />}></Route>
           <Route path="/review-detail" element={<Detail />}></Route>
         </Routes>
+        <BoardForm />
         <Footer />
       </Container>
     </BrowserRouter>
