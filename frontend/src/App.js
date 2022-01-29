@@ -16,7 +16,6 @@ function App() {
           <Route path="/review" element={<ReviewPage />}></Route>
           <Route path="/review-detail" element={<Detail />}></Route>
         </Routes>
-        
         <Footer />
       </Container>
     </BrowserRouter>
