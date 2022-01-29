@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import express from 'express';
 import getTokens from '../utils/getTokens.js';
 import User from '../models/User.js';
+import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 
@@ -43,12 +45,26 @@ router.get('/google', async (req, res) => {
 
 router.get('/user', async (req, res) => {
   try {
+    if (!req.cookies['auth_token']) return;
+
     const decode = jwt.verify(
       req.cookies['auth_token'],
       process.env.JWT_SECRET,
     );
+    console.log(decode);
+    const hashedName = bcrypt.hashSync(decode.name, 10);
+    const hashedEmail = bcrypt.hashSync(decode.email, 10);
 
-    return res.send({ name: decode.name, email: decode.email });
+    const user = await User.findOne({ hashedName, hashedEmail });
+
+    if (user) {
+      res.send(user.nickName);
+    } else {
+      const nickName = uuidv4().slice(0, 10).replace('-', '');
+      const user = await User.create({ hashedName, hashedEmail, nickName });
+
+      res.send(user.nickName);
+    }
   } catch (error) {
     console.log(error);
     res.send(null);

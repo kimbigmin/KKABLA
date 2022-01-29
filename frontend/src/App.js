@@ -9,7 +9,7 @@ import Logout from './components/logout-page/Logout';
 import axios from 'axios';
 
 function App() {
-  const [isLogin, setisLogin] = useState(false);
+  const [isLogin, setisLogin] = useState(null);
 
   useEffect(() => {
     const getMe = async () => {
@@ -18,9 +18,10 @@ function App() {
           withCredentials: true,
         })
         .then((res) => setisLogin(res.data));
+      console.log(isLogin);
     };
+
     getMe();
-    console.log(isLogin);
   }, []);
 
   return (
