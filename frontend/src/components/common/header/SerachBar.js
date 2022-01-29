@@ -7,7 +7,8 @@ import axios from 'axios';
 
 function SearchBar() {
   const onSearchHandler = async (value) => {
-    await axios.post('http://localhost:5000/search', { body: value });
+    console.log(value);
+    await axios.post('http://localhost:5000/search', { value });
   };
 
   return (
