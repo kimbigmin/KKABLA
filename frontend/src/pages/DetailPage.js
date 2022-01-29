@@ -1,17 +1,17 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import { Top } from '../../styles/review-page/styled';
-import logo from '../../images/logo.png';
+import { Top } from '../styles/review-page/styled';
+import logo from '../images/logo.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import ReviewList from './ReviewList';
+import ReviewList from '../components/review-page/ReviewList';
 import {
   Introduction,
   Info,
   ListTopBar,
   Blind,
   IntroBar,
-} from '../../styles/review-page/styled';
+} from '../styles/review-page/styled';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 

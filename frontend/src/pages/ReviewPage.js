@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import ReviewBox from './ReviewBox';
+import ReviewBox from '../components/review-page/ReviewBox';
 
 function Review({ isLogin }) {
   return <ReviewBox isLogin={isLogin} />;
