@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReviewBox from './ReviewBox';
 
 function Review() {
-  return <ReviewBox />;
+  const [isLogin, setIsLogin] = useState(false);
+
+  return <ReviewBox isLogin={isLogin} />;
 }
 
 export default Review;
