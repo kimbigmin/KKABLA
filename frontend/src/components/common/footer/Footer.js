@@ -1,7 +1,7 @@
 import React from 'react';
 import CopyrightIcon from '@mui/icons-material/Copyright';
-import logo from '../../../images/logo.png';
-import { FooterBar } from '../../../styles/common/styled';
+import styled from 'styled-components';
+import logo from '../header/logo.png';
 
 function Footer() {
   return (
@@ -16,38 +16,32 @@ function Footer() {
         <div className="lists">
           <ul>
             <li>
-              <a href="#" target="_blank">
-                안용연
-              </a>
+              <a href="#">안용연</a>
             </li>
             <li>
-              <a href="https://github.com/kimbigmin" target="_blank">
+              <a
+                href="https://github.com/kimbigmin"
+                target="_blank"
+                rel="noreferrer"
+              >
                 김민규
               </a>
             </li>
           </ul>
           <ul>
             <li>
-              <a href="#" target="_blank">
-                배대철
-              </a>
+              <a href="#">배대철</a>
             </li>
             <li>
-              <a href="#" target="_blank">
-                이가은
-              </a>
+              <a href="#">이가은</a>
             </li>
           </ul>
           <ul>
             <li>
-              <a href="#" target="_blank">
-                이하현
-              </a>
+              <a href="#">이하현</a>
             </li>
             <li>
-              <a href="#" target="_blank">
-                김예찬
-              </a>
+              <a href="#">김예찬</a>
             </li>
           </ul>
         </div>
@@ -55,5 +49,53 @@ function Footer() {
     </FooterBar>
   );
 }
+
+const FooterBar = styled.footer`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 150px;
+  color: rgba(0, 0, 0, 0.365);
+  font-size: 0.8rem;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.105);
+
+  img {
+    width: 160px;
+    opacity: 0.8;
+  }
+
+  p {
+    display: flex;
+    justify-content: center;
+  }
+
+  .github-list {
+    display: flex;
+    align-items: center;
+  }
+  .lists {
+    display: flex;
+    margin-left: 1rem;
+    font-size: 0.8rem;
+  }
+
+  ul {
+    margin: 0.4rem;
+  }
+
+  li {
+    margin: 0.3rem;
+  }
+  a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.365);
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.589);
+    }
+  }
+`;
 
 export default Footer;
