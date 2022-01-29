@@ -5,16 +5,13 @@ import { Container } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ReviewPage from './components/review-page/ReviewPage';
 import Detail from './components/review-page/Detail';
-<<<<<<< HEAD
 import MainContents from './pages/mainPage/MainContents';
-=======
 import BoardForm from './components/Board/CommonBoard/BoardForm';
 import Login from './components/login-page/Login';
 import { useEffect, useState } from 'react';
 import Logout from './components/logout-page/Logout';
 import axios from 'axios';
 
->>>>>>> 313c54666abca6eed01b853228024e843cd3ddbb
 function App() {
   const [isLogin, setisLogin] = useState(false);
 

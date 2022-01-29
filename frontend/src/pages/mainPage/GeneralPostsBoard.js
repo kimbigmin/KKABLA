@@ -15,7 +15,15 @@ export default function GeneralPostsBoard(){
              
         }}   
     >   
+      <Grid item xs={12}>
+        <Grid>
+          
+        </Grid>
+        <Grid>
+        </Grid>
+          
         
+      </Grid>  
                   
                 
 
