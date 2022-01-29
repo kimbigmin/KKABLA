@@ -1,7 +1,7 @@
 import React from 'react';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import styled from 'styled-components';
-import logo from '../header/logo.png';
+import logo from '../../../images/logo.png';
 
 function Footer() {
   return (

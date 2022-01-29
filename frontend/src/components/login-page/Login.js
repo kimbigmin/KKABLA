@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import GoogleLogin from 'react-google-login';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginContainer = styled.header`
   margin: 200px auto;
@@ -28,28 +27,14 @@ const Google = styled.header`
   text-align: center;
 `;
 
-function Login({ setisLogin }) {
-  const successHandler = async (data) => {
-    const userData = {
-      name: data.profileObj.name,
-      email: data.profileObj.email,
-    };
+function Login({ isLogin }) {
+  let navigate = useNavigate();
 
-    await axios
-      .post('http://localhost:5000/login/google', userData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setisLogin(true);
-      });
-  };
-
-  const failureHandler = (result) => {
-    alert(result);
-  };
+  useEffect(() => {
+    if (isLogin) {
+      return navigate('/');
+    }
+  }, [isLogin]);
 
   return (
     <LoginContainer>

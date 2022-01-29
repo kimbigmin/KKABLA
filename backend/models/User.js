@@ -4,10 +4,11 @@ const { Schema, model } = mongoose;
 
 const UserSchema = new Schema({
   shortId: { type: String, required: true },
-  name: { type: String, required: true, trim: true },
-  email: { type: String, required: true, trim: true },
-  posts: { type: [Schema.Types.ObjectId] },
-  auth: { type: [Schema.Types.ObjectId] },
+  hashedName: { type: String, required: true, trim: true },
+  hashedEmail: { type: String, required: true, trim: true },
+  posts: [Schema.Types.ObjectId],
+  nickName: String,
+  auth: String,
 });
 
 export default model('User', UserSchema);

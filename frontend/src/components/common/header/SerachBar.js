@@ -1,18 +1,28 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios';
 
 function SearchBar() {
+  const onSearchHandler = async (value) => {
+    await axios.post('http://localhost:5000/search', { body: value });
+  };
+
   return (
     <Search>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
-      />
+      <form>
+        <StyledInputBase
+          // value={search}
+          onChange={(e) => onSearchHandler(e.target.value)}
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </form>
     </Search>
   );
 }
