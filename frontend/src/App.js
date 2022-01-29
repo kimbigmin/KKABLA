@@ -1,16 +1,22 @@
 import './App.css';
-import Header from './components/common/header/Header';
-import Footer from './components/common/footer/Footer';
-import { Container } from '@mui/material';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Container } from '@mui/material';
+import axios from 'axios';
+
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
+
 import ReviewPage from './components/review-page/ReviewPage';
-import DetailPage from './components/review-page/DetailPage';
+import ReviewDetailPage from './components/review-page/DetailPage';
+import BoardDetailPage from './pages/BoardDetailPage';
+
 import MainContents from './pages/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
+
 import Login from './components/login-page/Login';
-import { useEffect, useState } from 'react';
 import Logout from './components/logout-page/Logout';
-import axios from 'axios';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -32,12 +38,10 @@ function App() {
       <Container>
         <Header isLogin={isLogin} />
         <Routes>
-          <Route path="/" element={<MainContents />}></Route>
-          <Route
-            path="/review"
-            element={<ReviewPage isLogin={isLogin} />}
-          ></Route>
-          <Route path="/review-detail" element={<DetailPage />}></Route>
+          <Route path="/" element={<MainContents />} />
+          <Route path="/review" element={<ReviewPage isLogin={isLogin} />} />
+          <Route path="/review-detail" element={<ReviewDetailPage />} />
+          <Route path="/board-detail" element={<BoardDetailPage />} />
           <Route path="/login" element={<Login setisLogin={setisLogin} />} />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           <Route path="/board" element={<BoardForm />} />
