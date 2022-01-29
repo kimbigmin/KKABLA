@@ -32,7 +32,7 @@ function App() {
       <Container>
         <Header isLogin={isLogin} />
         <Routes>
-          <Route path="/" element={<MainContents/>}></Route>
+          <Route path="/" element={<MainContents />}></Route>
           <Route path="/review" element={<ReviewPage />}></Route>
           <Route path="/review-detail" element={<Detail />}></Route>
           <Route path="/login" element={<Login setisLogin={setisLogin} />} />
