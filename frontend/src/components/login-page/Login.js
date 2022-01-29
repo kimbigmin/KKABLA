@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 
 const LoginContainer = styled.header`

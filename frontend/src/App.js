@@ -11,6 +11,7 @@ import Login from './components/login-page/Login';
 import { useEffect, useState } from 'react';
 import Logout from './components/logout-page/Logout';
 import axios from 'axios';
+import MyPage from './components/MyPage/MyPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -32,7 +33,7 @@ function App() {
       <Container>
         <Header isLogin={isLogin} />
         <Routes>
-          <Route path="/" element={<MainContents />}></Route>
+          <Route path="/" element={<MyPage />}></Route>
           <Route
             path="/review"
             element={<ReviewPage isLogin={isLogin} />}
