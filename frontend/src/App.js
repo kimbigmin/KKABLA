@@ -5,7 +5,6 @@ import { Container } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ReviewPage from './components/review-page/ReviewPage';
 import DetailPage from './components/review-page/DetailPage';
-import Detail from './components/review-page/Detail';
 import MainContents from './pages/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
 import Login from './components/login-page/Login';
@@ -26,7 +25,7 @@ function App() {
     };
     getMe();
     console.log(isLogin);
-  }, []);
+  }, [isLogin]);
 
   return (
     <BrowserRouter>
@@ -34,12 +33,15 @@ function App() {
         <Header isLogin={isLogin} />
         <Routes>
           <Route path="/" element={<MainContents />}></Route>
-          <Route path="/review" element={<ReviewPage />}></Route>
+          <Route
+            path="/review"
+            element={<ReviewPage isLogin={isLogin} />}
+          ></Route>
           <Route path="/review-detail" element={<DetailPage />}></Route>
           <Route path="/login" element={<Login setisLogin={setisLogin} />} />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
+          <Route path="/board" element={<BoardForm />} />
         </Routes>
-        <BoardForm />
         <Footer />
       </Container>
     </BrowserRouter>
