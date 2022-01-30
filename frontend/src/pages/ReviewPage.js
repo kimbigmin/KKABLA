@@ -1,4 +1,4 @@
-import ReviewBox from '../components/review-page/ReviewBox';
+import ReviewBox from '../components/review/ReviewBox';
 
 function Review({ isLogin }) {
   return <ReviewBox isLogin={isLogin} />;

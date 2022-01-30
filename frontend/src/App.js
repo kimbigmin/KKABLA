@@ -4,7 +4,7 @@ import Footer from './components/common/footer/Footer';
 import { Container } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ReviewPage from './pages/ReviewPage';
-import DetailPage from './pages/DetailPage';
+import ReviewDetailPage from './pages/DetailPage';
 import MainContents from './pages/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
 import Login from './components/login-page/Login';
@@ -37,7 +37,7 @@ function App() {
             path="/review"
             element={<ReviewPage isLogin={isLogin} />}
           ></Route>
-          <Route path="/review-detail" element={<DetailPage />}></Route>
+          <Route path="/review-detail" element={<ReviewDetailPage />}></Route>
           <Route path="/login" element={<Login setisLogin={setisLogin} />} />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           <Route path="/board" element={<BoardForm />} />

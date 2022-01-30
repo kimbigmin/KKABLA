@@ -4,7 +4,7 @@ import { Top } from '../styles/review-page/styled';
 import logo from '../images/logo.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import ReviewList from '../components/review-page/ReviewList';
+import ReviewList from '../components/review/ReviewList';
 import {
   Introduction,
   Info,

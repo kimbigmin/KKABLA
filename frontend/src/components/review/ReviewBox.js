@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
 import { Top } from '../../styles/review-page/styled';
-import Card from './Card';
+import Card from '../Card/Card';
 import { Link } from 'react-router-dom';
 
 function ReviewBox({ isLogin }) {
