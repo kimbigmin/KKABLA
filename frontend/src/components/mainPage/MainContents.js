@@ -1,12 +1,11 @@
-import HotPostsBoard from "./HotPostsBoard";
-import GeneralPostsBoard from "./GeneralPostsBoard";
-import ReviewedCamp from "./ReviewedCamp";
-
+import HotBootCampBoard from "./HotBootCampBoard";
+import GeneralPostsBoard from "./postBoards/GeneralPostsBoard";
+import PostsBoard from "./PostsBoard";
 export default function MainContents(){
   return(
     <>
-      <HotPostsBoard/>
-      
+      <HotBootCampBoard/>
+      <PostsBoard/>  
     </>
   );
 } ;

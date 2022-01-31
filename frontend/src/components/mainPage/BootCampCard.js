@@ -1,60 +1,62 @@
+import React from 'react';
+import EliceLogo from '../../images/eliceLogo.png';
+import StarIcon from '@mui/icons-material/Star';
+import StarHalfIcon from '@mui/icons-material/StarHalf';
 import styled from 'styled-components';
-import eliceLogo from '../../images/eliceLogo.png';
-import star from '../../images/star.png';
 
-export default function BootCampCard (){
-  return(
-    <Container>
-      <LogoImage src={eliceLogo} alt={"logo"}/>
-      <TextWrapper>
-        <BootCampName>{"엘리스 코딩"}</BootCampName>
-      </TextWrapper>
-      <TextWrapper>
-        <StartImage src={star}/>        
-        <StarRating>{":"}</StarRating>
-      </TextWrapper>        
-    </Container>
+export default function BootCampCard({ isLogin }) {
+  return (
+    <>
+      <Box>
+        <img src={EliceLogo} alt="logo" />
+        <div className="info">
+          <h3>엘리스 코딩</h3>
+          <span>
+            {/*수정 필요: 받아온 평점으로 동적으로 별 생성하기 */}
+            <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
+            <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
+            <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
+            <StarHalfIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
+          </span>
+          <p>3.5</p>
+        </div>
+      </Box>
+    </>
   );
 }
-
-const Container=styled.div`
+export const Box = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  background-Color: white;
-  align-items: center;  
-  border: 1px solid #f0f1f3; 
-  border-radius:8px;
-  width: 18%;
-  height: 65%;
-  box-sizing: border-box;
-  padding:1rem 1rem;
-  box-shadow: 0 0.5rem 1rem -1rem #c2c2c2;
   justify-content: center;
-  `
-
-const LogoImage=styled.img`
-  width: 70%;
-`
-const TextWrapper=styled.div`
-  display: flex;
   align-items: center;
-  z-index:10;
-  margin: 1%;
-  justify-content:center;
-`
-const BootCampName=styled.p`
-  font-weight : bold;
-  font-size : 1rem;
-  line-height : 1rem;
-`
-const StarRating=styled.p`
-  font-weight : bold;
-  font-size : 1rem;
-  line-height : 1rem;
-`
-const StartImage=styled.img`    
-  width: 10%;
-  margin-right:3%;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background-color:white;
 
-`
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-align: center;
+  text-decoration: none;
+
+  img {
+    width: auto;
+    height: 80%;
+    // overflow: hidden;
+  }
+
+  .info {
+    margin-top: 1.5rem;
+    p {
+      font-weight: bold;
+    }
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: rgba(50, 50, 50, 0.961);
+  }
+`;
