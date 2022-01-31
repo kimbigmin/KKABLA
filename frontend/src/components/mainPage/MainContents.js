@@ -6,8 +6,7 @@ export default function MainContents(){
   return(
     <>
       <HotPostsBoard/>
-      <GeneralPostsBoard/>
-      <ReviewedCamp/>
+      
     </>
   );
 } ;

@@ -5,7 +5,7 @@ import { Container } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ReviewPage from './components/review-page/ReviewPage';
 import DetailPage from './components/review-page/DetailPage';
-import MainContents from './pages/mainPage/MainContents';
+import MainContents from './components/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
 import Login from './components/login-page/Login';
 import { useEffect, useState } from 'react';
