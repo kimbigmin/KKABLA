@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ArticleCountsContainer = styled.div`
   position: absolute;
-  bottom: 10px;
+  bottom: 0.1em;
 
   display: flex;
 `;

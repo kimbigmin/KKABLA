@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Article from '../components/Article';
-import CommentBox from '../components/CommentBox';
+import CommentBox from '../components/Comment/CommentBox';
 
 function BoardDetailPage() {
   return (
