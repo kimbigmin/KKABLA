@@ -57,12 +57,12 @@ function App() {
 }
 
 const ContentContainer = styled.div`
+  display: flex;
+  justify-content: center;
   overflow-y: hidden;
-
   width: 100vw;
   min-height: 80vh;
   margin-left: calc(-50vw + 50%);
-
   background-color: #f4f4f4;
 `;
 

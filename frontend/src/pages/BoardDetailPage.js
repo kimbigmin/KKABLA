@@ -14,6 +14,7 @@ function BoardDetailPage() {
 }
 
 const DetailPageContainer = styled.div`
+  max-width: 1260px;
   padding: 50px;
   display: flex;
   justify-content: center;
