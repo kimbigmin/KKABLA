@@ -15,6 +15,9 @@ function BoardDetailPage() {
 
 const DetailPageContainer = styled.div`
   padding: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 export default BoardDetailPage;
