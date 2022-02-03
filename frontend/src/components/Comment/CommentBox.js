@@ -4,51 +4,19 @@ import styled from 'styled-components';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 
-const mock = [
-  {
-    author: '강아지',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 1,
-    },
-  },
-  {
-    author: '고양이',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 2,
-    },
-  },
-  {
-    author: '햄스터',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 4,
-    },
-  },
-  {
-    author: '개미',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 4,
-    },
-  },
-];
-
-function CommentBox() {
+function CommentBox({ data, onCreate, author, onDelete }) {
   return (
     <Container>
-      <CommentInput />
+      <CommentInput onCreate={onCreate} author={author} />
       <Comments>
-        {mock.map((comment) => (
+        {data.map((comment) => (
           <Comment
+            id={comment.id}
             author={comment.author}
             content={comment.content}
             data={comment.data}
+            onDelete={onDelete}
+            myself={author}
           />
         ))}
       </Comments>

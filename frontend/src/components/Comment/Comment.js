@@ -2,8 +2,13 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import ArticleCounts from '../LikeComments';
 import styled from 'styled-components';
+import { Button } from '@mui/material';
 
-function Comment({ author, content, data }) {
+function Comment({ id, author, content, data, onDelete, myself }) {
+  const handleDelete = (e) => {
+    onDelete(id);
+  };
+
   return (
     <CommentContainer>
       <Box
@@ -16,14 +21,25 @@ function Comment({ author, content, data }) {
       >
         <NonText>
           <AuthorText>{author}</AuthorText>
-          <div>
+          <div style={{ marginRight: 70 }}>
             <ArticleCounts
               size={'small'}
               likeCount={data.like}
               commentCount={data['re-comment']}
+              sx={{ marginTop: -2 }}
             />
           </div>
+          {author === myself && (
+            <Button
+              size="small"
+              onClick={handleDelete}
+              sx={{ padding: 0, marginTop: 0 }}
+            >
+              삭제
+            </Button>
+          )}
         </NonText>
+
         <Text>{content}</Text>
       </Box>
     </CommentContainer>
@@ -54,6 +70,8 @@ const Text = styled.div`
 const AuthorText = styled.div`
   margin-right: 20px;
   color: gray;
+  padding-top: 4px;
+  padding-left: 8px;
 `;
 
 export default Comment;
