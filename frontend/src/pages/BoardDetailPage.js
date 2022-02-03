@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from '../components/review-page/Card';
+
+import Article from '../components/Article';
+import CommentBox from '../components/CommentBox';
 
 function BoardDetailPage() {
   return (
     <DetailPageContainer>
-      <Card />
+      <Article />
+      <CommentBox />
     </DetailPageContainer>
   );
 }
