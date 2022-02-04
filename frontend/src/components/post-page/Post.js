@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Container,
@@ -8,8 +8,23 @@ import {
   Divider,
   Typography,
 } from '@mui/material';
+import axios from 'axios';
 
-function PostFree({ name }) {
+function PostFree({ name, isLogin }) {
+  const [title, setTitle] = useState('');
+  const [contents, setContents] = useState('');
+  const [images, setImages] = useState([]);
+
+  const onPostFreeHandler = async () => {
+    await axios.post('http://localhost:5000/post/free', {
+      title,
+      type: 'free',
+      contents,
+      images,
+      creator: isLogin,
+    });
+  };
+
   return (
     <Container maxWidth="md">
       <TopTypography variant="h5">글 작성하기</TopTypography>
@@ -37,6 +52,9 @@ function PostFree({ name }) {
             size="small"
             fullWidth={true}
             placeholder="제목을 입력하세요."
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
           />
         </TitleWrapper>
         <ContentsWrapper>
@@ -48,10 +66,19 @@ function PostFree({ name }) {
             maxRows={10}
             rows={10}
             placeholder="내용을 입력하세요."
+            onChange={(e) => {
+              setContents(e.target.value);
+            }}
           />
         </ContentsWrapper>
-
-        <SubmitButton variant="contained">등록</SubmitButton>
+        <SubmitButton
+          onClick={() => {
+            onPostFreeHandler();
+          }}
+          variant="contained"
+        >
+          등록
+        </SubmitButton>
       </form>
     </Container>
   );

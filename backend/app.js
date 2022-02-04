@@ -6,6 +6,8 @@ import login from './routes/login.js';
 import cookieParser from 'cookie-parser';
 import auth from './routes/auth.js';
 import search from './routes/search.js';
+import post from './routes/post.js';
+import board from './routes/board.js';
 
 //env setting
 Dotenv.config();
@@ -27,6 +29,8 @@ app.use(cookieParser());
 app.use('/login', login);
 app.use('/auth', auth);
 app.use('/search', search);
+app.use('/post', post);
+app.use('/board', board);
 
 try {
   app.listen(5000, () => {

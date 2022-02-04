@@ -3,6 +3,9 @@ import jwt from 'jsonwebtoken';
 import express from 'express';
 import getTokens from '../utils/getTokens.js';
 import User from '../models/User.js';
+import CryptoJS from 'crypto-js';
+import cryto from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 
@@ -44,12 +47,33 @@ router.get('/google', async (req, res) => {
 router.get('/user', async (req, res) => {
   try {
     if (!req.cookies['auth_token']) return;
+
     const decode = jwt.verify(
       req.cookies['auth_token'],
       process.env.JWT_SECRET,
     );
 
-    return res.send({ name: decode.name, email: decode.email });
+    const hashedEmail = cryto
+      .createHmac('sha256', process.env.SECRET)
+      .update(decode.email)
+      .digest('hex');
+
+    const hashedName = cryto
+      .createHmac('sha256', process.env.SECRET)
+      .update(decode.name)
+      .digest('hex');
+
+    const nickName = uuidv4().slice(0, 6);
+
+    const user = await User.findOne({ hashedEmail, hashedName });
+    if (user) {
+      return res.send(user.nickName);
+    } else {
+      await User.create({ hashedEmail, hashedName, nickName });
+      return res.send(nickName);
+    }
+
+    // return res.send({ name: decode.name, email: decode.email });
   } catch (error) {
     console.log(error);
     res.send(null);

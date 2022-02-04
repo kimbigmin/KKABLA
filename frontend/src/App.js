@@ -11,6 +11,8 @@ import Login from './components/login-page/Login';
 import { useEffect, useState } from 'react';
 import Logout from './components/logout-page/Logout';
 import axios from 'axios';
+import PostFree from './components/post-page/Post';
+import PostReview from './components/post-page/PostReview';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -47,6 +49,18 @@ function App() {
           />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           <Route path="/board" element={<BoardForm />} />
+          {isLogin && (
+            <>
+              <Route
+                path="/post/free"
+                element={<PostFree isLogin={isLogin} />}
+              ></Route>
+              <Route
+                path="/post/review"
+                element={<PostReview isLogin={isLogin} />}
+              ></Route>
+            </>
+          )}
         </Routes>
         <Footer />
       </Container>
