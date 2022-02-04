@@ -22,7 +22,7 @@ const GridBox = styled(Box)`
   margin: 10px;
 `;
 
-const GridSection = styled.div`
+const GridSection = styled(Box)`
   padding: 10px;
 `;
 

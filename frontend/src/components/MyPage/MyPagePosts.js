@@ -1,57 +1,43 @@
-import React from 'react';
+import styled from 'styled-components';
+import React, { useState, Children } from 'react';
+import { Divider, Box } from '@mui/material';
 
 function MyPagePosts({ content }) {
-  return <h1>작성한 글</h1>;
+  const [post, setPost] = useState(content);
+
+  return (
+    <>
+      {post
+        ? Children.toArray(
+            post.map((el) => (
+              <GridDetailBox>
+                <GridTitle>{el.postTitle}</GridTitle>
+                <Divider></Divider>
+                <GridDetail>{el.postContent}</GridDetail>
+              </GridDetailBox>
+            )),
+          )
+        : '글을 작성해주세요'}
+    </>
+  );
 }
+
+//post에 따라서 정해짐. null 이면 글을 작성해주세요 출력
 
 export default MyPagePosts;
 
-// const GridSection = styled.div`
-//   padding: 10px;
-// `;
+const GridDetailBox = styled(Box)`
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  margin: 10px 0;
+`;
 
-// const GridTitle = styled(Box)`
-//   padding: 10px;
-//   font-weight: 700;
-// `;
+const GridTitle = styled(Box)`
+  padding: 10px;
+  font-weight: 700;
+`;
 
-// const GridBox = styled(Box)`
-//   background-color: white;
-//   border-radius: 15px;
-//   margin: 10px;
-// `;
-
-// const GridDetail = styled(Box)`
-//   min-height: 100px;
-// `;
-
-// const GridDetailBox = styled(Box)`
-//   background-color: #f7f7f7;
-//   border-radius: 10px;
-//   position: relative;
-// `;
-
-// const GridDetailTitle = styled(Box)`
-//   margin: 10px;
-//   font-size: 16px;
-//   padding: 10px;
-//   font-weight: 500;
-// `;
-
-// const RatingBox = styled(Box)`
-//   text-align: center;
-//   margin: 26px 0;
-// `;
-
-// const RatingDate = styled(Box)`
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   padding: 5px;
-//   font-size: 12px;
-// `;
-
-// const RatingName = styled(Box)`
-//   padding: 26px 10px;
-//   text-align: justify;
-// `;
+const GridDetail = styled(Box)`
+  padding: 10px;
+  font-size: 12px;
+`;

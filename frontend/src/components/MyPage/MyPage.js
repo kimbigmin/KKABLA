@@ -82,49 +82,6 @@ export default MyPage;
 {
   /* <GridBox>
   <GridSection>
-    <GridTitle>작성한 글 {users.postCount}개</GridTitle>
-    <Divider></Divider>
-    <GridDetail>
-      <GridDetailBox>
-        <GridDetailTitle>
-          글제목.....
-          <Divider
-            sx={{
-              margin: '10px 0',
-            }}
-          ></Divider>
-          글 내용 ...
-        </GridDetailTitle>
-      </GridDetailBox>
-      <GridDetailBox>
-        <GridDetailTitle>
-          글제목.....
-          <Divider
-            sx={{
-              margin: '10px 0',
-            }}
-          ></Divider>
-          글 내용 ...
-        </GridDetailTitle>
-      </GridDetailBox>
-      <GridDetailBox>
-        <GridDetailTitle>
-          글제목.....
-          <Divider
-            sx={{
-              margin: '10px 0',
-            }}
-          ></Divider>
-          글 내용 ...
-        </GridDetailTitle>
-      </GridDetailBox>
-    </GridDetail>
-  </GridSection>
-</GridBox> */
-}
-{
-  /* <GridBox>
-  <GridSection>
     <GridTitle>작성한 리뷰 n개</GridTitle>
     <Divider
       sx={{
