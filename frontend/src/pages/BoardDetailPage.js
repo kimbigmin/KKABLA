@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import Article from '../components/Article';
@@ -48,7 +48,7 @@ function BoardDetailPage() {
   const [author, setAuthor] = useState(null);
   let nextId = useRef(mockComment.length + 1);
 
-  useState(() => {
+  useEffect(() => {
     //fetch Comment
     setCommentList(mockComment);
     setAuthor('default');
