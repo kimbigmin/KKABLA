@@ -25,7 +25,7 @@ function App() {
     };
     getMe();
     console.log(isLogin);
-  }, []);
+  }, [isLogin]);
 
   return (
     <BrowserRouter>
@@ -46,8 +46,8 @@ function App() {
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
           />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
+          <Route path="/board" element={<BoardForm />} />
         </Routes>
-
         <Footer />
       </Container>
     </BrowserRouter>
