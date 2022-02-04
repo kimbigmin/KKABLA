@@ -41,6 +41,7 @@ function CommentInput({ onCreate, author }) {
         variant="outlined"
         sx={{
           width: '80%',
+          backgroundColor: 'white',
         }}
       />
       <Button
