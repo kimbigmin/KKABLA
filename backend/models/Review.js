@@ -10,6 +10,7 @@ const ReviewSchema = new Schema({
   pros: String,
   cons: String,
   star: Number,
+  comment: [Schema.Types.ObjectId],
 });
 
 export default model('Review', ReviewSchema);

@@ -9,6 +9,7 @@ const BoardSchema = new Schema({
   creator: { type: String, required: true },
   images: Array,
   thumbnail: String,
+  like: Number,
 });
 
 export default model('Board', BoardSchema);

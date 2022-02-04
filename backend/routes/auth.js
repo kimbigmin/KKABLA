@@ -8,6 +8,20 @@ import cryto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
+router.post('/kakao', async (req, res) => {
+  const { authorizationCode } = req.body;
+  console.log(authorizationCode);
+  const token = jwt.sign(authorizationCode, process.env.JWT_SECRET);
+  // console.log(token);
+  res.cookie('auth_token', token, {
+    maxAge: 900000,
+    httpOnly: true,
+    secure: false,
+  });
+  const decode = jwt.verify(req.cookies['auth_token'], process.env.JWT_SECRET);
+  console.log(decode);
+  res.redirect('http://localhost:3000');
+});
 
 router.get('/google', async (req, res) => {
   const code = req.query.code;
@@ -32,9 +46,9 @@ router.get('/google', async (req, res) => {
       console.error(`Failed to fetch user`);
       throw new Error(error.message);
     });
-
   const token = jwt.sign(googleUser, process.env.JWT_SECRET);
 
+  console.log(token);
   res.cookie('auth_token', token, {
     maxAge: 900000,
     httpOnly: true,

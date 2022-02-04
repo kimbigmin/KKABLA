@@ -14,11 +14,11 @@ router.get('/', async (req, res) => {
     hashedEmail: decode.email,
     hashedName: decode.name,
   });
-
+  console.log(user);
   if (user.nickName) {
     const boards = await Board({ creator: user.nickName });
     const reviews = await Review({ creator: user.nickName });
-
+    console.log([boards, reviews, user.auth]);
     res.send([boards, reviews, user.auth]);
   }
 });
