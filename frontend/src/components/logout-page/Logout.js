@@ -12,7 +12,7 @@ function Logout({ setisLogin }) {
           withCredentials: true,
         })
         .then((res) => setisLogin(res.data))
-        .then(() => navigater('http://localhost:3000'))
+        .then(() => navigater('/'))
         .catch((err) => console.log(err));
     };
     logout();

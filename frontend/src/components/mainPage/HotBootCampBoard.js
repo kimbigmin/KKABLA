@@ -21,7 +21,6 @@ import BootCampCard from './BootCampCard';
       }
     });
 
-
 export default function HotBootCampBoard(){
   return (
     <Container>
@@ -35,15 +34,12 @@ export default function HotBootCampBoard(){
   );
 }
 
-
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: #F7F7F7;
-  height: 350px;
-  width: 100%;
+  height: 300px;
+  width: 100vw;
   margin-bottom: 5%;
   padding: 3% 3%;  
   `;

@@ -5,6 +5,7 @@ import Dotenv from 'dotenv';
 import login from './routes/login.js';
 import cookieParser from 'cookie-parser';
 import auth from './routes/auth.js';
+import search from './routes/search.js';
 
 //env setting
 Dotenv.config();
@@ -13,6 +14,7 @@ const app = express();
 
 //setting
 app.use(express.json());
+
 app.use(
   cors({
     credentials: true,
@@ -24,6 +26,7 @@ app.use(cookieParser());
 //Routes
 app.use('/login', login);
 app.use('/auth', auth);
+app.use('/search', search);
 
 try {
   app.listen(5000, () => {

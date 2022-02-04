@@ -20,9 +20,8 @@ export default function PostsBoard(){
 const Container = styled.div`
   display: flex;
   position: relative;
-  background-color: #F7F7F7;
   height: 800px;
-  width: 100%;
+  width: 100vw;
   margin-bottom: 5%;
   padding: 3% 3%;  
   align-items: center;
