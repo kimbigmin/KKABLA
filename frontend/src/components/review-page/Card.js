@@ -7,7 +7,7 @@ import { Box } from '../../styles/review-page/styled';
 function Card({ isLogin }) {
   return (
     <>
-      <Box>
+      <Box style={{ backgroundColor: 'white' }}>
         <img src={logo} alt="lgoo" />
         <div className="info">
           <h3>까블라 아카데미</h3>
