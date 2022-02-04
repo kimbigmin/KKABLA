@@ -43,6 +43,7 @@ router.get('/google', async (req, res) => {
 
 router.get('/user', async (req, res) => {
   try {
+    if (!req.cookies['auth_token']) return;
     const decode = jwt.verify(
       req.cookies['auth_token'],
       process.env.JWT_SECRET,
