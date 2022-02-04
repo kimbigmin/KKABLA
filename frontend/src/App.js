@@ -59,6 +59,7 @@ function App() {
 const ContentContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   overflow-y: hidden;
   width: 100vw;
   min-height: 80vh;
