@@ -7,7 +7,7 @@ function MyPageGrid({ title, children }) {
     <GridBox>
       <GridSection>
         <GridTitle>{title}</GridTitle>
-        <Divider></Divider>
+        <GridDivider></GridDivider>
         <GridDetail>{children}</GridDetail>
       </GridSection>
     </GridBox>
@@ -22,9 +22,6 @@ const GridBox = styled(Box)`
   margin: 10px;
 `;
 
-const GridDetail = styled(Box)`
-  min-height: 100px;
-`;
 const GridSection = styled.div`
   padding: 10px;
 `;
@@ -32,4 +29,12 @@ const GridSection = styled.div`
 const GridTitle = styled(Box)`
   padding: 10px;
   font-weight: 700;
+`;
+
+const GridDivider = styled(Divider)`
+  margin-bottom: 10px;
+`;
+
+const GridDetail = styled(Box)`
+  min-height: 100px;
 `;

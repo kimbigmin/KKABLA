@@ -15,6 +15,11 @@ const users = {
       reviewDate: '2022-02-03',
       ratings: 3,
     },
+    {
+      part: 'Elice SW Engineer Track 2기',
+      reviewDate: '2022-02-03',
+      ratings: 3,
+    },
   ],
   postCount: 3,
   posts: [
