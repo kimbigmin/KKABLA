@@ -140,7 +140,6 @@ const Blind = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
   .close {
     display: flex;
@@ -150,9 +149,6 @@ const Blind = styled.div`
     align-items: center;
 
     color: #4d4d4d;
-
-    width: 100%;
-    height: 100%;
   }
 
   .blind {
