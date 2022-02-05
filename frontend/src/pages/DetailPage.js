@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import logo from '../images/logo.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import ReviewList from '../components/review/ReviewList';
@@ -9,21 +8,20 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 function DetailPage({ isLogin }) {
-  // const location = useLocation();
-  // const { isLogin } = location.state;
-  // console.log(isLogin);
+  const location = useLocation();
+  const { data } = location.state;
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
       <Top>
-        <h2>까블라 아카데미</h2>
+        <h2>{data.name}</h2>
       </Top>
       <IntroBar>기관소개</IntroBar>
       <Introduction>
         <Info>
-          <img src={logo} alt="logo" />
+          <img src={data.image} alt="logo" />
           <div className="info">
-            <h3>까블라 아카데미</h3>
+            <h3>{data.name}</h3>
             <span>
               {/* 받아온 평점으로 동적으로 별 생성하기 */}
               <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
@@ -37,17 +35,17 @@ function DetailPage({ isLogin }) {
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
           <Grid item xs={12}>
             <h4>홈페이지</h4>
-            <a href="#" target="_blank">
-              https://kkabla.com
+            <a href={data.homepage} target="_blank">
+              {data.homepage}
             </a>
           </Grid>
           <Grid item xs={12}>
             <h4>위치</h4>
-            <p>서울특별시 서초구 서초동 아무개로 16번길 707-1</p>
+            <p>{data.location}</p>
           </Grid>
           <Grid item xs={12}>
             <h4>수업방식</h4>
-            <p>비대면 + 오프라인 강의</p>
+            <p>{data.system}</p>
           </Grid>
         </Grid>
       </Introduction>

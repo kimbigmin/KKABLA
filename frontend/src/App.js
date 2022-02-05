@@ -49,7 +49,7 @@ function App() {
             element={<ReviewPage isLogin={isLogin} />}
           ></Route>
           <Route
-            path="/review/detail"
+            path="/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
           <Route path="/board/detail" element={<BoardDetailPage />} />
