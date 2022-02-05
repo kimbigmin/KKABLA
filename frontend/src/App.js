@@ -37,8 +37,8 @@ function App() {
       <Container>
         <Header isLogin={isLogin} />
       </Container>
-      
-        <ContentContainer>
+
+      <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           <Route path="/board" element={<BoardForm />} />
@@ -74,7 +74,7 @@ function App() {
       </ContentContainer>
       <Container>
         <Footer />
-      </Container>  
+      </Container>
     </BrowserRouter>
   );
 }

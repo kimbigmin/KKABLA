@@ -9,6 +9,7 @@ import search from './routes/search.js';
 import post from './routes/post.js';
 import board from './routes/board.js';
 import mypage from './routes/mypage.js';
+import home from './routes/home.js';
 
 //env setting
 Dotenv.config();
@@ -33,9 +34,7 @@ app.use('/search', search);
 app.use('/post', post);
 app.use('/board', board);
 app.use('/mypage', mypage);
-app.get('/oauth/token', (req, res) => {
-  console.log(req);
-});
+app.use('/', home);
 try {
   app.listen(5000, () => {
     console.log('server connected');
