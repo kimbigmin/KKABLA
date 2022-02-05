@@ -3,16 +3,21 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import icon1 from '../../images/google.jpg';
 import icon2 from '../../images/kakao.png';
-// import axios from 'axios';
+import axios from 'axios';
 // import queryString from 'querystring';
 
 const LoginContainer = styled.header`
   margin: 200px auto;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
   border-bottom-left: none;
   border-radius: 5px;
-  width: 22%;
-  height: 150px;
+  width: 20%;
+  height: 300px;
   background-color: white;
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 255, 0.2);
 `;
@@ -32,11 +37,11 @@ const Font = styled.header`
 `;
 
 const Google = styled.header`
-  margin: 20px auto;
+  margin: 10px auto;
   display: block;
   text-align: center;
   cursor: pointer;
-  width: 60%;
+  width: 70%;
   height: 35px;
   display: flex;
   justify-content: center;

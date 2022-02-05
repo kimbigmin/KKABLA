@@ -19,7 +19,7 @@ router.get('/kakao', async (req, res) => {
     clientSecret: 'sGP8spDrGTl9d4ooxxeEhSOcaHkOHuQF',
     redirectUri: 'http://localhost:5000/auth/kakao',
   });
-
+  
   const kakaoUser = await axios
     .get('https://kapi.kakao.com/v2/user/me', {
       headers: {
@@ -111,8 +111,6 @@ router.get('/user', async (req, res) => {
       await User.create({ hashedEmail, hashedName, nickName });
       return res.send(nickName);
     }
-
-    // return res.send({ name: decode.name, email: decode.email });
   } catch (error) {
     console.log(error);
     res.send(null);

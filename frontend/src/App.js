@@ -11,7 +11,7 @@ import Footer from './components/common/Footer';
 import ReviewPage from './pages/ReviewPage';
 import ReviewDetailPage from './pages/DetailPage';
 import BoardDetailPage from './pages/BoardDetailPage';
-import MainContents from './pages/mainPage/MainContents';
+import MainContents from './components/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
 import Login from './components/login-page/Login';
 import Logout from './components/logout-page/Logout';
@@ -34,8 +34,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ContentContainer>
+      <Container>
         <Header isLogin={isLogin} />
+      </Container>
+
+      <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           <Route path="/board" element={<BoardForm />} />
@@ -68,9 +71,10 @@ function App() {
             </>
           )}
         </Routes>
-
-        <Footer />
       </ContentContainer>
+      <Container>
+        <Footer />
+      </Container>
     </BrowserRouter>
   );
 }
@@ -80,9 +84,10 @@ const ContentContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   overflow-y: hidden;
+  overflow-x: hidden;
   width: 100vw;
-  min-height: 80vh;
   margin-left: calc(-50vw + 50%);
+  min-height: 80vh;
   background-color: #f4f4f4;
 `;
 
