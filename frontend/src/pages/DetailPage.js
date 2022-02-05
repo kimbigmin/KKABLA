@@ -56,9 +56,17 @@ function DetailPage({ isLogin }) {
         </div>
       </ListTopBar>
       <Blind>
-        {!isLogin && <div class="blind">로그인 후 이용이 가능합니다. 😢</div>}
-        <ReviewList isLogin={isLogin} />
-        <ReviewList isLogin={isLogin} />
+        <div className={!isLogin && 'close'}>
+          {!isLogin && (
+            <div className="blind">로그인 후 이용이 가능합니다. 😢</div>
+          )}
+          <ReviewList isLogin={isLogin} />
+          <ReviewList isLogin={isLogin} />
+          <ReviewList isLogin={isLogin} />
+          <ReviewList isLogin={isLogin} />
+          <ReviewList isLogin={isLogin} />
+          <ReviewList isLogin={isLogin} />
+        </div>
       </Blind>
     </Container>
   );
@@ -137,20 +145,29 @@ const Blind = styled.div`
   justify-content: center;
   align-items: center;
 
-  .blind {
+  .close {
     display: flex;
+    position: relative;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    text-align: center;
 
-    backdrop-filter: blur(5px);
-    background-color: rgba(255, 255, 255, 0.036);
     color: #4d4d4d;
 
-    position: absolute;
     width: 100%;
-    height: 70%;
+    height: 100%;
+  }
 
+  .blind {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.036);
+    width: 102%;
+    height: 100%;
+    z-index: 100;
     font-size: 2rem;
     font-weight: bold;
   }
