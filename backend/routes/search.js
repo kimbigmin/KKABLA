@@ -17,6 +17,7 @@ router.post('/', async (req, res) => {
     const bootCamp = await BootCamp.find({
       name: { $regex: `/${value}/`, $options: 'i' },
     });
+    console.log(boards, bootCamp);
     res.send({ boards, bootCamp });
   }
 });

@@ -6,6 +6,9 @@ import login from './routes/login.js';
 import cookieParser from 'cookie-parser';
 import auth from './routes/auth.js';
 import search from './routes/search.js';
+import post from './routes/post.js';
+import board from './routes/board.js';
+import mypage from './routes/mypage.js';
 
 //env setting
 Dotenv.config();
@@ -27,7 +30,12 @@ app.use(cookieParser());
 app.use('/login', login);
 app.use('/auth', auth);
 app.use('/search', search);
-
+app.use('/post', post);
+app.use('/board', board);
+app.use('/mypage', mypage);
+app.get('/oauth/token', (req, res) => {
+  console.log(req);
+});
 try {
   app.listen(5000, () => {
     console.log('server connected');

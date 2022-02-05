@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Container,
@@ -9,8 +9,25 @@ import {
   Typography,
   Rating,
 } from '@mui/material';
+import axios from 'axios';
 
-function PostFree() {
+function PostReview({ isLogin }) {
+  const [title, setTitle] = useState('');
+  const [pros, setPros] = useState(''); //장점
+  const [cons, setCons] = useState(''); // 단점
+  const [star, setStar] = useState(0); //별점
+
+  const onPostReviewHandler = async () => {
+    await axios.post('http://localhost:5000/post/review', {
+      title,
+      bootCamp: 'elice SW Track',
+      pros,
+      cons,
+      star,
+      creator: isLogin,
+    });
+  };
+
   return (
     <Container maxWidth="md">
       <TopTypography variant="h5">글 작성하기</TopTypography>
@@ -34,6 +51,9 @@ function PostFree() {
             리뷰게시판
           </Box>
           <TitleTextField
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
             required
             type="text"
             size="small"
@@ -60,6 +80,9 @@ function PostFree() {
         </ReviewPart>
         <ContentsWrapper>
           <ContentsTextField
+            onChange={(e) => {
+              setPros(e.target.value);
+            }}
             required
             type="text"
             fullWidth={true}
@@ -71,6 +94,9 @@ function PostFree() {
         </ContentsWrapper>
         <ContentsWrapper>
           <ContentsTextField
+            onChange={(e) => {
+              setCons(e.target.value);
+            }}
             required
             type="text"
             fullWidth={true}
@@ -80,13 +106,20 @@ function PostFree() {
             placeholder="단점을 입력하세요."
           />
         </ContentsWrapper>
-        <SubmitButton variant="contained">등록</SubmitButton>
+        <SubmitButton
+          onClick={() => {
+            onPostReviewHandler();
+          }}
+          variant="contained"
+        >
+          등록
+        </SubmitButton>
       </form>
     </Container>
   );
 }
 
-export default PostFree;
+export default PostReview;
 
 const TopTypography = styled(Typography)`
   margin: 0 0 10px 10px;
