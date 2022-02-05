@@ -2,12 +2,18 @@ import mongoose from 'mongoose';
 
 const { Schema, model } = mongoose;
 
-const UserSchema = new Schema({
-  bootCamp: Schema.Types.ObjectId,
-  title: String,
-  pros: String,
-  cons: String,
-  star: Number,
-});
+const ReviewSchema = new Schema(
+  {
+    // bootCamp: Schema.Types.ObjectId,
+    bootCamp: String,
+    title: String,
+    creator: String,
+    pros: String,
+    cons: String,
+    star: Number,
+    comment: [Schema.Types.ObjectId],
+  },
+  { timestamps: true },
+);
 
-export default model('User', UserSchema);
+export default model('Review', ReviewSchema);
