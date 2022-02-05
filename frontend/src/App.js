@@ -15,6 +15,8 @@ import MainContents from './components/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
 import Login from './components/login-page/Login';
 import Logout from './components/logout-page/Logout';
+import axios from 'axios';
+import MyPage from './pages/myPage/MyPage';
 import PostFree from './components/post-page/Post';
 import PostReview from './components/post-page/PostReview';
 
@@ -58,6 +60,7 @@ function App() {
           />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           <Route path="/board" element={<BoardForm />} />
+          <Route path="/mypage" element={<MyPage />}></Route>
           {isLogin && (
             <>
               <Route
