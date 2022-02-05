@@ -1,7 +1,7 @@
 import React from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import { List, Score, Contents, Date } from '../../styles/review-page/styled';
+import styled from 'styled-components';
 
 function ReviewList({ isLogin }) {
   return (
@@ -19,7 +19,7 @@ function ReviewList({ isLogin }) {
       <Contents>
         <p className="writer">
           작성자 : <span>{'i*****'}</span>
-          <span className="auth">{'수강생인증'}</span>{' '}
+          <span className="auth">{'수강생인증'}</span>
         </p>
         <p className="content">
           <h4 className="title">장점</h4>
@@ -42,5 +42,62 @@ function ReviewList({ isLogin }) {
     </List>
   );
 }
+
+const List = styled.div`
+  margin-top: 1.5rem;
+  border-top: solid 1px #52515120;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 2rem;
+  color: #000000a6;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 100%;
+  border-radius: 5px;
+`;
+
+const Score = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 6rem;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    margin-top: 1rem;
+  }
+`;
+
+const Contents = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+
+  .title {
+    font-weight: bold;
+    margin-bottom: 1.4rem;
+  }
+
+  .writer {
+    margin-bottom: 3rem;
+  }
+
+  .auth {
+    font-size: 0.8rem;
+    background-color: #4586ff47;
+    padding: 0.3rem;
+    border-radius: 5px;
+    margin-left: 0.6rem;
+  }
+
+  .content {
+    margin-bottom: 2rem;
+  }
+`;
+
+const Date = styled.div`
+  display: flex;
+`;
 
 export default ReviewList;
