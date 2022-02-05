@@ -19,7 +19,7 @@ router.get('/kakao', async (req, res) => {
     clientSecret: 'sGP8spDrGTl9d4ooxxeEhSOcaHkOHuQF',
     redirectUri: 'http://localhost:5000/auth/kakao',
   });
-
+  
   const kakaoUser = await axios
     .get('https://kapi.kakao.com/v2/user/me', {
       headers: {
