@@ -1,23 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../images/logo.png';
-import SearchAppBar from './SerachBar';
-import { Nav } from '../../../styles/common/styled';
+import logo from '../../images/logo.png';
+import SearchAppBar from './SearchBar';
+import { Nav } from './styles';
 
 function Header({ isLogin }) {
-  console.log(isLogin);
   return (
     <Nav>
       <Link to="/">
         <img src={logo} alt="logo" />
       </Link>
-      <Link to="/review" className="link">
+      <Link to="/board/review" className="link">
         리뷰게시판
       </Link>
-      <Link to="/free" className="link">
+      <Link to="/board/free" className="link">
         자유게시판
       </Link>
-      <Link to="/develop" className="link">
+      <Link to="/board/develop" className="link">
         개발이야기
       </Link>
 
