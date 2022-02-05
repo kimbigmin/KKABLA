@@ -9,6 +9,9 @@ import { data } from './dummy';
 function ReviewBox({ isLogin }) {
   const [dummy, setDummy] = useState(data);
 
+  // 관리자 로그인 확인 => true면 기관추가 버튼생성
+  const isAdmin = true;
+
   // Card list 생성
   const list = dummy.map((item) => {
     if (item) {
@@ -44,8 +47,9 @@ function ReviewBox({ isLogin }) {
       <Top>
         <h2>리뷰게시판</h2>
         <div>
-          <span onClick={sortByName}>이름순</span> |{' '}
-          <span onClick={sortByStar}>평점순</span>
+          <AlignButton onClick={sortByName}>이름순</AlignButton> |{' '}
+          <AlignButton onClick={sortByStar}>평점순</AlignButton>
+          {isAdmin && isLogin && <AdminButton>기관추가하기</AdminButton>}
         </div>
       </Top>
       <Grid container spacing={5}>
@@ -67,11 +71,33 @@ const Top = styled.div`
     font-weight: bold;
     color: #484848ea;
   }
+`;
 
-  span {
-    font-size: 0.8rem;
-    color: #484848ea;
-    cursor: pointer;
+const AlignButton = styled.span`
+  font-size: 0.8rem;
+  color: #484848ea;
+  cursor: pointer;
+
+  &:hover {
+    font-weight: bold;
+    color: #4585ff;
+  }
+`;
+
+const AdminButton = styled.span`
+  font-size: 1.1rem;
+  margin-left: 1rem;
+  border: 1px solid #4585ff;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #4585ff;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #4585ff;
+    color: white;
+    transition-property: background-color;
+    transition-duration: 0.5s;
   }
 `;
 
