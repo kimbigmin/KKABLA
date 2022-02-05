@@ -15,10 +15,12 @@ import MainContents from './pages/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
 import Login from './components/login-page/Login';
 import Logout from './components/logout-page/Logout';
+import PostFree from './components/post-page/Post';
+import PostReview from './components/post-page/PostReview';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
-
+  console.log(isLogin);
   useEffect(() => {
     const getMe = async () => {
       await axios
@@ -28,30 +30,47 @@ function App() {
         .then((res) => setisLogin(res.data));
     };
     getMe();
-    console.log(isLogin);
-  }, []);
+  }, [isLogin]);
 
   return (
     <BrowserRouter>
-      <Container>
+      <ContentContainer>
         <Header isLogin={isLogin} />
-        <ContentContainer>
-          <Routes>
-            <Route path="/" element={<MainContents />} />
-            <Route path="/review" element={<ReviewPage isLogin={isLogin} />} />
-            <Route path="/review-detail" element={<ReviewDetailPage />} />
-            <Route path="/board-detail" element={<BoardDetailPage />} />
-            <Route path="/login" element={<Login setisLogin={setisLogin} />} />
-            <Route
-              path="/logout"
-              element={<Logout setisLogin={setisLogin} />}
-            />
-            <Route path="/board" element={<BoardForm />} />
-          </Routes>
-        </ContentContainer>
+        <Routes>
+          <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
+          <Route path="/board" element={<BoardForm />} />
+          <Route path="/" element={<MainContents />}></Route>
+          <Route
+            path="/review"
+            element={<ReviewPage isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/review/detail"
+            element={<ReviewDetailPage isLogin={isLogin} />}
+          />
+          <Route path="/board/detail" element={<BoardDetailPage />} />
+          <Route
+            path="/login"
+            element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
+          />
+          <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
+          <Route path="/board" element={<BoardForm />} />
+          {isLogin && (
+            <>
+              <Route
+                path="/post/free"
+                element={<PostFree isLogin={isLogin} />}
+              ></Route>
+              <Route
+                path="/post/review"
+                element={<PostReview isLogin={isLogin} />}
+              ></Route>
+            </>
+          )}
+        </Routes>
 
         <Footer />
-      </Container>
+      </ContentContainer>
     </BrowserRouter>
   );
 }
