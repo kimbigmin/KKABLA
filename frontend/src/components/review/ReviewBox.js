@@ -1,9 +1,9 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
-import { Top } from '../../styles/review-page/styled';
 import Card from '../Card/Card';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 function ReviewBox({ isLogin }) {
   const list = Array(24)
@@ -38,5 +38,25 @@ function ReviewBox({ isLogin }) {
     </Container>
   );
 }
+
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7rem;
+  margin-bottom: 5rem;
+  align-items: center;
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #484848ea;
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: #484848ea;
+    cursor: pointer;
+  }
+`;
 
 export default ReviewBox;

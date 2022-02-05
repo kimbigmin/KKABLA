@@ -5,15 +5,9 @@ import logo from '../images/logo.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import ReviewList from '../components/review/ReviewList';
-import {
-  Introduction,
-  Info,
-  ListTopBar,
-  Blind,
-  IntroBar,
-} from '../styles/review-page/styled';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 function DetailPage({ isLogin }) {
   // const location = useLocation();
@@ -72,5 +66,104 @@ function DetailPage({ isLogin }) {
     </Container>
   );
 }
+
+const Introduction = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 5px;
+
+  h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #4586ffb2;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 2rem;
+
+  img {
+    width: 13rem;
+  }
+
+  .info {
+    margin-top: 1rem;
+  }
+
+  h3 {
+    margin-bottom: 0.4rem;
+  }
+`;
+
+const ListTopBar = styled.div`
+  margin-top: 6rem;
+
+  .list-topbar {
+    display: flex;
+    justify-content: space-between;
+
+    h3 {
+      font-weight: bold;
+    }
+
+    button {
+      border: none;
+      background-color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+      background-color: #4a88ff;
+      border-radius: 5px;
+      padding: 0.3rem;
+      color: white;
+      cursor: pointer;
+    }
+  }
+`;
+
+const Blind = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .blind {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.036);
+    color: #4d4d4d;
+
+    position: absolute;
+    width: 100%;
+    height: 70%;
+
+    font-size: 2rem;
+    font-weight: bold;
+  }
+`;
+
+const IntroBar = styled.h3`
+  font-size: 1rem;
+  font-weight: bold;
+  color: #575757;
+  margin-bottom: 1rem;
+`;
 
 export default DetailPage;
