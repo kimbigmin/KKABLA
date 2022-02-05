@@ -8,8 +8,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import ReviewPage from './components/review-page/ReviewPage';
-import ReviewDetailPage from './components/review-page/DetailPage';
+import ReviewPage from './pages/ReviewPage';
+import ReviewDetailPage from './pages/DetailPage';
 import BoardDetailPage from './pages/BoardDetailPage';
 import MainContents from './pages/mainPage/MainContents';
 import BoardForm from './components/Board/CommonBoard/BoardForm';
@@ -29,7 +29,7 @@ function App() {
     };
     getMe();
     console.log(isLogin);
-  }, [isLogin]);
+  }, []);
 
   return (
     <BrowserRouter>

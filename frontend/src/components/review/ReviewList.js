@@ -19,7 +19,7 @@ function ReviewList({ isLogin }) {
       <Contents>
         <p className="writer">
           작성자 : <span>{'i*****'}</span>
-          <span className="auth">{'수강생인증'}</span>{' '}
+          <span className="auth">{'수강생인증'}</span>
         </p>
         <p className="content">
           <h4 className="title">장점</h4>
