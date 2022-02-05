@@ -25,6 +25,29 @@ export const data = [
     location: '서울시 강남구 선릉로 433 세방빌딩 6층',
     homepage: 'https://elicetrack.oopy.io/',
     system: '온라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.04',
+      },
+    ],
   },
   {
     id: 'wecode',
@@ -34,6 +57,22 @@ export const data = [
     location: '서울특별시 강남구 테헤란로 427, 위워크타워',
     homepage: 'https://wecode.co.kr/',
     system: '온라인 + 오프라인 방식',
+    review: [
+      {
+        creator: 'qfdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 3,
+        timeStamp: '2021.02.04',
+      },
+    ],
   },
   {
     id: 'fastcampus',
@@ -44,6 +83,7 @@ export const data = [
       '서울특별시 강남구 강남대로 364 미왕빌딩 10, 11층 (강남역 신분당선 도보 1분 거리)',
     homepage: 'https://fastcampus.co.kr/gov',
     system: '오프라인 방식',
+    review: [],
   },
   {
     id: 'teamnova',
@@ -53,6 +93,43 @@ export const data = [
     location: '서울특별시 동작구 사당동 318-13 (7호선 남성역 도보 5분거리 )',
     homepage: 'https://teamnova.co.kr/index2.php',
     system: '오프라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.04',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.05',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'codestates',
@@ -63,6 +140,22 @@ export const data = [
       '서울특별시 서초구 서초대로 396, 강남빌딩 20층 (스파크플러스 강남2호점)',
     homepage: 'https://www.codestates.com/',
     system: '온라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+    ],
   },
   {
     id: 'codesquad',
@@ -72,6 +165,43 @@ export const data = [
     location: '서울특별시 강남구 역삼동 836-24 역삼빌딩 4층',
     homepage: 'https://codesquad.kr/',
     system: '오프라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.04',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.05',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'vanillacoding',
@@ -81,6 +211,36 @@ export const data = [
     location: '서울특별시 강남구 테헤란로 522',
     homepage: 'https://www.vanillacoding.co/',
     system: '오프라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.04',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'spartacoding',
@@ -90,6 +250,22 @@ export const data = [
     location: '서울특별시 강남구 논현로 425',
     homepage: 'https://hanghae99.spartacodingclub.kr/',
     system: '온라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'ninezero',
@@ -99,6 +275,7 @@ export const data = [
     location: '서울 금천구 가산디지털1로 171 SK V1 센터',
     homepage: 'https://heungmelab.github.io/index.html',
     system: '온라인 + 오프라인 방식',
+    review: [],
   },
   {
     id: 'codecamp',
@@ -108,6 +285,15 @@ export const data = [
     location: '서울시 구로구 디지털로 300, 패스트파이브 구로점 13층',
     homepage: 'https://codebootcamp.co.kr/',
     system: '오프라인 방식',
+    review: [
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'boostcamp',
@@ -117,6 +303,43 @@ export const data = [
     location: '정보없음',
     homepage: 'https://boostcamp.connect.or.kr/',
     system: '온라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.04',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.05',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'likelion',
@@ -126,6 +349,22 @@ export const data = [
     location: '서울특별시 강남구 테헤란로 302 위워크타워 20층',
     homepage: 'https://k-digital.likelion.net/',
     system: '온라인 + 오프라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'seoul42',
@@ -135,6 +374,43 @@ export const data = [
     location: '서울시 강남구 개포로 416 이노베이션 아카데미',
     homepage: 'https://42seoul.kr/seoul42/main/view',
     system: '오프라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 1,
+        timeStamp: '2021.02.04',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.05',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 3,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'ssafy',
@@ -144,6 +420,50 @@ export const data = [
     location: '서울시 강남구 테헤란로 212 서울캠퍼스 외 전국 4개',
     homepage: 'https://www.ssafy.com/',
     system: '온라인 + 오프라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 5,
+        timeStamp: '2021.02.04',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 5,
+        timeStamp: '2021.02.05',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'rising',
@@ -153,6 +473,29 @@ export const data = [
     location: '서울특별시 마포구 공덕동 242-75 4층',
     homepage: 'https://risingcamp.com/',
     system: '온라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'programmers',
@@ -163,6 +506,22 @@ export const data = [
       '서울특별시 서초구 강남대로 327, 2층 프로그래머스(서초동, 대륭서초타워)',
     homepage: 'https://programmers.co.kr/learn?tag=데브코스',
     system: '온라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: 'vzsfsda',
+        pros: '짜임새 있는 커리큘럼과 좋은 코치진분들로 구성되어 있어 도움이 많이 되었습니다.',
+        cons: '태그로 설문조사 부담주기',
+        star: 4,
+        timeStamp: '2021.02.09',
+      },
+    ],
   },
   {
     id: 'wooahan',
@@ -172,5 +531,21 @@ export const data = [
     location: '잠실, 선릉에 캠퍼스 위치',
     homepage: 'https://woowacourse.github.io/',
     system: '오프라인 방식',
+    review: [
+      {
+        creator: 'ifdfdsf',
+        pros: '잘 가르쳐주십니다. 탄탄한 커리큘럼',
+        cons: '딱히 없음',
+        star: 4.5,
+        timeStamp: '2021.01.22',
+      },
+      {
+        creator: '엘리스짱',
+        pros: '적절한 시간배분, 좋은 팀원들과의 프로젝트 경험이 아주 좋았습니다.',
+        cons: '너무 잘 챙겨준다?',
+        star: 5,
+        timeStamp: '2021.01.26',
+      },
+    ],
   },
 ];
