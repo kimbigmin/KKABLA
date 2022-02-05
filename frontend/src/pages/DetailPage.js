@@ -1,15 +1,23 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
 import ReviewList from '../components/review/ReviewList';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { getStars } from '../components/review/util/getStars';
 import styled from 'styled-components';
 
 function DetailPage({ isLogin }) {
   const location = useLocation();
   const { data } = location.state;
+
+  const sumStars = data.review.reduce((acc, val) => {
+    return acc + val.star;
+  }, 0);
+  const averageStars = (sumStars / data.review.length).toFixed(1);
+
+  const reviewList = data.review.map((review) => {
+    return <ReviewList isLogin={isLogin} review={review} />;
+  });
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
@@ -22,14 +30,8 @@ function DetailPage({ isLogin }) {
           <img src={data.image} alt="logo" />
           <div className="info">
             <h3>{data.name}</h3>
-            <span>
-              {/* 받아온 평점으로 동적으로 별 생성하기 */}
-              <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-              <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-              <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-              <StarHalfIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-            </span>
-            <p>3.5</p>
+            <span>{getStars(averageStars)}</span>
+            <p>{averageStars === 'NaN' ? '0.0' : averageStars}</p>
           </div>
         </Info>
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
@@ -51,21 +53,16 @@ function DetailPage({ isLogin }) {
       </Introduction>
       <ListTopBar>
         <div className="list-topbar">
-          <h3>{2}개의 리뷰</h3>
+          <h3>{data.review.length}개의 리뷰</h3>
           {isLogin && <button>리뷰작성하기</button>}
         </div>
       </ListTopBar>
       <Blind>
         <div className={!isLogin && 'close'}>
-          {!isLogin && (
+          {!isLogin && data.review.length !== 0 && (
             <div className="blind">로그인 후 이용이 가능합니다. 😢</div>
           )}
-          <ReviewList isLogin={isLogin} />
-          <ReviewList isLogin={isLogin} />
-          <ReviewList isLogin={isLogin} />
-          <ReviewList isLogin={isLogin} />
-          <ReviewList isLogin={isLogin} />
-          <ReviewList isLogin={isLogin} />
+          {reviewList}
         </div>
       </Blind>
     </Container>
