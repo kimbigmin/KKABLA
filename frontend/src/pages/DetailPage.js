@@ -15,10 +15,10 @@ import {
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 
-function DetailPage() {
-  const location = useLocation();
-  const { isLogin } = location.state;
-  console.log(isLogin);
+function DetailPage({ isLogin }) {
+  // const location = useLocation();
+  // const { isLogin } = location.state;
+  // console.log(isLogin);
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
