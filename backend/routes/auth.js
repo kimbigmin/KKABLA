@@ -111,8 +111,6 @@ router.get('/user', async (req, res) => {
       await User.create({ hashedEmail, hashedName, nickName });
       return res.send(nickName);
     }
-
-    // return res.send({ name: decode.name, email: decode.email });
   } catch (error) {
     console.log(error);
     res.send(null);
