@@ -1,11 +1,11 @@
 import { Container, Grid } from '@mui/material';
 import React from 'react';
 
-import MyPageGrid from './MyPageGrid';
-import MyPageAuth from './MyPageAuth';
-import MyPagePosts from './MyPagePosts';
-import MyPageReviews from './MyPageReviews';
-import MyPageLikes from './MyPageLikes';
+import MyPageGrid from '../../components/MyPage/MyPageGrid';
+import MyPageAuth from '../../components/MyPage/MyPageAuth';
+import MyPagePosts from '../../components/MyPage/MyPagePosts';
+import MyPageReviews from '../../components/MyPage/MyPageReviews';
+import MyPageLikes from '../../components/MyPage/MyPageLikes';
 
 const users = {
   name: '닉네임123',
@@ -36,7 +36,7 @@ const users = {
       postContent: '테스트용 내용 3',
     },
   ],
-  reviewCount: 1,
+  reviewCount: 2,
 };
 
 function MyPage() {
@@ -78,37 +78,3 @@ function MyPage() {
 }
 
 export default MyPage;
-
-{
-  /* <GridBox>
-  <GridSection>
-    <GridTitle>작성한 리뷰 n개</GridTitle>
-    <Divider
-      sx={{
-        margin: '10px 0',
-      }}
-    ></Divider>
-    <GridDetail>
-      <GridDetailBox>
-        <Grid container>
-          <Grid item xs={4}>
-            <RatingBox>
-              3.0
-              <Rating
-                name="read-only"
-                value={3}
-                size="small"
-                readOnly
-              />
-            </RatingBox>
-          </Grid>
-          <Grid item xs={8}>
-            <RatingDate>2022-02-03</RatingDate>
-            <RatingName>Elice SW Engineer Track 1기</RatingName>
-          </Grid>
-        </Grid>
-      </GridDetailBox>
-    </GridDetail>
-  </GridSection>
-</GridBox> */
-}
