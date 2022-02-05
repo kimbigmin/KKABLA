@@ -47,64 +47,12 @@ const Google = styled.header`
 
 function Login({ isLogin }) {
   let navigate = useNavigate();
-  // const query = queryString.parse(window.location.search);
-  // const sendKakaoTokenToServer = async (token) => {
-  //   await axios
-  //     .post('http://localhost:5000/auth/kakao', { access_token: token })
-  //     .then((res) => {
-  //       if (res.status == 201 || res.status == 200) {
-  //         const user = res.data.user;
-  //         window.localStorage.setItem(
-  //           'token',
-  //           JSON.stringify({
-  //             access_token: res.data.jwt,
-  //           }),
-  //         );
-  //       } else {
-  //         window.alert('로그인에 실패하였습니다.');
-  //       }
-  //     });
-  // };
-  // const key = 'ca25925040f30318f70fb3c066f9444d';
-  // const getKakaoTokenHandler = async (code) => {
-  //   console.log(code);
-  //   const data = {
-  //     grant_type: 'authorization_code',
-  //     client_id: key,
-  //     redirect_uri: 'http://localhost:5000/auth/kakao',
-  //     code,
-  //   };
 
-  //   const queryString = Object.keys(data)
-  //     .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-  //     .join('&');
-
-  //   await axios
-  //     .post('https://kauth.kakao.com/oauth/token', queryString, {
-  //       headers: {
-  //         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-  //       },
-  //     })
-  //     .then((res) => {
-  //       sendKakaoTokenToServer(res.data.access_token);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     return navigate('/');
-  //   }
-  //   if (query.code) {
-  //     console.log(query.code);
-  //     getKakaoTokenHandler(query.code.toString());
-  //   }
-  //   const url = new URL(window.location.href);
-  //   const authorizationCode = url.searchParams.get('code');
-  //   if (authorizationCode) {
-  //     getKakaoTokenHandler(authorizationCode);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (isLogin) {
+      return navigate('/');
+    }
+  }, []);
 
   return (
     <LoginContainer>
