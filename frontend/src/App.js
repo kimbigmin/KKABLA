@@ -41,7 +41,7 @@ function App() {
           <Route path="/board" element={<BoardForm />} />
           <Route path="/" element={<MainContents />}></Route>
           <Route
-            path="/review"
+            path="/board/review"
             element={<ReviewPage isLogin={isLogin} />}
           ></Route>
           <Route

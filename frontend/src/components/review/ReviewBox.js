@@ -13,7 +13,7 @@ function ReviewBox({ isLogin }) {
         return (
           <Grid item xs={3}>
             <Link
-              to="/review-detail"
+              to="/review/detail"
               state={{ isLogin: isLogin }}
               style={{ textDecoration: 'none', color: 'black' }}
             >

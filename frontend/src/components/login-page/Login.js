@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import icon1 from '../../images/google.jpg';
 import icon2 from '../../images/kakao.png';
-import axios from 'axios';
-import queryString from 'querystring';
+// import axios from 'axios';
+// import queryString from 'querystring';
 
 const LoginContainer = styled.header`
   margin: 200px auto;
