@@ -1,5 +1,5 @@
 import React, { useState, Children } from 'react';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import styled from 'styled-components';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
@@ -8,13 +8,19 @@ function MyPageAuth({ content }) {
 
   return (
     <AuthContainer>
-      {auth === false ? (
+      {auth === true ? (
         <>
           {Children.toArray(
             content.map((el) => (
               <AuthBox>
-                {el.part} 수료생
-                <EmojiEventsIcon />
+                <Grid container>
+                  <GridPart item xs={10}>
+                    {el.part} 수료생
+                  </GridPart>
+                  <GridIcon item xs={2}>
+                    <EmojiEventsIcon />
+                  </GridIcon>
+                </Grid>
               </AuthBox>
             )),
           )}
@@ -33,6 +39,14 @@ export default MyPageAuth;
 const AuthContainer = styled(Container)`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const GridPart = styled(Grid)`
+  line-height: 30px;
+`;
+
+const GridIcon = styled(Grid)`
+  line-height: 100px;
 `;
 
 const AuthBox = styled(Box)`

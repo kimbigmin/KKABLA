@@ -37,6 +37,20 @@ const users = {
     },
   ],
   reviewCount: 2,
+  likes: [
+    {
+      postTitle: '테스트용 제목 1',
+      postContent: '테스트용 내용 1',
+    },
+    {
+      postTitle: '테스트용 제목 2',
+      postContent: '테스트용 내용 2',
+    },
+    {
+      postTitle: '테스트용 제목 3',
+      postContent: '테스트용 내용 3',
+    },
+  ],
 };
 
 function MyPage() {
@@ -68,8 +82,8 @@ function MyPage() {
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={'좋아요'}
-            children={<MyPageLikes content={'좋아요'} />}
+            title={`좋아요`}
+            children={<MyPageLikes content={users.likes} />}
           />
         </Grid>
       </Grid>

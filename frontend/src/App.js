@@ -11,7 +11,7 @@ import Login from './components/login-page/Login';
 import { useEffect, useState } from 'react';
 import Logout from './components/logout-page/Logout';
 import axios from 'axios';
-import MyPage from './components/MyPage/MyPage';
+import MyPage from './pages/myPage/MyPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
