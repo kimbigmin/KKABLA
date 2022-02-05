@@ -4,25 +4,24 @@ import { Container } from '@mui/material';
 import Card from '../Card/Card';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { data } from './dummy';
 
 function ReviewBox({ isLogin }) {
-  const list = Array(24)
-    .fill(null)
-    .map((item) => {
-      if (!item) {
-        return (
-          <Grid item xs={3}>
-            <Link
-              to="/review/detail"
-              state={{ isLogin: isLogin }}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <Card></Card>
-            </Link>
-          </Grid>
-        );
-      }
-    });
+  const list = data.map((item) => {
+    if (item) {
+      return (
+        <Grid item xs={3} justifyContent={'stretch'}>
+          <Link
+            to="/review/detail"
+            state={{ isLogin: isLogin }}
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            <Card item={item}></Card>
+          </Link>
+        </Grid>
+      );
+    }
+  });
 
   return (
     <Container sx={{ marginBottom: '5rem' }}>
