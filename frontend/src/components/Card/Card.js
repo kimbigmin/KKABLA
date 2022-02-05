@@ -1,9 +1,14 @@
 import React from 'react';
-import StarIcon from '@mui/icons-material/Star';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
+import { getStars } from '../review/util/getStars';
 import styled from 'styled-components';
 
 function Card({ item }) {
+  const sumStars = item.review.reduce((acc, val) => {
+    return acc + val.star;
+  }, 0);
+
+  const averageStars = (sumStars / item.review.length).toFixed(1);
+
   return (
     <>
       <Box style={{ backgroundColor: 'white', height: '250px' }}>
@@ -12,14 +17,8 @@ function Card({ item }) {
         </div>
         <div className="info">
           <h3>{item.name}</h3>
-          <span>
-            {/* 받아온 평점으로 동적으로 별 생성하기 */}
-            <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-            <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-            <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-            <StarHalfIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-          </span>
-          <p>{item.star}</p>
+          <span>{getStars(averageStars)}</span>
+          <p>{averageStars === 'NaN' ? '0.0' : averageStars}</p>
         </div>
       </Box>
     </>
