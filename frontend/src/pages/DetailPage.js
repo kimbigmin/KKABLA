@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import { Top } from '../styles/review-page/styled';
 import logo from '../images/logo.png';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
@@ -164,6 +163,26 @@ const IntroBar = styled.h3`
   font-weight: bold;
   color: #575757;
   margin-bottom: 1rem;
+`;
+
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7rem;
+  margin-bottom: 5rem;
+  align-items: center;
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #484848ea;
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: #484848ea;
+    cursor: pointer;
+  }
 `;
 
 export default DetailPage;
