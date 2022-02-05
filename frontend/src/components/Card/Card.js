@@ -6,8 +6,10 @@ import styled from 'styled-components';
 function Card({ item }) {
   return (
     <>
-      <Box style={{ backgroundColor: 'white' }}>
-        <img src={item.image} alt="logo" width="50%" />
+      <Box style={{ backgroundColor: 'white', height: '250px' }}>
+        <div style={{ width: '50%' }}>
+          <img src={item.image} alt="logo" style={{ width: '100%' }} />
+        </div>
         <div className="info">
           <h3>{item.name}</h3>
           <span>
@@ -27,7 +29,7 @@ function Card({ item }) {
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -38,13 +40,7 @@ const Box = styled.div`
   text-align: center;
   text-decoration: none;
 
-  img {
-    width: 80%;
-  }
-
   .info {
-    margin-top: 3rem;
-
     p {
       font-weight: bold;
     }

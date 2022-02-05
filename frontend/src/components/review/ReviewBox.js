@@ -10,7 +10,7 @@ function ReviewBox({ isLogin }) {
   const list = data.map((item) => {
     if (item) {
       return (
-        <Grid item xs={3} justifyContent={'stretch'}>
+        <Grid item xs={3}>
           <Link
             to="/review/detail"
             state={{ isLogin: isLogin }}
