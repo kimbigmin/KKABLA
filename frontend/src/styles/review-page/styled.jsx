@@ -60,6 +60,8 @@ export const Introduction = styled.div`
   justify-content: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 2rem;
+  background-color: white;
+  border-radius: 5px;
 
   h4 {
     font-size: 1.2rem;
@@ -127,7 +129,10 @@ export const List = styled.div`
   align-items: center;
   padding-top: 2rem;
   color: #000000a6;
-  background-color: #e6e6e62c;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 100%;
+  border-radius: 5px;
 `;
 
 export const Score = styled.div`
