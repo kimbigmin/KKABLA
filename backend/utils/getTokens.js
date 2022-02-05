@@ -1,8 +1,7 @@
 import axios from 'axios';
 import querystring from 'querystring';
 
-function getTokens({ code, clientId, clientSecret, redirectUri }) {
-  const url = 'https://oauth2.googleapis.com/token';
+function getTokens({ url, code, clientId, clientSecret, redirectUri }) {
   const values = {
     code,
     client_id: clientId,

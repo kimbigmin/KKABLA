@@ -20,7 +20,7 @@ import PostReview from './components/post-page/PostReview';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
-
+  console.log(isLogin);
   useEffect(() => {
     const getMe = async () => {
       await axios
@@ -30,7 +30,6 @@ function App() {
         .then((res) => setisLogin(res.data));
     };
     getMe();
-    console.log(isLogin);
   }, [isLogin]);
 
   return (
