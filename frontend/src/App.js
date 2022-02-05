@@ -35,6 +35,7 @@ function App() {
     <BrowserRouter>
       <Container>
         <Header isLogin={isLogin} />
+      </Container>
         <ContentContainer>
           <Routes>
             <Route path="/" element={<MainContents />} />
@@ -49,7 +50,7 @@ function App() {
             <Route path="/board" element={<BoardForm />} />
           </Routes>
         </ContentContainer>
-
+      <Container>
         <Footer />
       </Container>
     </BrowserRouter>
@@ -61,9 +62,10 @@ const ContentContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   overflow-y: hidden;
+  overflow-x: hidden;
   width: 100vw;
-  min-height: 80vh;
   margin-left: calc(-50vw + 50%);
+  min-height: 80vh;
   background-color: #f4f4f4;
 `;
 

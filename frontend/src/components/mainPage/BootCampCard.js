@@ -29,21 +29,21 @@ export const Box = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding: 4rem 0 4rem 0;
   background-color:white;
+  box-sizing: border-box;
 
   width: 100%;
-  height: 180px;
+  height: 30vh;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-align: center;
   text-decoration: none;
+  overflow: hidden;
 
   img {
-    width: auto;
-    height: 80%;
-    // overflow: hidden;
+    max-width: 50%;
+    max-height: 70%;
   }
 
   .info {

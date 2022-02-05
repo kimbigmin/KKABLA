@@ -19,12 +19,12 @@ export default function PostsBoard(){
 
 const Container = styled.div`
   display: flex;
-  position: relative;
-  height: 800px;
-  width: 100vw;
-  margin-bottom: 5%;
-  padding: 3% 3%;  
+  height: 100vh;
+  width: 100%;
+  margin: 3rem 0;
+  padding:0 2rem; 
   align-items: center;
+  box-sizing: border-box;
 `;
 
 

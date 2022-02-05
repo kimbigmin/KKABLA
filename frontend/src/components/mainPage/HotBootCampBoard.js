@@ -35,28 +35,23 @@ export default function HotBootCampBoard(){
 }
 
 const Container = styled.div`
+  box-sizing: border-box;  
   display: flex;
   flex-direction: column;
-  position: relative;
-  height: 300px;
-  width: 100vw;
-  margin-bottom: 5%;
-  padding: 3% 3%;  
-  `;
-const BoardHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  align-items: center;
+  justify-contents:center;
+  height: 30vh;
+  width: 100%;
+  margin: 4rem 0;
+  padding:0 2rem;
 `;
-
+const BoardHeader = styled.div`
+  margin-bottom: 3.5rem;
+`;
 const BoardTitle=styled.h2`
   font-weight : bold;
   font-size : 1.7rem;
   line-height : 1rem;
   color : #151618;
-  margin-bottom: 1.5rem;
 `
 
 
