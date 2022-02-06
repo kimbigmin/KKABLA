@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { data } from './dummy';
 
-function ReviewBox({ isLogin }) {
+function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
   const [dummy, setDummy] = useState(data);
 
   // 관리자 로그인 확인 => true면 기관추가 버튼생성
@@ -66,6 +66,10 @@ function ReviewBox({ isLogin }) {
     setDummy(sortedArr);
   };
 
+  const openAdminHandler = () => {
+    setIsAdminBtn(true);
+  };
+
   return (
     <Container sx={{ marginBottom: '5rem' }}>
       <Top>
@@ -73,7 +77,9 @@ function ReviewBox({ isLogin }) {
         <div>
           <AlignButton onClick={sortByName}>이름순</AlignButton> |{' '}
           <AlignButton onClick={sortByStar}>평점순</AlignButton>
-          {isAdmin && isLogin && <AdminButton>기관추가하기</AdminButton>}
+          {isAdmin && isLogin && (
+            <AdminButton onClick={openAdminHandler}>기관추가하기</AdminButton>
+          )}
         </div>
       </Top>
       <Grid container spacing={5}>
