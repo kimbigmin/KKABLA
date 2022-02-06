@@ -28,17 +28,41 @@ function ReviewBox({ isLogin }) {
       );
     }
   });
+  // 별점순 정렬 핸들러
+  const sortByStar = () => {
+    const newArr = [...dummy];
+
+    const sortedArr = newArr.sort((a, b) => {
+      // 비교할 A 기관에 대한 별점리뷰 총점 구하기
+      const sumStarsA = a.review.reduce((acc, val) => {
+        return acc + val.star;
+      }, 0);
+      // 비교할 B 기관에 대한 별점리뷰 총점 구하기
+      const sumStarsB = b.review.reduce((acc, val) => {
+        return acc + val.star;
+      }, 0);
+      // 각 A,B 소수점 1자리까지의 평균별점 구하기
+      let averageStarsA = (sumStarsA / a.review.length).toFixed(1);
+      let averageStarsB = (sumStarsB / b.review.length).toFixed(1);
+
+      // 만약 별점이 NaN라면 0점으로 변환
+      averageStarsA = averageStarsA !== 'NaN' ? averageStarsA : 0;
+      averageStarsB = averageStarsB !== 'NaN' ? averageStarsB : 0;
+      // 각 기관 별점 비교 후 정렬
+      if (averageStarsA > averageStarsB) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+    // 정렬된 배열을 dummy에 다시 셋해주고 재렌더링
+    setDummy(sortedArr);
+  };
+
   // 이름순 정렬 핸들러
   const sortByName = () => {
     const newArr = [...dummy];
     const sortedArr = newArr.sort((a, b) => (a.name > b.name ? 1 : -1));
-    setDummy(sortedArr);
-  };
-
-  // 별점순 정렬 핸들러
-  const sortByStar = () => {
-    const newArr = [...dummy];
-    const sortedArr = newArr.sort((a, b) => (a.star > b.star ? -1 : 1));
     setDummy(sortedArr);
   };
 
