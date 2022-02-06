@@ -23,7 +23,12 @@ function DetailPage({ isLogin }) {
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
       <Top>
-        <h2>{data.name}</h2>
+        <h2>
+          {data.name}{' '}
+          <span style={{ fontSize: '1rem', cursor: 'default' }}>
+            리뷰게시판
+          </span>
+        </h2>
       </Top>
       <IntroBar>기관소개</IntroBar>
       <Introduction>
@@ -87,7 +92,7 @@ const Introduction = styled.div`
     font-size: 1.2rem;
     font-weight: 500;
     margin-bottom: 1rem;
-    color: #4586ffb2;
+    color: rgba(127, 170, 255, 0.9);
   }
 
   a {
@@ -132,10 +137,10 @@ const ListTopBar = styled.div`
       background-color: white;
       font-size: 1.1rem;
       font-weight: 500;
-      background-color: #4a88ff;
+      background-color: rgba(127, 170, 255, 0.3);
       border-radius: 5px;
       padding: 0.3rem;
-      color: white;
+      color: #484848ea;
       cursor: pointer;
     }
   }
@@ -181,8 +186,8 @@ const IntroBar = styled.h3`
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 7rem;
-  margin-bottom: 5rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   align-items: center;
 
   h2 {
