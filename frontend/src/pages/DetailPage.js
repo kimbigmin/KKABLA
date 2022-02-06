@@ -37,7 +37,7 @@ function DetailPage({ isLogin }) {
           <div className="info">
             <h3>{data.name}</h3>
             <span>{getStars(averageStars)}</span>
-            <p>{averageStars === 'NaN' ? '0.0' : averageStars}</p>
+            <p>{averageStars === 'NaN' ? '0.0' : averageStars}점</p>
           </div>
         </Info>
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
@@ -127,9 +127,11 @@ const ListTopBar = styled.div`
   .list-topbar {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 
     h3 {
       font-weight: bold;
+      color: #575757;
     }
 
     button {
@@ -137,11 +139,17 @@ const ListTopBar = styled.div`
       background-color: white;
       font-size: 1.1rem;
       font-weight: 500;
-      background-color: rgba(127, 170, 255, 0.3);
+      background-color: rgba(127, 170, 255, 0.4);
       border-radius: 5px;
-      padding: 0.3rem;
+      padding: 0.5rem;
       color: #484848ea;
       cursor: pointer;
+
+      &:hover {
+        background-color: rgba(127, 170, 255, 1);
+        transition-duration: 0.5s;
+        color: white;
+      }
     }
   }
 `;
@@ -189,11 +197,13 @@ const Top = styled.div`
   margin-top: 4rem;
   margin-bottom: 4rem;
   align-items: center;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.1);
 
   h2 {
     font-size: 1.7rem;
     font-weight: bold;
     color: #484848ea;
+    margin-bottom: 1rem;
   }
 
   span {
