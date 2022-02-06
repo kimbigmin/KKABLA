@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { getStars } from '../components/review/util/getStars';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 function DetailPage({ isLogin }) {
   const location = useLocation();
@@ -54,7 +55,11 @@ function DetailPage({ isLogin }) {
       <ListTopBar>
         <div className="list-topbar">
           <h3>{data.review.length}개의 리뷰</h3>
-          {isLogin && <button>리뷰작성하기</button>}
+          {isLogin && (
+            <Link to="/post/review" state={{ isLogin: isLogin, data: data }}>
+              <button>리뷰작성하기</button>
+            </Link>
+          )}
         </div>
       </ListTopBar>
       <Blind>
