@@ -46,9 +46,9 @@ const Box = styled.div`
   }
 
   h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(50, 50, 50, 0.961);
   }
 `;

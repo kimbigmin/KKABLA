@@ -136,7 +136,6 @@ const ListTopBar = styled.div`
 
     button {
       border: none;
-      background-color: white;
       font-size: 1.1rem;
       font-weight: 500;
       background-color: rgba(127, 170, 255, 0.4);

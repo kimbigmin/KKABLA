@@ -109,19 +109,20 @@ const AlignButton = styled.span`
 `;
 
 const AdminButton = styled.span`
+  border: none;
   font-size: 1.1rem;
-  margin-left: 1rem;
-  border: 1px solid #4585ff;
-  padding: 0.5rem;
-  cursor: pointer;
-  color: #4585ff;
+  font-weight: 500;
+  background-color: rgba(127, 170, 255, 0.4);
   border-radius: 5px;
+  padding: 0.5rem;
+  color: #484848ea;
+  cursor: pointer;
+  margin-left: 1rem;
 
   &:hover {
-    background-color: #4585ff;
-    color: white;
-    transition-property: background-color;
+    background-color: rgba(127, 170, 255, 1);
     transition-duration: 0.5s;
+    color: white;
   }
 `;
 

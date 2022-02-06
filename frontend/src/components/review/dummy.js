@@ -19,7 +19,7 @@ import wooahanLogo from '../../images/logos/wooahan.png';
 export const data = [
   {
     id: 'elice',
-    name: '엘리스',
+    name: '엘리스 SW 아카데미',
     image: eliceLogo,
     star: 5.0,
     location: '서울시 강남구 선릉로 433 세방빌딩 6층',
