@@ -18,7 +18,9 @@ function Card({ item }) {
         <div className="info">
           <h3>{item.name}</h3>
           <span>{getStars(averageStars)}</span>
-          <p>{averageStars === 'NaN' ? '0.0' : averageStars}</p>
+          <p style={{ marginTop: '0.5rem' }}>
+            {averageStars === 'NaN' ? '0.0' : averageStars}점
+          </p>
         </div>
       </Box>
     </>
@@ -35,9 +37,14 @@ const Box = styled.div`
 
   width: 100%;
   border-radius: 10px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(90, 97, 103, 0.2) 0px 2px 8px 0px;
   text-align: center;
   text-decoration: none;
+
+  &:hover {
+    box-shadow: rgba(49, 124, 182, 0.836) 0px 2px 8px 0px;
+    transition-duration: 0.5s;
+  }
 
   .info {
     p {
