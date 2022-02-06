@@ -10,13 +10,14 @@ function ReviewList({ isLogin, review }) {
   return (
     <List>
       <Score>
-        <span>{getStars(review.star)}</span>
-        <p>{review.star}점</p>
+        <span style={{ fontSize: '1.2rem' }}>{getStars(review.star)}</span>
+        <p style={{ fontWeight: 'bold' }}>{review.star}점</p>
       </Score>
       <Contents>
         <p className="writer">
           작성자 : <span>{anonymousName}</span>
           <span className="auth">{'수강생인증'}</span>
+          <Date>{review.timeStamp}</Date>
         </p>
         <p className="content">
           <h4 className="title">장점</h4>
@@ -35,7 +36,6 @@ function ReviewList({ isLogin, review }) {
           </div>
         </p>
       </Contents>
-      <Date>{review.timeStamp}</Date>
     </List>
   );
 }
@@ -44,7 +44,7 @@ const List = styled.div`
   margin-top: 1.5rem;
   border-top: solid 1px #52515120;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   padding-top: 2rem;
   color: #000000a6;
@@ -57,7 +57,7 @@ const List = styled.div`
 const Score = styled.div`
   display: flex;
   flex-direction: column;
-  width: 6rem;
+  width: 5rem;
   align-items: center;
   justify-content: center;
 
@@ -74,6 +74,7 @@ const Contents = styled.div`
   .title {
     font-weight: bold;
     margin-bottom: 1.4rem;
+    color: rgba(127, 170, 255, 0.9);
   }
 
   .writer {
@@ -93,8 +94,9 @@ const Contents = styled.div`
   }
 `;
 
-const Date = styled.div`
-  display: flex;
+const Date = styled.span`
+  margin-left: 1rem;
+  font-size: 0.8rem;
 `;
 
 export default ReviewList;
