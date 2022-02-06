@@ -141,7 +141,7 @@ const ListTopBar = styled.div`
       background-color: rgba(127, 170, 255, 0.4);
       border-radius: 5px;
       padding: 0.5rem;
-      color: #484848ea;
+      color: #000000e1;
       cursor: pointer;
 
       &:hover {

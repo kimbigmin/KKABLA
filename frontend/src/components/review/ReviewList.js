@@ -10,7 +10,7 @@ function ReviewList({ isLogin, review }) {
   return (
     <List>
       <Score>
-        <span style={{ fontSize: '1.2rem' }}>{getStars(review.star)}</span>
+        <span>{getStars(review.star)}</span>
         <p style={{ fontWeight: 'bold' }}>{review.star}점</p>
       </Score>
       <Contents>
@@ -47,7 +47,7 @@ const List = styled.div`
   justify-content: space-evenly;
   align-items: center;
   padding-top: 2rem;
-  color: #000000a6;
+  color: #000000e1;
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   width: 100%;
@@ -78,15 +78,18 @@ const Contents = styled.div`
   }
 
   .writer {
+    display: flex;
+    align-items: center;
     margin-bottom: 3rem;
   }
 
   .auth {
     font-size: 0.8rem;
-    background-color: #4586ff47;
+    background-color: #289628a7;
     padding: 0.3rem;
     border-radius: 5px;
     margin-left: 0.6rem;
+    color: white;
   }
 
   .content {
