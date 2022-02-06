@@ -86,7 +86,7 @@ function ReviewBox({ isLogin }) {
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 7rem;
+  margin-top: 5rem;
   margin-bottom: 5rem;
   align-items: center;
 
