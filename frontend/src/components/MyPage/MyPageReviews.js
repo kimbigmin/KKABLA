@@ -15,7 +15,7 @@ function MyPageReviews({ content }) {
                 <Grid item xs={3}>
                   <RatingBox>
                     {el.ratings}
-                    <Rating
+                    <ReviewRating
                       name="read-only"
                       value={el.ratings}
                       size="small"
@@ -48,6 +48,9 @@ const GridContainer = styled(Grid)`
 const RatingBox = styled(Box)`
   text-align: center;
   margin: 26px 0;
+  display: flex;
+  flex-direction: column;
+  justify-contents: center;
 `;
 
 const RatingDate = styled(Box)`
@@ -61,4 +64,8 @@ const RatingDate = styled(Box)`
 const RatingName = styled(Box)`
   text-align: center;
   line-height: 88px;
+`;
+
+const ReviewRating = styled(Rating)`
+  justify-content: center;
 `;
