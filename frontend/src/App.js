@@ -44,7 +44,7 @@ function App() {
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
-          <Route path="/" element={<MainContents />}></Route>
+          <Route path="/" element={<MainContents isLogin={isLogin}/>}></Route>
           <Route
             path="/board/review"
             element={<ReviewPage isLogin={isLogin} />}

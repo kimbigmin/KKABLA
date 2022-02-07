@@ -1,17 +1,15 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import BootCampCard from './BootCampCard';
-import HotPostsBoard from './postBoards/HotPostsBoard';
-import DevelopAndGeneralBoard from './DevelopAndGeneralBoard';
+import HotPostsBoard from './DevGenBoard/HotPostsBoard';
+import DevGenBoardWrapper from './DevGenBoard/DevGenBoardWrapper';
 
-export default function PostsBoard(){
+export default function BoardsWrapper({freeBoard,developBoard}){
   return (
     <Container>
       <Grid container columnSpacing={4}>
         <HotPostsBoard/>
-        <DevelopAndGeneralBoard/>
+        <DevGenBoardWrapper freeBoard={freeBoard} developBoard={developBoard}/>
       </Grid>            
     </Container>
   );
@@ -19,8 +17,8 @@ export default function PostsBoard(){
 
 const Container = styled.div`
   display: flex;
-  height: 100vh;
-  width: 100%;
+  height: 100%;
+  width: 100%; 
   margin: 3rem 0;
   padding:0 2rem; 
   align-items: center;

@@ -1,18 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
-import dummyData from '../dummyData/dummyData'
 
 export default function HotPostsBoard() {
-  const HotPostslist=dummyData
-  .map((item)=>{
-    return(
-      <TitleWrapper>
-        <h2>{item.title}</h2>
-        <span>{item.createdAt}</span>
-      </TitleWrapper>
-    );
-  });
+  // const HotPostslist=dummyData
+  // .map((item)=>{
+  //   return(
+  //     <TitleWrapper>
+  //       <h2>{item.title}</h2>
+  //       <span>{item.createdAt}</span>
+  //     </TitleWrapper>
+  //   );
+  // });
   
   return (
       <Grid item xs={6}>
@@ -21,8 +20,7 @@ export default function HotPostsBoard() {
             <BoardTitle>{"인기 게시물"}</BoardTitle>
           </BoardHeader>
           <Divider/>
-          {HotPostslist}
-          {HotPostslist}       
+          {/* {HotPostslist}        */}
         </Box>
       </Grid>
   );
@@ -71,7 +69,7 @@ const BoardHeader = styled.div`
 `;
 const BoardTitle=styled.h2`
   font-weight : bold;
-  font-size : 1.7rem;
+  font-size : 1.5rem;
   line-height : 1rem;
   color : #151618;
   margin-bottom: 1.5rem;
@@ -85,7 +83,7 @@ const TitleWrapper = styled.div`
   cursor: pointer;
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   span {

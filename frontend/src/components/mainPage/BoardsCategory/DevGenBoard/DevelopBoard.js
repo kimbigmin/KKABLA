@@ -1,15 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
-import dummyData from '../dummyData/dummyData'
 
-export default function GeneralPostsBoard() {
-  const Postslist=dummyData
-  .map((item)=>{
+export default function DevelopBoard({developBoard}) {
+  console.log(developBoard)
+  const titleList=developBoard
+  .slice(0,9)
+  .map((post)=>{
+    const limitLen=17;
+    const tailTxt=" ...";
     return(
       <TitleWrapper>
-        <h2>{item.title}</h2>
-        <span>{item.createdAt}</span>
+        <h2>{post.title.length<limitLen ? 
+        post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
+        {/* <span>{post.createdAt}</span> */}
       </TitleWrapper>
     );
   });
@@ -18,11 +22,11 @@ export default function GeneralPostsBoard() {
       <Grid item xs={6}>
         <Box>
           <BoardHeader>
-            <BoardTitle>{"자유 게시판"}</BoardTitle>
+            <BoardTitle>{"개발 게시판"}</BoardTitle>
             <SeeMore>{"더보기"}</SeeMore>
           </BoardHeader>
           <Divider/>
-          {Postslist}        
+          {titleList}
         </Box>
       </Grid>
   );
@@ -40,26 +44,6 @@ const Box = styled.div`
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-align: center;
   text-decoration: none;
-
-  img {
-    width: auto;
-    height: 80%;
-    // overflow: hidden;
-  }
-
-  .info {
-    margin-top: 1.5rem;
-    p {
-      font-weight: bold;
-    }
-  }
-
-  h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
-    color: rgba(50, 50, 50, 0.961);
-  }
 `;
 
 const BoardHeader = styled.div`
@@ -71,26 +55,27 @@ const BoardHeader = styled.div`
 `;
 const BoardTitle=styled.h2`
   font-weight : bold;
-  font-size : 1.7rem;
+  font-size : 1.5rem;
   line-height : 1rem;
   color : #151618;
   margin-bottom: 1.5rem;
 `
 
 const TitleWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-  align-items: center;
-  cursor: pointer;
+display: flex;
+justify-content: space-between;
+margin-top: 1rem;
+align-items: center;
+cursor: pointer;
 
-  h2 {
-    font-size: 1.5rem;
-  }
+h2 {
+  font-size: 1rem;
+  line-height: 0.8rem;
+}
 
-  span {
-    font-size: 1rem;
-  }
+span {
+  font-size: 1rem;
+}
 
 
 `;
