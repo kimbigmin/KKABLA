@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import HotPostsBoard from './DevGenBoard/HotPostsBoard';
 import DevGenBoardWrapper from './DevGenBoard/DevGenBoardWrapper';
 
-export default function BoardsWrapper({freeBoard,developBoard}){
+export default function BoardsWrapper({isLogin,freeBoard,developBoard}){
   return (
     <Container>
       <Grid container columnSpacing={4}>
-        <HotPostsBoard/>
-        <DevGenBoardWrapper freeBoard={freeBoard} developBoard={developBoard}/>
+        <HotPostsBoard isLogin={ isLogin } freeBoard={freeBoard} developBoard={developBoard}/>
+        <DevGenBoardWrapper isLogin={ isLogin } freeBoard={freeBoard} developBoard={developBoard}/>
       </Grid>            
     </Container>
   );

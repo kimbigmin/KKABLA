@@ -1,18 +1,29 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
 
-export default function HotPostsBoard() {
-  // const HotPostslist=dummyData
-  // .map((item)=>{
-  //   return(
-  //     <TitleWrapper>
-  //       <h2>{item.title}</h2>
-  //       <span>{item.createdAt}</span>
-  //     </TitleWrapper>
-  //   );
-  // });
-  
+export default function HotPostsBoard({isLogin,freeBoard,developBoard}) {
+  const titleList=[...developBoard, ...freeBoard]
+    .slice(0,20)
+    .map((post)=>{
+      const limitLen=17;
+      const tailTxt=" ...";
+      return(
+        <TitleWrapper key={post._id}> 
+          <Link
+              to={"/"}
+              state={{ isLogin: isLogin }}
+              style={{ textDecoration: 'none', color: 'black' }}
+          >
+              <h2>{post.title.length<limitLen ? 
+              post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
+              {/* <span>{post.createdAt}</span> */}
+          </Link>
+        </TitleWrapper>
+      );
+    });
+   
   return (
       <Grid item xs={6}>
         <Box>
@@ -20,7 +31,7 @@ export default function HotPostsBoard() {
             <BoardTitle>{"인기 게시물"}</BoardTitle>
           </BoardHeader>
           <Divider/>
-          {/* {HotPostslist}        */}
+          {titleList}
         </Box>
       </Grid>
   );
@@ -36,7 +47,6 @@ const Box = styled.div`
   height: 775px;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  text-align: center;
   text-decoration: none;
 
   img {
@@ -83,7 +93,8 @@ const TitleWrapper = styled.div`
   cursor: pointer;
 
   h2 {
-    font-size: 1.3rem;
+    font-size: 1rem;
+    line-height:0.8rem;
   }
 
   span {

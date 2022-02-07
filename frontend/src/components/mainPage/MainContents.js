@@ -32,7 +32,7 @@ export default function MainContents({ isLogin }) {
   return (
     <Container>
       <HotBootCampBoard isLogin={ isLogin } />
-      <BoardsWrapper freeBoard={freeBoard} developBoard={developBoard}/>
+      <BoardsWrapper isLogin={ isLogin } freeBoard={freeBoard} developBoard={developBoard}/>
     </Container>
   );
 }

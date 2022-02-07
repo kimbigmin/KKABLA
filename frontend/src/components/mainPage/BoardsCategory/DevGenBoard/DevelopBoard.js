@@ -1,19 +1,26 @@
 import React from 'react';
+import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
 
-export default function DevelopBoard({developBoard}) {
-  console.log(developBoard)
+export default function DevelopBoard({isLogin, developBoard}) {
+  // console.log(developBoard)
   const titleList=developBoard
   .slice(0,9)
   .map((post)=>{
     const limitLen=17;
     const tailTxt=" ...";
     return(
-      <TitleWrapper>
-        <h2>{post.title.length<limitLen ? 
-        post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
-        {/* <span>{post.createdAt}</span> */}
+      <TitleWrapper key={post._id}>
+        <Link
+            to={"/"}
+            state={{ isLogin: isLogin }}
+            style={{ textDecoration: 'none', color: 'black' }}
+        >
+            <h2>{post.title.length<limitLen ? 
+            post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
+            {/* <span>{post.createdAt}</span> */}
+        </Link>
       </TitleWrapper>
     );
   });
