@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ReviewBox from '../components/review/ReviewBox';
-import AddAcademy from '../components/review/AddAcademy';
+import ReviewBox from '../components/review-page/ReviewBox';
+import AddAcademy from '../components/review-page/AddAcademy';
 
 function Review({ isLogin }) {
   const [isAdminBtn, setIsAdminBtn] = useState(false);

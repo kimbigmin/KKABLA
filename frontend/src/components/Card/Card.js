@@ -1,22 +1,28 @@
-import React from 'react';
-import { getStars } from '../review/util/getStars';
+import React, { useEffect, useState } from 'react';
+import { getStars } from '../review-page/util/getStars';
 import styled from 'styled-components';
+import axios from 'axios';
 
-function Card({ item }) {
-  const sumStars = item.review.reduce((acc, val) => {
+function Card({ item, review }) {
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    setReviews(review);
+  }, []);
+
+  const sumStars = reviews.reduce((acc, val) => {
     return acc + val.star;
   }, 0);
 
-  const averageStars = (sumStars / item.review.length).toFixed(1);
-
+  const averageStars = (sumStars / reviews.length).toFixed(1);
   return (
     <>
       <Box>
         <ImageBox>
-          <img src={item.image} alt="logo" />
+          <img src={item[0].image} alt="logo" />
         </ImageBox>
         <div className="info">
-          <h3>{item.name}</h3>
+          <h3>{item[0].name}</h3>
           <span>{getStars(averageStars)}</span>
           <p>{averageStars === 'NaN' ? '0.0' : averageStars}점</p>
         </div>

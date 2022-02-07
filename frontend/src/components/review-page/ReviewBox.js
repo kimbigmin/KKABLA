@@ -1,36 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
+import axios from 'axios';
 import Card from '../Card/Card';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { data } from '../../reviewDummy';
+// import { data } from '../../reviewDummy';
 
 function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
-  const [dummy, setDummy] = useState(data);
+  const [bootcampData, setBootcampData] = useState([]);
+  const [cards, setCards] = useState([]);
+
+  const getCards = async () => {
+    await Promise.all(
+      bootcampData.map(async (item) => {
+        return await Promise.all([
+          axios.get(`http://localhost:5000/board/review/${item._id}`),
+          item,
+        ]).then((result) => {
+          return (
+            <Grid item xs={3}>
+              <Link
+                to={`/board/review/detail/${result[1]._id}`}
+                state={{ isLogin: isLogin, data: result[1] }}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <Card item={[result[1]]} review={result[0].data.reviews}></Card>
+              </Link>
+            </Grid>
+          );
+        });
+      }),
+    ).then((result) => {
+      setCards(result);
+    });
+  };
+
+  const getBootcampData = async () => {
+    const bootData = await axios.get('http://localhost:5000/board/review/');
+    await setBootcampData(bootData.data);
+  };
+  console.log(cards);
+
+  useEffect(() => {
+    (async () => {
+      await getBootcampData();
+      await getCards();
+    })();
+  }, []);
 
   // 관리자 로그인 확인 => true면 기관추가 버튼생성
   const isAdmin = true;
-
   // Card list 생성
-  const list = dummy.map((item) => {
-    if (item) {
-      return (
-        <Grid item xs={3}>
-          <Link
-            to={`/board/review/detail/${item.id}`}
-            state={{ isLogin: isLogin, data: item }}
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
-            <Card item={item}></Card>
-          </Link>
-        </Grid>
-      );
-    }
-  });
+
   // 별점순 정렬 핸들러
   const sortByStar = () => {
-    const newArr = [...dummy];
+    const newArr = [...bootcampData];
 
     const sortedArr = newArr.sort((a, b) => {
       // 비교할 A 기관에 대한 별점리뷰 총점 구하기
@@ -56,14 +81,14 @@ function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
       }
     });
     // 정렬된 배열을 dummy에 다시 셋해주고 재렌더링
-    setDummy(sortedArr);
+    setBootcampData(sortedArr);
   };
 
   // 이름순 정렬 핸들러
   const sortByName = () => {
-    const newArr = [...dummy];
+    const newArr = [...bootcampData];
     const sortedArr = newArr.sort((a, b) => (a.name > b.name ? 1 : -1));
-    setDummy(sortedArr);
+    setBootcampData(sortedArr);
   };
 
   const openAdminHandler = () => {
@@ -83,7 +108,7 @@ function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
         </div>
       </Top>
       <Grid container spacing={5}>
-        {list}
+        {cards}
       </Grid>
     </Container>
   );
