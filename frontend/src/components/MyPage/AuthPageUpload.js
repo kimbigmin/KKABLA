@@ -1,11 +1,29 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, ImageListItemBar } from '@mui/material';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import styled from 'styled-components';
+import axios from 'axios';
 
 function AuthPageUpload() {
   const onHandleUploadAuth = (e) => {
     e.preventDefault();
+    onImagAuth(e.target.files[0]);
+  };
+
+  const onImagAuth = async (img) => {
+    const formData = new FormData();
+    formData.append('image', img);
+
+    try {
+      await axios({
+        method: 'post',
+        url: 'http://localhost:5000/mypage/auth',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

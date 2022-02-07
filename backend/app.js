@@ -10,11 +10,12 @@ import post from './routes/post.js';
 import board from './routes/board.js';
 import mypage from './routes/mypage.js';
 import home from './routes/home.js';
-
+import path from 'path';
 //env setting
 Dotenv.config();
 
 const app = express();
+const __dirname = path.resolve();
 
 //setting
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use(
   }),
 );
 app.use(cookieParser());
+app.use('/public', express.static(path.join(__dirname, 'public')));
 // app.use('/users', express.static('uploads'));
 
 //Routes
