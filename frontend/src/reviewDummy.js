@@ -1,20 +1,20 @@
-import eliceLogo from '../../images/logos/elice.png';
-import wecodeLogo from '../../images/logos/wecode.png';
-import fastCampusLogo from '../../images/logos/fastCampus.png';
-import teamNovaLogo from '../../images/logos/teamNova.png';
-import codeStatesLogo from '../../images/logos/codeStates.png';
-import codeSquadLogo from '../../images/logos/codeSquad.png';
-import vanillaCodingLogo from '../../images/logos/vanillaCoding.png';
-import hanghae99Logo from '../../images/logos/hanghae99.png';
-import ninezerofactoryLogo from '../../images/logos/90factory.png';
-import codeCampLogo from '../../images/logos/codeCamp.png';
-import boostcampLogo from '../../images/logos/boostcamp.png';
-import likelionLogo from '../../images/logos/likelion.png';
-import seoul42Logo from '../../images/logos/42seoul.png';
-import ssafyLogo from '../../images/logos/ssafy.png';
-import risingCampLogo from '../../images/logos/risingCamp.png';
-import programmersLogo from '../../images/logos/programmers.png';
-import wooahanLogo from '../../images/logos/wooahan.png';
+import eliceLogo from '../src/images/logos/elice.png';
+import wecodeLogo from '../src/images/logos/wecode.png';
+import fastCampusLogo from '../src/images/logos/fastCampus.png';
+import teamNovaLogo from '../src/images/logos/teamNova.png';
+import codeStatesLogo from '../src/images/logos/codeStates.png';
+import codeSquadLogo from '../src/images/logos/codeSquad.png';
+import vanillaCodingLogo from '../src/images/logos/vanillaCoding.png';
+import hanghae99Logo from '../src/images/logos/hanghae99.png';
+import ninezerofactoryLogo from '../src/images/logos/90factory.png';
+import codeCampLogo from '../src/images/logos/codeCamp.png';
+import boostcampLogo from '../src/images/logos/boostcamp.png';
+import likelionLogo from '../src/images/logos/likelion.png';
+import seoul42Logo from '../src/images/logos/42seoul.png';
+import ssafyLogo from '../src/images/logos/ssafy.png';
+import risingCampLogo from '../src/images/logos/risingCamp.png';
+import programmersLogo from '../src/images/logos/programmers.png';
+import wooahanLogo from '../src/images/logos/wooahan.png';
 
 export const data = [
   {

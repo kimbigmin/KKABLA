@@ -4,7 +4,7 @@ import { Container } from '@mui/material';
 import Card from '../Card/Card';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { data } from './dummy';
+import { data } from '../../reviewDummy';
 
 function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
   const [dummy, setDummy] = useState(data);
