@@ -25,27 +25,18 @@ function PostFree({ name, isLogin }) {
     });
   };
 
+  const onHandleUploadImg = (e) => {
+    e.preventDefault();
+    console.log('왜안대!!');
+  };
+
   return (
-    <Container maxWidth="md">
+    <PostContainer>
       <TopTypography variant="h5">글 작성하기</TopTypography>
       <Divider></Divider>
       <form>
         <TitleWrapper>
-          <Box
-            sx={{
-              width: 200,
-              height: 40,
-              bgcolor: '#A2D2FF',
-              color: 'black',
-              textAlign: 'center',
-              lineHeight: '40px',
-              margin: '10px',
-              borderRadius: '8px',
-              fontWeight: 'bold',
-            }}
-          >
-            {name}게시판
-          </Box>
+          <TitleBox>{name}게시판</TitleBox>
           <TitleTextField
             required
             type="text"
@@ -71,6 +62,16 @@ function PostFree({ name, isLogin }) {
             }}
           />
         </ContentsWrapper>
+        <label htmlFor="imgfiles">
+          <SubmitButton variant="contained">사진 첨부</SubmitButton>
+        </label>
+        <UploadInput
+          onChange={onHandleUploadImg}
+          type="file"
+          id="imgfiles"
+          name="logoImage"
+          accept="image/png"
+        ></UploadInput>
         <SubmitButton
           onClick={() => {
             onPostFreeHandler();
@@ -80,7 +81,7 @@ function PostFree({ name, isLogin }) {
           등록
         </SubmitButton>
       </form>
-    </Container>
+    </PostContainer>
   );
 }
 
@@ -111,6 +112,29 @@ const ContentsTextField = styled(TextField)`
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 91.5%;
+  left: 85%;
   font-weight: bold;
+  margin-left: 10px;
+`;
+
+const TitleBox = styled(Box)`
+  width: 200px;
+  height: 40px;
+  background-color: #a2d2ff;
+  color: black;
+  text-align: center;
+  line-height: 40px;
+  margin: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+`;
+
+const PostContainer = styled(Container)`
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+`;
+
+const UploadInput = styled.input`
+  display: none;
 `;
