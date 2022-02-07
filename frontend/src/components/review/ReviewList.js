@@ -19,6 +19,7 @@ function ReviewList({ isLogin, review }) {
           <span className="auth">{'수강생인증'}</span>
           <Date>{review.timeStamp}</Date>
         </p>
+        <h3>"한 마디로 좋은 학원"</h3>
         <p className="content">
           <h4 className="title">장점</h4>
           <div>
@@ -94,6 +95,12 @@ const Contents = styled.div`
 
   .content {
     margin-bottom: 2rem;
+  }
+
+  h3 {
+    margin-bottom: 3rem;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
 `;
 
