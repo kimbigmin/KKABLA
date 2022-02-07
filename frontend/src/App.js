@@ -19,6 +19,7 @@ import MyPage from './pages/myPage/MyPage';
 import PostFree from './components/post-page/Post';
 import PostReview from './components/post-page/PostReview';
 import DevelopBoardPage from './pages/DevelopBoardPage';
+import AuthPage from './pages/myPage/AuthPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -62,6 +63,7 @@ function App() {
           <Route path="/board/free" element={<FreeBoardPage />} />
           <Route path="/board/develop" element={<DevelopBoardPage />} />
           <Route path="/mypage" element={<MyPage />}></Route>
+          <Route path="/mypage/auth" element={<AuthPage />}></Route>
           {isLogin && (
             <>
               <Route

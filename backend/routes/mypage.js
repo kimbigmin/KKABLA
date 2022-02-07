@@ -9,17 +9,18 @@ router.get('/', async (req, res) => {
   if (!req.cookies['auth_token']) return;
 
   const decode = jwt.verify(req.cookies['auth_token'], process.env.JWT_SECRET);
-
   const user = await User.findOne({
-    hashedEmail: decode.email,
-    hashedName: decode.name,
+    hashedEmail: decode.email || decode.kakao_account.email,
+    hashedName: decode.name || decode.kakao_account.profile.nickname,
   });
+
   console.log(user);
+
   if (user.nickName) {
     const boards = await Board({ creator: user.nickName });
     const reviews = await Review({ creator: user.nickName });
     console.log([boards, reviews, user.auth]);
-    res.send([boards, reviews, user.auth]);
+    res.send({ boards, reviews, userAuth: user.auth });
   }
 });
 

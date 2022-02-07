@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const boards = await Board.find({});
-  //   const free = boards.filter((board) => board.type === 'free');
   const bootCamps = await BootCamp.find({});
   const reviews = await Review.find({});
 
