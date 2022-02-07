@@ -10,8 +10,12 @@ import {
   Rating,
 } from '@mui/material';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 function PostReview({ isLogin }) {
+  const location = useLocation();
+  const { data } = location.state;
+
   const [title, setTitle] = useState('');
   const [pros, setPros] = useState(''); //장점
   const [cons, setCons] = useState(''); // 단점
@@ -66,15 +70,24 @@ function PostReview({ isLogin }) {
             sx={{
               width: 200,
               height: 200,
-              border: '1px solid black',
               borderRadius: '8px',
               lineHeight: '200px',
               textAlign: 'center',
+              position: 'relative',
             }}
           >
-            이미지 공간
+            <img
+              src={data.image}
+              style={{
+                width: '13rem',
+                postion: 'absolute',
+                marginTop: '1.4rem',
+                textAlign: 'center',
+              }}
+              alt="academyImage"
+            />
           </Box>
-          <Typography>엘리스 : SW 엔지니어 트랙 1기</Typography>
+          <Typography>{data.name}</Typography>
           <Rating name="reviewPoint" size="large" />
           <Typography>별점을 선택해 주세요</Typography>
         </ReviewPart>
