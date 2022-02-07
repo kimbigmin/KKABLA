@@ -21,8 +21,10 @@ function CommonBoardList({ type, title }) {
     <Container sx={{ marginBottom: '5rem' }}>
       <Top>
         <h2>{title}</h2>
+
         <div>
           <span>최신순</span> | <span>좋아요순</span> | <span>댓글순</span>
+          <span>글 작성하기</span>
         </div>
       </Top>
       <Grid container spacing={2}>
@@ -51,5 +53,11 @@ const Top = styled.div`
     font-size: 0.8rem;
     color: #484848ea;
     cursor: pointer;
+  }
+
+  span: last-child {
+    margin-left: 2rem;
+    color: #66b0e5;
+    font-weight: bold;
   }
 `;
