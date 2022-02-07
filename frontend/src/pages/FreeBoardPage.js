@@ -1,21 +1,8 @@
-import { Grid } from '@mui/material';
 import React from 'react';
-import CommonBoard from '../components/Board/CommonBoard/CommonBoard';
-import { Container } from '@mui/material';
+import CommonBoardList from '../components/Board/common/CommonBoardList';
 
 function FreeBoardPage() {
-  return (
-    <Container sx={{ marginBottom: '5rem' }}>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <CommonBoard />
-        </Grid>
-        <Grid item xs={6}>
-          <CommonBoard />
-        </Grid>
-      </Grid>
-    </Container>
-  );
+  return <CommonBoardList type="free" title="자유게시판" />;
 }
 
 export default FreeBoardPage;
