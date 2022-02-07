@@ -2,6 +2,7 @@ import express from 'express';
 import Board from '../models/Board.js';
 import BootCamp from '../models/BootCamp.js';
 import Review from '../models/Review.js';
+import upload from '../utils/storage .js';
 
 const router = express.Router();
 
@@ -13,9 +14,17 @@ router.post('/free', async (req, res) => {
 
 router.post('/review', async (req, res) => {
   const { bootCamp, title, pros, cons, star, creator } = req.body;
-  console.log(req.body);
+  const bootCam = await BootCamp.findOne({ name: bootCamp });
+  console.log(bootCam);
 
-  await Review.create({ title, pros, cons, star, creator, bootCamp });
+  await Review.create({
+    title,
+    pros,
+    cons,
+    star,
+    creator,
+    bootCamp: bootCam,
+  });
 });
 
 router.post('/develop', async (req, res) => {
@@ -31,17 +40,19 @@ router.post('/develop', async (req, res) => {
   res.send(develop);
 });
 
-router.post('/bootcamp', async (req, res) => {
-  const { name, image, star, location, homepage, system } = req.body;
+router.post('/bootcamp', upload.single('image'), async (req, res) => {
+  const { name, star, location, homepage, system } = req.body;
+  const { path } = req.file;
 
   const bootCamp = await BootCamp.create({
     name,
-    image,
+    image: path,
     star,
     location,
     homepage,
     system,
   });
+
   res.send(bootCamp);
 });
 

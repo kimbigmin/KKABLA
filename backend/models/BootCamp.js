@@ -9,6 +9,7 @@ const BootCampSchema = new Schema({
   location: String,
   homepage: String,
   system: String,
+  // review: { type: [Schema.Types.ObjectId], ref: 'Review' },
 });
 
 export default model('BootCamp', BootCampSchema);

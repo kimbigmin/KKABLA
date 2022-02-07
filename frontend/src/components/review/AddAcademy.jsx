@@ -1,10 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AddAcademy({ setIsAdminBtn }) {
   const closeAdminHandler = () => {
     setIsAdminBtn(false);
+  };
+
+  const navigator = useNavigate();
+
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState(null);
+  const [location, setlocation] = useState(null);
+  const [homePage, setHomePage] = useState(null);
+  const [session, setSession] = useState(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('name', name);
+    formData.append('location', location);
+    formData.append('homePage', homePage);
+    formData.append('system', session);
+
+    try {
+      await axios({
+        method: 'post',
+        url: 'http://localhost:5000/post/bootcamp',
+        data: formData,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFileSelect = (event) => {
+    setImage(event.target.files[0]);
+    console.log(image);
   };
 
   return (
@@ -13,16 +49,19 @@ function AddAcademy({ setIsAdminBtn }) {
         <Box>
           <h2>기관등록</h2>
           <TextField
+            onChange={(e) => setName(e.target.value)}
             label="기관명"
             variant="outlined"
             sx={{ margin: '1rem 0rem 1rem 0rem' }}
           />
           <TextField
+            onChange={(e) => setlocation(e.target.value)}
             label="기관위치"
             variant="outlined"
             sx={{ margin: '1rem 0rem 1rem 0rem' }}
           />
           <TextField
+            onChange={(e) => setHomePage(e.target.value)}
             label="홈페이지 URL"
             variant="outlined"
             sx={{ margin: '1rem 0rem 1rem 0rem' }}
@@ -34,6 +73,7 @@ function AddAcademy({ setIsAdminBtn }) {
                 <label for="imgfile">이미지업로드</label>
               </button>
               <input
+                onChange={handleFileSelect}
                 type="file"
                 id="imgfile"
                 className="file-select"
@@ -42,7 +82,7 @@ function AddAcademy({ setIsAdminBtn }) {
               ></input>
             </div>
           </LogoBox>
-          <RadioBox>
+          <RadioBox onChange={(e) => setSession(e.target.value)}>
             <h3>강의방식:</h3>
             <input
               type="radio"
@@ -73,7 +113,9 @@ function AddAcademy({ setIsAdminBtn }) {
             <button className="close" onClick={closeAdminHandler}>
               닫기
             </button>
-            <button className="submit">등록하기</button>
+            <button onClick={handleSubmit} className="submit">
+              등록하기
+            </button>
           </ButtonBox>
         </Box>
       </Overlay>

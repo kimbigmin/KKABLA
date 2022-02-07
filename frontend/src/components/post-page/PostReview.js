@@ -16,7 +16,7 @@ function PostReview({ isLogin }) {
   const location = useLocation();
   const { data } = location.state;
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(null);
   const [pros, setPros] = useState(''); //장점
   const [cons, setCons] = useState(''); // 단점
   const [star, setStar] = useState(0); //별점
@@ -24,7 +24,7 @@ function PostReview({ isLogin }) {
   const onPostReviewHandler = async () => {
     await axios.post('http://localhost:5000/post/review', {
       title,
-      bootCamp: 'elice SW Track',
+      bootCamp: data.name,
       pros,
       cons,
       star,

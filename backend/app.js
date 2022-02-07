@@ -26,6 +26,7 @@ app.use(
   }),
 );
 app.use(cookieParser());
+// app.use('/users', express.static('uploads'));
 
 //Routes
 app.use('/login', login);
@@ -35,6 +36,7 @@ app.use('/post', post);
 app.use('/board', board);
 app.use('/mypage', mypage);
 app.use('/', home);
+
 try {
   app.listen(5000, () => {
     console.log('server connected');
