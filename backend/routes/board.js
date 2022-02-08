@@ -13,26 +13,26 @@ router.get('/free', async (req, res) => {
 
 router.get('/free/:id', async (req, res) => {
   const { id } = req.params;
-  const borad = await Board.find({ _id: id });
-  res.send(borad);
+  const board = await Board.find({ _id: id });
+  res.send(board);
 });
 
 //개발 이야기
 router.get('/develop', async (req, res) => {
-  const borads = await Board.find({ type: 'develop' });
-  res.send(borads);
+  const boards = await Board.find({ type: 'develop' });
+  res.send(boards);
 });
 
 router.get('/develop/:id', async (req, res) => {
   const { id } = req.params;
-  const borad = await Board.find({ _id: id });
-  res.send(borad);
+  const board = await Board.find({ _id: id });
+  res.send(board);
 });
 
 //리뷰 게시판
 router.get('/review', async (req, res) => {
-  const borads = await BootCamp.find({}).sort({ star: 1 });
-  res.send(borads);
+  const boards = await BootCamp.find({}).sort({ star: 1 });
+  res.send(boards); // 오타수정
 });
 
 router.get('/review/:id', async (req, res) => {
