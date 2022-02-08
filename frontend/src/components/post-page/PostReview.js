@@ -24,6 +24,10 @@ function PostReview({ isLogin }) {
     });
   };
 
+  const onConsole = () => {
+    console.log(title, pros, cons, star);
+  };
+
   return (
     <form>
       <TitleWrapper>
@@ -44,7 +48,14 @@ function PostReview({ isLogin }) {
           <ReviewImg src={data.image} alt="academyImage" />
         </ReviewBox>
         <Typography>{data.name}</Typography>
-        <Rating name="reviewPoint" size="large" />
+        <Rating
+          name="reviewPoint"
+          size="large"
+          value={star}
+          onChange={(e) => {
+            setStar(e.target.value);
+          }}
+        />
         <Typography>별점을 선택해 주세요</Typography>
       </ReviewPart>
       <ContentsWrapper>
@@ -77,7 +88,7 @@ function PostReview({ isLogin }) {
       </ContentsWrapper>
       <SubmitButton
         onClick={() => {
-          onPostReviewHandler();
+          onConsole();
         }}
         variant="contained"
       >
