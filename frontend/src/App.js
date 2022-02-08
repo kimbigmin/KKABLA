@@ -59,8 +59,14 @@ function App() {
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
           />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
-          <Route path="/board/free" element={<FreeBoardPage />} />
-          <Route path="/board/develop" element={<DevelopBoardPage />} />
+          <Route
+            path="/board/free"
+            element={<FreeBoardPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/develop"
+            element={<DevelopBoardPage isLogin={isLogin} />}
+          />
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/mypage/auth" element={<AuthPage />}></Route>
           {isLogin && (
