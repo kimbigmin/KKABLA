@@ -59,6 +59,21 @@ function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
   // Card list 생성
   console.log(cards);
   console.log(bootcampData);
+  // const list = dummy.map((item) => {
+  //   if (item) {
+  //     return (
+  //       <Grid item xs={3}>
+  //         <Link
+  //           to={`${item.id}`}
+  //           state={{ isLogin: isLogin, data: item }}
+  //           style={{ textDecoration: 'none', color: 'black' }}
+  //         >
+  //           <Card item={item}></Card>
+  //         </Link>
+  //       </Grid>
+  //     );
+  //   }
+  // });
   // 별점순 정렬 핸들러
   const sortByStar = () => {
     const newArr = [...bootcampData];
