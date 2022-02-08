@@ -43,9 +43,11 @@ router.get('/review', async (req, res) => {
 
 router.get('/review/:id', async (req, res) => {
   const { id } = req.params;
-  const bootCamp = await BootCamp.findOne({ _id: id });
-  const reviews = await Review.find({ bootCamp: bootCamp._id });
-  res.send({ reviews, reviews });
+
+  const bootCamp = await BootCamp.findOne({ _id: id }).populate('review');
+
+  console.log(bootCamp);
+  res.send(bootCamp);
 });
 
 export default router;
