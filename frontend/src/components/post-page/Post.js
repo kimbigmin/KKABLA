@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {
-  Container,
-  Button,
-  Box,
-  TextField,
-  Divider,
-  Typography,
-} from '@mui/material';
+import { Button, Box, TextField } from '@mui/material';
 import axios from 'axios';
 
-function PostFree({ name, isLogin }) {
+function Post({ isLogin, name }) {
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [images, setImages] = useState([]);
 
   const onPostFreeHandler = async () => {
-    await axios.post('http://localhost:5000/post/free', {
+    await axios.post(`http://localhost:5000/post/${name}`, {
       title,
-      type: 'free',
+      type: name,
       contents,
       images,
       creator: isLogin,
@@ -31,66 +24,56 @@ function PostFree({ name, isLogin }) {
   };
 
   return (
-    <PostContainer>
-      <TopTypography variant="h5">글 작성하기</TopTypography>
-      <Divider></Divider>
-      <form>
-        <TitleWrapper>
-          <TitleBox>{name}게시판</TitleBox>
-          <TitleTextField
-            required
-            type="text"
-            size="small"
-            fullWidth={true}
-            placeholder="제목을 입력하세요."
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-        </TitleWrapper>
-        <ContentsWrapper>
-          <ContentsTextField
-            required
-            type="text"
-            fullWidth={true}
-            multiline={true}
-            maxRows={10}
-            rows={10}
-            placeholder="내용을 입력하세요."
-            onChange={(e) => {
-              setContents(e.target.value);
-            }}
-          />
-        </ContentsWrapper>
-        <label htmlFor="imgfiles">
-          <SubmitButton variant="contained">사진 첨부</SubmitButton>
-        </label>
-        <UploadInput
-          onChange={onHandleUploadImg}
-          type="file"
-          id="imgfiles"
-          name="logoImage"
-          accept="image/png"
-        ></UploadInput>
-        <SubmitButton
-          onClick={() => {
-            onPostFreeHandler();
+    <form>
+      <TitleWrapper>
+        <TitleBox>{name === 'free' ? '자유게시판' : '개발게시판'}</TitleBox>
+        <TitleTextField
+          required
+          type="text"
+          size="small"
+          fullWidth={true}
+          placeholder="제목을 입력하세요."
+          onChange={(e) => {
+            setTitle(e.target.value);
           }}
-          variant="contained"
-        >
-          등록
-        </SubmitButton>
-      </form>
-    </PostContainer>
+        />
+      </TitleWrapper>
+      <ContentsWrapper>
+        <ContentsTextField
+          required
+          type="text"
+          fullWidth={true}
+          multiline={true}
+          minRows={10}
+          placeholder="내용을 입력하세요."
+          onChange={(e) => {
+            setContents(e.target.value);
+          }}
+        />
+      </ContentsWrapper>
+      <label htmlFor="imgfiles">
+        <SubmitButton variant="contained">사진 첨부</SubmitButton>
+      </label>
+      <UploadInput
+        onChange={onHandleUploadImg}
+        type="file"
+        id="imgfiles"
+        name="logoImage"
+        accept="image/png"
+      ></UploadInput>
+      <SubmitButton
+        onClick={() => {
+          onPostFreeHandler();
+        }}
+        variant="contained"
+      >
+        등록
+      </SubmitButton>
+    </form>
   );
 }
 
-export default PostFree;
-
-const TopTypography = styled(Typography)`
-  margin: 0 0 10px 10px;
-  font-weight: bold;
-`;
+export default Post;
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -127,12 +110,6 @@ const TitleBox = styled(Box)`
   margin: 10px;
   border-radius: 8px;
   font-weight: bold;
-`;
-
-const PostContainer = styled(Container)`
-  background-color: white;
-  padding: 10px;
-  border-radius: 10px;
 `;
 
 const UploadInput = styled.input`

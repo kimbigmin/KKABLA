@@ -7,7 +7,9 @@ const router = express.Router();
 
 //자유 게시판
 router.get('/free', async (req, res) => {
-  const borads = await Board.find({ type: 'free' });
+  const borads = await Board.find({ type: 'free' }).sort({
+    updatedTime: 'desc',
+  });
   res.send(borads);
 });
 
@@ -19,7 +21,9 @@ router.get('/free/:id', async (req, res) => {
 
 //개발 이야기
 router.get('/develop', async (req, res) => {
-  const borads = await Board.find({ type: 'develop' });
+  const borads = await Board.find({ type: 'develop' }).sort({
+    updatedTime: 'desc',
+  });
   res.send(borads);
 });
 
@@ -31,15 +35,19 @@ router.get('/develop/:id', async (req, res) => {
 
 //리뷰 게시판
 router.get('/review', async (req, res) => {
-  const borads = await BootCamp.find({}).sort({ star: 1 });
+  const borads = await BootCamp.find({}).sort({
+    updatedTime: 'desc',
+  });
   res.send(borads);
 });
 
 router.get('/review/:id', async (req, res) => {
   const { id } = req.params;
-  const bootCamp = await BootCamp.findOne({ _id: id });
-  const reviews = await Review.find({ bootCamp: bootCamp._id });
-  res.send({ reviews, reviews });
+
+  const bootCamp = await BootCamp.findOne({ _id: id }).populate('review');
+
+  console.log(bootCamp);
+  res.send(bootCamp);
 });
 
 export default router;

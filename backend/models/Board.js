@@ -12,6 +12,7 @@ const BoardSchema = new Schema(
     images: Array,
     thumbnail: String,
     like: Number,
+    views: Number,
   },
   { timestamps: true },
 );

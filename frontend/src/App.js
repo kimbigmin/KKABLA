@@ -16,10 +16,9 @@ import FreeBoardPage from './pages/FreeBoardPage';
 import Login from './components/login-page/Login';
 import Logout from './components/logout-page/Logout';
 import MyPage from './pages/myPage/MyPage';
-import PostFree from './components/post-page/Post';
-import PostReview from './components/post-page/PostReview';
 import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
+import PostPage from './pages/postPage/PostPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -73,12 +72,8 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/free"
-                element={<PostFree isLogin={isLogin} />}
-              ></Route>
-              <Route
-                path="/post/review"
-                element={<PostReview isLogin={isLogin} />}
+                path="/post/:board"
+                element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
           )}

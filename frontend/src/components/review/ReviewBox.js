@@ -18,7 +18,7 @@ function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
       return (
         <Grid item xs={3}>
           <Link
-            to={`/review/detail/${item.id}`}
+            to={`${item.id}`}
             state={{ isLogin: isLogin, data: item }}
             style={{ textDecoration: 'none', color: 'black' }}
           >

@@ -8,16 +8,22 @@ const router = express.Router();
 
 router.post('/free', async (req, res) => {
   const { title, contents, creator, images, type } = req.body;
-
   await Board.create({ title, contents, creator, images, type });
 });
 
-router.post('/review', async (req, res) => {
-  const { bootCamp, title, pros, cons, star, creator } = req.body;
-  const bootCam = await BootCamp.findOne({ name: bootCamp });
-  console.log(bootCam);
+router.get('/review/:id', async (req, res) => {
+  const { id } = req.params;
+  const bootCamp = await BootCamp.findOne({ _id: id }).populate('review');
 
-  await Review.create({
+  console.log(bootCamp);
+  res.send(bootCamp);
+});
+
+router.post('/review/:id', async (req, res) => {
+  const { bootCamp, title, pros, cons, star, creator } = req.body;
+  const bootCam = await BootCamp.findOne({ _id: bootCamp });
+
+  const review = await Review.create({
     title,
     pros,
     cons,
@@ -25,6 +31,18 @@ router.post('/review', async (req, res) => {
     creator,
     bootCamp: bootCam,
   });
+  const bootcamp = await BootCamp.findByIdAndUpdate(
+    { _id: bootCamp },
+    {
+      $push: {
+        review,
+      },
+    },
+  );
+
+  console.log(bootcamp);
+
+  res.send(review);
 });
 
 router.post('/develop', async (req, res) => {

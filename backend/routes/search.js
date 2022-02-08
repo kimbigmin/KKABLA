@@ -9,13 +9,13 @@ router.post('/', async (req, res) => {
 
   if (value) {
     const boards = await Board.find({
-      $or: [
-        { title: { $regex: `/${value}/`, $options: 'i' } },
-        { contents: { $regex: `/${value}/`, $options: 'i' } },
-      ],
+      // $or: [
+      //   { title: { $search: value, $options: 'ig' } },
+      //   { contents: { $search: value, $options: 'ig' } },
+      // ],
     });
     const bootCamp = await BootCamp.find({
-      name: { $regex: `/${value}/`, $options: 'i' },
+      name: { $regex: `/${value}/`, $options: 'ig' },
     });
     console.log(boards, bootCamp);
     res.send({ boards, bootCamp });
