@@ -4,6 +4,7 @@ import PostsBoard from './PostsBoard';
 import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import banner from '../../images/kkabla_banner.mp4';
 
 export default function MainContents() {
   const [freeBoard, setFreeBoard] = useState([]);
@@ -24,9 +25,14 @@ export default function MainContents() {
   }, []);
 
   return (
-    <Container>
-      <HotBootCampBoard />
-      <PostsBoard />
-    </Container>
+    <>
+      <video loop autoPlay={true} muted height="1ㅋ0%">
+        <source src={banner} type="video/mp4" />
+      </video>
+      <Container>
+        <HotBootCampBoard />
+        <PostsBoard />
+      </Container>
+    </>
   );
 }
