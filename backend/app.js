@@ -28,7 +28,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use('/public', express.static(path.join(__dirname, 'public')));
-// app.use('/users', express.static('uploads'));
 
 //Routes
 app.use('/login', login);

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container, Typography, Divider } from '@mui/material';
-
 import Post from '../../components/post-page/Post';
 import PostReview from '../../components/post-page/PostReview';
 import { useParams } from 'react-router-dom';

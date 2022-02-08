@@ -1,28 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 function PostReview({ isLogin }) {
-  const location = useLocation();
-  const { data } = location.state;
+  // const location = useLocation();
+  // // const { data } = location.state;
 
+  const param = useParams();
+  const id = param.id;
+  const [data, setData] = useState(null);
   const [title, setTitle] = useState(null);
   const [pros, setPros] = useState(''); //장점
   const [cons, setCons] = useState(''); // 단점
   const [star, setStar] = useState(0); //별점
 
+  const onGetReviewHandler = async () => {
+    await axios
+      .get('http://localhost:5000/post/review/:id')
+      .then((res) => setData(res))
+      .then((err) => console.log(err));
+  };
+
   const onPostReviewHandler = async () => {
     await axios.post('http://localhost:5000/post/review', {
       title,
-      bootCamp: data.name,
+      bootCamp: id,
       pros,
       cons,
       star,
       creator: isLogin,
     });
   };
+
+  useEffect(() => {
+    onGetReviewHandler();
+    console.log(data);
+  }, []);
 
   const onConsole = () => {
     console.log(title, pros, cons, star);
@@ -86,12 +102,7 @@ function PostReview({ isLogin }) {
           placeholder="단점을 입력하세요."
         />
       </ContentsWrapper>
-      <SubmitButton
-        onClick={() => {
-          onConsole();
-        }}
-        variant="contained"
-      >
+      <SubmitButton onClick={onPostReviewHandler} variant="contained">
         등록
       </SubmitButton>
     </form>
