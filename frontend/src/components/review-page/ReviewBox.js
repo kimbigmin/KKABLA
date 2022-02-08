@@ -10,19 +10,37 @@ import styled from 'styled-components';
 function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
   const [bootcampData, setBootcampData] = useState([]);
   const [cards, setCards] = useState([]);
+  const [rendering, setRendering] = useState(true);
 
-  const getCards = async () => {
+  useEffect(() => {
+    render();
+  }, []);
+
+  const render = async () => {
+    await getBootcampData();
+    await renderCards();
+  };
+
+  // 부트캠프 데이터 GET 함수
+  const getBootcampData = async () => {
+    const bootData = await axios.get('http://localhost:5000/board/review/');
+    await setBootcampData(bootData.data);
+  };
+
+  // 카드 렌더링 함수
+  const renderCards = async () => {
     await Promise.all(
       bootcampData.map(async (item) => {
         return await Promise.all([
           axios.get(`http://localhost:5000/board/review/${item._id}`),
           item,
         ]).then((result) => {
+          localStorage.setItem('result', JSON.stringify(result));
           return (
             <Grid item xs={3}>
               <Link
                 to={`/board/review/detail/${result[1]._id}`}
-                state={{ isLogin: isLogin, data: result[1] }}
+                state={{ isLogin: isLogin, data: result }}
                 style={{ textDecoration: 'none', color: 'black' }}
               >
                 <Card item={[result[1]]} review={result[0].data.reviews}></Card>
@@ -36,23 +54,11 @@ function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
     });
   };
 
-  const getBootcampData = async () => {
-    const bootData = await axios.get('http://localhost:5000/board/review/');
-    await setBootcampData(bootData.data);
-  };
-  console.log(cards);
-
-  useEffect(() => {
-    (async () => {
-      await getBootcampData();
-      await getCards();
-    })();
-  }, []);
-
   // 관리자 로그인 확인 => true면 기관추가 버튼생성
   const isAdmin = true;
   // Card list 생성
-
+  console.log(cards);
+  console.log(bootcampData);
   // 별점순 정렬 핸들러
   const sortByStar = () => {
     const newArr = [...bootcampData];
