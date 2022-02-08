@@ -19,6 +19,7 @@ import MyPage from './pages/myPage/MyPage';
 import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
+import AdminPage from './pages/myPage/AdminPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -63,6 +64,7 @@ function App() {
           <Route path="/board/develop" element={<DevelopBoardPage />} />
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/mypage/auth" element={<AuthPage />}></Route>
+          <Route path="/admin" element={<AdminPage />}></Route>
           {isLogin && (
             <>
               <Route
