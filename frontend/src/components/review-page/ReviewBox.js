@@ -7,11 +7,15 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // import { data } from '../../reviewDummy';
 
-function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
-  const [bootcampData, setBootcampData] = useState([]);
-  const [cards, setCards] = useState([]);
-  const [rendering, setRendering] = useState(true);
-
+function ReviewBox({
+  isLogin,
+  isAdminBtn,
+  setIsAdminBtn,
+  cards,
+  setCards,
+  bootcampData,
+  setBootcampData,
+}) {
   useEffect(() => {
     render();
   }, []);
@@ -27,27 +31,25 @@ function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
     await setBootcampData(bootData.data);
   };
 
+  console.log(cards);
+  console.log(bootcampData);
+
   // 카드 렌더링 함수
   const renderCards = async () => {
     await Promise.all(
       bootcampData.map(async (item) => {
-        return await Promise.all([
-          axios.get(`http://localhost:5000/board/review/${item._id}`),
-          item,
-        ]).then((result) => {
-          localStorage.setItem('result', JSON.stringify(result));
-          return (
-            <Grid item xs={3}>
-              <Link
-                to={`/board/review/detail/${result[1]._id}`}
-                state={{ isLogin: isLogin, data: result }}
-                style={{ textDecoration: 'none', color: 'black' }}
-              >
-                <Card item={[result[1]]} review={result[0].data.reviews}></Card>
-              </Link>
-            </Grid>
-          );
-        });
+        console.log(item);
+        return (
+          <Grid item xs={3}>
+            <Link
+              to={`/board/review/detail/${item._id}`}
+              state={{ isLogin: isLogin, data: item }}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <Card item={item} review={item.review}></Card>
+            </Link>
+          </Grid>
+        );
       }),
     ).then((result) => {
       setCards(result);
@@ -57,8 +59,7 @@ function ReviewBox({ isLogin, isAdminBtn, setIsAdminBtn }) {
   // 관리자 로그인 확인 => true면 기관추가 버튼생성
   const isAdmin = true;
   // Card list 생성
-  console.log(cards);
-  console.log(bootcampData);
+
   // const list = dummy.map((item) => {
   //   if (item) {
   //     return (

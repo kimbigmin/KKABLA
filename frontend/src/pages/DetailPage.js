@@ -10,20 +10,63 @@ import axios from 'axios';
 
 function DetailPage({ isLogin }) {
   const location = useLocation();
-  console.log(location);
+  const { data } = location.state;
 
-  // const sumStars = data.review.reduce((acc, val) => {
-  //   return acc + val.star;
-  // }, 0);
-  // const averageStars = (sumStars / data.review.length).toFixed(1);
+  const [detailReviews, setDetailReviews] = useState([]);
+  const [averageStars, setAverageStars] = useState(0);
+  const [reviewList, setReviewList] = useState([]);
 
-  // const reviewList = data.review.map((review) => {
-  //   return <ReviewList isLogin={isLogin} review={review} />;
-  // });
+  console.log(data);
+
+  // 상세리뷰 데이터 GET 핸들러
+  const getData = async () => {
+    await axios
+      .get(`http://localhost:5000/board/review/${data._id}`)
+      .then((result) => {
+        setDetailReviews((current) => {
+          const newArr = [...current, ...result.data.review];
+          return newArr;
+        });
+      });
+  };
+
+  // 평균별점 구하는 핸들러
+  const getAverageStars = async (detailReviews) => {
+    const sumStars = await detailReviews.reduce((acc, val) => {
+      return acc + val.star;
+    }, 0);
+    const averageValue = await (sumStars / detailReviews.length).toFixed(1);
+    await setAverageStars(averageValue);
+  };
+
+  const getReviewList = async (detailReviews) => {
+    const list = await detailReviews.map((review) => {
+      return <ReviewList isLogin={isLogin} review={review} />;
+    });
+    await setReviewList((current) => {
+      const newArr = [...current, ...list];
+      return newArr;
+    });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    console.log(detailReviews);
+    getAverageStars(detailReviews);
+  }, []);
+
+  useEffect(() => {
+    getReviewList(detailReviews);
+  }, []);
+
+  console.log(reviewList);
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
-      {/* <Top>
+      <Top>
         <h2>
           {data.name}{' '}
           <span style={{ fontSize: '1rem', cursor: 'default' }}>
@@ -44,8 +87,8 @@ function DetailPage({ isLogin }) {
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
           <Grid item xs={12}>
             <h4>홈페이지</h4>
-            <a href={data.homepage} target="_blank">
-              {data.homepage}
+            <a href={data.location} target="_blank">
+              {data.location}
             </a>
           </Grid>
           <Grid item xs={12}>
@@ -54,7 +97,7 @@ function DetailPage({ isLogin }) {
           </Grid>
           <Grid item xs={12}>
             <h4>수업방식</h4>
-            <p>{data.system}</p>
+            <p>{data.system} 방식</p>
           </Grid>
         </Grid>
       </Introduction>
@@ -62,7 +105,10 @@ function DetailPage({ isLogin }) {
         <div className="list-topbar">
           <h3>{data.review.length}개의 리뷰</h3>
           {isLogin && (
-            <Link to="/post/review" state={{ isLogin: isLogin, data: data }}>
+            <Link
+              to={`/post/review/${data._id}`}
+              state={{ isLogin: isLogin, data: data }}
+            >
               <button>리뷰작성하기</button>
             </Link>
           )}
@@ -75,8 +121,7 @@ function DetailPage({ isLogin }) {
           )}
           {reviewList}
         </div>
-      </Blind> */}
-      hi
+      </Blind>
     </Container>
   );
 }

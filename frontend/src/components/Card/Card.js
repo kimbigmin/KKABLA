@@ -5,10 +5,23 @@ import axios from 'axios';
 
 function Card({ item, review }) {
   const [reviews, setReviews] = useState([]);
+  console.log(item);
+
+  const getData = async () => {
+    await axios
+      .get(`http://localhost:5000/board/review/${item._id}`)
+      .then((result) => {
+        console.log(result);
+        console.log(result.data.review);
+        setReviews(result.data.review);
+      });
+  };
 
   useEffect(() => {
-    setReviews(review);
+    getData();
   }, []);
+
+  console.log(reviews);
 
   const sumStars = reviews.reduce((acc, val) => {
     return acc + val.star;
@@ -19,10 +32,10 @@ function Card({ item, review }) {
     <>
       <Box>
         <ImageBox>
-          <img src={item[0].image} alt="logo" />
+          <img src={item.image} alt="logo" />
         </ImageBox>
         <div className="info">
-          <h3>{item[0].name}</h3>
+          <h3>{item.name}</h3>
           <span>{getStars(averageStars)}</span>
           <p>{averageStars === 'NaN' ? '0.0' : averageStars}점</p>
         </div>
