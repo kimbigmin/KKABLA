@@ -39,7 +39,7 @@ function DetailPage({ isLogin }) {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
@@ -64,7 +64,7 @@ function DetailPage({ isLogin }) {
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
           <Grid item xs={12}>
             <h4>홈페이지</h4>
-            <a href={data.homePage} target="_blank">
+            <a href={data.homePage} target="_blank" rel="noreferrer">
               {data.homePage}
             </a>
           </Grid>

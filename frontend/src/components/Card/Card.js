@@ -20,7 +20,7 @@ function Card({ item }) {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   const sumStars = reviews.reduce((acc, val) => {
     return acc + val.star;
