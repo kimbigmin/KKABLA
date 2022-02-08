@@ -3,8 +3,10 @@ import CommonBoard from './CommonBoard';
 import { data } from './dummy';
 import { Container, Grid } from '@mui/material';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-function CommonBoardList({ type, title }) {
+function CommonBoardList({ type, title, isLogin }) {
+  // 게시판 생성
   const list = data
     .filter((item) => item.type === type)
     .map((item) => {
@@ -17,6 +19,15 @@ function CommonBoardList({ type, title }) {
       }
     });
 
+  // 최신순 정렬
+  // const sortByRecent =
+
+  // 좋아요순 정렬
+  // const sortByLike =
+
+  // 댓글순 정렬
+  // const sortByComment =
+
   return (
     <Container sx={{ marginBottom: '5rem' }}>
       <Top>
@@ -24,7 +35,19 @@ function CommonBoardList({ type, title }) {
 
         <div>
           <span>최신순</span> | <span>좋아요순</span> | <span>댓글순</span>
-          <span>글 작성하기</span>
+          {isLogin ? (
+            <Link
+              to={`../post/${type}`}
+              style={{
+                textDecoration: 'none',
+                color: '#66b0e5',
+                fontWeight: 'bold',
+                marginLeft: '2rem',
+              }}
+            >
+              글 작성하기
+            </Link>
+          ) : null}
         </div>
       </Top>
       <Grid container spacing={2}>
@@ -53,11 +76,5 @@ const Top = styled.div`
     font-size: 0.8rem;
     color: #484848ea;
     cursor: pointer;
-  }
-
-  span: last-child {
-    margin-left: 2rem;
-    color: #66b0e5;
-    font-weight: bold;
   }
 `;
