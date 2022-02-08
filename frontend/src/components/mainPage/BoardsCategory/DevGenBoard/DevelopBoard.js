@@ -13,7 +13,7 @@ export default function DevelopBoard({isLogin, developBoard}) {
     return(
       <TitleWrapper key={post._id}>
         <Link
-            to={"/"}
+            to={"/board/detail/"}
             state={{ isLogin: isLogin }}
             style={{ textDecoration: 'none', color: 'black' }}
         >
@@ -30,7 +30,15 @@ export default function DevelopBoard({isLogin, developBoard}) {
         <Box>
           <BoardHeader>
             <BoardTitle>{"개발 게시판"}</BoardTitle>
-            <SeeMore>{"더보기"}</SeeMore>
+            <SeeMore>
+              <Link 
+                to={"/board/develop"}
+                style={{ textDecoration: 'none', color: 'black' }}
+
+              >
+                {"더보기"}
+              </Link>
+            </SeeMore>
           </BoardHeader>
           <Divider/>
           {titleList}
@@ -46,7 +54,7 @@ const Box = styled.div`
   padding: 2rem;
 
   width: 100%;
-  height: 370px;
+  height: 100%;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-align: center;

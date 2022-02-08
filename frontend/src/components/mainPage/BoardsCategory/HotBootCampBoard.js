@@ -57,7 +57,7 @@ const Container = styled.div`
   justify-contents:center;
   height: 30%;
   width: 100%;
-  margin: 4rem 0;
+  margin-top: 7rem;
   padding:0 2rem;
 `;
 const BoardHeader = styled.div`

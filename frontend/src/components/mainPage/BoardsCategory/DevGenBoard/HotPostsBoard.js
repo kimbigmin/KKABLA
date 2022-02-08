@@ -12,7 +12,7 @@ export default function HotPostsBoard({isLogin,freeBoard,developBoard}) {
       return(
         <TitleWrapper key={post._id}> 
           <Link
-              to={"/"}
+              to={"/board/detail/"}
               state={{ isLogin: isLogin }}
               style={{ textDecoration: 'none', color: 'black' }}
           >
@@ -44,7 +44,7 @@ const Box = styled.div`
   padding: 2rem;
 
   width: 100%;
-  height: 775px;
+  height: 100%;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   text-decoration: none;

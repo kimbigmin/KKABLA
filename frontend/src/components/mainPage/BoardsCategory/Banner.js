@@ -1,27 +1,20 @@
-import { flexbox, height } from "@mui/system";
+import styled from 'styled-components';
 
 export default function Banner(){
   return(
-    <div
-      style={{
-        position:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        width: "100%",
-        height: "69vh",
-        overflow: "hidden",
-    }}
-    >
-      <video
+    <BannerWrapper>
+      <video autoPlay muted loop
         style={{
-          width: "100%",
+          width:"100%",
+          marginBottom: "-17%",
         }}
-        autoPlay muted loop
       >
         <source src={require("../../../videos/kkablaBanner.mp4")} type="video/mp4"/>
-        왜안나오니?
+        이 문구를 보셨다면 비디오가 안나온다는 것을 알 수 있읍니다.
       </video>
-    </div>  
+    </BannerWrapper>  
   );
-
 }
+const BannerWrapper=styled.div`
+  overflow: hidden;
+`
