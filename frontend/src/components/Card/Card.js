@@ -5,9 +5,7 @@ import axios from 'axios';
 
 function Card({ item }) {
   const [reviews, setReviews] = useState([]);
-  const [academyInfo, setAcademyInfo] = useState(item);
   console.log(item);
-  console.log(academyInfo);
 
   // 해결해야 할 이슈 : get을 두 번해서 렌더링 시간 오래걸림
   const getData = async () => {
