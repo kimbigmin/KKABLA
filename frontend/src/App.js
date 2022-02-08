@@ -37,10 +37,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Container>
-        <Header isLogin={isLogin} />
-      </Container>
-
+      <Header isLogin={isLogin} />
       <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
