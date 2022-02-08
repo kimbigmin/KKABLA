@@ -1,80 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
-import axios from 'axios';
 import Card from '../Card/Card';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import { data } from '../../reviewDummy';
 
-function ReviewBox({
-  isLogin,
-  isAdminBtn,
-  setIsAdminBtn,
-  cards,
-  setCards,
-  bootcampData,
-  setBootcampData,
-}) {
-  useEffect(() => {
-    render();
-  }, []);
+function ReviewBox({ isLogin, bootcampData, setBootcampData }) {
+  // 기관 리스트 추출
+  const cardLists = bootcampData.map((item) => {
+    return (
+      <Grid item xs={3}>
+        <Link
+          to={`/board/review/detail/${item._id}`}
+          state={{ isLogin: isLogin, data: item }}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
+          <Card item={item} review={item.review}></Card>
+        </Link>
+      </Grid>
+    );
+  });
 
-  const render = async () => {
-    await getBootcampData();
-    await renderCards();
-  };
-
-  // 부트캠프 데이터 GET 함수
-  const getBootcampData = async () => {
-    const bootData = await axios.get('http://localhost:5000/board/review/');
-    await setBootcampData(bootData.data);
-  };
-
-  console.log(cards);
-  console.log(bootcampData);
-
-  // 카드 렌더링 함수
-  const renderCards = async () => {
-    await Promise.all(
-      bootcampData.map(async (item) => {
-        console.log(item);
-        return (
-          <Grid item xs={3}>
-            <Link
-              to={`/board/review/detail/${item._id}`}
-              state={{ isLogin: isLogin, data: item }}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <Card item={item} review={item.review}></Card>
-            </Link>
-          </Grid>
-        );
-      }),
-    ).then((result) => {
-      setCards(result);
-    });
-  };
-
-  // 관리자 로그인 확인 => true면 기관추가 버튼생성
-  const isAdmin = true;
-  // Card list 생성
-
-  // const list = dummy.map((item) => {
-  //   if (item) {
-  //     return (
-  //       <Grid item xs={3}>
-  //         <Link
-  //           to={`${item.id}`}
-  //           state={{ isLogin: isLogin, data: item }}
-  //           style={{ textDecoration: 'none', color: 'black' }}
-  //         >
-  //           <Card item={item}></Card>
-  //         </Link>
-  //       </Grid>
-  //     );
-  //   }
-  // });
   // 별점순 정렬 핸들러
   const sortByStar = () => {
     const newArr = [...bootcampData];
@@ -113,30 +59,23 @@ function ReviewBox({
     setBootcampData(sortedArr);
   };
 
-  const openAdminHandler = () => {
-    setIsAdminBtn(true);
-  };
-
   return (
     <Container sx={{ marginBottom: '5rem' }}>
-      <Top>
+      <ReviewPageTopBar>
         <h2>리뷰게시판</h2>
         <div>
-          <AlignButton onClick={sortByName}>이름순</AlignButton> |{' '}
+          <AlignButton onClick={sortByName}>이름순</AlignButton> |
           <AlignButton onClick={sortByStar}>평점순</AlignButton>
-          {isAdmin && isLogin && (
-            <AdminButton onClick={openAdminHandler}>기관추가하기</AdminButton>
-          )}
         </div>
-      </Top>
+      </ReviewPageTopBar>
       <Grid container spacing={5}>
-        {cards}
+        {cardLists}
       </Grid>
     </Container>
   );
 }
 
-const Top = styled.div`
+const ReviewPageTopBar = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 5rem;
@@ -158,24 +97,6 @@ const AlignButton = styled.span`
   &:hover {
     font-weight: bold;
     color: #4585ff;
-  }
-`;
-
-const AdminButton = styled.span`
-  border: none;
-  font-size: 1.1rem;
-  font-weight: 500;
-  background-color: rgba(127, 170, 255, 0.4);
-  border-radius: 5px;
-  padding: 0.5rem;
-  color: #484848ea;
-  cursor: pointer;
-  margin-left: 1rem;
-
-  &:hover {
-    background-color: rgba(127, 170, 255, 1);
-    transition-duration: 0.5s;
-    color: white;
   }
 `;
 

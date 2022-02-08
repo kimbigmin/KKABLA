@@ -13,8 +13,6 @@ function DetailPage({ isLogin }) {
   const { data } = location.state;
 
   const [detailReviews, setDetailReviews] = useState([]);
-  const [averageStars, setAverageStars] = useState(0);
-  const [reviewList, setReviewList] = useState([]);
 
   console.log(data);
 
@@ -30,39 +28,18 @@ function DetailPage({ isLogin }) {
       });
   };
 
-  // 평균별점 구하는 핸들러
-  const getAverageStars = async (detailReviews) => {
-    const sumStars = await detailReviews.reduce((acc, val) => {
-      return acc + val.star;
-    }, 0);
-    const averageValue = await (sumStars / detailReviews.length).toFixed(1);
-    await setAverageStars(averageValue);
-  };
+  const sumStars = detailReviews.reduce((acc, val) => {
+    return acc + val.star;
+  }, 0);
+  const averageStars = (sumStars / detailReviews.length).toFixed(1);
 
-  const getReviewList = async (detailReviews) => {
-    const list = await detailReviews.map((review) => {
-      return <ReviewList isLogin={isLogin} review={review} />;
-    });
-    await setReviewList((current) => {
-      const newArr = [...current, ...list];
-      return newArr;
-    });
-  };
+  const list = detailReviews.map((review) => {
+    return <ReviewList isLogin={isLogin} review={review} />;
+  });
 
   useEffect(() => {
     getData();
   }, []);
-
-  useEffect(() => {
-    console.log(detailReviews);
-    getAverageStars(detailReviews);
-  }, []);
-
-  useEffect(() => {
-    getReviewList(detailReviews);
-  }, []);
-
-  console.log(reviewList);
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
@@ -87,8 +64,8 @@ function DetailPage({ isLogin }) {
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
           <Grid item xs={12}>
             <h4>홈페이지</h4>
-            <a href={data.location} target="_blank">
-              {data.location}
+            <a href={data.homePage} target="_blank">
+              {data.homePage}
             </a>
           </Grid>
           <Grid item xs={12}>
@@ -119,7 +96,7 @@ function DetailPage({ isLogin }) {
           {!isLogin && data.review.length !== 0 && (
             <div className="blind">로그인 후 이용이 가능합니다. 😢</div>
           )}
-          {reviewList}
+          {list}
         </div>
       </Blind>
     </Container>

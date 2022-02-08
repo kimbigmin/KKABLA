@@ -3,10 +3,13 @@ import { getStars } from '../review-page/util/getStars';
 import styled from 'styled-components';
 import axios from 'axios';
 
-function Card({ item, review }) {
+function Card({ item }) {
   const [reviews, setReviews] = useState([]);
+  const [academyInfo, setAcademyInfo] = useState(item);
   console.log(item);
+  console.log(academyInfo);
 
+  // 해결해야 할 이슈 : get을 두 번해서 렌더링 시간 오래걸림
   const getData = async () => {
     await axios
       .get(`http://localhost:5000/board/review/${item._id}`)
@@ -20,8 +23,6 @@ function Card({ item, review }) {
   useEffect(() => {
     getData();
   }, []);
-
-  console.log(reviews);
 
   const sumStars = reviews.reduce((acc, val) => {
     return acc + val.star;

@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReviewBox from '../components/review-page/ReviewBox';
-import AddAcademy from '../components/review-page/AddAcademy';
+import axios from 'axios';
 
 function Review({ isLogin }) {
-  const [isAdminBtn, setIsAdminBtn] = useState(false);
   const [bootcampData, setBootcampData] = useState([]);
-  const [cards, setCards] = useState([]);
+
+  // 부트캠프 데이터 GET 함수
+  const getBootcampData = async () => {
+    const bootData = await axios.get('http://localhost:5000/board/review/');
+    await setBootcampData((current) => {
+      let newArr = [...current, ...bootData.data];
+      return newArr;
+    });
+  };
+  // 부트캠프 데이터 불러오기
+  useEffect(() => {
+    getBootcampData();
+  }, []);
+
   return (
     <>
-      {isAdminBtn && <AddAcademy setIsAdminBtn={setIsAdminBtn} />}
       <ReviewBox
         isLogin={isLogin}
-        isAdminBtn={isAdminBtn}
-        setIsAdminBtn={setIsAdminBtn}
         bootcampData={bootcampData}
         setBootcampData={setBootcampData}
-        cards={cards}
-        setCards={setCards}
       />
     </>
   );
