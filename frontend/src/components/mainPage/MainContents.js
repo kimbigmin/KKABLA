@@ -26,7 +26,7 @@ export default function MainContents() {
 
   return (
     <>
-      <video loop autoPlay={true} muted height="1ㅋ0%">
+      <video loop autoPlay={true} muted height="10%">
         <source src={banner} type="video/mp4" />
       </video>
       <Container>
