@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {
-  Container,
-  Button,
-  Box,
-  TextField,
-  Divider,
-  Typography,
-  Rating,
-} from '@mui/material';
+import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
@@ -32,112 +24,81 @@ function PostReview({ isLogin }) {
     });
   };
 
+  const onConsole = () => {
+    console.log(title, pros, cons, star);
+  };
+
   return (
-    <Container maxWidth="md">
-      <TopTypography variant="h5">글 작성하기</TopTypography>
-      <Divider></Divider>
-      <form>
-        <TitleWrapper>
-          <Box
-            sx={{
-              width: 200,
-              height: 40,
-              bgcolor: '#A2D2FF',
-              color: 'black',
-              textAlign: 'center',
-              lineHeight: '40px',
-              margin: '10px',
-              borderRadius: '8px',
-              fontWeight: 'bold',
-              border: '1px solid black',
-            }}
-          >
-            리뷰게시판
-          </Box>
-          <TitleTextField
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            required
-            type="text"
-            size="small"
-            fullWidth={true}
-            placeholder="제목을 입력하세요."
-          />
-        </TitleWrapper>
-        <ReviewPart>
-          <Box
-            sx={{
-              width: 200,
-              height: 200,
-              borderRadius: '8px',
-              lineHeight: '200px',
-              textAlign: 'center',
-              position: 'relative',
-            }}
-          >
-            <img
-              src={data.image}
-              style={{
-                width: '13rem',
-                postion: 'absolute',
-                marginTop: '1.4rem',
-                textAlign: 'center',
-              }}
-              alt="academyImage"
-            />
-          </Box>
-          <Typography>{data.name}</Typography>
-          <Rating name="reviewPoint" size="large" />
-          <Typography>별점을 선택해 주세요</Typography>
-        </ReviewPart>
-        <ContentsWrapper>
-          <ContentsTextField
-            onChange={(e) => {
-              setPros(e.target.value);
-            }}
-            required
-            type="text"
-            fullWidth={true}
-            multiline={true}
-            maxRows={5}
-            rows={3}
-            placeholder="장점을 입력하세요."
-          />
-        </ContentsWrapper>
-        <ContentsWrapper>
-          <ContentsTextField
-            onChange={(e) => {
-              setCons(e.target.value);
-            }}
-            required
-            type="text"
-            fullWidth={true}
-            multiline={true}
-            maxRows={5}
-            rows={3}
-            placeholder="단점을 입력하세요."
-          />
-        </ContentsWrapper>
-        <SubmitButton
-          onClick={() => {
-            onPostReviewHandler();
+    <form>
+      <TitleWrapper>
+        <TitleBox>리뷰게시판</TitleBox>
+        <TitleTextField
+          onChange={(e) => {
+            setTitle(e.target.value);
           }}
-          variant="contained"
-        >
-          등록
-        </SubmitButton>
-      </form>
-    </Container>
+          required
+          type="text"
+          size="small"
+          fullWidth={true}
+          placeholder="제목을 입력하세요."
+        />
+      </TitleWrapper>
+      <ReviewPart>
+        <ReviewBox>
+          <ReviewImg src={data.image} alt="academyImage" />
+        </ReviewBox>
+        <Typography>{data.name}</Typography>
+        <Rating
+          name="reviewPoint"
+          size="large"
+          value={star}
+          onChange={(e) => {
+            setStar(e.target.value);
+          }}
+        />
+        <Typography>별점을 선택해 주세요</Typography>
+      </ReviewPart>
+      <ContentsWrapper>
+        <ContentLabel>장점</ContentLabel>
+        <ContentsTextField
+          onChange={(e) => {
+            setPros(e.target.value);
+          }}
+          required
+          type="text"
+          fullWidth={true}
+          multiline={true}
+          minRows={3}
+          placeholder="장점을 입력하세요."
+        />
+      </ContentsWrapper>
+      <ContentsWrapper>
+        <ContentLabel>단점</ContentLabel>
+        <ContentsTextField
+          onChange={(e) => {
+            setCons(e.target.value);
+          }}
+          required
+          type="text"
+          fullWidth={true}
+          multiline={true}
+          minRows={3}
+          placeholder="단점을 입력하세요."
+        />
+      </ContentsWrapper>
+      <SubmitButton
+        onClick={() => {
+          onConsole();
+        }}
+        variant="contained"
+      >
+        등록
+      </SubmitButton>
+    </form>
   );
 }
 
 export default PostReview;
-
-const TopTypography = styled(Typography)`
-  margin: 0 0 10px 10px;
-  font-weight: bold;
-`;
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -166,6 +127,39 @@ const ContentsTextField = styled(TextField)`
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 91.5%;
+  left: 95%;
   font-weight: bold;
+`;
+
+const TitleBox = styled(Box)`
+  width: 200px;
+  height: 40px;
+  background-color: #a2d2ff;
+  color: black;
+  text-align: center;
+  line-height: 40px;
+  margin: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+`;
+
+const ReviewBox = styled(Box)`
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  line-height: 200px;
+  text-align: center;
+  position: relative;
+`;
+
+const ReviewImg = styled.img`
+  width: 13rem;
+  postion: absolute;
+  margin-top: 1.4rem;
+  text-align: center;
+`;
+
+const ContentLabel = styled(Box)`
+  font-weight: bold;
+  margin: 5px;
 `;
