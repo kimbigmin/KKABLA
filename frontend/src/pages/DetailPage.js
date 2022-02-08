@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import ReviewList from '../components/review-page/ReviewList';
 import { Grid } from '@mui/material';
@@ -6,23 +6,24 @@ import { useLocation } from 'react-router-dom';
 import { getStars } from '../components/review-page/util/getStars';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function DetailPage({ isLogin }) {
   const location = useLocation();
-  const { data } = location.state;
+  console.log(location);
 
-  const sumStars = data.review.reduce((acc, val) => {
-    return acc + val.star;
-  }, 0);
-  const averageStars = (sumStars / data.review.length).toFixed(1);
+  // const sumStars = data.review.reduce((acc, val) => {
+  //   return acc + val.star;
+  // }, 0);
+  // const averageStars = (sumStars / data.review.length).toFixed(1);
 
-  const reviewList = data.review.map((review) => {
-    return <ReviewList isLogin={isLogin} review={review} />;
-  });
+  // const reviewList = data.review.map((review) => {
+  //   return <ReviewList isLogin={isLogin} review={review} />;
+  // });
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
-      <Top>
+      {/* <Top>
         <h2>
           {data.name}{' '}
           <span style={{ fontSize: '1rem', cursor: 'default' }}>
@@ -74,7 +75,8 @@ function DetailPage({ isLogin }) {
           )}
           {reviewList}
         </div>
-      </Blind>
+      </Blind> */}
+      hi
     </Container>
   );
 }
