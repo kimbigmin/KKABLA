@@ -8,12 +8,13 @@ import Grid from '@mui/material/Grid';
 function Review({ isLogin }) {
   const [bootcampData, setBootcampData] = useState([]);
   const [cards, setCards] = useState([]);
+  const [starData, setStarData] = useState([]);
 
   // 부트캠프 Get Handler
   const getBootcampData = async () => {
     const bootData = await axios.get('http://localhost:5000/board/review/');
     await setBootcampData((current) => {
-      let newArr = [...current, ...bootData.data];
+      let newArr = [...bootData.data];
       return newArr;
     });
   };
@@ -24,8 +25,12 @@ function Review({ isLogin }) {
         return axios
           .get(`http://localhost:5000/board/review/${item._id}`)
           .then((res) => {
+            setStarData((current) => {
+              const newArr = [...current, res.data];
+              return newArr;
+            });
             return (
-              <Grid item xs={3}>
+              <Grid item xs={3} key={item.name}>
                 <Link
                   to={`/board/review/detail/${item._id}`}
                   state={{
@@ -36,7 +41,7 @@ function Review({ isLogin }) {
                   style={{ textDecoration: 'none', color: 'black' }}
                 >
                   <CardForReviewPage
-                    key={item._id}
+                    key={item.name}
                     item={item}
                     reviews={res.data.review}
                   ></CardForReviewPage>
@@ -56,7 +61,7 @@ function Review({ isLogin }) {
   useEffect(() => {
     getCardLists(bootcampData).then((cardlist) => {
       setCards((current) => {
-        const newArr = [...current, ...cardlist];
+        const newArr = [...cardlist];
         return newArr;
       });
     });
@@ -68,6 +73,8 @@ function Review({ isLogin }) {
       bootcampData={bootcampData}
       setBootcampData={setBootcampData}
       cards={cards}
+      setCards={setCards}
+      starData={starData}
     />
   );
 }

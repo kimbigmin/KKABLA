@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
 import styled from 'styled-components';
 
-function ReviewBox({ bootcampData, setBootcampData, cards }) {
+function ReviewBox({
+  bootcampData,
+  setBootcampData,
+  cards,
+  starData,
+  setCards,
+}) {
   // 별점순 정렬 핸들러
+  console.log(starData);
+  console.log(cards);
+
   const sortByStar = () => {
-    const newArr = [...bootcampData];
+    const newArr = [...starData];
 
     const sortedArr = newArr.sort((a, b) => {
       // 비교할 A 기관에 대한 별점리뷰 총점 구하기
@@ -32,7 +41,11 @@ function ReviewBox({ bootcampData, setBootcampData, cards }) {
       }
     });
     // 정렬된 배열을 dummy에 다시 셋해주고 재렌더링
-    setBootcampData(sortedArr);
+    console.log(sortedArr);
+    setBootcampData((current) => {
+      const newArr = [...sortedArr];
+      return newArr;
+    });
   };
 
   // 이름순 정렬 핸들러
