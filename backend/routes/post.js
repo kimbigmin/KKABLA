@@ -3,6 +3,7 @@ import Board from '../models/Board.js';
 import BootCamp from '../models/BootCamp.js';
 import Review from '../models/Review.js';
 import upload from '../utils/storage .js';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -14,36 +15,37 @@ router.post('/free', upload.array('image'), async (req, res) => {
   await Board.create({ title, contents, creator, images, type });
 });
 
-// router.get('/review/:id', async (req, res) => {
-//   const { id } = req.params;
-//   const bootCamp = await BootCamp.findOne({ _id: id }).populate('review');
-//   console.log(bootCamp);
-//   res.send(bootCamp);
-// });
+router.get('/review/:id', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const bootCamp = await BootCamp.findOne({ _id: id }).populate('review');
+    res.send(bootCamp);
+  }
+});
 
 router.post('/review/:id', async (req, res) => {
   const { bootCamp, title, pros, cons, star, creator } = req.body;
-  const bootCam = await BootCamp.findOne({ _id: bootCamp });
-  const review = await Review.create({
-    title,
-    pros,
-    cons,
-    star,
-    creator,
-    bootCamp: bootCam,
-  });
-  const bootcamp = await BootCamp.findByIdAndUpdate(
-    { _id: bootCamp },
-    {
-      $push: {
-        review,
+  if (mongoose.Types.ObjectId.isValid(bootCamp)) {
+    const bootCam = await BootCamp.findOne({ _id: bootCamp });
+    const review = await Review.create({
+      title,
+      pros,
+      cons,
+      star,
+      creator,
+      bootCamp: bootCam,
+    });
+    const bootcamp = await BootCamp.findByIdAndUpdate(
+      { _id: bootCamp },
+      {
+        $push: {
+          review,
+        },
       },
-    },
-  );
+    );
 
-  console.log(bootcamp);
-
-  res.send(review);
+    res.send(review);
+  }
 });
 
 router.post('/develop', upload.array('image'), async (req, res) => {
