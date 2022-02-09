@@ -22,6 +22,7 @@ import PostPage from './pages/postPage/PostPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
+
   console.log(isLogin);
   useEffect(() => {
     const getMe = async () => {
@@ -41,7 +42,7 @@ function App() {
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
-          <Route path="/" element={<MainContents isLogin={isLogin}/>}></Route>
+          <Route path="/" element={<MainContents isLogin={isLogin} />}></Route>
           <Route
             path="/board/review"
             element={<ReviewPage isLogin={isLogin} />}

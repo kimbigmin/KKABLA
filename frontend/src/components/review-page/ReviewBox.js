@@ -1,26 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
-import Card from '../Card/Card';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-function ReviewBox({ isLogin, bootcampData, setBootcampData }) {
-  // 기관 리스트 추출
-  const cardLists = bootcampData.map((item) => {
-    return (
-      <Grid item xs={3}>
-        <Link
-          to={`/board/review/detail/${item._id}`}
-          state={{ isLogin: isLogin, data: item }}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <Card item={item} review={item.review}></Card>
-        </Link>
-      </Grid>
-    );
-  });
-
+function ReviewBox({ bootcampData, setBootcampData, cards }) {
   // 별점순 정렬 핸들러
   const sortByStar = () => {
     const newArr = [...bootcampData];
@@ -69,7 +52,7 @@ function ReviewBox({ isLogin, bootcampData, setBootcampData }) {
         </div>
       </ReviewPageTopBar>
       <Grid container spacing={5}>
-        {cardLists}
+        {cards}
       </Grid>
     </Container>
   );
