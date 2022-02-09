@@ -11,8 +11,9 @@ const BoardSchema = new Schema(
     creator: { type: String, required: true },
     images: Array,
     thumbnail: String,
-    like: Number,
-    views: Number,
+    like: Array,
+    views: Array,
+    comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
   },
   { timestamps: true },
 );

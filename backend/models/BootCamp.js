@@ -7,7 +7,7 @@ const BootCampSchema = new Schema({
   image: String,
   star: Number,
   location: String,
-  homepage: String,
+  homePage: String,
   system: String,
   review: { type: [Schema.Types.ObjectId], ref: 'Review' },
 });
