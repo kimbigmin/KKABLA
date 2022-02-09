@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 function PostReview({ isLogin }) {
   const location = useLocation();
   const { data } = location.state;
+  console.log(data);
 
   const [title, setTitle] = useState(null);
   const [pros, setPros] = useState(''); //장점
@@ -23,6 +24,8 @@ function PostReview({ isLogin }) {
       creator: isLogin,
     });
   };
+
+  console.log(star);
 
   return (
     <form>
@@ -44,7 +47,14 @@ function PostReview({ isLogin }) {
           <ReviewImg src={data.image} alt="academyImage" />
         </ReviewBox>
         <Typography>{data.name}</Typography>
-        <Rating name="reviewPoint" size="large" />
+        <Rating
+          name="reviewPoint"
+          value={star}
+          onChange={(event, newVal) => {
+            setStar(newVal);
+          }}
+          size="large"
+        />
         <Typography>별점을 선택해 주세요</Typography>
       </ReviewPart>
       <ContentsWrapper>
