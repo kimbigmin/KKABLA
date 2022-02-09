@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import icon1 from '../../images/google.jpg';
 import icon2 from '../../images/kakao.png';
-import logo from '../../images/logo.png';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 // import queryString from 'querystring';
 
@@ -18,13 +17,11 @@ function Login({ isLogin }) {
 
   return (
     <LoginContainer>
-      <div>
-        <img src={logo} alt="logo" />
-      </div>
+      <Header>L O G I N</Header>
       <SupervisedUserCircleIcon
-        sx={{ fontSize: '7rem', color: '#4788FF' }}
+        sx={{ fontSize: '8rem', color: '#4788FF' }}
       ></SupervisedUserCircleIcon>
-      <h2>안녕하세요. 로그인을 해주세요 !</h2>
+      <h2>안녕하세요. 로그인을 해주세요 :)</h2>
       <LoginBox>
         <LoginButton
           onClick={(e) => {
@@ -72,10 +69,6 @@ const LoginContainer = styled.div`
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
-  img {
-    width: 8rem;
-  }
-
   h2 {
     font-size: 1.3rem;
     font-weight: bold;
@@ -84,7 +77,8 @@ const LoginContainer = styled.div`
 `;
 
 const Header = styled.header`
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const LoginBox = styled.div`
