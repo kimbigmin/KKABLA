@@ -4,7 +4,6 @@ import Banner from './BoardsCategory/Banner';
 import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import banner from '../../images/kkabla_banner.mp4';
 
 export default function MainContents({ isLogin }) {
   const [freeBoard, setFreeBoard] = useState([]);
@@ -18,6 +17,7 @@ export default function MainContents({ isLogin }) {
         .get('http://localhost:5000/')
         .then((res) => {
           // console.log(res.data.boards)
+          console.log(res.data);
           setDevelopBoard((prevState) => {
             return [...prevState, ...res.data.reviews];
           });
