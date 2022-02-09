@@ -16,12 +16,11 @@ router.get('/free', async (req, res) => {
 
 router.get('/free/:id', async (req, res) => {
   const { id } = req.params;
-
-  // const borad = await Board.findByIdAndUpdate({ _id: id },{$addToSet:{views:}}).populate('comment');
   if (mongoose.Types.ObjectId.isValid(id)) {
     const board = await Board.find({ _id: id });
     res.send(board);
   }
+  // const borad = await Board.findByIdAndUpdate({ _id: id },{$addToSet:{views:}}).populate('comment');
 });
 
 //개발 이야기
