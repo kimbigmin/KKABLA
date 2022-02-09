@@ -36,14 +36,7 @@ function PostReview({ isLogin }) {
     });
   };
 
-  useEffect(() => {
-    onGetReviewHandler();
-    console.log(data);
-  }, []);
-
-  const onConsole = () => {
-    console.log(title, pros, cons, star);
-  };
+  console.log(star);
 
   return (
     <form>
