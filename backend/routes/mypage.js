@@ -2,7 +2,7 @@ import express from 'express';
 import User from '../models/User.js';
 import Board from '../models/Board.js';
 import Review from '../models/Review.js';
-import upload from '../utils/storage .js';
+import upload from '../utils/userAuth.js';
 import axios from 'axios';
 import fs from 'fs';
 
