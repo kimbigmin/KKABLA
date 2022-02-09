@@ -50,7 +50,6 @@ router.post('/review/:id', async (req, res) => {
 
 router.post('/develop', upload.array('image'), async (req, res) => {
   const { title, contents, creator, images, type } = req.body;
-
   const develop = await Board.create({
     title,
     contents,
@@ -62,13 +61,13 @@ router.post('/develop', upload.array('image'), async (req, res) => {
 });
 
 router.post('/bootcamp', upload.single('image'), async (req, res) => {
-  const { name, location, homePage, system } = req.body;
-  const { path } = req.file;
-
+  const { name, loca, homePage, system } = req.body;
+  const { location } = req.file;
+  console.log(req.file);
   const bootCamp = await BootCamp.create({
     name,
-    image: path,
-    location,
+    image: location,
+    location: loca,
     homePage,
     system,
   });
