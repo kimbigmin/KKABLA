@@ -36,10 +36,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Container>
-        <Header isLogin={isLogin} />
-      </Container>
-
+      <Header isLogin={isLogin} />
       <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
@@ -50,7 +47,7 @@ function App() {
             element={<ReviewPage isLogin={isLogin} />}
           ></Route>
           <Route
-            path="/review/detail/:id"
+            path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
           <Route path="/board/detail" element={<BoardDetailPage />} />
