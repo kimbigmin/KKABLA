@@ -4,6 +4,7 @@ import Banner from './BoardsCategory/Banner';
 import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import banner from '../../images/kkabla_banner.mp4';
 
 export default function MainContents({ isLogin }) {
   const [freeBoard, setFreeBoard] = useState([]);
@@ -14,17 +15,17 @@ export default function MainContents({ isLogin }) {
   useEffect(() => {
     const postReq = async () => {
       axios
-        .get('http://localhost:5000/')
+        .get('http://localhost:5000')
         .then((res) => {
           // console.log(res.data.boards)
-          setDevelopBoard((prevState)=>{
-            return [...prevState, ...res.data.reviews]  
-          })
+          setDevelopBoard((prevState) => {
+            return [...prevState, ...res.data.reviews];
+          });
 
-          setFreeBoard((prevState)=>{
-            return [...prevState, ...res.data.boards]  
-          })
-        })      
+          setFreeBoard((prevState) => {
+            return [...prevState, ...res.data.boards];
+          });
+        })
         .catch((err) => console.log(err));
     };
     postReq();
@@ -32,10 +33,14 @@ export default function MainContents({ isLogin }) {
 
   return (
     <>
-      <Banner></Banner> 
+      <Banner></Banner>
       <Container>
-        <HotBootCampBoard isLogin={ isLogin } />
-        <BoardsWrapper isLogin={ isLogin } freeBoard={freeBoard} developBoard={developBoard}/>
+        <HotBootCampBoard isLogin={isLogin} />
+        <BoardsWrapper
+          isLogin={isLogin}
+          freeBoard={freeBoard}
+          developBoard={developBoard}
+        />
       </Container>
     </>
   );
