@@ -62,7 +62,7 @@ const LoginContainer = styled.div`
   align-items: center;
 
   flex-direction: column;
-
+  color: #575757;
   border-radius: 5px;
   width: 30%;
   height: 40rem;
@@ -99,6 +99,7 @@ const LoginButton = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: black;
   border-radius: 5px;
 `;
 
