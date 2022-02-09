@@ -70,7 +70,7 @@ function PostReview({ isLogin }) {
           size="large"
           value={star}
           onChange={(e) => {
-            setStar(e.target.value);
+            setStar(Number(e.target.value));
           }}
         />
         <Typography>별점을 선택해 주세요</Typography>
