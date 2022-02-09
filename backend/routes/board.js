@@ -15,8 +15,9 @@ router.get('/free', async (req, res) => {
 
 router.get('/free/:id', async (req, res) => {
   const { id } = req.params;
-  const board = await Board.find({ _id: id });
-  res.send(board);
+  const borad = await Board.findByIdAndUpdate({ _id: id },{$addToSet:{views:}}).populate('comment');
+
+  res.send(borad);
 });
 
 //개발 이야기
