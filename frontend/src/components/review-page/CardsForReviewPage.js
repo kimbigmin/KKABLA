@@ -2,7 +2,7 @@ import React from 'react';
 import { getStars } from './util/getStars';
 import styled from 'styled-components';
 
-function CardsForReviewPage({ item, reviews }) {
+function CardForReviewPage({ item, reviews }) {
   const sumStars = reviews.reduce((acc, val) => {
     return acc + val.star;
   }, 0);
@@ -68,4 +68,4 @@ const ImageBox = styled.div`
   }
 `;
 
-export default CardsForReviewPage;
+export default CardForReviewPage;

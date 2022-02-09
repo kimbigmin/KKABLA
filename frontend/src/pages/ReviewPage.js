@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReviewBox from '../components/review-page/ReviewBox';
 import axios from 'axios';
-import ReviewCard from '../components/review-page/CardsForReviewPage';
+import CardForReviewPage from '../components/review-page/CardsForReviewPage';
 import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 
@@ -35,11 +35,11 @@ function Review({ isLogin }) {
                   }}
                   style={{ textDecoration: 'none', color: 'black' }}
                 >
-                  <ReviewCard
+                  <CardForReviewPage
                     key={item._id}
                     item={item}
                     reviews={res.data.review}
-                  ></ReviewCard>
+                  ></CardForReviewPage>
                 </Link>
               </Grid>
             );
