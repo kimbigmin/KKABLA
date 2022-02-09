@@ -50,8 +50,8 @@ function PostReview({ isLogin }) {
         <Rating
           name="reviewPoint"
           value={star}
-          onChange={(event, newVal) => {
-            setStar(newVal);
+          onChange={(e) => {
+            setStar(Number(e.target.value));
           }}
           size="large"
         />
