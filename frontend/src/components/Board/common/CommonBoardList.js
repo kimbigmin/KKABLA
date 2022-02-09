@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CommonBoard from './CommonBoard';
 import { data } from './dummy';
 import { Container, Grid } from '@mui/material';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function CommonBoardList({ type, title, isLogin }) {
+  const [commonBoard, setCommonBoard] = useState([]);
+  const getBoardInfo = async () => {
+    await axios
+      .get(`http://localhost:5000/board/${type}`, {
+        params: { timestamps: true },
+      })
+      .then((Response) => {
+        setCommonBoard(Response.data);
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
+  };
+  console.log(commonBoard);
+  useEffect(() => {
+    getBoardInfo();
+  }, []);
+
   // 게시판 생성
-  const list = data
-    .filter((item) => item.type === type)
-    .map((item) => {
-      if (item) {
-        return (
-          <Grid item xs={6}>
-            <CommonBoard item={item} />
-          </Grid>
-        );
-      }
-    });
+  const list = commonBoard.map((item) => {
+    if (item) {
+      return (
+        <Grid item xs={6}>
+          <CommonBoard key={item} item={item} />
+        </Grid>
+      );
+    }
+  });
 
   // 최신순 정렬
   // const sortByRecent =

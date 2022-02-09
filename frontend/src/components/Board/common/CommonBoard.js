@@ -7,12 +7,13 @@ function CommonBoard({ item }) {
   return (
     <PaperArea>
       <Link
-        to={`/board/detail/`}
+        to={`/board/free/${item._id}`}
         state={{ data: item }}
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <Grid container>
-          <Grid item container xs={8} direction="column">
+          {/* 이미지 넣어보고 xs={8} 수정필요 */}
+          <Grid item container direction="column">
             <Grid item container>
               <Title>{item.title}</Title>
             </Grid>
@@ -25,21 +26,29 @@ function CommonBoard({ item }) {
             <Grid item container>
               <Caption>
                 <Typography variant="caption">조회수</Typography>
-                <Typography variant="caption">{item.views}</Typography>
+                <Typography variant="caption">
+                  {item.views ? item.views : 0}
+                </Typography>
               </Caption>
               <Caption>
                 <Typography variant="caption">좋아요</Typography>
-                <Typography variant="caption">{item.like}</Typography>
+                <Typography variant="caption">
+                  {item.like ? item.like : 0}
+                </Typography>
               </Caption>
               <Caption>
                 <Typography variant="caption">댓글</Typography>
-                <Typography variant="caption">0</Typography>
+                <Typography variant="caption">
+                  {item.comments ? item.comments.length : 0}
+                </Typography>
               </Caption>
             </Grid>
           </Grid>
-          <Grid item container xs={4}>
-            <Img alt="이미지" src={item.thumbnail} />
-          </Grid>
+          {item.thumbnail ? (
+            <Grid item container xs={4}>
+              <Img alt="이미지" src={item.thumbnail} />
+            </Grid>
+          ) : null}
         </Grid>
       </Link>
     </PaperArea>
