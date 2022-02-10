@@ -46,8 +46,8 @@ app.use('/auth', auth);
 app.use('/login', login);
 app.use('/search', search);
 app.use('/post', findUser, post);
-app.use('/board', board);
 app.use('/mypage', findUser, mypage);
+app.use('/board', board);
 app.use('/', home);
 
 try {
