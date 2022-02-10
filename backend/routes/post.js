@@ -84,7 +84,7 @@ router.get('/like/:id', async (req, res) => {
   const userId = res.locals.user._id;
   if (mongoose.Types.ObjectId.isValid(id)) {
     if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
-
+    const boolean = await Board.findOne({ _id: id, like: { $in: [userId] } });
     if (boolean) {
       const board = await Board.findOneAndUpdate(
         { _id: id },
