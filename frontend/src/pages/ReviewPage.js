@@ -6,25 +6,25 @@ function Review({ isLogin }) {
   const [bootcampData, setBootcampData] = useState([]);
   const [isAlignChange, setIsAlignChange] = useState(false);
 
-  // 부트캠프 Get Handler
+  // 부트캠프 데이터 GET Handler
   const getBootcampData = async () => {
     return await axios
       .get('http://localhost:5000/board/review/')
       .then((res) => res.data);
   };
-
-  const render = async () => {
+  // 부트캠프, 리뷰 데이터 GET Handler
+  const getReviewAndBootcampData = async () => {
     const bootcamp = await getBootcampData();
     const bootcampdata = await bootcamp.map(async (item) => {
       return await axios
         .get(`http://localhost:5000/board/review/${item._id}`)
-        .then((res) => res.data)
-        .then((result) => result);
+        .then((res) => res.data);
     });
 
     return { bootcamp, bootcampdata };
   };
 
+  // 부트캠프, 리뷰 데이터 바인딩 Handler
   const bindReviewsAndBootcampData = async (res) => {
     for (let i = 0; i < res.bootcamp.length; i++) {
       const reviews = await res.bootcampdata[i];
@@ -35,7 +35,7 @@ function Review({ isLogin }) {
 
   useEffect(() => {
     if (!isAlignChange) {
-      render().then(bindReviewsAndBootcampData);
+      getReviewAndBootcampData().then(bindReviewsAndBootcampData);
       setIsAlignChange(true);
     }
   }, []);
