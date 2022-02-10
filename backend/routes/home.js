@@ -8,11 +8,11 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const boards = await Board.find({}).sort({
-    updatedTime: -1,
+    updatedAt: -1,
   });
   const bootCamps = await BootCamp.find({});
   const reviews = await Review.find({}).sort({
-    updatedTime: -1,
+    updatedAt: -1,
   });
 
   res.send({ boards, bootCamps, reviews });
