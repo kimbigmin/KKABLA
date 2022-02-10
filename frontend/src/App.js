@@ -19,6 +19,7 @@ import MyPage from './pages/myPage/MyPage';
 import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
+import AdminPage from './pages/myPage/AdminPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -36,21 +37,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Container>
-        <Header isLogin={isLogin} />
-      </Container>
-
+      <Header isLogin={isLogin} />
       <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
-          <Route path="/" element={<MainContents />}></Route>
+          <Route path="/" element={<MainContents isLogin={isLogin}/>}></Route>
           <Route
             path="/board/review"
             element={<ReviewPage isLogin={isLogin} />}
           ></Route>
           <Route
-            path="/review/detail/:id"
+            path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
           <Route path="/board/detail" element={<BoardDetailPage />} />
@@ -69,6 +67,7 @@ function App() {
           />
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/mypage/auth" element={<AuthPage />}></Route>
+          <Route path="/admin" element={<AdminPage />}></Route>
           {isLogin && (
             <>
               <Route
