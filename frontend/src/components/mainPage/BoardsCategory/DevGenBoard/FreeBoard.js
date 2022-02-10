@@ -4,34 +4,33 @@ import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
 
 export default function FreeBoard({isLogin, freeBoard}) {
-  const titleList=freeBoard
-  .slice(0,9)
-  .map((post)=>{
-    //17글자가 넘는 제목은 17글자까지만 자르고 '...' 추가
-    const limitLen=17;
-    const tailTxt=" ...";
-    
-    //날짜 YY-DD 식으로 출력
-    const updatedTime=new Date(post.updatedAt)
-    const month=(updatedTime.getMonth()+1).toString();
-    const date=updatedTime.getDate().toString();
-    const fillZeroMonth = month.length<2 ? '0'+month: month;
-    const fillZeroDate = date.length<2 ? '0'+date: date;
-    
-    return(
-      <TitleWrapper key={post._id}>
-        <Link
-            to={"/board/detail/"}
-            state={{ isLogin: isLogin }}
-            style={{ textDecoration: 'none', color: 'black' }}
-        >
-            <h2>{post.title.length<limitLen ? 
-            post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
-        </Link>
-        <span>{`${fillZeroMonth}-${fillZeroDate}`}</span>
-      </TitleWrapper>
-    );
-  });
+  const titleList=[...freeBoard]
+    .slice(0,9)
+    .map((post)=>{
+      //17글자가 넘는 제목은 17글자까지만 자르고 '...' 추가
+      const limitLen=17;
+      const tailTxt=" ...";
+      
+      //날짜 YY-DD 식으로 출력
+      const createdTime=new Date(post.createdAt)
+      const month=(createdTime.getMonth()+1).toString();
+      const date=createdTime.getDate().toString();
+      const fillZeroMonth = month.length<2 ? '0'+month: month;
+      const fillZeroDate = date.length<2 ? '0'+date: date;
+      return(
+        <TitleWrapper key={post._id}>
+          <Link
+              to={"/board/detail/"}
+              state={{ isLogin: isLogin }}
+              style={{ textDecoration: 'none', color: 'black' }}
+          >
+              <h2>{post.title.length<limitLen ? 
+              post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
+          </Link>
+          <span>{`${fillZeroMonth}-${fillZeroDate}`}</span>
+        </TitleWrapper>
+      );
+    });
   
   return (
       <Grid item xs={6}>

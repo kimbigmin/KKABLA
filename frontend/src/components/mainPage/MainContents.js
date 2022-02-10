@@ -16,15 +16,20 @@ export default function MainContents({ isLogin }) {
       axios
         .get('http://localhost:5000/')
         .then((res) => {
-          // console.log(res.data.boards)
-          console.log(res.data);
-          setDevelopBoard((prevState) => {
-            return [...prevState, ...res.data.reviews];
-          });
-
-          setFreeBoard((prevState) => {
-            return [...prevState, ...res.data.boards];
-          });
+          //자유게시판 글과 개발 게시판 글을 나눈다.  
+          res.data.boards
+            .map((post)=>{
+              if (post.type==="free"){
+                setFreeBoard((prevState)=>{
+                  return [post, ...prevState]
+                })
+              }
+              else if(post.type==="develop"){
+                setDevelopBoard((prevState)=>{
+                  return [post, ...prevState]
+                })    
+              }      
+            })
         })
         .catch((err) => console.log(err));
     };
