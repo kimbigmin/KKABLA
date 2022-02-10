@@ -11,7 +11,7 @@ const router = express.Router();
 //자유 게시판
 router.get('/free', async (req, res) => {
   const borads = await Board.find({ type: 'free' }).sort({
-    updatedTime: 'desc',
+    updatedTime: -1,
   });
 
   res.send(borads);
@@ -30,7 +30,7 @@ router.get('/free/:id', async (req, res) => {
 //개발 이야기
 router.get('/develop', async (req, res) => {
   const borads = await Board.find({ type: 'develop' }).sort({
-    updatedTime: 'desc',
+    updatedTime: -1,
   });
 
   res.send(borads);
@@ -48,7 +48,7 @@ router.get('/develop/:id', async (req, res) => {
 //리뷰 게시판
 router.get('/review', async (req, res) => {
   const borads = await BootCamp.find({}).sort({
-    updatedTime: 'desc',
+    updatedTime: -1,
   });
   res.send(borads);
 });
