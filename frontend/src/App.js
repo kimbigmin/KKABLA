@@ -93,7 +93,7 @@ const ContentContainer = styled.div`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   min-height: 80vh;
-  background-color: #f4f4f4;
+  background-color: rgba(244, 244, 244, 0.5);
 `;
 
 export default App;

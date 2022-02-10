@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import ArticleCounts from '../LikeComments';
+import ArticleCounts from '../Article/ArticleCounts';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 

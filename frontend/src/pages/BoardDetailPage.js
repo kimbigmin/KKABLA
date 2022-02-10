@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import Article from '../components/Article';
-import CommentBox from '../components/Comment/CommentBox';
+import Article from '../components/board-detail-page/Article/Article';
+
+import CommentBox from '../components/board-detail-page/Comment/CommentBox';
 
 const mockComment = [
   {
@@ -66,6 +67,7 @@ function BoardDetailPage() {
 
   return (
     <DetailPageContainer>
+      <h3>자유게시판</h3>
       <Article />
       <CommentBox
         data={commentList}
@@ -78,11 +80,14 @@ function BoardDetailPage() {
 }
 
 const DetailPageContainer = styled.div`
-  max-width: 1260px;
-  padding: 50px;
+  width: 60%;
+  margin: 5rem auto 5rem;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+
+  h3 {
+    font-weight: bold;
+  }
 `;
 
 export default BoardDetailPage;

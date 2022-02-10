@@ -1,7 +1,7 @@
 import React from 'react';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import { ArticleCountsContainer, Item } from './styles';
+import styled from 'styled-components';
 
 export default function ArticleCounts({ likeCount, commentCount, size }) {
   return (
@@ -18,6 +18,16 @@ export default function ArticleCounts({ likeCount, commentCount, size }) {
   );
 }
 
-ArticleCountsContainer.defaultProps = {
-  fontSize: 'large',
-};
+const ArticleCountsContainer = styled.div`
+  position: absolute;
+  bottom: 0.1em;
+
+  display: flex;
+`;
+
+const Item = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+`;

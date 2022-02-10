@@ -182,7 +182,7 @@ const Blind = styled.div`
     background-color: rgba(255, 255, 255, 0.036);
     width: 102%;
     height: 100%;
-    z-index: 100;
+    z-index: 50;
     font-size: 2rem;
     font-weight: bold;
   }

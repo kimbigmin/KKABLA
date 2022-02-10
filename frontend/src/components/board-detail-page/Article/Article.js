@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import ArticleTitle from './ArticleTitle';
 import ArticleContent from './ArticleContent';
-import ArticleCounts from '../LikeComments';
+import ArticleCounts from './ArticleCounts';
 
 const mock = {
   title: 'Title example',
