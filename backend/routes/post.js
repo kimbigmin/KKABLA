@@ -13,6 +13,7 @@ router.post('/free', upload.array('image'), async (req, res) => {
   const images = req.files ? req.files.map((file) => file.location) : '';
 
   await Board.create({ title, contents, creator, images, type });
+  return res.redirect('http://localhost:3000/board/free');
 });
 
 router.get('/review/:id', async (req, res) => {
@@ -59,7 +60,7 @@ router.post('/develop', upload.array('image'), async (req, res) => {
     images,
     type,
   });
-  res.send(develop);
+  res.redirect('http://localhost:3000/board/develop');
 });
 
 router.post('/bootcamp', upload.single('image'), async (req, res) => {

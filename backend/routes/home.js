@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
   const boards = await Board.find({});
   const bootCamps = await BootCamp.find({});
   const reviews = await Review.find({});
-
+  console.log(res.locals.user);
   res.send({ boards, bootCamps, reviews });
 });
 

@@ -6,6 +6,7 @@ import MyPageAuth from '../../components/MyPage/MyPageAuth';
 import MyPagePosts from '../../components/MyPage/MyPagePosts';
 import MyPageReviews from '../../components/MyPage/MyPageReviews';
 import MyPageLikes from '../../components/MyPage/MyPageLikes';
+import axios from 'axios';
 
 const users = {
   name: '닉네임123',
@@ -54,6 +55,11 @@ const users = {
 };
 
 function MyPage() {
+  axios
+    .get('http://localhost:5000/mypage', {
+      withCredentials: true,
+    })
+    .then((res) => console.log(res.data));
   return (
     <Container>
       <Grid container>

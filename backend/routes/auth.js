@@ -7,6 +7,7 @@ import CryptoJS from 'crypto-js';
 import cryto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
 import queryString from 'querystring';
+import findUser from '../middlewares/findUser.js';
 
 const router = express.Router();
 
@@ -106,7 +107,8 @@ router.get('/user', async (req, res) => {
     if (user) {
       return res.send(user.nickName);
     } else {
-      const user = await User.create({ hashedEmail, hashedName, nickName });
+      await User.create({ hashedEmail, hashedName, nickName });
+
       return res.send(nickName);
     }
   } catch (error) {

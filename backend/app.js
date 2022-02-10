@@ -13,6 +13,7 @@ import home from './routes/home.js';
 import path from 'path';
 import session from 'express-session';
 import passport from 'passport';
+import findUser from './middlewares/findUser.js';
 
 //env setting
 Dotenv.config();
@@ -39,13 +40,9 @@ app.use(
     origin: 'http://localhost:3000',
   }),
 );
-app.use('/public', express.static(path.join(__dirname, 'public')));
-const appendLocalsToUseInViews = (req, res, next) => {
-  res.locals.session = req.session;
-  next(null, req, res);
-};
-app.use(appendLocalsToUseInViews);
+
 //Routes
+app.use(findUser);
 app.use('/login', login);
 app.use('/auth', auth);
 app.use('/search', search);

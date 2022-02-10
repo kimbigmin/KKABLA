@@ -9,18 +9,19 @@ import fs from 'fs';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const user = req.user;
+  const user = res.locals.user;
 
   if (user) {
     const boards = await Board({ creator: user.nickName });
     const reviews = await Review({ creator: user.nickName });
-    console.log([boards, reviews, user.auth]);
+    console.log([boards]);
     res.send({ boards, reviews, userAuth: user.auth });
   }
 });
 
 router.delete('/', async (req, res) => {
-  const user = req.user;
+  const nickName = req.session.nickName;
+  const user = await User.findOne({ nickName });
 
   if (user) {
     await Review.deleteMany({ creator: user.nickName });
