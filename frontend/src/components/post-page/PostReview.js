@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 function PostReview({ isLogin }) {
   const location = useLocation();
   const { data } = location.state;
-  console.log(data);
 
   const param = useParams();
   const id = param.id;

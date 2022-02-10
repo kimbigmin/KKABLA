@@ -12,14 +12,15 @@ function Post({ isLogin, name }) {
   const navigate = useNavigate();
 
   const onPostFreeHandler = async () => {
-    await axios.post(`http://localhost:5000/post/${name}`, {
-      title,
-      type: name,
-      contents,
-      images,
-      creator: isLogin,
-    });
-    // .then(navigate(`http://localhost:3000/board/${name}`, { replace: true }));
+    await axios
+      .post(`http://localhost:5000/post/${name}`, {
+        title,
+        type: name,
+        contents,
+        images,
+        creator: isLogin,
+      })
+      .then(navigate(`/board/${name}`, { replace: true }));
   };
 
   const onHandleUploadImg = (e) => {
