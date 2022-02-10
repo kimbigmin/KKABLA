@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   if (user) {
     const boards = await Board.find({ creator: user.nickName });
     const reviews = await Review.find({ creator: user.nickName });
-    console.log([boards]);
+    console.log([boards, reviews, user.auth]);
     res.send({ boards, reviews, userAuth: user.auth });
   }
 });
