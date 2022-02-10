@@ -12,7 +12,7 @@ function CommonBoardList({ type, title, isLogin }) {
   const getBoardInfo = async () => {
     await axios
       .get(`http://localhost:5000/board/${type}`, {
-        params: { timestamps: true },
+        // params: { timestamps: true },
       })
       .then((Response) => {
         setCommonBoard(Response.data);
@@ -38,31 +38,34 @@ function CommonBoardList({ type, title, isLogin }) {
   });
 
   // 최신순 정렬
-  // const sortByRecent = () => {
-  //   const sortedData = [...commonBoard].sort((a, b) => {
-  //     return a.
-  //   })
-  // }
-
-  // 좋아요순 정렬
-  const sortByLike = () => {
+  const sortByRecent = () => {
     const sortedData = [...commonBoard].sort((a, b) => {
-      return a.likes > b.likes ? 1 : a.likes === b.likes ? 0 : -1;
+      const aTime = a.updateAt;
+      const bTime = b.updateAt;
+      return aTime > bTime ? -1 : aTime === bTime ? 0 : 1;
     });
     setCommonBoard(sortedData);
   };
 
-  // // 댓글순 정렬
-  // const sortByComment = () => {
-  //   const sortedData = [...commonBoard].sort((a, b) => {
-  //     return a.comments.length > b.comments.length
-  //       ? 1
-  //       : a.comments.length === b.comments.length
-  //       ? 0
-  //       : -1;
-  //   });
-  //   setCommonBoard(sortedData);
-  // };
+  // 좋아요순 정렬
+  const sortByLike = () => {
+    const sortedData = [...commonBoard].sort((a, b) => {
+      const aLike = a.like.length;
+      const bLike = b.like.length;
+      return aLike > bLike ? -1 : aLike === bLike ? 0 : 1;
+    });
+    setCommonBoard(sortedData);
+  };
+
+  // 댓글순 정렬
+  const sortByComment = () => {
+    const sortedData = [...commonBoard].sort((a, b) => {
+      const aComment = a.comments.length;
+      const bComment = b.comments.length;
+      return aComment > bComment ? -1 : aComment === bComment ? 0 : 1;
+    });
+    setCommonBoard(sortedData);
+  };
 
   return (
     <Container sx={{ marginBottom: '5rem' }}>
@@ -70,8 +73,9 @@ function CommonBoardList({ type, title, isLogin }) {
         <h2>{title}</h2>
 
         <div>
-          <span>최신순</span> | <span onClick={sortByLike}>좋아요순</span> |{' '}
-          <span>댓글순</span>
+          <span onClick={sortByRecent}>최신순</span> |{' '}
+          <span onClick={sortByLike}>좋아요순</span> |{' '}
+          <span onClick={sortByComment}>댓글순</span>
           {isLogin ? (
             <Link
               to={`../post/${type}`}

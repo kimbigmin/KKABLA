@@ -27,7 +27,7 @@ function CommonBoard({ item }) {
               <Caption>
                 <Typography variant="caption">좋아요</Typography>
                 <Typography variant="caption">
-                  {item.like ? item.like : 0}
+                  {item.like ? item.like.length : 0}
                 </Typography>
               </Caption>
               <Caption>
