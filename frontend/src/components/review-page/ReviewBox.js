@@ -5,7 +5,13 @@ import styled from 'styled-components';
 import CardForReviewPage from '../review-page/CardsForReviewPage';
 import { Link } from 'react-router-dom';
 
-function ReviewBox({ bootcampData, setBootcampData, isLogin }) {
+function ReviewBox({
+  bootcampData,
+  setBootcampData,
+  isLogin,
+  setIsAlignChange,
+  isAlignChange,
+}) {
   // 별점순 정렬 핸들러
   console.log(bootcampData);
 
@@ -37,16 +43,14 @@ function ReviewBox({ bootcampData, setBootcampData, isLogin }) {
     });
     // 정렬된 배열을 dummy에 다시 셋해주고 재렌더링
     console.log(sortedArr);
-    setBootcampData((current) => {
-      const newArr = [...sortedArr];
-      return newArr;
-    });
+    setBootcampData(sortedArr);
   };
 
   // 이름순 정렬 핸들러
   const sortByName = () => {
     const newArr = [...bootcampData];
-    const sortedArr = newArr.sort((a, b) => (a.name > b.name ? 1 : -1));
+    const sortedArr = newArr.sort((a, b) => (a.name >= b.name ? 1 : -1));
+    console.log(sortedArr);
     setBootcampData(sortedArr);
   };
 

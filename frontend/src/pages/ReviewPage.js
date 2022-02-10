@@ -4,6 +4,7 @@ import axios from 'axios';
 
 function Review({ isLogin }) {
   const [bootcampData, setBootcampData] = useState([]);
+  const [isAlignChange, setIsAlignChange] = useState(false);
 
   // 부트캠프 Get Handler
   const getBootcampData = async () => {
@@ -24,7 +25,7 @@ function Review({ isLogin }) {
     return { bootcamp, bootcampdata };
   };
 
-  const sumReviewsData = async (res) => {
+  const bindReviewsAndBootcampData = async (res) => {
     for (let i = 0; i < res.bootcamp.length; i++) {
       const reviews = await res.bootcampdata[i];
       res.bootcamp[i].review = reviews.review;
@@ -33,7 +34,10 @@ function Review({ isLogin }) {
   };
 
   useEffect(() => {
-    render().then(sumReviewsData);
+    if (!isAlignChange) {
+      render().then(bindReviewsAndBootcampData);
+      setIsAlignChange(true);
+    }
   }, []);
 
   return (
@@ -41,6 +45,8 @@ function Review({ isLogin }) {
       isLogin={isLogin}
       bootcampData={bootcampData}
       setBootcampData={setBootcampData}
+      isAlignChange={isAlignChange}
+      setIsAlignChange={setIsAlignChange}
     />
   );
 }
