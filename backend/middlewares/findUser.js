@@ -3,7 +3,7 @@ import User from '../models/User.js';
 import cryto from 'crypto';
 
 const findUser = async (req, res, next) => {
-  if (!req.cookies['auth_token']) return;
+  // if (!req.cookies['auth_token']) return;
   try {
     const decode = jwt.verify(
       req.cookies['auth_token'],
@@ -27,6 +27,7 @@ const findUser = async (req, res, next) => {
     res.locals.user = user;
     next();
   } catch (error) {
+    console.log(error);
     res.send({ message: '존재하지 않는 유저입니다.' });
   }
 };

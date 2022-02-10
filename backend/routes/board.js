@@ -12,28 +12,29 @@ router.get('/free', async (req, res) => {
   const borads = await Board.find({ type: 'free' }).sort({
     updatedTime: 'desc',
   });
-  console.log(req.session);
+
   res.send(borads);
 });
 
 router.get('/free/:id', async (req, res) => {
   const { id } = req.params;
+
   if (mongoose.Types.ObjectId.isValid(id)) {
     const board = await Board.find({ _id: id });
     res.send(board);
   }
 });
 
-router.post('/free/:id/like', async (req, res) => {
+router.get('/free/:id/like', async (req, res) => {
   const { id } = req.params;
+  const nickName = res.locals.user.nickName;
 
-  const { nickName } = req.body;
   if (mongoose.Types.ObjectId.isValid(id)) {
     const user = await User.findOne({ nickName });
 
     if (!user) res.send({ message: '존재하지 않는 유저입니다.' });
 
-    const boolean = await Board.find({
+    const boolean = await Board.findOne({
       _id: id,
       like: { $in: [user._id] },
     });
@@ -45,13 +46,18 @@ router.post('/free/:id/like', async (req, res) => {
       );
       res.send(board);
     } else {
+      const board = await Board.findOneAndUpdate(
+        { _id: id },
+        { $addToSet: { like: user._id } },
+      );
+      res.send(board);
     }
   } else {
     res.send({ message: '존재하지 않는 페이지입니다.' });
   }
 });
 
-router.post('/free/:id/report', async (req, res) => {
+router.get('/free/:id/report', async (req, res) => {
   const { id } = req.params;
 
   const { nickName } = req.body;
@@ -85,17 +91,29 @@ router.get('/develop/:id', async (req, res) => {
   }
 });
 
-router.post('/develop/:id/like', async (req, res) => {
+router.get('/develop/:id/like', async (req, res) => {
   const { id } = req.params;
   const { nickName } = req.body;
   if (mongoose.Types.ObjectId.isValid(id)) {
     const user = await User.findOne({ nickName });
+
     if (!user) res.send({ message: '존재하지 않는 유저입니다.' });
-    const board = await Board.findOneAndUpdate(
-      { _id: id },
-      { $addToSet: { like: user._id } },
-    );
-    res.send(board);
+
+    if (boolean) {
+      const board = await Board.findOneAndUpdate(
+        { _id: id },
+        { $pull: { like: { $in: [user._id] } } },
+      );
+      res.send(board);
+    } else {
+      const board = await Board.findOneAndUpdate(
+        { _id: id },
+        { $addToSet: { like: user._id } },
+      );
+      res.send(board);
+    }
+  } else {
+    res.send({ message: '존재하지 않는 페이지입니다.' });
   }
 });
 

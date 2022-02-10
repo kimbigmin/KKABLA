@@ -42,9 +42,9 @@ app.use(
 );
 
 //Routes
+app.use('/auth', auth);
 app.use(findUser);
 app.use('/login', login);
-app.use('/auth', auth);
 app.use('/search', search);
 app.use('/post', post);
 app.use('/board', board);

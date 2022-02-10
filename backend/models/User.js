@@ -9,6 +9,7 @@ const UserSchema = new Schema(
     posts: [Schema.Types.ObjectId],
     nickName: String,
     auth: String,
+    admin: { type: String, enum: ['yes', 'no'] },
   },
   { timestamps: true },
 );

@@ -11,9 +11,10 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const user = res.locals.user;
 
+  console.log(user);
   if (user) {
-    const boards = await Board({ creator: user.nickName });
-    const reviews = await Review({ creator: user.nickName });
+    const boards = await Board.find({ creator: user.nickName });
+    const reviews = await Review.find({ creator: user.nickName });
     console.log([boards]);
     res.send({ boards, reviews, userAuth: user.auth });
   }
@@ -22,7 +23,6 @@ router.get('/', async (req, res) => {
 router.delete('/', async (req, res) => {
   const nickName = req.session.nickName;
   const user = await User.findOne({ nickName });
-
   if (user) {
     await Review.deleteMany({ creator: user.nickName });
     await Board.deleteMany({ creator: user.nickName });
