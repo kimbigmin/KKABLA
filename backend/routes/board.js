@@ -11,6 +11,7 @@ router.get('/free', async (req, res) => {
   const borads = await Board.find({ type: 'free' }).sort({
     updatedTime: 'desc',
   });
+  console.log(req.session);
   res.send(borads);
 });
 
@@ -20,7 +21,30 @@ router.get('/free/:id', async (req, res) => {
     const board = await Board.find({ _id: id });
     res.send(board);
   }
-  // const borad = await Board.findByIdAndUpdate({ _id: id },{$addToSet:{views:}}).populate('comment');
+});
+
+router.post('/free/:id/like', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const user = req.user;
+    const board = await Board.findOneAndUpdate(
+      { _id: id },
+      { $addToSet: { like: user._id } },
+    );
+    res.send(board);
+  }
+});
+
+router.post('/free/:id/report', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const user = req.user;
+    const board = await Board.findOneAndUpdate(
+      { _id: id },
+      { $addToSet: { report: user._id } },
+    );
+    res.send(board);
+  }
 });
 
 //개발 이야기
@@ -28,13 +52,35 @@ router.get('/develop', async (req, res) => {
   const borads = await Board.find({ type: 'develop' }).sort({
     updatedTime: 'desc',
   });
+
   res.send(borads);
 });
 
-router.get('/develop/:id', async (req, res) => {
+router.post('/develop/:id', async (req, res) => {
   const { id } = req.params;
   if (mongoose.Types.ObjectId.isValid(id)) {
     const board = await Board.find({ _id: id });
+    res.send(board);
+  }
+});
+
+router.post('/develop/:id/like', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const board = await Board.findOne({ _id: id });
+
+    res.send(board);
+  }
+});
+
+router.get('/develop/:id/report', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const board = await Board.findOneAndUpdate(
+      { _id: id },
+      { $addToSet: { report: user._id } },
+    );
+    res.send(board);
     res.send(board);
   }
 });

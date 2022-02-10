@@ -8,9 +8,9 @@ import mongoose from 'mongoose';
 const router = express.Router();
 
 router.post('/free', upload.array('image'), async (req, res) => {
-  const { title, contents, creator, images, type } = req.body;
+  const { title, contents, creator, type } = req.body;
 
-  const { path } = req.files.images[0];
+  const images = req.files ? req.files.map((file) => file.location) : '';
 
   await Board.create({ title, contents, creator, images, type });
 });
@@ -49,7 +49,9 @@ router.post('/review/:id', async (req, res) => {
 });
 
 router.post('/develop', upload.array('image'), async (req, res) => {
-  const { title, contents, creator, images, type } = req.body;
+  const { title, contents, creator, type } = req.body;
+
+  const images = req.files ? req.files.map((file) => file.location) : '';
   const develop = await Board.create({
     title,
     contents,
@@ -63,7 +65,7 @@ router.post('/develop', upload.array('image'), async (req, res) => {
 router.post('/bootcamp', upload.single('image'), async (req, res) => {
   const { name, loca, homePage, system } = req.body;
   const { location } = req.file;
-  console.log(req.file);
+
   const bootCamp = await BootCamp.create({
     name,
     image: location,

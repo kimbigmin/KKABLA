@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   const { value } = req.body;
-
+  console.log(value);
   if (value) {
     const boards = await Board.find({
       $or: [

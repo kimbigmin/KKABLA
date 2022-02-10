@@ -16,15 +16,15 @@ export default function MainContents({ isLogin }) {
       axios
         .get('http://localhost:5000/')
         .then((res) => {
-          // console.log(res.data.boards)
-          setDevelopBoard((prevState)=>{
-            return [...prevState, ...res.data.reviews]  
-          })
+          console.log(res.data);
+          setDevelopBoard((prevState) => {
+            return [...prevState, ...res.data.reviews];
+          });
 
-          setFreeBoard((prevState)=>{
-            return [...prevState, ...res.data.boards]  
-          })
-        })      
+          setFreeBoard((prevState) => {
+            return [...prevState, ...res.data.boards];
+          });
+        })
         .catch((err) => console.log(err));
     };
     postReq();
@@ -32,10 +32,14 @@ export default function MainContents({ isLogin }) {
 
   return (
     <>
-      <Banner></Banner> 
+      <Banner></Banner>
       <Container>
-        <HotBootCampBoard isLogin={ isLogin } />
-        <BoardsWrapper isLogin={ isLogin } freeBoard={freeBoard} developBoard={developBoard}/>
+        <HotBootCampBoard isLogin={isLogin} />
+        <BoardsWrapper
+          isLogin={isLogin}
+          freeBoard={freeBoard}
+          developBoard={developBoard}
+        />
       </Container>
     </>
   );

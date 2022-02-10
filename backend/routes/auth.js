@@ -33,8 +33,6 @@ router.get('/kakao', async (req, res) => {
       throw new Error(error.message);
     });
 
-  console.log(kakaoUser);
-
   const token = jwt.sign(kakaoUser, process.env.JWT_SECRET);
 
   res.cookie('auth_token', token, {
@@ -46,7 +44,6 @@ router.get('/kakao', async (req, res) => {
   res.redirect('http://localhost:3000');
 });
 
-/////////////////////////////////
 router.get('/google', async (req, res) => {
   const code = req.query.code;
   const { id_token, access_token } = await getTokens({
@@ -77,7 +74,7 @@ router.get('/google', async (req, res) => {
   res.cookie('auth_token', token, {
     maxAge: 900000,
     httpOnly: true,
-    secure: false,
+    // secure: false,
   });
 
   res.redirect('http://localhost:3000');
@@ -105,10 +102,11 @@ router.get('/user', async (req, res) => {
     const nickName = uuidv4().slice(0, 6);
 
     const user = await User.findOne({ hashedEmail, hashedName });
+
     if (user) {
       return res.send(user.nickName);
     } else {
-      await User.create({ hashedEmail, hashedName, nickName });
+      const user = await User.create({ hashedEmail, hashedName, nickName });
       return res.send(nickName);
     }
   } catch (error) {

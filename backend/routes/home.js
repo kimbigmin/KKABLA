@@ -1,4 +1,5 @@
 import express from 'express';
+import findUser from '../middlewares/findUser.js';
 import Board from '../models/Board.js';
 import BootCamp from '../models/BootCamp.js';
 import Review from '../models/Review.js';

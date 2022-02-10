@@ -9,21 +9,27 @@ import fs from 'fs';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  if (!req.cookies['auth_token']) return;
+  const user = req.user;
 
-  const decode = jwt.verify(req.cookies['auth_token'], process.env.JWT_SECRET);
-  const user = await User.findOne({
-    hashedEmail: decode.email || decode.kakao_account.email,
-    hashedName: decode.name || decode.kakao_account.profile.nickname,
-  });
-
-  console.log(user);
-
-  if (user.nickName) {
+  if (user) {
     const boards = await Board({ creator: user.nickName });
     const reviews = await Review({ creator: user.nickName });
     console.log([boards, reviews, user.auth]);
     res.send({ boards, reviews, userAuth: user.auth });
+  }
+});
+
+router.delete('/', async (req, res) => {
+  const user = req.user;
+
+  if (user) {
+    await Review.deleteMany({ creator: user.nickName });
+    await Board.deleteMany({ creator: user.nickName });
+    await User.findOneAndDelete({ nickName: user.nickName });
+    res.clearCookie('auth_token');
+    res.send({ message: '회원 탈퇴 완료' });
+  } else {
+    res.send({ message: '해당 유저가 존재하지 않습니다.' });
   }
 });
 
