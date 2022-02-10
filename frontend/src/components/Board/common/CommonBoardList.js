@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import CommonBoard from './CommonBoard';
-import { data } from './dummy';
 import { Container, Grid } from '@mui/material';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -8,6 +7,8 @@ import axios from 'axios';
 
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
+  const [sortList, setSortList] = useState([]);
+
   const getBoardInfo = async () => {
     await axios
       .get(`http://localhost:5000/board/${type}`, {
@@ -37,13 +38,31 @@ function CommonBoardList({ type, title, isLogin }) {
   });
 
   // 최신순 정렬
-  // const sortByRecent =
+  // const sortByRecent = () => {
+  //   const sortedData = [...commonBoard].sort((a, b) => {
+  //     return a.
+  //   })
+  // }
 
   // 좋아요순 정렬
-  // const sortByLike =
+  const sortByLike = () => {
+    const sortedData = [...commonBoard].sort((a, b) => {
+      return a.likes > b.likes ? 1 : a.likes === b.likes ? 0 : -1;
+    });
+    setCommonBoard(sortedData);
+  };
 
-  // 댓글순 정렬
-  // const sortByComment =
+  // // 댓글순 정렬
+  // const sortByComment = () => {
+  //   const sortedData = [...commonBoard].sort((a, b) => {
+  //     return a.comments.length > b.comments.length
+  //       ? 1
+  //       : a.comments.length === b.comments.length
+  //       ? 0
+  //       : -1;
+  //   });
+  //   setCommonBoard(sortedData);
+  // };
 
   return (
     <Container sx={{ marginBottom: '5rem' }}>
@@ -51,7 +70,8 @@ function CommonBoardList({ type, title, isLogin }) {
         <h2>{title}</h2>
 
         <div>
-          <span>최신순</span> | <span>좋아요순</span> | <span>댓글순</span>
+          <span>최신순</span> | <span onClick={sortByLike}>좋아요순</span> |{' '}
+          <span>댓글순</span>
           {isLogin ? (
             <Link
               to={`../post/${type}`}

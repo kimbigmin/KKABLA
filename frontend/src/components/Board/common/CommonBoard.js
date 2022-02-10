@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { Grid, Paper, Typography, Box } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function CommonBoard({ item }) {
@@ -24,12 +24,6 @@ function CommonBoard({ item }) {
               <Typography variant="caption">{item.creator}</Typography>
             </Grid>
             <Grid item container>
-              <Caption>
-                <Typography variant="caption">조회수</Typography>
-                <Typography variant="caption">
-                  {item.views ? item.views : 0}
-                </Typography>
-              </Caption>
               <Caption>
                 <Typography variant="caption">좋아요</Typography>
                 <Typography variant="caption">
