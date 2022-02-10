@@ -43,12 +43,11 @@ app.use(
 
 //Routes
 app.use('/auth', auth);
-app.use(findUser);
 app.use('/login', login);
 app.use('/search', search);
-app.use('/post', post);
+app.use('/post', findUser, post);
 app.use('/board', board);
-app.use('/mypage', mypage);
+app.use('/mypage', findUser, mypage);
 app.use('/', home);
 
 try {

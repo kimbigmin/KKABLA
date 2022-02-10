@@ -4,6 +4,7 @@ import BootCamp from '../models/BootCamp.js';
 import Review from '../models/Review.js';
 import mongoose from 'mongoose';
 import User from '../models/User.js';
+import findUser from '../middlewares/findUser.js';
 
 const router = express.Router();
 
@@ -25,10 +26,10 @@ router.get('/free/:id', async (req, res) => {
   }
 });
 
-router.get('/free/:id/like', async (req, res) => {
+router.get('/free/:id/like', findUser, async (req, res) => {
   const { id } = req.params;
   const nickName = res.locals.user.nickName;
-
+  console.log(id);
   if (mongoose.Types.ObjectId.isValid(id)) {
     const user = await User.findOne({ nickName });
 
@@ -57,7 +58,7 @@ router.get('/free/:id/like', async (req, res) => {
   }
 });
 
-router.get('/free/:id/report', async (req, res) => {
+router.get('/free/:id/report', findUser, async (req, res) => {
   const { id } = req.params;
 
   const { nickName } = req.body;
@@ -91,7 +92,7 @@ router.get('/develop/:id', async (req, res) => {
   }
 });
 
-router.get('/develop/:id/like', async (req, res) => {
+router.get('/develop/:id/like', findUser, async (req, res) => {
   const { id } = req.params;
   const { nickName } = req.body;
   if (mongoose.Types.ObjectId.isValid(id)) {
@@ -117,7 +118,7 @@ router.get('/develop/:id/like', async (req, res) => {
   }
 });
 
-router.get('/develop/:id/report', async (req, res) => {
+router.get('/develop/:id/report', findUser, async (req, res) => {
   const { id } = req.params;
   const { nickName } = req.body;
   if (mongoose.Types.ObjectId.isValid(id)) {
