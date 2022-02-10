@@ -40,7 +40,7 @@ function CommentInput({ onCreate, author }) {
         label="댓글을 입력해주세요."
         variant="outlined"
         sx={{
-          width: '80%',
+          width: '100%',
           backgroundColor: 'white',
         }}
       />
@@ -48,7 +48,7 @@ function CommentInput({ onCreate, author }) {
         onClick={handleClick}
         variant="contained"
         size="large"
-        sx={{ width: '8%', marginLeft: '1rem', height: 55 }}
+        sx={{ width: '10%', marginLeft: '1rem', height: 55 }}
       >
         등록
       </Button>

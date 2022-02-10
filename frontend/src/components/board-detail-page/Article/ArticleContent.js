@@ -6,8 +6,10 @@ function ArticleContent({ content }) {
 }
 
 const ContentContainer = styled.div`
-  padding: 30px;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  padding: 3.5rem 2rem 3.5rem 2rem;
+  border-bottom: solid 1px #e5e5e5;
 `;
 
 export default ArticleContent;

@@ -18,7 +18,8 @@ const mockComment = [
   {
     id: 1,
     author: '고양이',
-    content: 'lorem ipsum 어쩌구..',
+    content:
+      '접종 금기·연기 등 의학적 사유가 있을 때는 노바백스 백신으로 3차 접종을 받을 수 있다.교차접종을 받을 경우에는 의사의 판단이 필요하다. 대상자는 의료기관의 예비명단에 이름을 올려 당일 예약을 마치면 접종받을 수 있다.권근용 추진단 예방접종관리팀장은 "노바백스 외 백신으로 1·2차 접종을 받은 후에 아나필락시스나 혈소판 감소성 혈전증, 모세혈관 누출 증후군 등의 중대한 이상반응이 나타났을 때는 (동일 백신) 접종 금기 대상"이라며',
     data: {
       like: 3,
       're-comment': 2,
@@ -47,7 +48,7 @@ const mockComment = [
 function BoardDetailPage() {
   const [commentList, setCommentList] = useState([]);
   const [author, setAuthor] = useState(null);
-  let nextId = useRef(mockComment.length + 1);
+  const nextId = useRef(mockComment.length + 1);
 
   useEffect(() => {
     //fetch Comment
@@ -67,7 +68,7 @@ function BoardDetailPage() {
 
   return (
     <DetailPageContainer>
-      <h3>자유게시판</h3>
+      <h3>{'자유게시판'}</h3>
       <Article />
       <CommentBox
         data={commentList}
@@ -80,13 +81,15 @@ function BoardDetailPage() {
 }
 
 const DetailPageContainer = styled.div`
-  width: 60%;
-  margin: 5rem auto 5rem;
+  width: 50%;
+  margin: 3rem auto 5rem;
   display: flex;
   flex-direction: column;
 
   h3 {
     font-weight: bold;
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
   }
 `;
 

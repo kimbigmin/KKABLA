@@ -6,34 +6,35 @@ function ArticleTitle({ title, date, author }) {
     <TitleContainer>
       <Title>{title}</Title>
       <TitleDetail>
-        <div className={'info'}>작성자: {author}</div>
-        <div className={'info'}>작성일: {date}</div>
+        <div className="info">작성자: {author}</div>
+        <div className="info">작성일: {date}</div>
       </TitleDetail>
     </TitleContainer>
   );
 }
 
 const TitleContainer = styled.div`
-  position: relative;
-
-  height: 40px;
-  margin: 10px;
-  padding: 10px;
-
-  border-bottom: solid 3px #e5e5e5;
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: solid 1px #e5e5e5;
 `;
 
 const Title = styled.div`
-  font-size: 35px;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 600;
 `;
 
 const TitleDetail = styled.div`
-  position: absolute;
-  right: 0;
-
   display: flex;
-  margin-bottom: 10px;
+
+  .info {
+    margin-left: 1rem;
+    font-size: 0.8rem;
+    color: gray;
+    font-weight: 500;
+  }
 `;
 
 export default ArticleTitle;

@@ -10,7 +10,7 @@ export default function ArticleCounts({ likeCount, commentCount, size }) {
         <ThumbUpIcon fontSize={size} color="primary" />
         <p>{likeCount}</p>
       </Item>
-      <Item>
+      <Item style={{ marginLeft: '0.5rem' }}>
         <ChatBubbleOutlineIcon fontSize={size} color="action" />
         <p>{commentCount}</p>
       </Item>
@@ -19,15 +19,12 @@ export default function ArticleCounts({ likeCount, commentCount, size }) {
 }
 
 const ArticleCountsContainer = styled.div`
-  position: absolute;
-  bottom: 0.1em;
-
+  margin-top: 1rem;
   display: flex;
 `;
 
 const Item = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin-left: 10px;
 `;
