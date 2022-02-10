@@ -2,20 +2,15 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
 import styled from 'styled-components';
+import CardForReviewPage from '../review-page/CardsForReviewPage';
+import { Link } from 'react-router-dom';
 
-function ReviewBox({
-  bootcampData,
-  setBootcampData,
-  cards,
-  starData,
-  setCards,
-}) {
+function ReviewBox({ bootcampData, setBootcampData, isLogin }) {
   // 별점순 정렬 핸들러
-  console.log(starData);
-  console.log(cards);
+  console.log(bootcampData);
 
   const sortByStar = () => {
-    const newArr = [...starData];
+    const newArr = [...bootcampData];
 
     const sortedArr = newArr.sort((a, b) => {
       // 비교할 A 기관에 대한 별점리뷰 총점 구하기
@@ -55,6 +50,28 @@ function ReviewBox({
     setBootcampData(sortedArr);
   };
 
+  const cardList = bootcampData.map((item) => {
+    return (
+      <Grid item xs={3} key={item.name}>
+        <Link
+          to={`/board/review/detail/${item._id}`}
+          state={{
+            isLogin: isLogin,
+            data: item,
+            review: item.review,
+          }}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
+          <CardForReviewPage
+            key={item.name}
+            item={item}
+            reviews={item.review}
+          ></CardForReviewPage>
+        </Link>
+      </Grid>
+    );
+  });
+
   return (
     <Container sx={{ marginBottom: '5rem' }}>
       <ReviewPageTopBar>
@@ -65,7 +82,7 @@ function ReviewBox({
         </div>
       </ReviewPageTopBar>
       <Grid container spacing={5}>
-        {cards}
+        {cardList}
       </Grid>
     </Container>
   );

@@ -42,7 +42,7 @@ const Box = styled.div`
 
   &:hover {
     box-shadow: rgba(49, 124, 182, 0.836) 0px 2px 8px 0px;
-    transition-duration: 0.5s;
+    transition-duration: 1s;
   }
 
   .info {
