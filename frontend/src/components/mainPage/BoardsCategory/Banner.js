@@ -6,7 +6,9 @@ export default function Banner(){
       <video autoPlay muted loop
         style={{
           width:"100%",
-          marginBottom: "-17%",
+          position:"relative",
+          marginTop:"3.7%",
+          marginBottom: "-18%",
         }}
       >
         <source src={require("../../../videos/kkablaBanner.mp4")} type="video/mp4"/>
