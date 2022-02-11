@@ -7,15 +7,14 @@ import axios from 'axios';
 
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
-  const [sortList, setSortList] = useState([]);
+  const [recentList, setRecentList] = useState([]);
 
   const getBoardInfo = async () => {
     await axios
-      .get(`http://localhost:5000/board/${type}`, {
-        // params: { timestamps: true },
-      })
+      .get(`http://localhost:5000/board/${type}`, {})
       .then((Response) => {
         setCommonBoard(Response.data);
+        setRecentList(Response.data);
       })
       .catch((Error) => {
         console.log(Error);
@@ -39,12 +38,7 @@ function CommonBoardList({ type, title, isLogin }) {
 
   // 최신순 정렬
   const sortByRecent = () => {
-    const sortedData = [...commonBoard].sort((a, b) => {
-      const aTime = a.updateAt;
-      const bTime = b.updateAt;
-      return aTime > bTime ? -1 : aTime === bTime ? 0 : 1;
-    });
-    setCommonBoard(sortedData);
+    setCommonBoard(recentList);
   };
 
   // 좋아요순 정렬
