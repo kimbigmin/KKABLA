@@ -2,39 +2,49 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function PostReview({ isLogin }) {
-  const location = useLocation();
-  const { data } = location.state;
+  const navigate = useNavigate();
 
   const param = useParams();
   const id = param.id;
-  const [data, setData] = useState(null);
-  const [title, setTitle] = useState(null);
+  const [data, setData] = useState([]);
+  const [title, setTitle] = useState('');
   const [pros, setPros] = useState(''); //장점
   const [cons, setCons] = useState(''); // 단점
   const [star, setStar] = useState(0); //별점
 
+  useEffect(() => {
+    onGetReviewHandler();
+  }, []);
+
   const onGetReviewHandler = async () => {
     await axios
-      .get('http://localhost:5000/post/review/:id')
-      .then((res) => setData(res))
+      .get(`http://localhost:5000/post/review/${id}`)
+      .then((res) => setData(res.data))
       .then((err) => console.log(err));
   };
 
   const onPostReviewHandler = async () => {
-    await axios.post('http://localhost:5000/post/review', {
-      title,
-      bootCamp: id,
-      pros,
-      cons,
-      star,
-      creator: isLogin,
-    });
+    await axios
+      .post(`http://localhost:5000/post/review/${id}`, {
+        title,
+        bootCamp: id,
+        pros,
+        cons,
+        star,
+        creator: isLogin,
+      })
+      .then(
+        navigate(`/board/review/detail/${id}`, {
+          state: { data },
+          replace: true,
+        }),
+      );
   };
 
+  console.log(data);
   console.log(star);
 
   return (

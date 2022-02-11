@@ -20,6 +20,7 @@ import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
 import AdminPage from './pages/myPage/AdminPage';
+import PostReviewPage from './pages/postPage/PostReviewPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -42,7 +43,7 @@ function App() {
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
-          <Route path="/" element={<MainContents isLogin={isLogin}/>}></Route>
+          <Route path="/" element={<MainContents isLogin={isLogin} />}></Route>
           <Route
             path="/board/review"
             element={<ReviewPage isLogin={isLogin} />}
@@ -51,6 +52,11 @@ function App() {
             path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
+          <Route
+            path="/post/review/:id"
+            element={<PostReviewPage isLogin={isLogin} />}
+          />
+
           <Route path="/board/detail" element={<BoardDetailPage />} />
           <Route
             path="/login"
@@ -65,17 +71,14 @@ function App() {
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
+
+          <Route
+            path="/post/:board"
+            element={<PostPage isLogin={isLogin} />}
+          ></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/mypage/auth" element={<AuthPage />}></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
-          {isLogin && (
-            <>
-              <Route
-                path="/post/:board"
-                element={<PostPage isLogin={isLogin} />}
-              ></Route>
-            </>
-          )}
         </Routes>
       </ContentContainer>
       <Container>
