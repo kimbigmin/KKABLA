@@ -17,9 +17,6 @@ export default function MainContents({ isLogin }) {
         .get('http://localhost:5000/', { withCredentials: true })
         .then((res) => {
           console.log(res.data);
-          setDevelopBoard((prevState) => {
-            return [...prevState, ...res.data.reviews];
-          });
 
           setFreeBoard((prevState) => {
             return [...prevState, ...res.data.boards];

@@ -6,14 +6,17 @@ import upload from '../utils/storage .js';
 import mongoose from 'mongoose';
 import User from '../models/User.js';
 import Comment from '../models/Comment.js';
+import Admin from '../models/Admin.js';
 
 const router = express.Router();
 
 //리뷰 작성
 router.post('/review/:id', async (req, res) => {
-  const { bootCamp, title, pros, cons, star, creator } = req.body;
-  if (mongoose.Types.ObjectId.isValid(bootCamp)) {
-    const bootCam = await BootCamp.findOne({ _id: bootCamp });
+  const { title, pros, cons, star, creator } = req.body;
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const bootCam = await BootCamp.findOne({ _id: id });
+
     const review = await Review.create({
       title,
       pros,
@@ -22,16 +25,22 @@ router.post('/review/:id', async (req, res) => {
       creator,
       bootCamp: bootCam,
     });
-    const bootcamp = await BootCamp.findByIdAndUpdate(
-      { _id: bootCamp },
+
+    const bootcamp = await BootCamp.findOneAndUpdate(
+      { _id: id },
       {
         $push: {
           review,
         },
+        $set: {
+          star: (
+            (bootCam.star * bootCam.review.length + star) /
+            (bootCam.review.length + 1)
+          ).toFixed(1),
+        },
       },
     );
-
-    res.send(review);
+    res.send(bootcamp);
   }
 });
 
@@ -107,13 +116,18 @@ router.get('/like/:id', async (req, res) => {
 router.get('/report/:id', async (req, res) => {
   const { id } = req.params;
   const userId = res.locals.user._id;
+
   if (mongoose.Types.ObjectId.isValid(id)) {
-    const user = await User.findOne({ nickName });
-    if (!user) res.send({ message: '존재하지 않는 유저입니다.' });
+    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
     const board = await Board.findOneAndUpdate(
       { _id: id },
       { $addToSet: { report: userId } },
     );
+
+    // if(board.report.length + 1 > 2){
+    //   await Admin.
+    // }
+
     res.send(board);
   }
 });
@@ -129,6 +143,7 @@ router.post('/bootcamp', upload.single('image'), async (req, res) => {
     location: loca,
     homePage,
     system,
+    star: 0,
   });
 
   res.send(bootCamp);
