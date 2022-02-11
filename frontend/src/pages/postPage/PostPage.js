@@ -15,9 +15,7 @@ function PostPage({ isLogin }) {
 
   useEffect(() => {
     function getPost() {
-      axios
-        .get(`http://localhost:5000/board/${board}`)
-        .then((res) => setPost(res.data));
+      axios.get(`http://localhost:5000`).then((res) => setPost(res.data));
     }
 
     getPost();
@@ -29,11 +27,7 @@ function PostPage({ isLogin }) {
     <PostContainer>
       <TopTypography variant="h5">글 작성하기</TopTypography>
       <Divider></Divider>
-      {board === 'review' ? (
-        <PostReview isLogin={isLogin} />
-      ) : (
-        <Post isLogin={isLogin} name={board} />
-      )}
+      <Post isLogin={isLogin} name={board} />
     </PostContainer>
   );
 }

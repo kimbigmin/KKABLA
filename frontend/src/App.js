@@ -71,17 +71,14 @@ function App() {
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
+
+          <Route
+            path="/post/:board"
+            element={<PostPage isLogin={isLogin} />}
+          ></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
           <Route path="/mypage/auth" element={<AuthPage />}></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
-          {isLogin && (
-            <>
-              <Route
-                path="/post/:board"
-                element={<PostPage isLogin={isLogin} />}
-              ></Route>
-            </>
-          )}
         </Routes>
       </ContentContainer>
       <Container>
