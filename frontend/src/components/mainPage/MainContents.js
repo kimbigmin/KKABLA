@@ -17,6 +17,7 @@ export default function MainContents({ isLogin }) {
         .get('http://localhost:5000/')
         .then((res) => {
           //자유게시판 글과 개발 게시판 글을 나눈다.  
+          // console.log(res.data)
           res.data.boards
             .map((post)=>{
               if (post.type==="free"){

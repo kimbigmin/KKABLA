@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
 
 export default function HotPostsBoard({isLogin,developBoard,freeBoard}) {
-  const test= [...freeBoard, ...developBoard]
- 
-  console.log("test")
   const titleList=[...freeBoard, ...developBoard]
     .slice(0,19)
     .map((post)=>{
