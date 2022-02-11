@@ -20,7 +20,6 @@ function CommonBoardList({ type, title, isLogin }) {
         console.log(Error);
       });
   };
-  console.log(commonBoard);
   useEffect(() => {
     getBoardInfo();
   }, []);
