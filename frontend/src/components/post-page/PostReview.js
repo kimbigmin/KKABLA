@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 // import { useLocation } from 'react-router-dom';
 
 function PostReview({ isLogin }) {
-  // const location = useLocation();
-  // // const { data } = location.state;
+  const location = useLocation();
+  const { data } = location.state;
 
   const param = useParams();
   const id = param.id;
@@ -35,14 +35,7 @@ function PostReview({ isLogin }) {
     });
   };
 
-  useEffect(() => {
-    onGetReviewHandler();
-    console.log(data);
-  }, []);
-
-  const onConsole = () => {
-    console.log(title, pros, cons, star);
-  };
+  console.log(star);
 
   return (
     <form>
@@ -66,11 +59,11 @@ function PostReview({ isLogin }) {
         <Typography>{data.name}</Typography>
         <Rating
           name="reviewPoint"
-          size="large"
           value={star}
           onChange={(e) => {
-            setStar(e.target.value);
+            setStar(Number(e.target.value));
           }}
+          size="large"
         />
         <Typography>별점을 선택해 주세요</Typography>
       </ReviewPart>
