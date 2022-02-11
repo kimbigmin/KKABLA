@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 import ReviewList from '../components/review-page/ReviewList';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { getStars } from '../components/review-page/util/getStars';
+import { getStars } from '../utils/getStars';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getStars } from '../review-page/util/getStars';
+import { getStars } from '../../utils/getStars';
 import styled from 'styled-components';
 import axios from 'axios';
 

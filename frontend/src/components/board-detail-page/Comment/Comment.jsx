@@ -4,18 +4,19 @@ import ArticleCounts from '../Article/ArticleCounts';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import InComment from '../InComment/InComment';
+import { getRefinedDate } from '../../../utils/getRefinedDate';
 
-function Comment({ id, author, content, data, onDelete, myself }) {
-  const handleDelete = (e) => {
-    onDelete(id);
-  };
+function Comment({ data, onDelete }) {
+  // const handleDelete = (e) => {
+  //   onDelete(id);
+  // };
 
   const [isClick, setIsClick] = useState(false);
 
   const handleInComment = () => {
     setIsClick(!isClick);
   };
-
+  console.log(data);
   return (
     <CommentContainer>
       <Box
@@ -29,20 +30,20 @@ function Comment({ id, author, content, data, onDelete, myself }) {
         }}
       >
         <NonText>
-          <AuthorText>{author}</AuthorText>
-          <span>2022.02.04</span>
-          {author === myself && (
+          <AuthorText>{data.nickName}</AuthorText>
+          <span>{getRefinedDate(data.createdAt)}</span>
+          {/* {author === myself && (
             <Button size="small" onClick={handleDelete} sx={{ color: 'red' }}>
               삭제
             </Button>
-          )}
+          )} */}
         </NonText>
 
-        <Text>{content}</Text>
+        <Text>{data.contents}</Text>
         <ArticleCounts
           size={'small'}
           likeCount={data.like}
-          commentCount={data['re-comment']}
+          commentCount={data.comments}
           onClick={handleInComment}
         />
         {isClick && <InComment></InComment>}

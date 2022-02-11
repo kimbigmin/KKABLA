@@ -1,5 +1,5 @@
 import React from 'react';
-import { getStars } from './util/getStars';
+import { getStars } from '../../utils/getStars';
 import styled from 'styled-components';
 
 function CardForReviewPage({ item, reviews }) {

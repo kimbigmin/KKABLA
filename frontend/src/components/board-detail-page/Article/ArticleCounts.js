@@ -13,11 +13,11 @@ export default function ArticleCounts({
     <ArticleCountsContainer>
       <Item>
         <ThumbUpIcon fontSize={size} color="primary" />
-        <p>{likeCount}</p>
+        <p>{likeCount.length}</p>
       </Item>
       <Item style={{ marginLeft: '0.5rem' }} onClick={onClick}>
         <ChatBubbleOutlineIcon fontSize={size} color="action" />
-        <p>{commentCount}</p>
+        <p>{commentCount.length}</p>
       </Item>
     </ArticleCountsContainer>
   );
