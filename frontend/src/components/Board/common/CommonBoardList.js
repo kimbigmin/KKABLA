@@ -4,9 +4,13 @@ import { data } from './dummy';
 import { Container, Grid } from '@mui/material';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function CommonBoardList({ type, title, isLogin }) {
   // 게시판 생성
+  axios
+    .get(`http://localhost:5000/board/${type}`, { withCredentials: true })
+    .then((res) => console.log(res));
   const list = data
     .filter((item) => item.type === type)
     .map((item) => {

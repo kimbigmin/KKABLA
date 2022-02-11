@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import ArticleCounts from '../Article/ArticleCounts';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
+import InComment from '../InComment/InComment';
 
 function Comment({ id, author, content, data, onDelete, myself }) {
   const handleDelete = (e) => {
     onDelete(id);
+  };
+
+  const [isClick, setIsClick] = useState(false);
+
+  const handleInComment = () => {
+    setIsClick(!isClick);
   };
 
   return (
@@ -36,7 +43,9 @@ function Comment({ id, author, content, data, onDelete, myself }) {
           size={'small'}
           likeCount={data.like}
           commentCount={data['re-comment']}
+          onClick={handleInComment}
         />
+        {isClick && <InComment></InComment>}
       </Box>
     </CommentContainer>
   );
@@ -47,6 +56,7 @@ const CommentContainer = styled.div`
   padding: 1.3rem;
   border-top: 1px solid #00000021;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 
   &:hover {
