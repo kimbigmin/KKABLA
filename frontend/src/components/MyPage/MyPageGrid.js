@@ -1,12 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Divider, Box } from '@mui/material';
+import { Divider, Box, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-function MyPageGrid({ title, children }) {
+function MyPageGrid({ title, children, length }) {
   return (
     <GridBox>
       <GridSection>
-        <GridTitle>{title}</GridTitle>
+        <GridTop>
+          <GridTitle>{title}</GridTitle>
+          {length >= 3 && (
+            <Link to="/mypage/more">
+              <Button variant="outlined">더 보기</Button>
+            </Link>
+          )}
+        </GridTop>
         <GridDivider></GridDivider>
         <GridDetail>{children}</GridDetail>
       </GridSection>
@@ -24,6 +32,18 @@ const GridBox = styled(Box)`
 
 const GridSection = styled(Box)`
   padding: 10px;
+`;
+
+const GridTop = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    text-decoration: none;
+  }
+  button {
+    margin-bottom: 10px;
+  }
 `;
 
 const GridTitle = styled(Box)`
