@@ -9,7 +9,14 @@ function AdminPage() {
     <Container>
       <Grid container>
         <Grid item xs={6}>
-          <MyPageGrid title={'인증 요청'} />
+          <Grid container direction="column">
+            <Grid item xs={6}>
+              <MyPageGrid title={'글 신고'} />
+            </Grid>
+            <Grid item xs={6}>
+              <MyPageGrid title={'댓글 신고'} />
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={6}>
           <MyPageGrid title={'기관 등록'} children={<AdminAdd />} />

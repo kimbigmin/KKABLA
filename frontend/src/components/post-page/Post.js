@@ -33,6 +33,7 @@ function Post({ isLogin, name }) {
       <TitleWrapper>
         <TitleBox>{name === 'free' ? '자유게시판' : '개발게시판'}</TitleBox>
         <TitleTextField
+          margin="dense"
           required
           type="text"
           size="small"

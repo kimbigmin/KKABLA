@@ -52,6 +52,7 @@ function PostReview({ isLogin }) {
       <TitleWrapper>
         <TitleBox>리뷰게시판</TitleBox>
         <TitleTextField
+          margin="dense"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
