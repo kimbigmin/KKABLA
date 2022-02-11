@@ -59,11 +59,11 @@ function PostReview({ isLogin }) {
         <Typography>{data.name}</Typography>
         <Rating
           name="reviewPoint"
-          size="large"
           value={star}
           onChange={(e) => {
             setStar(Number(e.target.value));
           }}
+          size="large"
         />
         <Typography>별점을 선택해 주세요</Typography>
       </ReviewPart>
