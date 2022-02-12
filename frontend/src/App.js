@@ -19,6 +19,7 @@ import MyPage from './pages/myPage/MyPage';
 import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
+import SearchResult from './components/SearchResult/SearchResult';
 import AdminPage from './pages/myPage/AdminPage';
 import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
@@ -99,6 +100,8 @@ function App() {
               ></Route>
             </>
           )}
+          <Route path="/search" element={<SearchResult isLogin={isLogin}/>}></Route>
+          <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
       </ContentContainer>
       <Container>

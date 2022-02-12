@@ -6,7 +6,10 @@ export default function Banner(){
       <video autoPlay muted loop
         style={{
           width:"100%",
-          marginBottom: "-17%",
+          position:"relative",
+          //헤더가 px 고정값인것 같다.
+          marginTop:"73.55px",
+          marginBottom: "-18%",
         }}
       >
         <source src={require("../../../videos/kkablaBanner.mp4")} type="video/mp4"/>

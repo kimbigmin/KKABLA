@@ -5,15 +5,15 @@ import axios from 'axios';
 
 function Card({ item }) {
   const [reviews, setReviews] = useState([]);
-  console.log(item);
+  // console.log(item);
 
   // 해결해야 할 이슈 : get을 두 번해서 렌더링 시간 오래걸림
   const getData = async () => {
     await axios
       .get(`http://localhost:5000/board/review/${item._id}`)
       .then((result) => {
-        console.log(result);
-        console.log(result.data.review);
+        // console.log(result);
+        // console.log(result.data.review);
         setReviews(result.data.review);
       });
   };
