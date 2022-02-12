@@ -3,9 +3,8 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
 
-export default function HotPostsBoard({isLogin,developBoard,freeBoard}) {
-  const titleList=[...freeBoard, ...developBoard]
-    .slice(0,19)
+export default function HotPostsBoard({isLogin, hotPostsBoard}) {
+  const titleList=[...hotPostsBoard]
     .map((post)=>{
       //17글자가 넘는 제목은 17글자까지만 자르고 '...' 추가
       const limitLen=15;
@@ -25,8 +24,11 @@ export default function HotPostsBoard({isLogin,developBoard,freeBoard}) {
         <TitleWrapper key={post._id}> 
           
           <Link
-              to={"/board/detail/"}
-              state={{ isLogin: isLogin }}
+              to={`/board/${post.type}/${post._id}`}
+              state={{ 
+                isLogin: isLogin,
+                dataFromBoard : post,
+              }}
               style={{
                 display:'flex',
                 justifyContent: 'space-between',

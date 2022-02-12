@@ -4,11 +4,11 @@ import styled from 'styled-components';
 import HotPostsBoard from './DevGenBoard/HotPostsBoard';
 import DevGenBoardWrapper from './DevGenBoard/DevGenBoardWrapper';
 
-export default function BoardsWrapper({isLogin,freeBoard,developBoard}){
+export default function BoardsWrapper({isLogin, hotPostsBoard, freeBoard, developBoard}){
   return (
     <Container>
       <Grid container columnSpacing={4}>
-        <HotPostsBoard isLogin={ isLogin } freeBoard={freeBoard} developBoard={developBoard}/>
+        <HotPostsBoard isLogin={ isLogin } hotPostsBoard={hotPostsBoard}/>
         <DevGenBoardWrapper isLogin={ isLogin } freeBoard={freeBoard} developBoard={developBoard}/>
       </Grid>            
     </Container>
@@ -24,11 +24,3 @@ const Container = styled.div`
   align-items: center;
   box-sizing: border-box;
 `;
-
-
-
-
-
-
-
-

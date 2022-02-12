@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
 
 export default function FreeBoard({isLogin, freeBoard}) {
+  console.log(freeBoard)
   const titleList=[...freeBoard]
     .slice(0,9)
     .map((post)=>{
@@ -20,8 +21,11 @@ export default function FreeBoard({isLogin, freeBoard}) {
       return(
         <TitleWrapper key={post._id}>
           <Link
-              to={"/board/detail/"}
-              state={{ isLogin: isLogin }}
+              to={`/board/free/${post._id}`}
+              state={{ 
+                isLogin: isLogin,
+                dataFromBoard: post,
+              }}
               style={{ textDecoration: 'none', color: 'black' }}
           >
               <h2>{post.title.length<limitLen ? 
