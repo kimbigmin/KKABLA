@@ -5,25 +5,37 @@ import Review from '../models/Review.js';
 import upload from '../utils/userAuth.js';
 import axios from 'axios';
 import fs from 'fs';
+import Admin from '../models/Admin.js';
+import certification from '../utils/certification.js';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  if (!req.cookies['auth_token']) return;
+  const user = res.locals.user;
 
-  const decode = jwt.verify(req.cookies['auth_token'], process.env.JWT_SECRET);
-  const user = await User.findOne({
-    hashedEmail: decode.email || decode.kakao_account.email,
-    hashedName: decode.name || decode.kakao_account.profile.nickname,
-  });
+  if (user.isAdmin) {
+    const admin = await Admin.find({}).lean();
+    res.send(admin);
+  } else {
+    const [boards, reviews] = await Promise.all([
+      Board.find({ creator: user.nickName }).lean(),
+      Review.find({ creator: user.nickName }).lean(),
+    ]);
 
-  console.log(user);
-
-  if (user.nickName) {
-    const boards = await Board({ creator: user.nickName });
-    const reviews = await Review({ creator: user.nickName });
-    console.log([boards, reviews, user.auth]);
     res.send({ boards, reviews, userAuth: user.auth });
+  }
+});
+
+router.delete('/', async (req, res) => {
+  const user = res.locals.user;
+  if (user) {
+    await Review.deleteMany({ creator: user.nickName });
+    await Board.deleteMany({ creator: user.nickName });
+    await User.findOneAndDelete({ nickName: user.nickName });
+    res.clearCookie('auth_token');
+    res.send({ message: '회원 탈퇴 완료' });
+  } else {
+    res.send({ message: '해당 유저가 존재하지 않습니다.' });
   }
 });
 
@@ -73,7 +85,13 @@ router.post('/auth', upload.single('image'), async (req, res) => {
       });
     })
     .catch((err) => console.log(err));
-  console.log(sumText);
+
+  // if (certification(sumText)) {
+  //   const u = res.locals.user;
+  //   const user = await User.findOneAndUpdate({_id:u._id},{
+  //   auth
+  //   })
+  // }
 });
 
 export default router;

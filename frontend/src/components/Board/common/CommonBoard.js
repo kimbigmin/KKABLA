@@ -2,13 +2,14 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getAnonymousName } from '../../../utils/getAnonymousName';
 
 function CommonBoard({ item }) {
   return (
     <PaperArea>
       <Link
-        to={`/board/free/${item._id}`}
-        state={{ data: item }}
+        to={`/board/${item.type}/${item._id}`}
+        state={{ dataFromBoard: item }}
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <Grid container>
@@ -21,7 +22,9 @@ function CommonBoard({ item }) {
               <Content variant="body1">{item.contents}</Content>
             </Grid>
             <Grid item>
-              <Typography variant="caption">{item.creator}</Typography>
+              <Typography variant="caption">
+                {getAnonymousName(item.creator)}
+              </Typography>
             </Grid>
             <Grid item container>
               <Caption>
@@ -86,7 +89,7 @@ const Content = (props) => (
 );
 
 const Caption = (props) => (
-  <Grid item sx={{ margin: '3px' }}>
+  <Grid item sx={{ marginRight: '3px' }}>
     {props.children}
   </Grid>
 );

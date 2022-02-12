@@ -4,11 +4,16 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-
+import { useNavigate } from "react-router";
 function SearchBar() {
-  const onSearchHandler = async (value) => {
+  const navigate=useNavigate();
+  const [value, setValue] = useState('');
+  const onSearchHandler = async (e) => {
+    e.preventDefault();
     console.log(value);
-    await axios.post('http://localhost:5000/search', { value });
+    await axios.get(`http://localhost:5000/search/${value}`, {
+      withCredentials: true,
+    });
   };
 
   return (
@@ -16,10 +21,9 @@ function SearchBar() {
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <form>
+      <form onSubmit={onSearchHandler}>
         <StyledInputBase
-          // value={search}
-          onChange={(e) => onSearchHandler(e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
           placeholder="Search…"
           inputProps={{ 'aria-label': 'search' }}
         />

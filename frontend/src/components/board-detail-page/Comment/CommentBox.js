@@ -5,20 +5,16 @@ import CommentInput from './CommentInput';
 import Comment from './Comment';
 
 function CommentBox({ data, onCreate, author, onDelete }) {
+  // console.log(data[0].comments);
   return (
     <Container>
       <CommentInput onCreate={onCreate} author={author} />
       <Comments>
-        {data.map((comment) => (
-          <Comment
-            id={comment.id}
-            author={comment.author}
-            content={comment.content}
-            data={comment.data}
-            onDelete={onDelete}
-            myself={author}
-          />
-        ))}
+        {data[0]
+          ? data[0].comments.map((comment) => (
+              <Comment data={comment} onDelete={onDelete} />
+            ))
+          : null}
       </Comments>
     </Container>
   );

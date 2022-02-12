@@ -4,19 +4,21 @@ import BootCamp from '../models/BootCamp.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-  const { value } = req.body;
+router.get('/:value', async (req, res) => {
+  const { value } = req.params;
 
   if (value) {
-    const boards = await Board.find({
-      $or: [
-        { title: { $regex: value, $options: 'i' } },
-        { contents: { $regex: value, $options: 'i' } },
-      ],
-    });
-    const bootCamp = await BootCamp.find({
-      name: { $regex: value, $options: 'i' },
-    });
+    const [bootCamp, boards] = await Promise.all([
+      BootCamp.find({
+        name: { $regex: value, $options: 'i' },
+      }),
+      Board.find({
+        $or: [
+          { title: { $regex: value, $options: 'i' } },
+          { contents: { $regex: value, $options: 'i' } },
+        ],
+      }),
+    ]);
 
     res.send({ bootCamp, boards });
   }

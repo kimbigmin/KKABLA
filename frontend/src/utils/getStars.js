@@ -6,7 +6,9 @@ export const getStars = (starNum) => {
   const stars = [];
 
   for (let i = 0; i < Math.floor(starNum); i++) {
-    stars.push(<StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />);
+    stars.push(
+      <StarIcon key={'star' + i} sx={{ color: '#fcdd29', fontSize: '1rem' }} />,
+    );
   }
 
   if (starNum % 1 >= 0.5) {

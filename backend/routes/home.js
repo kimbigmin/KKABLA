@@ -1,16 +1,32 @@
 import express from 'express';
 import Board from '../models/Board.js';
 import BootCamp from '../models/BootCamp.js';
-import Review from '../models/Review.js';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const boards = await Board.find({});
-  const bootCamps = await BootCamp.find({});
-  const reviews = await Review.find({});
-
-  res.send({ boards, bootCamps, reviews });
+  const [boards, develop, like, bootCamps] = await Promise.all([
+    Board.find({ type: 'free' })
+      .sort({
+        updatedAt: -1,
+      })
+      .limit(9)
+      .lean(),
+    Board.find({ type: 'develop' })
+      .sort({
+        updatedAt: -1,
+      })
+      .limit(9)
+      .lean(),
+    Board.find({}).sort({ like: -1 }).limit(19).lean(),
+    BootCamp.find({})
+      .sort({
+        like: -1,
+      })
+      .limit(4)
+      .lean(),
+  ]);
+  res.send({ boards, develop, bootCamps, like });
 });
 
 export default router;

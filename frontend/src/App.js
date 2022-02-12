@@ -19,11 +19,16 @@ import MyPage from './pages/myPage/MyPage';
 import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
+import SearchResult from './components/SearchResult/SearchResult';
 import AdminPage from './pages/myPage/AdminPage';
 import PostReviewPage from './pages/postPage/PostReviewPage';
+import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
+import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
+import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
+
   console.log(isLogin);
   useEffect(() => {
     const getMe = async () => {
@@ -52,12 +57,8 @@ function App() {
             path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
-          <Route
-            path="/post/review/:id"
-            element={<PostReviewPage isLogin={isLogin} />}
-          />
-
-          <Route path="/board/detail" element={<BoardDetailPage />} />
+          <Route path="/board/free/:id" element={<BoardDetailPage />} />
+          <Route path="/board/develop/:id" element={<BoardDetailPage />} />
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
@@ -71,13 +72,35 @@ function App() {
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
-
+          <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
           <Route
-            path="/post/:board"
-            element={<PostPage isLogin={isLogin} />}
+            path="/mypage/auth"
+            element={<AuthPage isLogin={isLogin} />}
           ></Route>
-          <Route path="/mypage" element={<MyPage />}></Route>
-          <Route path="/mypage/auth" element={<AuthPage />}></Route>
+          <Route
+            path="/mypage/boards"
+            element={<MyPageMoreBoards isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/mypage/reviews"
+            element={<MyPageMoreReviews isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/mypage/likes"
+            element={<MyPageMoreLikes isLogin={isLogin} />}
+          ></Route>
+          {isLogin && (
+            <>
+              <Route
+                path="/post/:board/:id"
+                element={<PostPage isLogin={isLogin} />}
+              ></Route>
+            </>
+          )}
+          <Route
+            path="/search"
+            element={<SearchResult isLogin={isLogin} />}
+          ></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
       </ContentContainer>
@@ -97,7 +120,7 @@ const ContentContainer = styled.div`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   min-height: 80vh;
-  background-color: #f4f4f4;
+  background-color: rgba(244, 244, 244, 0.5);
 `;
 
 export default App;

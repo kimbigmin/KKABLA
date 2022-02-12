@@ -6,8 +6,10 @@ const CommentSchema = new Schema(
   {
     nickName: String,
     contents: String,
-    like: Number,
-    comment: [Schema.Types.ObjectId],
+    like: { type: [Schema.Types.ObjectId], ref: 'User' },
+    report: { type: [Schema.Types.ObjectId], ref: 'User' },
+    comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
+    isBlind: Boolean,
   },
   { timestamps: true },
 );

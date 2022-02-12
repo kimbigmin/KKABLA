@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import styled from 'styled-components';
 
-CommentInput.defaultProps = {
+InCommentInput.defaultProps = {
   author: 'default',
   content: '',
   data: {
@@ -11,7 +11,7 @@ CommentInput.defaultProps = {
   },
 };
 
-function CommentInput({ onCreate, author }) {
+function InCommentInput({ onCreate, author }) {
   const [inputVal, setInputVal] = useState(null);
 
   const handleChange = (e) => {
@@ -39,16 +39,22 @@ function CommentInput({ onCreate, author }) {
         id="outlined-basic"
         label="댓글을 입력해주세요."
         variant="outlined"
+        size="small"
         sx={{
-          width: '80%',
+          width: '100%',
           backgroundColor: 'white',
         }}
       />
       <Button
         onClick={handleClick}
         variant="contained"
-        size="large"
-        sx={{ width: '8%', marginLeft: '1rem', height: 55 }}
+        size="small"
+        sx={{
+          width: '10%',
+          marginLeft: '1rem',
+          backgroundColor: 'gray',
+          height: '2.5rem',
+        }}
       >
         등록
       </Button>
@@ -65,4 +71,4 @@ const Container = styled.div`
   align-items: center;
 `;
 
-export default CommentInput;
+export default InCommentInput;

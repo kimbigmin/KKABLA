@@ -8,16 +8,6 @@ AWS.config.update({
   region: 'ap-northeast-2',
 });
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads/');
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now() + '.jpg');
-//   },
-// });
-// const upload = multer({ storage: storage });
-
 const upload = multer({
   storage: multerS3({
     s3: new AWS.S3(),
