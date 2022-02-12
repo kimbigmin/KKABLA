@@ -9,7 +9,7 @@ function BoardDetailPage() {
   const [commentList, setCommentList] = useState([]);
   const location = useLocation();
   const { dataFromBoard } = location.state;
-
+  console.log(dataFromBoard);
   // useEffect(() => {
   //   //fetch Comment
   //   setCommentList(mockComment);
@@ -37,6 +37,8 @@ function BoardDetailPage() {
   const handleDelete = (index) => {
     setCommentList(commentList.filter((item) => item.id !== index));
   };
+
+  console.log(commentList);
   return (
     <DetailPageContainer>
       <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>
