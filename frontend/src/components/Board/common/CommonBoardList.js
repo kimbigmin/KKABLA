@@ -3,7 +3,6 @@ import CommonBoard from './CommonBoard';
 import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { click } from '@testing-library/user-event/dist/click';
 
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
@@ -144,8 +143,6 @@ const AlignButton = (props) => (
   <Typography
     variant="button"
     onClick={props.onClick}
-    id={props.id}
-    clickState={props.clickState}
     sx={
       props.clickState === props.id
         ? {
@@ -153,7 +150,6 @@ const AlignButton = (props) => (
             fontWeight: '800',
             color: '#484848ea',
             cursor: 'pointer',
-
             ':hover': { fontWeight: 'bold', color: '#4585ff' },
           }
         : {
