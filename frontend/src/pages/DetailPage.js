@@ -1,22 +1,22 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import ReviewList from '../components/review/ReviewList';
+import ReviewList from '../components/review-page/ReviewList';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { getStars } from '../components/review/util/getStars';
+import { getStars } from '../utils/getStars';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 function DetailPage({ isLogin }) {
   const location = useLocation();
-  const { data } = location.state;
+  const { data, review } = location.state;
 
-  const sumStars = data.review.reduce((acc, val) => {
+  const sumStars = review.reduce((acc, val) => {
     return acc + val.star;
   }, 0);
-  const averageStars = (sumStars / data.review.length).toFixed(1);
+  const averageStars = (sumStars / review.length).toFixed(1);
 
-  const reviewList = data.review.map((review) => {
+  const list = review.map((review) => {
     return <ReviewList isLogin={isLogin} review={review} />;
   });
 
@@ -43,8 +43,8 @@ function DetailPage({ isLogin }) {
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
           <Grid item xs={12}>
             <h4>홈페이지</h4>
-            <a href={data.homepage} target="_blank">
-              {data.homepage}
+            <a href={data.homePage} target="_blank" rel="noreferrer">
+              {data.homePage}
             </a>
           </Grid>
           <Grid item xs={12}>
@@ -53,7 +53,7 @@ function DetailPage({ isLogin }) {
           </Grid>
           <Grid item xs={12}>
             <h4>수업방식</h4>
-            <p>{data.system}</p>
+            <p>{data.system} 방식</p>
           </Grid>
         </Grid>
       </Introduction>
@@ -61,7 +61,7 @@ function DetailPage({ isLogin }) {
         <div className="list-topbar">
           <h3>{data.review.length}개의 리뷰</h3>
           {isLogin && (
-            <Link to="/post/review" state={{ isLogin: isLogin, data: data }}>
+            <Link to={`/post/review/${data._id}`}>
               <button>리뷰작성하기</button>
             </Link>
           )}
@@ -72,7 +72,7 @@ function DetailPage({ isLogin }) {
           {!isLogin && data.review.length !== 0 && (
             <div className="blind">로그인 후 이용이 가능합니다. 😢</div>
           )}
-          {reviewList}
+          {list}
         </div>
       </Blind>
     </Container>
@@ -177,7 +177,7 @@ const Blind = styled.div`
     background-color: rgba(255, 255, 255, 0.036);
     width: 102%;
     height: 100%;
-    z-index: 100;
+    z-index: 50;
     font-size: 2rem;
     font-weight: bold;
   }

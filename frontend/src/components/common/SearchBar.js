@@ -4,8 +4,9 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
-
+import { useNavigate } from "react-router";
 function SearchBar() {
+  const navigate=useNavigate();
   const [value, setValue] = useState('');
   const onSearchHandler = async (e) => {
     e.preventDefault();
@@ -22,7 +23,6 @@ function SearchBar() {
       </SearchIconWrapper>
       <form onSubmit={onSearchHandler}>
         <StyledInputBase
-          // value={search}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Search…"
           inputProps={{ 'aria-label': 'search' }}
