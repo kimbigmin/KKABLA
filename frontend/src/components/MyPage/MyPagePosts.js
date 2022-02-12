@@ -3,17 +3,16 @@ import React, { useState, Children } from 'react';
 import { Divider, Box } from '@mui/material';
 
 function MyPagePosts({ content }) {
-  const [post, setPost] = useState(content);
-
+  console.log(content);
   return (
     <>
-      {post
+      {content
         ? Children.toArray(
-            post.map((el) => (
+            content.map((el) => (
               <GridDetailBox>
-                <GridTitle>{el.postTitle}</GridTitle>
+                <GridTitle>{el.title}</GridTitle>
                 <Divider></Divider>
-                <GridDetail>{el.postContent}</GridDetail>
+                <GridDetail>{el.content}</GridDetail>
               </GridDetailBox>
             )),
           )

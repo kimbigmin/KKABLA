@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { Grid, Paper, Typography, Box } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getAnonymousName } from '../../../utils/getAnonymousName';
 
 function CommonBoard({ item }) {
   return (
     <PaperArea>
       <Link
-        to={`/board/detail/`}
-        state={{ data: item }}
+        to={`/board/${item.type}/${item._id}`}
+        state={{ dataFromBoard: item }}
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <Grid container>
-          <Grid item container xs={8} direction="column">
+          {/* 이미지 넣어보고 xs={8} 수정필요 */}
+          <Grid item container direction="column">
             <Grid item container>
               <Title>{item.title}</Title>
             </Grid>
@@ -20,26 +22,30 @@ function CommonBoard({ item }) {
               <Content variant="body1">{item.contents}</Content>
             </Grid>
             <Grid item>
-              <Typography variant="caption">{item.creator}</Typography>
+              <Typography variant="caption">
+                {getAnonymousName(item.creator)}
+              </Typography>
             </Grid>
             <Grid item container>
               <Caption>
-                <Typography variant="caption">조회수</Typography>
-                <Typography variant="caption">{item.views}</Typography>
-              </Caption>
-              <Caption>
                 <Typography variant="caption">좋아요</Typography>
-                <Typography variant="caption">{item.like}</Typography>
+                <Typography variant="caption">
+                  {item.like ? item.like.length : 0}
+                </Typography>
               </Caption>
               <Caption>
                 <Typography variant="caption">댓글</Typography>
-                <Typography variant="caption">0</Typography>
+                <Typography variant="caption">
+                  {item.comments ? item.comments.length : 0}
+                </Typography>
               </Caption>
             </Grid>
           </Grid>
-          <Grid item container xs={4}>
-            <Img alt="이미지" src={item.thumbnail} />
-          </Grid>
+          {item.thumbnail ? (
+            <Grid item container xs={4}>
+              <Img alt="이미지" src={item.thumbnail} />
+            </Grid>
+          ) : null}
         </Grid>
       </Link>
     </PaperArea>
@@ -83,7 +89,7 @@ const Content = (props) => (
 );
 
 const Caption = (props) => (
-  <Grid item sx={{ margin: '3px' }}>
+  <Grid item sx={{ marginRight: '3px' }}>
     {props.children}
   </Grid>
 );

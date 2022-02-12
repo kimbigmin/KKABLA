@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Container, Typography, Divider } from '@mui/material';
-import Post from '../../components/post-page/Post';
 import PostReview from '../../components/post-page/PostReview';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-function PostPage({ isLogin }) {
+function PostReviewPage({ isLogin }) {
+  const params = useParams();
+  const id = params.id;
+
+  console.log(id);
+
   const [post, setPost] = useState({});
-
-  // param으로 전달 된 board 따라서 게시판이 변경됨
-  const param = useParams();
-  const board = param.board;
-
   useEffect(() => {
     function getPost() {
-      axios.get(`http://localhost:5000`).then((res) => setPost(res.data));
+      axios
+        .get(`http://localhost:5000/board/review/${id}`)
+        .then((res) => setPost(res.data));
     }
 
     getPost();
@@ -27,12 +28,12 @@ function PostPage({ isLogin }) {
     <PostContainer>
       <TopTypography variant="h5">글 작성하기</TopTypography>
       <Divider></Divider>
-      <Post isLogin={isLogin} name={board} />
+      <PostReview isLogin={isLogin} />
     </PostContainer>
   );
 }
 
-export default PostPage;
+export default PostReviewPage;
 
 const PostContainer = styled(Container)`
   background-color: white;

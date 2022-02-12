@@ -1,76 +1,49 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-
-import Article from '../components/Article';
-import CommentBox from '../components/Comment/CommentBox';
-
-const mockComment = [
-  {
-    id: 0,
-    author: '강아지',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 1,
-    },
-  },
-  {
-    id: 1,
-    author: '고양이',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 2,
-    },
-  },
-  {
-    id: 2,
-    author: '햄스터',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 4,
-    },
-  },
-  {
-    id: 3,
-    author: '개미',
-    content: 'lorem ipsum 어쩌구..',
-    data: {
-      like: 3,
-      're-comment': 4,
-    },
-  },
-];
+import { useLocation } from 'react-router-dom';
+import Article from '../components/board-detail-page/Article/Article';
+import axios from 'axios';
+import CommentBox from '../components/board-detail-page/Comment/CommentBox';
 
 function BoardDetailPage() {
   const [commentList, setCommentList] = useState([]);
-  const [author, setAuthor] = useState(null);
-  let nextId = useRef(mockComment.length + 1);
+  const location = useLocation();
+  const { dataFromBoard } = location.state;
+
+  // useEffect(() => {
+  //   //fetch Comment
+  //   setCommentList(mockComment);
+  //   setAuthor('default');
+  // }, []);
 
   useEffect(() => {
-    //fetch Comment
-    setCommentList(mockComment);
-    setAuthor('default');
+    const getData = async () => {
+      await axios
+        .get(
+          `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
+        )
+        .then((res) => {
+          setCommentList(res.data);
+        });
+    };
+    getData();
   }, []);
 
   const handleCreate = (newComment) => {
-    setCommentList(commentList.concat({ ...newComment, id: nextId.current }));
-    nextId.current += 1;
+    // setCommentList(commentList.concat({ ...newComment, id: nextId.current }));
+    // nextId.current += 1;
   };
 
   const handleDelete = (index) => {
-    console.log(index);
     setCommentList(commentList.filter((item) => item.id !== index));
   };
-
   return (
     <DetailPageContainer>
-      <Article />
+      <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>
+      <Article data={dataFromBoard} />
       <CommentBox
         data={commentList}
         onCreate={handleCreate}
-        author={author}
         onDelete={handleDelete}
       />
     </DetailPageContainer>
@@ -78,11 +51,16 @@ function BoardDetailPage() {
 }
 
 const DetailPageContainer = styled.div`
-  max-width: 1260px;
-  padding: 50px;
+  width: 50%;
+  margin: 3rem auto 5rem;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+
+  h3 {
+    font-weight: bold;
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
+  }
 `;
 
 export default BoardDetailPage;

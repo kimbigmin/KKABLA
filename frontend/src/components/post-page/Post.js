@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Box, TextField } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Post({ isLogin, name }) {
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [images, setImages] = useState([]);
 
+  const navigate = useNavigate();
+
   const onPostFreeHandler = async () => {
-    await axios.post(`http://localhost:5000/post/${name}`, {
-      title,
-      type: name,
-      contents,
-      images,
-      creator: isLogin,
-    });
+    await axios
+      .post(`http://localhost:5000/post/${name}`, {
+        title,
+        type: name,
+        contents,
+        images,
+        creator: isLogin,
+      })
+      .then(navigate(`/board/${name}`, { replace: true }));
   };
 
   const onHandleUploadImg = (e) => {
@@ -28,6 +33,7 @@ function Post({ isLogin, name }) {
       <TitleWrapper>
         <TitleBox>{name === 'free' ? '자유게시판' : '개발게시판'}</TitleBox>
         <TitleTextField
+          margin="dense"
           required
           type="text"
           size="small"
@@ -51,13 +57,13 @@ function Post({ isLogin, name }) {
           }}
         />
       </ContentsWrapper>
-      <label htmlFor="imgfiles">
+      <label for="imgfile">
         <SubmitButton variant="contained">사진 첨부</SubmitButton>
       </label>
       <UploadInput
         onChange={onHandleUploadImg}
         type="file"
-        id="imgfiles"
+        id="imgfile"
         name="logoImage"
         accept="image/png"
       ></UploadInput>

@@ -1,44 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container } from '@mui/material';
 import ReviewList from '../components/review-page/ReviewList';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { getStars } from '../components/review-page/util/getStars';
+import { getStars } from '../utils/getStars';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 function DetailPage({ isLogin }) {
   const location = useLocation();
-  const { data } = location.state;
+  const { data, review } = location.state;
 
-  const [detailReviews, setDetailReviews] = useState([]);
-
-  console.log(data);
-
-  // 상세리뷰 데이터 GET 핸들러
-  const getData = async () => {
-    await axios
-      .get(`http://localhost:5000/board/review/${data._id}`)
-      .then((result) => {
-        setDetailReviews((current) => {
-          const newArr = [...current, ...result.data.review];
-          return newArr;
-        });
-      });
-  };
-
-  const sumStars = detailReviews.reduce((acc, val) => {
+  const sumStars = review.reduce((acc, val) => {
     return acc + val.star;
   }, 0);
-  const averageStars = (sumStars / detailReviews.length).toFixed(1);
+  const averageStars = (sumStars / review.length).toFixed(1);
 
-  const list = detailReviews.map((review) => {
+  const list = review.map((review) => {
     return <ReviewList isLogin={isLogin} review={review} />;
-  });
-
-  useEffect(() => {
-    getData();
   });
 
   return (
@@ -82,10 +61,7 @@ function DetailPage({ isLogin }) {
         <div className="list-topbar">
           <h3>{data.review.length}개의 리뷰</h3>
           {isLogin && (
-            <Link
-              to={`/post/review/${data._id}`}
-              state={{ isLogin: isLogin, data: data }}
-            >
+            <Link to={`/post/review/${data._id}`}>
               <button>리뷰작성하기</button>
             </Link>
           )}
@@ -201,7 +177,7 @@ const Blind = styled.div`
     background-color: rgba(255, 255, 255, 0.036);
     width: 102%;
     height: 100%;
-    z-index: 100;
+    z-index: 50;
     font-size: 2rem;
     font-weight: bold;
   }
