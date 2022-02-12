@@ -116,7 +116,8 @@ router.get('/board/like/:id', async (req, res) => {
 //게시판 상세에서 신고하기
 router.get('/board/report/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
+  console.log(res.locals.user);
+  const userId = res.locals.user.id;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
     if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });

@@ -42,7 +42,7 @@ app.use(
 
 //Routes
 app.use('/auth', auth);
-app.use('/post', post);
+app.use('/post', findUser, post);
 app.use('/mypage', findUser, mypage);
 app.use('/login', login);
 app.use('/search', search);

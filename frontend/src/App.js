@@ -92,7 +92,7 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board/:id"
+                path="/post/:board/"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
