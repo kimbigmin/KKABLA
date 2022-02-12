@@ -25,7 +25,6 @@ function CommonBoardList({ type, title, isLogin }) {
   }, []);
 
   // 게시판 생성
-<<<<<<< HEAD
   const list = commonBoard.map((item) => {
     if (item) {
       return (
@@ -35,22 +34,6 @@ function CommonBoardList({ type, title, isLogin }) {
       );
     }
   });
-=======
-  axios
-    .get(`http://localhost:5000/board/${type}`, { withCredentials: true })
-    .then((res) => console.log(res));
-  const list = data
-    .filter((item) => item.type === type)
-    .map((item) => {
-      if (item) {
-        return (
-          <Grid item xs={6}>
-            <CommonBoard item={item} />
-          </Grid>
-        );
-      }
-    });
->>>>>>> 9fcfb97eff121c066ef522861c201a58f9cd53a5
 
   // 최신순 정렬
   const sortByRecent = (id) => {

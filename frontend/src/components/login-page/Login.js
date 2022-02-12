@@ -19,7 +19,7 @@ function Login({ isLogin }) {
     <LoginContainer>
       <Header>L O G I N</Header>
       <SupervisedUserCircleIcon
-        sx={{ fontSize: '8rem', color: '#4788FF' }}
+        sx={{ fontSize: '8rem', color: '#4586ff' }}
       ></SupervisedUserCircleIcon>
       <h2>안녕하세요. 로그인을 해주세요 :)</h2>
       <LoginBox>
@@ -55,7 +55,7 @@ function Login({ isLogin }) {
 }
 
 const LoginContainer = styled.div`
-  margin: 200px auto;
+  margin: 100px auto;
 
   display: flex;
   justify-content: space-around;

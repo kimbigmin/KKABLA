@@ -28,6 +28,7 @@ import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
+
   console.log(isLogin);
   useEffect(() => {
     const getMe = async () => {
@@ -56,12 +57,8 @@ function App() {
             path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
-          <Route
-            path="/post/review/:id"
-            element={<PostReviewPage isLogin={isLogin} />}
-          />
-
-          <Route path="/board/detail" element={<BoardDetailPage />} />
+          <Route path="/board/free/:id" element={<BoardDetailPage />} />
+          <Route path="/board/develop/:id" element={<BoardDetailPage />} />
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
@@ -95,12 +92,15 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board"
+                path="/post/:board/:id"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
           )}
-          <Route path="/search" element={<SearchResult isLogin={isLogin}/>}></Route>
+          <Route
+            path="/search"
+            element={<SearchResult isLogin={isLogin} />}
+          ></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
       </ContentContainer>
@@ -120,7 +120,7 @@ const ContentContainer = styled.div`
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   min-height: 80vh;
-  background-color: #f4f4f4;
+  background-color: rgba(244, 244, 244, 0.5);
 `;
 
 export default App;

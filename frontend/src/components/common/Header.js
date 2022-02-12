@@ -42,12 +42,11 @@ function Header({ isLogin }) {
 const Nav = styled.header`
   padding: 0.8rem;
   display: flex;
-  position: fixed;
   width: 100%;
   justify-content: space-around;
   align-items: center;
   background-color: white;
-  z-index: 10;
+  z-index: 100;
 
   img {
     width: 160px;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { getStars } from './util/getStars';
+import { getStars } from '../../utils/getStars';
 
 function ReviewList({ isLogin, review }) {
   const anonymousName = '데이터'; //review.creator[0] + '*'.repeat(6);

@@ -1,27 +1,20 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Container } from '@mui/material';
-import Card from '../Card/Card';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import CardForReviewPage from '../review-page/CardsForReviewPage';
+import { Link } from 'react-router-dom';
 
-function ReviewBox({ isLogin, bootcampData, setBootcampData }) {
-  // 기관 리스트 추출
-  const cardLists = bootcampData.map((item) => {
-    return (
-      <Grid item xs={3}>
-        <Link
-          to={`/board/review/detail/${item._id}`}
-          state={{ isLogin: isLogin, data: item }}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <Card item={item} review={item.review}></Card>
-        </Link>
-      </Grid>
-    );
-  });
-
+function ReviewBox({
+  bootcampData,
+  setBootcampData,
+  isLogin,
+  setIsAlignChange,
+  isAlignChange,
+}) {
   // 별점순 정렬 핸들러
+  console.log(bootcampData);
+
   const sortByStar = () => {
     const newArr = [...bootcampData];
 
@@ -55,9 +48,31 @@ function ReviewBox({ isLogin, bootcampData, setBootcampData }) {
   // 이름순 정렬 핸들러
   const sortByName = () => {
     const newArr = [...bootcampData];
-    const sortedArr = newArr.sort((a, b) => (a.name > b.name ? 1 : -1));
+    const sortedArr = newArr.sort((a, b) => (a.name >= b.name ? 1 : -1));
     setBootcampData(sortedArr);
   };
+
+  const cardList = bootcampData.map((item) => {
+    return (
+      <Grid item xs={3} key={item.name}>
+        <Link
+          to={`/board/review/detail/${item._id}`}
+          state={{
+            isLogin: isLogin,
+            data: item,
+            review: item.review,
+          }}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
+          <CardForReviewPage
+            key={item.name}
+            item={item}
+            reviews={item.review}
+          ></CardForReviewPage>
+        </Link>
+      </Grid>
+    );
+  });
 
   return (
     <Container sx={{ marginBottom: '5rem' }}>
@@ -69,7 +84,7 @@ function ReviewBox({ isLogin, bootcampData, setBootcampData }) {
         </div>
       </ReviewPageTopBar>
       <Grid container spacing={5}>
-        {cardLists}
+        {cardList}
       </Grid>
     </Container>
   );
