@@ -4,7 +4,7 @@ import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function PostReview({ isLogin }) {
+function PostReview({ isLogin, post }) {
   const navigate = useNavigate();
 
   const param = useParams();
@@ -65,9 +65,9 @@ function PostReview({ isLogin }) {
       </TitleWrapper>
       <ReviewPart>
         <ReviewBox>
-          <ReviewImg src={data.image} alt="academyImage" />
+          <ReviewImg src={post.image} alt="academyImage" />
         </ReviewBox>
-        <Typography>{data.name}</Typography>
+        <Typography>{post.name}</Typography>
         <Rating
           name="reviewPoint"
           value={star}

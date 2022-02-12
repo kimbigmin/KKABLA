@@ -15,11 +15,11 @@ function ReviewList({ isLogin, review }) {
       </Score>
       <Contents>
         <p className="writer">
-          작성자 : <span>{anonymousName}</span>
+          작성자 : <span>{review.creator}</span>
           <span className="auth">{'수강생인증'}</span>
           <Date>{review.timeStamp}</Date>
         </p>
-        <h3>"한 마디로 좋은 학원"</h3>
+        <h3>{review.title}</h3>
         <p className="content">
           <h4 className="title">장점</h4>
           <div>

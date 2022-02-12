@@ -97,6 +97,14 @@ function App() {
               ></Route>
             </>
           )}
+          {isLogin && (
+            <>
+              <Route
+                path="/post/review/:id"
+                element={<PostReviewPage isLogin={isLogin} />}
+              ></Route>
+            </>
+          )}
           <Route
             path="/search"
             element={<SearchResult isLogin={isLogin} />}
