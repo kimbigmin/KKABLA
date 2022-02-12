@@ -14,6 +14,7 @@ const BoardSchema = new Schema(
     comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
     images: Array,
     thumbnail: String,
+    isBlind: Boolean,
   },
   { timestamps: true },
 );

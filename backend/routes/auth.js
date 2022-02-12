@@ -107,7 +107,7 @@ router.get('/user', async (req, res) => {
     if (user) {
       return res.send(user.nickName);
     } else {
-      await User.create({ hashedEmail, hashedName, nickName, isAdmin: true });
+      await User.create({ hashedEmail, hashedName, nickName });
 
       return res.send(nickName);
     }

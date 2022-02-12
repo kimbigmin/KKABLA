@@ -16,6 +16,7 @@ export default function MainContents({ isLogin }) {
       axios
         .get('http://localhost:5000/', { withCredentials: true })
         .then((res) => {
+<<<<<<< HEAD
           //자유게시판 글과 개발 게시판 글을 나눈다.  
           res.data.boards
             .map((post)=>{
@@ -30,6 +31,17 @@ export default function MainContents({ isLogin }) {
                 })    
               }      
             })          
+=======
+          // console.log(res.data.boards)
+          console.log(res.data);
+          setDevelopBoard((prevState) => {
+            return [...prevState, ...res.data.reviews];
+          });
+
+          setFreeBoard((prevState) => {
+            return [...prevState, ...res.data.boards];
+          });
+>>>>>>> 9fcfb97eff121c066ef522861c201a58f9cd53a5
         })
         .catch((err) => console.log(err));
     };

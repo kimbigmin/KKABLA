@@ -9,6 +9,7 @@ const CommentSchema = new Schema(
     like: { type: [Schema.Types.ObjectId], ref: 'User' },
     report: { type: [Schema.Types.ObjectId], ref: 'User' },
     comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
+    isBlind: Boolean,
   },
   { timestamps: true },
 );
