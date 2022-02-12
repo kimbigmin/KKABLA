@@ -10,8 +10,6 @@ import { Link } from 'react-router-dom';
 function DetailPage({ isLogin }) {
   const location = useLocation();
   const { data, review } = location.state;
-  console.log(review);
-  console.log(data);
 
   const sumStars = review.reduce((acc, val) => {
     return acc + val.star;

@@ -16,7 +16,6 @@ function Comment({ data, onDelete }) {
   const handleInComment = () => {
     setIsClick(!isClick);
   };
-  console.log(data);
   return (
     <CommentContainer>
       <Box

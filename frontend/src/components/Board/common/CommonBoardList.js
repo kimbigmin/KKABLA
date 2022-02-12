@@ -27,7 +27,6 @@ function CommonBoardList({ type, title, isLogin }) {
   // 게시판 생성
   const list = commonBoard.map((item) => {
     if (item) {
-      console.log(item);
       return (
         <Grid item xs={6}>
           <CommonBoard key={item} item={item} />

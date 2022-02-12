@@ -42,7 +42,6 @@ function ReviewBox({
       }
     });
     // 정렬된 배열을 dummy에 다시 셋해주고 재렌더링
-    console.log(sortedArr);
     setBootcampData(sortedArr);
   };
 
@@ -50,7 +49,6 @@ function ReviewBox({
   const sortByName = () => {
     const newArr = [...bootcampData];
     const sortedArr = newArr.sort((a, b) => (a.name >= b.name ? 1 : -1));
-    console.log(sortedArr);
     setBootcampData(sortedArr);
   };
 

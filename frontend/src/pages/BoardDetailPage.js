@@ -10,7 +10,6 @@ function BoardDetailPage() {
   const location = useLocation();
   const { dataFromBoard } = location.state;
 
-  console.log(commentList);
   // useEffect(() => {
   //   //fetch Comment
   //   setCommentList(mockComment);
@@ -24,7 +23,6 @@ function BoardDetailPage() {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          console.log(res.data);
           setCommentList(res.data);
         });
     };
@@ -37,7 +35,6 @@ function BoardDetailPage() {
   };
 
   const handleDelete = (index) => {
-    console.log(index);
     setCommentList(commentList.filter((item) => item.id !== index));
   };
   return (
