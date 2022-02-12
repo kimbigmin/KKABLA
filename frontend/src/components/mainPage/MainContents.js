@@ -15,12 +15,9 @@ export default function MainContents({ isLogin }) {
   useEffect(() => {
     const postReq = async () => {
       axios
-        .get('http://localhost:5000')
+        .get('http://localhost:5000/', { withCredentials: true })
         .then((res) => {
-          // console.log(res.data.boards)
-          setDevelopBoard((prevState) => {
-            return [...prevState, ...res.data.reviews];
-          });
+          console.log(res.data);
 
           setFreeBoard((prevState) => {
             return [...prevState, ...res.data.boards];

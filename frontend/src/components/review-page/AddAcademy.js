@@ -22,7 +22,7 @@ function AddAcademy({ setIsAdminBtn }) {
     const formData = new FormData();
     formData.append('image', image);
     formData.append('name', name);
-    formData.append('location', location);
+    formData.append('loca', location);
     formData.append('homePage', homePage);
     formData.append('system', session);
 
@@ -30,6 +30,7 @@ function AddAcademy({ setIsAdminBtn }) {
       await axios({
         method: 'post',
         url: 'http://localhost:5000/post/bootcamp',
+        withCredentials: true,
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
       });
