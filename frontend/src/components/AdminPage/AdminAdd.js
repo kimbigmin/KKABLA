@@ -23,9 +23,9 @@ function AdminAdd() {
   return (
     <Container>
       <AddForm>
-        <AddTextField label="기관명" variant="outlined" />
-        <AddTextField label="기관위치" variant="outlined" />
-        <AddTextField label="홈페이지 url" variant="outlined" />
+        <AddTextField margin="dense" label="기관명" variant="outlined" />
+        <AddTextField margin="dense" label="기관위치" variant="outlined" />
+        <AddTextField margin="dense" label="홈페이지 url" variant="outlined" />
 
         <Label>강의 방식</Label>
         <RadioBox>

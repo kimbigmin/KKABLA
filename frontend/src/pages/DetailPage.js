@@ -61,10 +61,7 @@ function DetailPage({ isLogin }) {
         <div className="list-topbar">
           <h3>{data.review.length}개의 리뷰</h3>
           {isLogin && (
-            <Link
-              to={`/post/review/${data._id}`}
-              state={{ isLogin: isLogin, data: data }}
-            >
+            <Link to={`/post/review/${data._id}`}>
               <button>리뷰작성하기</button>
             </Link>
           )}

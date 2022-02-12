@@ -19,7 +19,12 @@ import MyPage from './pages/myPage/MyPage';
 import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
+import SearchResult from './components/SearchResult/SearchResult';
 import AdminPage from './pages/myPage/AdminPage';
+import PostReviewPage from './pages/postPage/PostReviewPage';
+import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
+import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
+import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -67,9 +72,23 @@ function App() {
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
-          <Route path="/mypage" element={<MyPage />}></Route>
-          <Route path="/mypage/auth" element={<AuthPage />}></Route>
-          <Route path="/admin" element={<AdminPage />}></Route>
+          <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
+          <Route
+            path="/mypage/auth"
+            element={<AuthPage isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/mypage/boards"
+            element={<MyPageMoreBoards isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/mypage/reviews"
+            element={<MyPageMoreReviews isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/mypage/likes"
+            element={<MyPageMoreLikes isLogin={isLogin} />}
+          ></Route>
           {isLogin && (
             <>
               <Route
@@ -78,6 +97,11 @@ function App() {
               ></Route>
             </>
           )}
+          <Route
+            path="/search"
+            element={<SearchResult isLogin={isLogin} />}
+          ></Route>
+          <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
       </ContentContainer>
       <Container>

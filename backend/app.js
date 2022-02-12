@@ -43,10 +43,10 @@ app.use(
 
 //Routes
 app.use('/auth', auth);
-app.use('/login', login);
-app.use('/search', search);
 app.use('/post', findUser, post);
 app.use('/mypage', findUser, mypage);
+app.use('/login', login);
+app.use('/search', search);
 app.use('/board', board);
 app.use('/', home);
 

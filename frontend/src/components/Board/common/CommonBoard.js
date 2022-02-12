@@ -89,7 +89,7 @@ const Content = (props) => (
 );
 
 const Caption = (props) => (
-  <Grid item sx={{ margin: '3px' }}>
+  <Grid item sx={{ marginRight: '3px' }}>
     {props.children}
   </Grid>
 );

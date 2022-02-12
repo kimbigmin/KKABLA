@@ -1,33 +1,38 @@
 import React, { useState, Children } from 'react';
 import styled from 'styled-components';
 import { Box, Rating, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function MyPageReviews({ content }) {
-  const [reviews, setReviews] = useState(content);
-
+  console.log(content);
   return (
     <>
-      {reviews && (
+      {content && (
         <>
           {Children.toArray(
-            reviews.map((el) => (
-              <GridContainer container>
-                <Grid item xs={3}>
-                  <RatingBox>
-                    {el.ratings}
-                    <ReviewRating
-                      name="read-only"
-                      value={el.ratings}
-                      size="small"
-                      readOnly
-                    />
-                  </RatingBox>
-                </Grid>
-                <Grid item xs={9}>
-                  <RatingDate>{el.reviewDate}</RatingDate>
-                  <RatingName>{el.part}</RatingName>
-                </Grid>
-              </GridContainer>
+            content.map((el) => (
+              <Link
+                to={`/board/review/${el.bootCamp}`}
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <GridContainer container>
+                  <Grid item xs={3}>
+                    <RatingBox>
+                      {el.star}
+                      <ReviewRating
+                        name="read-only"
+                        value={el.star}
+                        size="small"
+                        readOnly
+                      />
+                    </RatingBox>
+                  </Grid>
+                  <Grid item xs={9}>
+                    <RatingDate>{el.updatedAt}</RatingDate>
+                    <RatingName>{el.bootCamp}</RatingName>
+                  </Grid>
+                </GridContainer>
+              </Link>
             )),
           )}
         </>

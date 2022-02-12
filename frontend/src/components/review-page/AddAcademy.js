@@ -30,6 +30,7 @@ function AddAcademy({ setIsAdminBtn }) {
       await axios({
         method: 'post',
         url: 'http://localhost:5000/post/bootcamp',
+        withCredentials: true,
         data: formData,
         headers: { 'Content-Type': 'multipart/form-data' },
       });

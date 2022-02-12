@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { getStars } from '../../utils/getStars';
 
 function ReviewList({ isLogin, review }) {
-  const anonymousName = review.creator[0] + '*'.repeat(6);
+  const anonymousName = '데이터'; //review.creator[0] + '*'.repeat(6);
 
   // Star 아이콘 렌더링 함수
 
