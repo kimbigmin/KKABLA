@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 import InComment from '../InComment/InComment';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 
-function Comment({ data, onDelete }) {
+function Comment({ data, onDelete, isLogin }) {
   // const handleDelete = (e) => {
   //   onDelete(id);
   // };
@@ -45,7 +45,7 @@ function Comment({ data, onDelete }) {
           commentCount={data.comments}
           onClick={handleInComment}
         />
-        {isClick && <InComment></InComment>}
+        {isClick && <InComment isLogin={isLogin}></InComment>}
       </Box>
     </CommentContainer>
   );

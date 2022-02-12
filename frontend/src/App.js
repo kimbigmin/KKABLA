@@ -57,8 +57,14 @@ function App() {
             path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
-          <Route path="/board/free/:id" element={<BoardDetailPage />} />
-          <Route path="/board/develop/:id" element={<BoardDetailPage />} />
+          <Route
+            path="/board/free/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/develop/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}

@@ -5,7 +5,7 @@ import Article from '../components/board-detail-page/Article/Article';
 import axios from 'axios';
 import CommentBox from '../components/board-detail-page/Comment/CommentBox';
 
-function BoardDetailPage() {
+function BoardDetailPage({ isLogin }) {
   const [commentList, setCommentList] = useState([]);
   const location = useLocation();
   const { dataFromBoard } = location.state;
@@ -47,6 +47,7 @@ function BoardDetailPage() {
         data={commentList}
         onCreate={handleCreate}
         onDelete={handleDelete}
+        isLogin={isLogin}
       />
     </DetailPageContainer>
   );
