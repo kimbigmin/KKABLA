@@ -28,8 +28,8 @@ function CommonBoardList({ type, title, isLogin }) {
   const list = commonBoard.map((item) => {
     if (item) {
       return (
-        <Grid item xs={6}>
-          <CommonBoard key={item} item={item} />
+        <Grid key={item._id} item xs={6}>
+          <CommonBoard item={item} />
         </Grid>
       );
     }
