@@ -41,6 +41,8 @@ function MyPage({ isLogin }) {
             title={`작성한 글 ${board.length}개`}
             children={<MyPagePosts content={board} />}
             length={board.length}
+            content={board}
+            board="boards"
           />
         </Grid>
         <Grid item xs={5}>
@@ -48,10 +50,16 @@ function MyPage({ isLogin }) {
             title={`작성한 리뷰 ${reviews.length}개`}
             children={<MyPageReviews content={reviews} />}
             length={reviews.length}
+            content={reviews}
+            board="reviews"
           />
         </Grid>
         <Grid item xs={3.5}>
-          <MyPageGrid title={`좋아요`} children={<MyPageLikes />} />
+          <MyPageGrid
+            title={`좋아요`}
+            children={<MyPageLikes />}
+            board="likes"
+          />
         </Grid>
       </Grid>
     </Container>

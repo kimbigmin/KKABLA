@@ -1,19 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Divider, Box, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function MyPageGrid({ title, children, length }) {
+function MyPageGrid({ title, children, length, board, content }) {
+  const navigate = useNavigate();
+
+  const MoveToMoreHandler = () => {
+    navigate(`/mypage/${board}`, {
+      state: content,
+    });
+  };
+
   return (
     <GridBox>
       <GridSection>
         <GridTop>
           <GridTitle>{title}</GridTitle>
-          {length >= 3 && (
-            <Link to="/mypage/more">
-              <Button variant="outlined">더 보기</Button>
-            </Link>
-          )}
+          {
+            <Button onClick={MoveToMoreHandler} variant="outlined">
+              더 보기
+            </Button>
+          }
         </GridTop>
         <GridDivider></GridDivider>
         <GridDetail>{children}</GridDetail>
