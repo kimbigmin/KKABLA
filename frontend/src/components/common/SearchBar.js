@@ -12,7 +12,7 @@ function SearchBar() {
     e.preventDefault();
     console.log(value);
     await axios.post('http://localhost:5000/search', { value });
-    navigate(`/search/${value}`);  
+    navigate(`/search/?word=${value}`);  
   };
 
   return (
@@ -22,7 +22,6 @@ function SearchBar() {
       </SearchIconWrapper>
       <form onSubmit={onSearchHandler}>
         <StyledInputBase
-          // value={search}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Search…"
           inputProps={{ 'aria-label': 'search' }}

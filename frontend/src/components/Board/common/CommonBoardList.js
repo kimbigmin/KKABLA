@@ -1,36 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CommonBoard from './CommonBoard';
-import { data } from './dummy';
 import { Container, Grid } from '@mui/material';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function CommonBoardList({ type, title, isLogin }) {
+  const [commonBoard, setCommonBoard] = useState([]);
+  const [recentList, setRecentList] = useState([]);
+
+  const getBoardInfo = async () => {
+    await axios
+      .get(`http://localhost:5000/board/${type}`, {})
+      .then((Response) => {
+        setCommonBoard(Response.data);
+        setRecentList(Response.data);
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
+  };
+  useEffect(() => {
+    getBoardInfo();
+  }, []);
+
   // 게시판 생성
-  axios
-    .get(`http://localhost:5000/board/${type}`, { withCredentials: true })
-    .then((res) => console.log(res));
-  const list = data
-    .filter((item) => item.type === type)
-    .map((item) => {
-      if (item) {
-        return (
-          <Grid item xs={6}>
-            <CommonBoard item={item} />
-          </Grid>
-        );
-      }
-    });
+  const list = commonBoard.map((item) => {
+    if (item) {
+      return (
+        <Grid item xs={6}>
+          <CommonBoard key={item} item={item} />
+        </Grid>
+      );
+    }
+  });
 
   // 최신순 정렬
-  // const sortByRecent =
+  const sortByRecent = () => {
+    setCommonBoard(recentList);
+  };
 
   // 좋아요순 정렬
-  // const sortByLike =
+  const sortByLike = () => {
+    const sortedData = [...commonBoard].sort((a, b) => {
+      const aLike = a.like.length;
+      const bLike = b.like.length;
+      return aLike > bLike ? -1 : aLike === bLike ? 0 : 1;
+    });
+    setCommonBoard(sortedData);
+  };
 
   // 댓글순 정렬
-  // const sortByComment =
+  const sortByComment = () => {
+    const sortedData = [...commonBoard].sort((a, b) => {
+      const aComment = a.comments.length;
+      const bComment = b.comments.length;
+      return aComment > bComment ? -1 : aComment === bComment ? 0 : 1;
+    });
+    setCommonBoard(sortedData);
+  };
 
   return (
     <Container sx={{ marginBottom: '5rem' }}>
@@ -38,7 +66,9 @@ function CommonBoardList({ type, title, isLogin }) {
         <h2>{title}</h2>
 
         <div>
-          <span>최신순</span> | <span>좋아요순</span> | <span>댓글순</span>
+          <span onClick={sortByRecent}>최신순</span> |{' '}
+          <span onClick={sortByLike}>좋아요순</span> |{' '}
+          <span onClick={sortByComment}>댓글순</span>
           {isLogin ? (
             <Link
               to={`../post/${type}`}
