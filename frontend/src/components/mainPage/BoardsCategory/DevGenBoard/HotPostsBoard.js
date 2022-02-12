@@ -8,7 +8,7 @@ export default function HotPostsBoard({isLogin,developBoard,freeBoard}) {
     .slice(0,19)
     .map((post)=>{
       //17글자가 넘는 제목은 17글자까지만 자르고 '...' 추가
-      const limitLen=18;
+      const limitLen=15;
       const tailTxt=" ...";
 
       //날짜 YY-DD 식으로 출력

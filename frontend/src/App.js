@@ -19,7 +19,7 @@ import MyPage from './pages/myPage/MyPage';
 import DevelopBoardPage from './pages/DevelopBoardPage';
 import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
-
+import SearchResult from './components/SearchResult/SearchResult';
 function App() {
   const [isLogin, setisLogin] = useState(false);
   console.log(isLogin);
@@ -74,6 +74,7 @@ function App() {
               ></Route>
             </>
           )}
+          <Route path="/search" element={<SearchResult isLogin={isLogin}/>}></Route>
         </Routes>
       </ContentContainer>
       <Container>
