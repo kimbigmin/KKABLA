@@ -55,11 +55,7 @@ function MyPage({ isLogin }) {
           />
         </Grid>
         <Grid item xs={3.5}>
-          <MyPageGrid
-            title={`좋아요`}
-            children={<MyPageLikes />}
-            board="likes"
-          />
+          <MyPageGrid title={`좋아요`} board="likes" />
         </Grid>
       </Grid>
     </Container>

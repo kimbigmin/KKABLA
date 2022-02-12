@@ -21,6 +21,7 @@ import AuthPage from './pages/myPage/AuthPage';
 import PostPage from './pages/postPage/PostPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
+import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -81,6 +82,10 @@ function App() {
           <Route
             path="/mypage/reviews"
             element={<MyPageMoreReviews isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/mypage/likes"
+            element={<MyPageMoreLikes isLogin={isLogin} />}
           ></Route>
           {isLogin && (
             <>
