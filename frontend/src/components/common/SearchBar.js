@@ -11,8 +11,9 @@ function SearchBar() {
   const onSearchHandler = async (e) => {
     e.preventDefault();
     console.log(value);
-    await axios.post('http://localhost:5000/search', { value });
-    navigate(`/search/?word=${value}`);  
+    await axios.get(`http://localhost:5000/search/${value}`, {
+      withCredentials: true,
+    });
   };
 
   return (

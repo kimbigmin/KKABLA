@@ -5,24 +5,29 @@ import Review from '../models/Review.js';
 import upload from '../utils/userAuth.js';
 import axios from 'axios';
 import fs from 'fs';
+import Admin from '../models/Admin.js';
+import certification from '../utils/certification.js';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   const user = res.locals.user;
 
-  console.log(user);
-  if (user) {
-    const boards = await Board.find({ creator: user.nickName });
-    const reviews = await Review.find({ creator: user.nickName });
-    console.log([boards, reviews, user.auth]);
+  if (user.isAdmin) {
+    const admin = await Admin.find({}).lean();
+    res.send(admin);
+  } else {
+    const [boards, reviews] = await Promise.all([
+      Board.find({ creator: user.nickName }).lean(),
+      Review.find({ creator: user.nickName }).lean(),
+    ]);
+
     res.send({ boards, reviews, userAuth: user.auth });
   }
 });
 
 router.delete('/', async (req, res) => {
-  const nickName = req.session.nickName;
-  const user = await User.findOne({ nickName });
+  const user = res.locals.user;
   if (user) {
     await Review.deleteMany({ creator: user.nickName });
     await Board.deleteMany({ creator: user.nickName });
@@ -80,7 +85,13 @@ router.post('/auth', upload.single('image'), async (req, res) => {
       });
     })
     .catch((err) => console.log(err));
-  console.log(sumText);
+
+  // if (certification(sumText)) {
+  //   const u = res.locals.user;
+  //   const user = await User.findOneAndUpdate({_id:u._id},{
+  //   auth
+  //   })
+  // }
 });
 
 export default router;

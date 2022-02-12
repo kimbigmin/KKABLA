@@ -28,6 +28,7 @@ const findUser = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
+
     res.send({ message: '존재하지 않는 유저입니다.' });
   }
 };

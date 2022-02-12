@@ -23,7 +23,6 @@ const app = express();
 const __dirname = path.resolve();
 
 //setting
-
 app.use(cookieParser());
 app.use(
   session({
