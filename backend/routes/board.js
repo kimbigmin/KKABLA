@@ -1,10 +1,8 @@
 import express from 'express';
 import Board from '../models/Board.js';
 import BootCamp from '../models/BootCamp.js';
-import Review from '../models/Review.js';
 import mongoose from 'mongoose';
 import User from '../models/User.js';
-import findUser from '../middlewares/findUser.js';
 
 const router = express.Router();
 
