@@ -24,6 +24,8 @@ function CommonBoardList({ type, title, isLogin }) {
     getBoardInfo();
   }, []);
 
+  console.log(commonBoard);
+
   // 게시판 생성
   const list = commonBoard.map((item) => {
     if (item) {
@@ -44,8 +46,8 @@ function CommonBoardList({ type, title, isLogin }) {
   // 좋아요순 정렬
   const sortByLike = (id) => {
     const sortedData = [...commonBoard].sort((a, b) => {
-      const aLike = a.like.length;
-      const bLike = b.like.length;
+      const aLike = a.like ? a.like.length : 0;
+      const bLike = b.like ? b.like.length : 0;
       return aLike > bLike ? -1 : aLike === bLike ? 0 : 1;
     });
     setCommonBoard(sortedData);
@@ -55,8 +57,8 @@ function CommonBoardList({ type, title, isLogin }) {
   // 댓글순 정렬
   const sortByComment = (id) => {
     const sortedData = [...commonBoard].sort((a, b) => {
-      const aComment = a.comments.length;
-      const bComment = b.comments.length;
+      const aComment = a.comments ? a.comments.length : 0;
+      const bComment = b.comments ? b.comments.length : 0;
       return aComment > bComment ? -1 : aComment === bComment ? 0 : 1;
     });
     setCommonBoard(sortedData);
@@ -121,7 +123,7 @@ const ReviewPageTopBar = (props) => (
     sx={{
       display: 'flex',
       justifyContent: 'space-between',
-      marginTop: '7rem',
+      marginTop: '5rem',
       marginBottom: '1rem',
       alignItems: 'center',
     }}
