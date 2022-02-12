@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import CommonBoard from './CommonBoard';
-import { Container, Grid } from '@mui/material';
-import styled from 'styled-components';
+import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
   const [recentList, setRecentList] = useState([]);
+  const [alignBold, setAlignBold] = useState();
 
   const getBoardInfo = async () => {
     await axios
@@ -41,39 +41,62 @@ function CommonBoardList({ type, title, isLogin }) {
     });
 
   // 최신순 정렬
-  const sortByRecent = () => {
+  const sortByRecent = (id) => {
     setCommonBoard(recentList);
+    setAlignBold(id);
   };
 
   // 좋아요순 정렬
-  const sortByLike = () => {
+  const sortByLike = (id) => {
     const sortedData = [...commonBoard].sort((a, b) => {
       const aLike = a.like.length;
       const bLike = b.like.length;
       return aLike > bLike ? -1 : aLike === bLike ? 0 : 1;
     });
     setCommonBoard(sortedData);
+    setAlignBold(id);
   };
 
   // 댓글순 정렬
-  const sortByComment = () => {
+  const sortByComment = (id) => {
     const sortedData = [...commonBoard].sort((a, b) => {
       const aComment = a.comments.length;
       const bComment = b.comments.length;
       return aComment > bComment ? -1 : aComment === bComment ? 0 : 1;
     });
     setCommonBoard(sortedData);
+    setAlignBold(id);
   };
 
   return (
     <Container sx={{ marginBottom: '5rem' }}>
-      <Top>
-        <h2>{title}</h2>
+      <ReviewPageTopBar>
+        <Title>{title}</Title>
 
         <div>
-          <span onClick={sortByRecent}>최신순</span> |{' '}
-          <span onClick={sortByLike}>좋아요순</span> |{' '}
-          <span onClick={sortByComment}>댓글순</span>
+          <AlignButton
+            id="recentButton"
+            clickState={alignBold}
+            onClick={() => sortByRecent('recentButton')}
+          >
+            최신순
+          </AlignButton>{' '}
+          |{' '}
+          <AlignButton
+            id="likeButton"
+            clickState={alignBold}
+            onClick={() => sortByLike('likeButton')}
+          >
+            좋아요순
+          </AlignButton>{' '}
+          |{' '}
+          <AlignButton
+            id="commentButton"
+            clickState={alignBold}
+            onClick={() => sortByComment('commentButton')}
+          >
+            댓글순
+          </AlignButton>
           {isLogin ? (
             <Link
               to={`../post/${type}`}
@@ -88,7 +111,7 @@ function CommonBoardList({ type, title, isLogin }) {
             </Link>
           ) : null}
         </div>
-      </Top>
+      </ReviewPageTopBar>
       <Grid container spacing={2}>
         {list}
       </Grid>
@@ -98,22 +121,50 @@ function CommonBoardList({ type, title, isLogin }) {
 
 export default CommonBoardList;
 
-const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 7rem;
-  margin-bottom: 5rem;
-  align-items: center;
+const ReviewPageTopBar = (props) => (
+  <Container
+    sx={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: '7rem',
+      marginBottom: '1rem',
+      alignItems: 'center',
+    }}
+  >
+    {props.children}
+  </Container>
+);
 
-  h2 {
-    font-size: 1.7rem;
-    font-weight: bold;
-    color: #484848ea;
-  }
+const Title = (props) => (
+  <Typography
+    variant="subtitle1"
+    sx={{ fontSize: '1.7rem', fontWeight: 'bold', color: '#484848ea' }}
+  >
+    {props.children}
+  </Typography>
+);
 
-  span {
-    font-size: 0.8rem;
-    color: #484848ea;
-    cursor: pointer;
-  }
-`;
+const AlignButton = (props) => (
+  <Typography
+    variant="button"
+    onClick={props.onClick}
+    sx={
+      props.clickState === props.id
+        ? {
+            fontSize: '0.8rem',
+            fontWeight: '800',
+            color: '#484848ea',
+            cursor: 'pointer',
+            ':hover': { fontWeight: 'bold', color: '#4585ff' },
+          }
+        : {
+            fontSize: '0.8rem',
+            color: '#484848ea',
+            cursor: 'pointer',
+            ':hover': { fontWeight: 'bold', color: '#4585ff' },
+          }
+    }
+  >
+    {props.children}
+  </Typography>
+);
