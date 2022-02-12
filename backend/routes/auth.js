@@ -8,6 +8,7 @@ import cryto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
 import queryString from 'querystring';
 import findUser from '../middlewares/findUser.js';
+import Admin from '../models/Admin.js';
 
 const router = express.Router();
 
@@ -103,6 +104,8 @@ router.get('/user', async (req, res) => {
     const nickName = uuidv4().slice(0, 6);
 
     const user = await User.findOne({ hashedEmail, hashedName });
+
+    // await Admin.create();
 
     if (user) {
       return res.send(user.nickName);

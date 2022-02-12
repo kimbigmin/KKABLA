@@ -47,7 +47,6 @@ router.post('/review/:id', async (req, res) => {
 //개발 게시판 글 작성
 router.post('/develop', upload.array('image'), async (req, res) => {
   const { title, contents, creator, type } = req.body;
-
   const images = req.files ? req.files.map((file) => file.location) : '';
   const develop = await Board.create({
     title,
@@ -116,6 +115,7 @@ router.get('/like/:id', async (req, res) => {
 router.get('/report/:id', async (req, res) => {
   const { id } = req.params;
   const userId = res.locals.user._id;
+  let type;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
     if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
@@ -123,12 +123,24 @@ router.get('/report/:id', async (req, res) => {
       { _id: id },
       { $addToSet: { report: userId } },
     );
-
-    // if(board.report.length + 1 > 2){
-    //   await Admin.
-    // }
-
-    res.send(board);
+    type = board;
+    if (!board) {
+      const commnet = await Comment.findOneAndUpdate(
+        { _id: id },
+        { $addToSet: { report: userId } },
+      );
+      type = commnet;
+    }
+    // '6205f8dc32c4c7bc716a4a5e'('6205f1ed4cddd1138bc89d06');
+    if (board.report.length + 1 > 2) {
+      await Admin.find({}).update({
+        $push: {
+          reportBoard: type._id,
+        },
+      });
+    }
+    console.log(type);
+    res.send(type);
   }
 });
 

@@ -19,6 +19,7 @@ function AuthPageUpload() {
         method: 'post',
         url: 'http://localhost:5000/mypage/auth',
         data: formData,
+        withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     } catch (error) {
