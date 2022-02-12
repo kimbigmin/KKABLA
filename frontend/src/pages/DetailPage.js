@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
 import ReviewList from '../components/review-page/ReviewList';
 import { Grid } from '@mui/material';
@@ -6,17 +6,28 @@ import { useLocation } from 'react-router-dom';
 import { getStars } from '../utils/getStars';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function DetailPage({ isLogin }) {
   const location = useLocation();
-  const { data, review } = location.state;
+  const { data } = location.state;
+  const [reviews, setReviews] = useState([]);
 
-  const sumStars = review.reduce((acc, val) => {
-    return acc + val.star;
-  }, 0);
-  const averageStars = (sumStars / review.length).toFixed(1);
+  console.log(data);
+  const getReviews = async () => {
+    await axios
+      .get(`http://localhost:5000/board/review/${data._id}`)
+      .then((res) => {
+        setReviews(res.data.review);
+      });
+  };
 
-  const list = review.map((review) => {
+  useEffect(() => {
+    getReviews();
+  }, []);
+
+  console.log(reviews);
+  const list = reviews.map((review) => {
     return <ReviewList isLogin={isLogin} review={review} />;
   });
 
@@ -36,8 +47,8 @@ function DetailPage({ isLogin }) {
           <img src={data.image} alt="logo" />
           <div className="info">
             <h3>{data.name}</h3>
-            <span>{getStars(averageStars)}</span>
-            <p>{averageStars === 'NaN' ? '0.0' : averageStars}점</p>
+            <span>{getStars(data.star)}</span>
+            <p>{data.star}점</p>
           </div>
         </Info>
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
@@ -59,9 +70,9 @@ function DetailPage({ isLogin }) {
       </Introduction>
       <ListTopBar>
         <div className="list-topbar">
-          <h3>{data.review.length}개의 리뷰</h3>
+          <h3>{reviews.length}개의 리뷰</h3>
           {isLogin && (
-            <Link to={`/post/review/${data._id}`}>
+            <Link to={`/post/review/${data._id}`} state={{ data: data }}>
               <button>리뷰작성하기</button>
             </Link>
           )}
