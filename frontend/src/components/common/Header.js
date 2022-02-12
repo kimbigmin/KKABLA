@@ -17,7 +17,7 @@ function Header({ isLogin }) {
         자유게시판
       </Link>
       <Link to="/board/develop" className="link">
-        개발이야기
+        개발게시판
       </Link>
 
       {isLogin ? (
