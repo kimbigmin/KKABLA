@@ -1,130 +1,119 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import {
-  Container,
-  Button,
-  Box,
-  TextField,
-  Divider,
-  Typography,
-  Rating,
-} from '@mui/material';
+import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function PostReview({ isLogin }) {
+  const navigate = useNavigate();
+
+  const param = useParams();
+  const id = param.id;
+  const [data, setData] = useState([]);
   const [title, setTitle] = useState('');
   const [pros, setPros] = useState(''); //장점
   const [cons, setCons] = useState(''); // 단점
   const [star, setStar] = useState(0); //별점
 
-  const onPostReviewHandler = async () => {
-    await axios.post('http://localhost:5000/post/review', {
-      title,
-      bootCamp: 'elice SW Track',
-      pros,
-      cons,
-      star,
-      creator: isLogin,
-    });
+  useEffect(() => {
+    onGetReviewHandler();
+  }, []);
+
+  const onGetReviewHandler = async () => {
+    await axios
+      .get(`http://localhost:5000/post/review/${id}`)
+      .then((res) => setData(res.data))
+      .then((err) => console.log(err));
   };
 
+  const onPostReviewHandler = async () => {
+    await axios
+      .post(`http://localhost:5000/post/review/${id}`, {
+        title,
+        bootCamp: id,
+        pros,
+        cons,
+        star,
+        creator: isLogin,
+      })
+      .then(
+        navigate(`/board/review/detail/${id}`, {
+          state: { data },
+          replace: true,
+        }),
+      );
+  };
+
+  console.log(data);
+  console.log(star);
+
   return (
-    <Container maxWidth="md">
-      <TopTypography variant="h5">글 작성하기</TopTypography>
-      <Divider></Divider>
-      <form>
-        <TitleWrapper>
-          <Box
-            sx={{
-              width: 200,
-              height: 40,
-              bgcolor: '#A2D2FF',
-              color: 'black',
-              textAlign: 'center',
-              lineHeight: '40px',
-              margin: '10px',
-              borderRadius: '8px',
-              fontWeight: 'bold',
-              border: '1px solid black',
-            }}
-          >
-            리뷰게시판
-          </Box>
-          <TitleTextField
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            required
-            type="text"
-            size="small"
-            fullWidth={true}
-            placeholder="제목을 입력하세요."
-          />
-        </TitleWrapper>
-        <ReviewPart>
-          <Box
-            sx={{
-              width: 200,
-              height: 200,
-              border: '1px solid black',
-              borderRadius: '8px',
-              lineHeight: '200px',
-              textAlign: 'center',
-            }}
-          >
-            이미지 공간
-          </Box>
-          <Typography>엘리스 : SW 엔지니어 트랙 1기</Typography>
-          <Rating name="reviewPoint" size="large" />
-          <Typography>별점을 선택해 주세요</Typography>
-        </ReviewPart>
-        <ContentsWrapper>
-          <ContentsTextField
-            onChange={(e) => {
-              setPros(e.target.value);
-            }}
-            required
-            type="text"
-            fullWidth={true}
-            multiline={true}
-            maxRows={5}
-            rows={3}
-            placeholder="장점을 입력하세요."
-          />
-        </ContentsWrapper>
-        <ContentsWrapper>
-          <ContentsTextField
-            onChange={(e) => {
-              setCons(e.target.value);
-            }}
-            required
-            type="text"
-            fullWidth={true}
-            multiline={true}
-            maxRows={5}
-            rows={3}
-            placeholder="단점을 입력하세요."
-          />
-        </ContentsWrapper>
-        <SubmitButton
-          onClick={() => {
-            onPostReviewHandler();
+    <form>
+      <TitleWrapper>
+        <TitleBox>리뷰게시판</TitleBox>
+        <TitleTextField
+          margin="dense"
+          onChange={(e) => {
+            setTitle(e.target.value);
           }}
-          variant="contained"
-        >
-          등록
-        </SubmitButton>
-      </form>
-    </Container>
+          required
+          type="text"
+          size="small"
+          fullWidth={true}
+          placeholder="제목을 입력하세요."
+        />
+      </TitleWrapper>
+      <ReviewPart>
+        <ReviewBox>
+          <ReviewImg src={data.image} alt="academyImage" />
+        </ReviewBox>
+        <Typography>{data.name}</Typography>
+        <Rating
+          name="reviewPoint"
+          value={star}
+          onChange={(e) => {
+            setStar(Number(e.target.value));
+          }}
+          size="large"
+        />
+        <Typography>별점을 선택해 주세요</Typography>
+      </ReviewPart>
+      <ContentsWrapper>
+        <ContentLabel>장점</ContentLabel>
+        <ContentsTextField
+          onChange={(e) => {
+            setPros(e.target.value);
+          }}
+          required
+          type="text"
+          fullWidth={true}
+          multiline={true}
+          minRows={3}
+          placeholder="장점을 입력하세요."
+        />
+      </ContentsWrapper>
+      <ContentsWrapper>
+        <ContentLabel>단점</ContentLabel>
+        <ContentsTextField
+          onChange={(e) => {
+            setCons(e.target.value);
+          }}
+          required
+          type="text"
+          fullWidth={true}
+          multiline={true}
+          minRows={3}
+          placeholder="단점을 입력하세요."
+        />
+      </ContentsWrapper>
+      <SubmitButton onClick={onPostReviewHandler} variant="contained">
+        등록
+      </SubmitButton>
+    </form>
   );
 }
 
 export default PostReview;
-
-const TopTypography = styled(Typography)`
-  margin: 0 0 10px 10px;
-  font-weight: bold;
-`;
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -153,6 +142,39 @@ const ContentsTextField = styled(TextField)`
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 91.5%;
+  left: 95%;
   font-weight: bold;
+`;
+
+const TitleBox = styled(Box)`
+  width: 200px;
+  height: 40px;
+  background-color: #a2d2ff;
+  color: black;
+  text-align: center;
+  line-height: 40px;
+  margin: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+`;
+
+const ReviewBox = styled(Box)`
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  line-height: 200px;
+  text-align: center;
+  position: relative;
+`;
+
+const ReviewImg = styled.img`
+  width: 13rem;
+  postion: absolute;
+  margin-top: 1.4rem;
+  text-align: center;
+`;
+
+const ContentLabel = styled(Box)`
+  font-weight: bold;
+  margin: 5px;
 `;

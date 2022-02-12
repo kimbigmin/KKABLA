@@ -2,9 +2,15 @@ import React, { useState, Children } from 'react';
 import { Box, Container, Grid } from '@mui/material';
 import styled from 'styled-components';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { useNavigate } from 'react-router-dom';
 
 function MyPageAuth({ content }) {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
+  const navigate = useNavigate();
+
+  const onHandleAuth = () => {
+    navigate('/mypage/auth');
+  };
 
   return (
     <AuthContainer>
@@ -26,7 +32,7 @@ function MyPageAuth({ content }) {
           )}
         </>
       ) : (
-        <AuthNeedBox>인증하기</AuthNeedBox>
+        <AuthNeedBox onClick={onHandleAuth}>인증하기</AuthNeedBox>
       )}
     </AuthContainer>
   );
@@ -43,6 +49,7 @@ const AuthContainer = styled(Container)`
 
 const GridPart = styled(Grid)`
   line-height: 30px;
+  font-weight: bold;
 `;
 
 const GridIcon = styled(Grid)`

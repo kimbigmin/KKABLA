@@ -1,66 +1,100 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from '@mui/material';
-import logo from '../images/logo.png';
-import StarIcon from '@mui/icons-material/Star';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
-import ReviewList from '../components/review/ReviewList';
+import ReviewList from '../components/review-page/ReviewList';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { getStars } from '../components/review-page/util/getStars';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function DetailPage({ isLogin }) {
-  // const location = useLocation();
-  // const { isLogin } = location.state;
-  // console.log(isLogin);
+  const location = useLocation();
+  const { data } = location.state;
+
+  const [detailReviews, setDetailReviews] = useState([]);
+
+  console.log(data);
+
+  // 상세리뷰 데이터 GET 핸들러
+  const getData = async () => {
+    await axios
+      .get(`http://localhost:5000/board/review/${data._id}`)
+      .then((result) => {
+        setDetailReviews((current) => {
+          const newArr = [...current, ...result.data.review];
+          return newArr;
+        });
+      });
+  };
+
+  const sumStars = detailReviews.reduce((acc, val) => {
+    return acc + val.star;
+  }, 0);
+  const averageStars = (sumStars / detailReviews.length).toFixed(1);
+
+  const list = detailReviews.map((review) => {
+    return <ReviewList isLogin={isLogin} review={review} />;
+  });
+
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
       <Top>
-        <h2>까블라 아카데미</h2>
+        <h2>
+          {data.name}{' '}
+          <span style={{ fontSize: '1rem', cursor: 'default' }}>
+            리뷰게시판
+          </span>
+        </h2>
       </Top>
       <IntroBar>기관소개</IntroBar>
       <Introduction>
         <Info>
-          <img src={logo} alt="logo" />
+          <img src={data.image} alt="logo" />
           <div className="info">
-            <h3>까블라 아카데미</h3>
-            <span>
-              {/* 받아온 평점으로 동적으로 별 생성하기 */}
-              <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-              <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-              <StarIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-              <StarHalfIcon sx={{ color: '#fcdd29', fontSize: '1rem' }} />
-            </span>
-            <p>3.5</p>
+            <h3>{data.name}</h3>
+            <span>{getStars(averageStars)}</span>
+            <p>{averageStars === 'NaN' ? '0.0' : averageStars}점</p>
           </div>
         </Info>
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
           <Grid item xs={12}>
             <h4>홈페이지</h4>
-            <a href="#" target="_blank">
-              https://kkabla.com
+            <a href={data.homePage} target="_blank" rel="noreferrer">
+              {data.homePage}
             </a>
           </Grid>
           <Grid item xs={12}>
             <h4>위치</h4>
-            <p>서울특별시 서초구 서초동 아무개로 16번길 707-1</p>
+            <p>{data.location}</p>
           </Grid>
           <Grid item xs={12}>
             <h4>수업방식</h4>
-            <p>비대면 + 오프라인 강의</p>
+            <p>{data.system} 방식</p>
           </Grid>
         </Grid>
       </Introduction>
       <ListTopBar>
         <div className="list-topbar">
-          <h3>{2}개의 리뷰</h3>
-          {isLogin && <button>리뷰작성하기</button>}
+          <h3>{data.review.length}개의 리뷰</h3>
+          {isLogin && (
+            <Link to={`/post/review/${data._id}`}>
+              <button>리뷰작성하기</button>
+            </Link>
+          )}
         </div>
       </ListTopBar>
       <Blind>
-        {!isLogin && <div class="blind">로그인 후 이용이 가능합니다. 😢</div>}
-        <ReviewList isLogin={isLogin} />
-        <ReviewList isLogin={isLogin} />
+        <div className={!isLogin && 'close'}>
+          {!isLogin && data.review.length !== 0 && (
+            <div className="blind">로그인 후 이용이 가능합니다. 😢</div>
+          )}
+          {list}
+        </div>
       </Blind>
     </Container>
   );
@@ -79,7 +113,7 @@ const Introduction = styled.div`
     font-size: 1.2rem;
     font-weight: 500;
     margin-bottom: 1rem;
-    color: #4586ffb2;
+    color: rgba(127, 170, 255, 0.9);
   }
 
   a {
@@ -114,21 +148,28 @@ const ListTopBar = styled.div`
   .list-topbar {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 
     h3 {
       font-weight: bold;
+      color: #575757;
     }
 
     button {
       border: none;
-      background-color: white;
       font-size: 1.1rem;
       font-weight: 500;
-      background-color: #4a88ff;
+      background-color: rgba(127, 170, 255, 0.4);
       border-radius: 5px;
-      padding: 0.3rem;
-      color: white;
+      padding: 0.5rem;
+      color: #000000e1;
       cursor: pointer;
+
+      &:hover {
+        background-color: rgba(127, 170, 255, 1);
+        transition-duration: 0.5s;
+        color: white;
+      }
     }
   }
 `;
@@ -137,22 +178,27 @@ const Blind = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
+  .close {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    color: #4d4d4d;
+  }
 
   .blind {
     display: flex;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-
+    justify-content: center;
+    position: absolute;
     backdrop-filter: blur(5px);
     background-color: rgba(255, 255, 255, 0.036);
-    color: #4d4d4d;
-
-    position: absolute;
-    width: 100%;
-    height: 70%;
-
+    width: 102%;
+    height: 100%;
+    z-index: 100;
     font-size: 2rem;
     font-weight: bold;
   }
@@ -168,14 +214,16 @@ const IntroBar = styled.h3`
 const Top = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 7rem;
-  margin-bottom: 5rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
   align-items: center;
+  border-bottom: solid 2px rgba(0, 0, 0, 0.1);
 
   h2 {
     font-size: 1.7rem;
     font-weight: bold;
     color: #484848ea;
+    margin-bottom: 1rem;
   }
 
   span {

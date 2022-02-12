@@ -1,5 +1,10 @@
 import React from 'react';
+import CommonBoardList from '../components/Board/common/CommonBoardList';
 
-export function DevelopBoardPage() {
-  return <div>Develop Board Page</div>;
+function DevelopBoardPage({ isLogin }) {
+  return (
+    <CommonBoardList type="develop" title="개발게시판" isLogin={isLogin} />
+  );
 }
+
+export default DevelopBoardPage;

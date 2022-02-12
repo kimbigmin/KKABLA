@@ -55,12 +55,7 @@ const users = {
 
 function MyPage() {
   return (
-    <Container
-      sx={{
-        bgcolor: '#F7F7F7',
-      }}
-      maxWidth="md"
-    >
+    <Container>
       <Grid container>
         <Grid item xs={12}>
           <MyPageGrid

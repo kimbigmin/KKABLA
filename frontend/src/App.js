@@ -16,8 +16,11 @@ import FreeBoardPage from './pages/FreeBoardPage';
 import Login from './components/login-page/Login';
 import Logout from './components/logout-page/Logout';
 import MyPage from './pages/myPage/MyPage';
-import PostFree from './components/post-page/Post';
-import PostReview from './components/post-page/PostReview';
+import DevelopBoardPage from './pages/DevelopBoardPage';
+import AuthPage from './pages/myPage/AuthPage';
+import PostPage from './pages/postPage/PostPage';
+import AdminPage from './pages/myPage/AdminPage';
+import PostReviewPage from './pages/postPage/PostReviewPage';
 
 function App() {
   const [isLogin, setisLogin] = useState(false);
@@ -35,43 +38,47 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Container>
-        <Header isLogin={isLogin} />
-      </Container>
-
+      <Header isLogin={isLogin} />
       <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
-          <Route path="/" element={<MainContents />}></Route>
+          <Route path="/" element={<MainContents isLogin={isLogin} />}></Route>
           <Route
             path="/board/review"
             element={<ReviewPage isLogin={isLogin} />}
           ></Route>
           <Route
-            path="/review/detail"
+            path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
+          <Route
+            path="/post/review/:id"
+            element={<PostReviewPage isLogin={isLogin} />}
+          />
+
           <Route path="/board/detail" element={<BoardDetailPage />} />
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
           />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
-          <Route path="board/free" element={<FreeBoardPage />} />
+          <Route
+            path="/board/free"
+            element={<FreeBoardPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/develop"
+            element={<DevelopBoardPage isLogin={isLogin} />}
+          />
+
+          <Route
+            path="/post/:board"
+            element={<PostPage isLogin={isLogin} />}
+          ></Route>
           <Route path="/mypage" element={<MyPage />}></Route>
-          {isLogin && (
-            <>
-              <Route
-                path="/post/free"
-                element={<PostFree isLogin={isLogin} />}
-              ></Route>
-              <Route
-                path="/post/review"
-                element={<PostReview isLogin={isLogin} />}
-              ></Route>
-            </>
-          )}
+          <Route path="/mypage/auth" element={<AuthPage />}></Route>
+          <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
       </ContentContainer>
       <Container>

@@ -59,8 +59,6 @@ const FooterBar = styled.footer`
   color: rgba(0, 0, 0, 0.365);
   font-size: 0.8rem;
 
-  border-top: 1px solid rgba(0, 0, 0, 0.105);
-
   img {
     width: 160px;
     opacity: 0.8;
