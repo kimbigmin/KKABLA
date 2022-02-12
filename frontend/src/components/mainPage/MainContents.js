@@ -14,7 +14,7 @@ export default function MainContents({ isLogin }) {
   useEffect(() => {
     const postReq = async () => {
       axios
-        .get('http://localhost:5000/')
+        .get('http://localhost:5000/', { withCredentials: true })
         .then((res) => {
           // console.log(res.data.boards)
           console.log(res.data);

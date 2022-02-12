@@ -10,6 +10,7 @@ const ReviewSchema = new Schema(
     pros: String,
     cons: String,
     star: Number,
+    report: { type: [Schema.Types.ObjectId], ref: 'User' },
   },
   { timestamps: true },
 );
