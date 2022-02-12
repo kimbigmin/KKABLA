@@ -36,7 +36,10 @@ function App() {
         .get('http://localhost:5000/auth/user', {
           withCredentials: true,
         })
-        .then((res) => setisLogin(res.data));
+        .then((res) => {
+          console.log(res);
+          setisLogin(res.data);
+        });
     };
     getMe();
   }, [isLogin]);
@@ -98,7 +101,7 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board/:id"
+                path="/post/:board/"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
