@@ -3,11 +3,11 @@ import { getStars } from '../../utils/getStars';
 import styled from 'styled-components';
 
 function CardForReviewPage({ item, reviews }) {
-  const sumStars = reviews.reduce((acc, val) => {
-    return acc + val.star;
-  }, 0);
+  // const sumStars = reviews.reduce((acc, val) => {
+  //   return acc + val.star;
+  // }, 0);
 
-  const averageStars = (sumStars / reviews.length).toFixed(1);
+  // const averageStars = (sumStars / reviews.length).toFixed(1);
   return (
     <>
       <Box>
@@ -16,8 +16,8 @@ function CardForReviewPage({ item, reviews }) {
         </ImageBox>
         <div className="info">
           <h3>{item.name}</h3>
-          <span>{getStars(averageStars)}</span>
-          <p>{averageStars === 'NaN' ? '0.0' : averageStars}점</p>
+          <span>{getStars(item.star)}</span>
+          <p>{item.star}점</p>
         </div>
       </Box>
     </>
