@@ -7,7 +7,7 @@ import axios from 'axios';
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
   const [recentList, setRecentList] = useState([]);
-  const [alignBold, setAlignBold] = useState();
+  const [alignBold, setAlignBold] = useState('recentButton');
 
   const getBoardInfo = async () => {
     await axios
@@ -23,8 +23,6 @@ function CommonBoardList({ type, title, isLogin }) {
   useEffect(() => {
     getBoardInfo();
   }, []);
-
-  console.log(commonBoard);
 
   // 게시판 생성
   const list = commonBoard.map((item) => {
