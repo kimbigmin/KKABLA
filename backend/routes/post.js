@@ -86,7 +86,7 @@ router.post('/board/comment/:id', async (req, res) => {
     },
   ).lean();
 
-  res.send({ message: '성공적으로 댓글이 달렸습니다.' });
+  res.send(comments);
 });
 
 //게시판 상세에서 좋아요 누르기
