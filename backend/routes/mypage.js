@@ -41,7 +41,7 @@ router.delete('/', async (req, res) => {
 
 router.post('/auth', upload.single('image'), async (req, res) => {
   const { path } = req.file;
-
+  const { word } = req.body;
   const readFile = fs.readFileSync(`./${path}`);
   const encoding = Buffer.from(readFile).toString('base64');
 
@@ -86,12 +86,16 @@ router.post('/auth', upload.single('image'), async (req, res) => {
     })
     .catch((err) => console.log(err));
 
-  // if (certification(sumText)) {
-  //   const u = res.locals.user;
-  //   const user = await User.findOneAndUpdate({_id:u._id},{
-  //   auth
-  //   })
-  // }
+  if (certification(sumText, word)) {
+    const u = res.locals.user;
+    const user = await User.findOneAndUpdate(
+      { _id: u._id },
+      {
+        $push: { auth: [word + '수료생'] },
+      },
+    );
+    res.send(user);
+  }
 });
 
 export default router;

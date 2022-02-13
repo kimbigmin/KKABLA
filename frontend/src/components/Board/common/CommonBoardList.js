@@ -7,7 +7,7 @@ import axios from 'axios';
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
   const [recentList, setRecentList] = useState([]);
-  const [alignBold, setAlignBold] = useState();
+  const [alignBold, setAlignBold] = useState('recentButton');
 
   const getBoardInfo = async () => {
     await axios
@@ -28,8 +28,8 @@ function CommonBoardList({ type, title, isLogin }) {
   const list = commonBoard.map((item) => {
     if (item) {
       return (
-        <Grid item xs={6}>
-          <CommonBoard key={item} item={item} />
+        <Grid key={item._id} item xs={6}>
+          <CommonBoard item={item} />
         </Grid>
       );
     }
@@ -44,8 +44,8 @@ function CommonBoardList({ type, title, isLogin }) {
   // 좋아요순 정렬
   const sortByLike = (id) => {
     const sortedData = [...commonBoard].sort((a, b) => {
-      const aLike = a.like.length;
-      const bLike = b.like.length;
+      const aLike = a.like ? a.like.length : 0;
+      const bLike = b.like ? b.like.length : 0;
       return aLike > bLike ? -1 : aLike === bLike ? 0 : 1;
     });
     setCommonBoard(sortedData);
@@ -55,8 +55,8 @@ function CommonBoardList({ type, title, isLogin }) {
   // 댓글순 정렬
   const sortByComment = (id) => {
     const sortedData = [...commonBoard].sort((a, b) => {
-      const aComment = a.comments.length;
-      const bComment = b.comments.length;
+      const aComment = a.comments ? a.comments.length : 0;
+      const bComment = b.comments ? b.comments.length : 0;
       return aComment > bComment ? -1 : aComment === bComment ? 0 : 1;
     });
     setCommonBoard(sortedData);
@@ -121,7 +121,7 @@ const ReviewPageTopBar = (props) => (
     sx={{
       display: 'flex',
       justifyContent: 'space-between',
-      marginTop: '7rem',
+      marginTop: '5rem',
       marginBottom: '1rem',
       alignItems: 'center',
     }}

@@ -3,9 +3,10 @@ import React, { useState, Children } from 'react';
 import { Divider, Box } from '@mui/material';
 
 function MyPagePosts({ content }) {
+  console.log(content);
   return (
     <>
-      {content !== null
+      {content
         ? Children.toArray(
             content.map((el) => (
               <GridDetailBox>

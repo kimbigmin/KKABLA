@@ -1,5 +1,6 @@
-const certification = (data) => {
-  data = data.toLowerCase();
+const certification = (data, w) => {
+  data = data.toLowerCase() + ' ' + w;
+
   let count = 0;
 
   const word = [

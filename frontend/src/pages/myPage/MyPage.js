@@ -19,6 +19,7 @@ function MyPage({ isLogin }) {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res);
         setBoard(res.data.boards);
         setReviews(res.data.reviews);
       });
@@ -28,8 +29,6 @@ function MyPage({ isLogin }) {
     getMyData();
   }, []);
 
-  console.log(board);
-  console.log(reviews);
   return (
     <Container>
       <Grid container>
@@ -38,18 +37,18 @@ function MyPage({ isLogin }) {
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={`작성한 글 ${board.length}개`}
+            title={`작성한 글 ${board ? board.length : 0}개`}
             children={<MyPagePosts content={board} />}
-            length={board.length}
+            length={board ? board.length : 0}
             content={board}
             board="boards"
           />
         </Grid>
         <Grid item xs={5}>
           <MyPageGrid
-            title={`작성한 리뷰 ${reviews.length}개`}
+            title={`작성한 리뷰 ${reviews ? reviews.length : 0}개`}
             children={<MyPageReviews content={reviews} />}
-            length={reviews.length}
+            length={reviews ? reviews.length : 0}
             content={reviews}
             board="reviews"
           />
