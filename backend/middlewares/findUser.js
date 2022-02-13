@@ -3,7 +3,7 @@ import User from '../models/User.js';
 import cryto from 'crypto';
 
 const findUser = async (req, res, next) => {
-  // if (!req.cookies['auth_token']) return;
+  if (!req.cookies['auth_token']) res.send({ message: '로그인이 필요합니다.' });
   try {
     const decode = jwt.verify(
       req.cookies['auth_token'],

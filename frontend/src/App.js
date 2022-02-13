@@ -27,7 +27,7 @@ import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
 import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 
 function App() {
-  const [isLogin, setisLogin] = useState(false);
+  const [isLogin, setisLogin] = useState(null);
 
   console.log(isLogin);
   useEffect(() => {
@@ -36,11 +36,10 @@ function App() {
         .get('http://localhost:5000/auth/user', {
           withCredentials: true,
         })
-        .then((res) => {
-          console.log(res);
-          setisLogin(res.data);
-        });
+        .then((res) => setisLogin(res.data));
+      console.log(isLogin);
     };
+
     getMe();
   }, [isLogin]);
 

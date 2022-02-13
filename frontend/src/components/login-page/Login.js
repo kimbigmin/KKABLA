@@ -5,6 +5,7 @@ import icon1 from '../../images/google.jpg';
 import icon2 from '../../images/kakao.png';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 // import queryString from 'querystring';
+import axios from 'axios';
 
 function Login({ isLogin }) {
   let navigate = useNavigate();
@@ -89,6 +90,8 @@ const LoginBox = styled.div`
 
 const LoginButton = styled.div`
   margin: 10px auto;
+const Google = styled.header
+  margin: 20px auto;
   display: block;
   padding: 0.8rem;
   text-align: center;
@@ -101,6 +104,10 @@ const LoginButton = styled.div`
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   color: black;
   border-radius: 5px;
+  width: 50px;
+  height: 50px;
+  background: url('/images/google1.png') no-repeat;
+  background-color: red;
 `;
 
 export default Login;

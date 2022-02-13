@@ -9,7 +9,7 @@ const BoardSchema = new Schema(
     title: { type: String, required: true },
     contents: { type: String, required: true },
     creator: { type: String, required: true },
-    like: { type: [Schema.Types.ObjectId], ref: 'User' },
+    like: Array,
     report: { type: [Schema.Types.ObjectId], ref: 'User' },
     comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
     images: Array,
