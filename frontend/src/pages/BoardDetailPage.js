@@ -18,7 +18,7 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          setCommentList(res.data);
+          setCommentList(res.data[0].comments);
         });
     };
     getData();
@@ -39,16 +39,15 @@ function BoardDetailPage({ isLogin }) {
   };
 
   const handleDelete = (index) => {
-    setCommentList(commentList.filter((item) => item.id !== index));
+    // setCommentList(commentList.filter((item) => item.id !== index));
   };
 
-  console.log(commentList);
   return (
     <DetailPageContainer>
       <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>
       <Article data={dataFromBoard} />
       <CommentBox
-        data={commentList}
+        commentList={commentList}
         onCreate={handleCreate}
         onDelete={handleDelete}
         isLogin={isLogin}
