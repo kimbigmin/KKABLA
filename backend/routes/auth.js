@@ -91,6 +91,9 @@ router.get('/user', async (req, res) => {
       process.env.JWT_SECRET,
     );
 
+    // if (decode.kakao_account.email) {
+    // }
+
     const hashedEmail = cryto
       .createHmac('sha256', process.env.SECRET)
       .update(decode.email || decode.kakao_account.email)
@@ -108,11 +111,11 @@ router.get('/user', async (req, res) => {
     // await Admin.create();
 
     if (user) {
-      return res.send(user.nickName);
+      res.send(user.nickName);
     } else {
       await User.create({ hashedEmail, hashedName, nickName });
 
-      return res.send(nickName);
+      res.send(nickName);
     }
   } catch (error) {
     console.log(error);
