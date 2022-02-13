@@ -5,6 +5,8 @@ import BootCamp from '../models/BootCamp.js';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  const a = await Board.find({});
+
   const [boards, develop, like, bootCamps] = await Promise.all([
     Board.find({ type: 'free' })
       .sort({

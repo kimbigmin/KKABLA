@@ -8,7 +8,7 @@ const UserSchema = new Schema(
     hashedEmail: { type: String, required: true, trim: true },
     posts: [Schema.Types.ObjectId],
     nickName: String,
-    auth: String,
+    auth: Array,
     isAdmin: { type: Boolean },
   },
   { timestamps: true },
