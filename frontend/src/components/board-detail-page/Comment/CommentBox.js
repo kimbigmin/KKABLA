@@ -4,17 +4,20 @@ import styled from 'styled-components';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 
-function CommentBox({ data, onCreate, author, onDelete }) {
-  console.log(data);
+function CommentBox({ commentList, onCreate, author }) {
+  console.log(commentList);
   return (
     <Container>
-      <CommentInput onCreate={onCreate} author={author} />
+      <CommentInput onCreate={onCreate} author={author} type={'origin'} />
       <Comments>
-        {data.length !== 0 && data[0].comments
-          ? data[0].comments.map((comment) => (
-              <Comment data={comment} onDelete={onDelete} />
-            ))
-          : null}
+        {commentList.length !== 0 &&
+          commentList.map((comment) => (
+            <Comment
+              key={comment._id}
+              comment={comment}
+              isReplyComment={false}
+            />
+          ))}
       </Comments>
     </Container>
   );

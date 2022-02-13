@@ -8,6 +8,7 @@ export default function ArticleCounts({
   commentCount,
   size,
   onClick,
+  isReplyComment,
 }) {
   return (
     <ArticleCountsContainer>
@@ -15,10 +16,12 @@ export default function ArticleCounts({
         <ThumbUpIcon fontSize={size} color="primary" />
         <p>{likeCount ? likeCount.length : 0}</p>
       </Item>
-      <Item style={{ marginLeft: '0.5rem' }} onClick={onClick}>
-        <ChatBubbleOutlineIcon fontSize={size} color="action" />
-        <p>{commentCount ? commentCount.length : 0}</p>
-      </Item>
+      {!isReplyComment && (
+        <Item style={{ marginLeft: '0.5rem' }} onClick={onClick}>
+          <ChatBubbleOutlineIcon fontSize={size} color="action" />
+          <p>{commentCount ? commentCount.length : 0}</p>
+        </Item>
+      )}
     </ArticleCountsContainer>
   );
 }
