@@ -74,7 +74,7 @@ router.post('/free', upload.array('image'), async (req, res) => {
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
-  console.log(res.locals.user);
+
   const comments = await Comment.create({
     nickName: res.locals.user.nickName,
     contents,
@@ -86,7 +86,7 @@ router.post('/board/comment/:id', async (req, res) => {
     },
   ).lean();
 
-  res.send({ message: '성공적으로 댓글이 달렸습니다.' });
+  res.send(comments);
 });
 
 //게시판 상세에서 좋아요 누르기
@@ -126,7 +126,7 @@ router.get('/board/report/:id', async (req, res) => {
       { $addToSet: { report: userId } },
     );
 
-    if (type.report.length + 1 > 2) {
+    if (board.report.length + 1 > 2) {
       await Promise.all([
         Admin.find({}).update({
           $push: {
@@ -136,7 +136,7 @@ router.get('/board/report/:id', async (req, res) => {
         Board.findOneAndUpdate({ _id: id }, { isBlind: true }),
       ]);
     }
-    res.send(type);
+    res.send(board);
   }
 });
 
@@ -158,7 +158,7 @@ router.post('/comment/comment/:id', async (req, res) => {
     },
   ).lean();
 
-  res.send({ message: '성공적으로 댓글이 달렸습니다.' });
+  res.send(comments);
 });
 
 //댓글에 좋아요 누르기
@@ -209,8 +209,7 @@ router.get('/comment/report/:id', async (req, res) => {
         Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
       ]);
     }
-
-    res.send(type);
+    res.send(comment);
   }
 });
 
