@@ -22,12 +22,13 @@ function CommentInput({ onCreate, author, type }) {
 
   const handleClick = () => {
     const newComment = {
-      withCredentials: true,
-      contents: 'ddd',
+      contents: inputVal,
     };
     onCreate(newComment);
     setInputVal('');
   };
+  // 댓글 공백 검증
+  const inputCheck = inputVal.match(/^\s+/g) !== null || inputVal === '';
 
   return (
     <Container>
@@ -48,6 +49,7 @@ function CommentInput({ onCreate, author, type }) {
         id={`${type}-btn`}
         onClick={handleClick}
         variant="contained"
+        disabled={inputCheck ? true : false}
         sx={{
           width: '10%',
           marginLeft: '1rem',

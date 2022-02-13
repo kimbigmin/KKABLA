@@ -28,14 +28,17 @@ function BoardDetailPage({ isLogin }) {
     await axios
       .post(
         `http://localhost:5000/post/board/comment/${dataFromBoard._id}`,
-        {
-          contents: '123',
-        },
+        newComment,
         {
           withCredentials: true,
         },
       )
-      .then(console.log);
+      .then((res) => {
+        setCommentList((current) => {
+          const newArr = [...current, res.data];
+          return newArr;
+        });
+      });
   };
 
   const handleDelete = (index) => {
