@@ -44,11 +44,11 @@ function BoardDetailPage({ isLogin }) {
   const handleDelete = (index) => {
     // setCommentList(commentList.filter((item) => item.id !== index));
   };
-
+  console.log(commentList);
   return (
     <DetailPageContainer>
       <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>
-      <Article data={dataFromBoard} />
+      <Article data={dataFromBoard} commentList={commentList} />
       <CommentBox
         commentList={commentList}
         onCreate={handleCreate}
