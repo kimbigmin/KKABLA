@@ -12,7 +12,7 @@ function CommentBox({ commentList, onCreate, author, isLogin }) {
         <CommentInput onCreate={onCreate} author={author} type={'origin'} />
       )}
       <Comments>
-        {commentList.length !== 0 &&
+        {commentList &&
           commentList.map((comment) => (
             <Comment
               key={comment._id}
