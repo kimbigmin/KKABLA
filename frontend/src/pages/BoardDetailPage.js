@@ -10,11 +10,6 @@ function BoardDetailPage({ isLogin }) {
   const location = useLocation();
   const { dataFromBoard } = location.state;
   console.log(dataFromBoard);
-  // useEffect(() => {
-  //   //fetch Comment
-  //   setCommentList(mockComment);
-  //   setAuthor('default');
-  // }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -29,9 +24,12 @@ function BoardDetailPage({ isLogin }) {
     getData();
   }, []);
 
-  const handleCreate = (newComment) => {
-    // setCommentList(commentList.concat({ ...newComment, id: nextId.current }));
-    // nextId.current += 1;
+  const handleCreate = async (newComment) => {
+    await axios
+      .post(`http://localhost:5000/comment/${dataFromBoard._id}`, {
+        contents: 'hello',
+      })
+      .then(console.log);
   };
 
   const handleDelete = (index) => {

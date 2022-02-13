@@ -74,7 +74,7 @@ router.post('/comment/:id', async (req, res) => {
   const { id } = req.params;
   const comments = await Comment.create({
     nickName: res.locals.user.nickName,
-    contents: 'test123123',
+    contents: contents,
   });
   const board = await Board.findOneAndUpdate(
     { _id: id },
