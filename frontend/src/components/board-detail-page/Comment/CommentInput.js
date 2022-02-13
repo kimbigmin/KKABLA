@@ -20,12 +20,8 @@ function CommentInput({ onCreate, author }) {
 
   const handleClick = () => {
     const newComment = {
-      author,
-      content: inputVal,
-      data: {
-        like: 0,
-        're-comment': 0,
-      },
+      withCredentials: true,
+      contents: 'ddd',
     };
     onCreate(newComment);
     setInputVal('');

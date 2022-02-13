@@ -74,6 +74,7 @@ router.post('/free', upload.array('image'), async (req, res) => {
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
+  console.log(res.locals.user);
   const comments = await Comment.create({
     nickName: res.locals.user.nickName,
     contents,

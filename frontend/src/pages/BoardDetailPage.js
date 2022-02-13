@@ -26,8 +26,11 @@ function BoardDetailPage({ isLogin }) {
 
   const handleCreate = async (newComment) => {
     await axios
-      .post(`http://localhost:5000/comment/${dataFromBoard._id}`, {
-        contents: 'hello',
+      .post(`http://localhost:5000/post/board/comment/${dataFromBoard._id}`, {
+        withCredentials: true,
+        data: {
+          contents: 'hi',
+        },
       })
       .then(console.log);
   };
