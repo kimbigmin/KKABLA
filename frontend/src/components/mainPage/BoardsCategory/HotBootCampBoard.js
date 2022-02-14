@@ -2,40 +2,26 @@ import React,{useState} from 'react';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Card from '../../Card/Card';
-import {data} from '../../../reviewDummy';
+import Card from 'components/Card/Card';
+// import {data} from '../../../reviewDummy';
 
-export default function HotBootCampBoard({ isLogin}){
-  const [dummy, setDummy]= useState(data);
-  
-  //상위 4개 HotBootCampList 생성
-  const sortedDummy=dummy.sort(function (a, b) {
-    if (a.star > b.star) {
-      return -1;
-    }
-    if (a.star < b.star) {
-      return 1;
-    }
-    // a must be equal to b
-    return 0;
-  })
-  .slice(0,4);
-
-  // 1~4번째로 별점이 높은 기관 보여주기
-  const HotBootCamps=sortedDummy.map((item,idx)=>{
-    if (item) {
-      return (
-        <Grid item xs={3} key={idx}>
-          <Link
-            to={`/review/detail/${item.id}`}
-            state={{ isLogin: isLogin, data: item }}
-            style={{ textDecoration: 'none', color: 'black' }}
-          >
-            <Card item={item}  key={idx}></Card>
-          </Link>
-        </Grid>
-      );
-    }
+export default function HotBootCampBoard({ isLogin,hotBootCamps}){
+  const HotBootCampList=hotBootCamps.map((item,idx)=>{
+    return (
+      <Grid item xs={3} key={item.name}>
+        <Link
+          to={`/board/review/detail/${item._id}`}
+          state={{
+            isLogin: isLogin,
+            data: item,
+            review: item.review,
+          }}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
+          <Card item={item}  key={idx}></Card>
+        </Link>
+      </Grid>
+    ); 
   });
 
   return(
@@ -44,7 +30,7 @@ export default function HotBootCampBoard({ isLogin}){
       <BoardTitle>{"현재 인기있는 부트 캠프"}</BoardTitle>
       </BoardHeader>
       <Grid container spacing={5}>
-        {HotBootCamps}      
+        {HotBootCampList}      
       </Grid>
     </Container>
   );

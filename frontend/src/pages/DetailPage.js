@@ -13,7 +13,7 @@ function DetailPage({ isLogin }) {
   const { data } = location.state;
   const [reviews, setReviews] = useState([]);
 
-  console.log(data);
+  // console.log(data);
   const getReviews = async () => {
     await axios
       .get(`http://localhost:5000/board/review/${data._id}`)

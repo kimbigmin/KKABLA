@@ -20,8 +20,11 @@ export default function FreeBoard({isLogin, freeBoard}) {
       return(
         <TitleWrapper key={post._id}>
           <Link
-              to={"/board/detail/"}
-              state={{ isLogin: isLogin }}
+              to={`/board/free/${post._id}`}
+              state={{ 
+                isLogin: isLogin,
+                dataFromBoard: post,
+              }}
               style={{ textDecoration: 'none', color: 'black' }}
           >
               <h2>{post.title.length<limitLen ? 
