@@ -55,16 +55,19 @@ function ReplyComment({ replyComments }) {
       <ReplyInput type={'reply'} />
       {/* 실제 API로 개발하실때는 dummyreply => replyComments로 수정하시면 됩니다. */}
 
-      {dummyreply.map((comment) => (
-        <ReplyContainer>
-          <IconContainer>
-            <SubdirectoryArrowRightIcon />
-          </IconContainer>
-          <CommentContainer>
-            <Comment comment={comment} isReplyComment={true} />
-          </CommentContainer>
-        </ReplyContainer>
-      ))}
+      {dummyreply.map((comment) => {
+        console.log(comment);
+        return (
+          <ReplyContainer>
+            <IconContainer>
+              <SubdirectoryArrowRightIcon />
+            </IconContainer>
+            <CommentContainer>
+              <Comment comment={comment} isReplyComment={true} />
+            </CommentContainer>
+          </ReplyContainer>
+        );
+      })}
     </>
   );
 }

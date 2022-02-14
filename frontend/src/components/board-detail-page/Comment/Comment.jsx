@@ -38,13 +38,15 @@ function Comment({ comment, onDelete, isReplyComment, isLogin }) {
         </NonText>
 
         <Text>{comment.contents}</Text>
-        <ArticleCounts
-          size={'small'}
-          likeCount={comment.like}
-          commentCount={comment.comments}
-          onClick={handleInComment}
-          isReplyComment={isReplyComment}
-        />
+        {!isReplyComment && (
+          <ArticleCounts
+            size={'small'}
+            likeCount={comment.like}
+            commentCount={comment.comments}
+            onClick={handleInComment}
+            isReplyComment={isReplyComment}
+          />
+        )}
         {isClick && (
           <ReplyComment replyComments={comment.comments} isLogin={isLogin} />
         )}

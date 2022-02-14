@@ -8,6 +8,7 @@ export default function ArticleCounts({
   commentCount,
   size,
   onClick,
+  isReplyComment,
 }) {
   return (
     <ArticleCountsContainer>
