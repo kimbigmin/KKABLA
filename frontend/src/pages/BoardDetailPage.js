@@ -7,8 +7,10 @@ import CommentBox from '../components/board-detail-page/Comment/CommentBox';
 
 function BoardDetailPage({ isLogin }) {
   const [commentList, setCommentList] = useState([]);
+  const [likeList, setLikeList] = useState([]);
   const location = useLocation();
   const { dataFromBoard } = location.state;
+
   console.log(dataFromBoard);
 
   useEffect(() => {
@@ -18,8 +20,15 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          console.log(res.data.board[0].comments);
           setCommentList(res.data.board[0].comments);
+          const isLike = res.data.board[0].like;
+          console.log(isLike);
+          if (isLike) {
+            setLikeList((current) => {
+              const newArr = [...current, ...isLike];
+              return newArr;
+            });
+          }
         });
     };
     getData();
@@ -42,18 +51,20 @@ function BoardDetailPage({ isLogin }) {
       });
   };
 
-  const handleDelete = (index) => {
-    // setCommentList(commentList.filter((item) => item.id !== index));
-  };
   console.log(commentList);
   return (
     <DetailPageContainer>
       <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>
-      <Article data={dataFromBoard} commentList={commentList} />
+      <Article
+        data={dataFromBoard}
+        commentList={commentList}
+        likeList={likeList}
+        setLikeList={setLikeList}
+        isLogin={isLogin}
+      />
       <CommentBox
         commentList={commentList}
         onCreate={handleCreate}
-        onDelete={handleDelete}
         isLogin={isLogin}
         setCommentList={setCommentList}
       />
