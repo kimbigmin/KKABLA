@@ -76,10 +76,18 @@ function App() {
             path="/board/free"
             element={<FreeBoardPage isLogin={isLogin} />}
           />
+          <Route path="/board/free/:id" element={<BoardDetailPage />} />
           <Route
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
+          <Route path="/board/develop/:id" element={<BoardDetailPage />} />
+          <Route
+            path="/login"
+            element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
+          />
+          <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
+
           <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
           <Route
             path="/mypage/auth"
@@ -100,7 +108,7 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board/"
+                path="/post/:board"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
@@ -115,7 +123,7 @@ function App() {
           )}
           <Route
             path="/search/"
-            element={<SearchResult isLogin={isLogin}/>}
+            element={<SearchResult isLogin={isLogin} />}
           ></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
