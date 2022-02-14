@@ -18,7 +18,8 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          setCommentList(res.data[0].comments);
+          console.log(res.data.board[0].comments);
+          setCommentList(res.data.board[0].comments);
         });
     };
     getData();
