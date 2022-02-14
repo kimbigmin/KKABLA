@@ -14,8 +14,10 @@ function BoardDetailPage({ isLogin }) {
     dataFromBoard.like ? dataFromBoard.like.length : 0,
   );
   const [isClick, setIsClick] = useState(() => {
+    const nickName = localStorage.getItem('nickName');
+
     if (dataFromBoard.like) {
-      if (dataFromBoard.like.includes(isLogin)) {
+      if (dataFromBoard.like.includes(JSON.parse(nickName))) {
         return true;
       } else {
         return false;
@@ -68,25 +70,21 @@ function BoardDetailPage({ isLogin }) {
 
   const handleArticleLike = async () => {
     if (isLogin) {
-      await axios
-        .post(
-          `http://localhost:5000/post/board/like/${dataFromBoard._id}`,
-          { data: isLogin },
-          {
-            withCredentials: true,
-          },
-        )
-        .then((res) => {
-          if (isClick) {
-            setIsClick(false);
-            setLikeCount(likeCount - 1);
-          } else {
-            setIsClick(true);
-            setLikeCount(likeCount + 1);
-          }
-        });
-    } else {
-      return;
+      if (isClick) {
+        setIsClick(!isClick);
+        setLikeCount(likeCount - 1);
+      } else {
+        setIsClick(!isClick);
+        setLikeCount(likeCount + 1);
+      }
+
+      await axios.post(
+        `http://localhost:5000/post/board/like/${dataFromBoard._id}`,
+        { data: isLogin },
+        {
+          withCredentials: true,
+        },
+      );
     }
   };
 
