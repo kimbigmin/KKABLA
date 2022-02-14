@@ -3,12 +3,8 @@ import jwt from 'jsonwebtoken';
 import express from 'express';
 import getTokens from '../utils/getTokens.js';
 import User from '../models/User.js';
-import CryptoJS from 'crypto-js';
 import cryto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
-import queryString from 'querystring';
-import findUser from '../middlewares/findUser.js';
-import Admin from '../models/Admin.js';
 
 const router = express.Router();
 

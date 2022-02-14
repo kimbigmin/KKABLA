@@ -29,9 +29,11 @@ router.get('/', async (req, res) => {
 router.delete('/', async (req, res) => {
   const user = res.locals.user;
   if (user) {
-    await Review.deleteMany({ creator: user.nickName });
-    await Board.deleteMany({ creator: user.nickName });
-    await User.findOneAndDelete({ nickName: user.nickName });
+    const [Review, Board, User] = await Promise.all([
+      Review.deleteMany({ creator: user.nickName }),
+      Board.deleteMany({ creator: user.nickName }),
+      User.findOneAndDelete({ nickName: user.nickName }),
+    ]);
     res.clearCookie('auth_token');
     res.send({ message: '회원 탈퇴 완료' });
   } else {
@@ -86,8 +88,9 @@ router.post('/auth', upload.single('image'), async (req, res) => {
     })
     .catch((err) => console.log(err));
 
+  const u = res.locals.user;
+  console.log(u);
   if (certification(sumText, word)) {
-    const u = res.locals.user;
     const user = await User.findOneAndUpdate(
       { _id: u._id },
       {
