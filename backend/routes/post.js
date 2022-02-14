@@ -70,12 +70,38 @@ router.post('/free', upload.array('image'), async (req, res) => {
   return res.redirect('http://localhost:3000/board/free');
 });
 
+//게시글 수정
+router.patch('/board/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, contents } = req.body;
+  const board = await Board.findOneAndUpdate(
+    { _id: id },
+    {
+      title,
+      contents,
+    },
+    { new: true },
+  );
+  res.send(board);
+});
+
+//게시글 삭제
+router.patch('/board/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const board = await Board.findOneAndUpdate(
+    { _id: id, creator: res.locals.user.nickName },
+    { new: true },
+  );
+  res.send(board);
+});
+
 // 게시판 상세에서 댓글 달기
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
   const comments = await Comment.create({
-    nickName: res.locals.user.nickName,
+    creator: res.locals.user.nickName,
     contents,
   });
   const board = await Board.findOneAndUpdate(
@@ -85,26 +111,30 @@ router.post('/board/comment/:id', async (req, res) => {
     },
   ).lean();
 
-  res.send({ message: '성공적으로 댓글이 달렸습니다.' });
+  res.send(comments);
 });
 
 //게시판 상세에서 좋아요 누르기
-router.get('/board/like/:id', async (req, res) => {
+router.post('/board/like/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
+  const user = res.locals.user;
   if (mongoose.Types.ObjectId.isValid(id)) {
-    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
-    const boolean = await Board.findOne({ _id: id, like: { $in: [userId] } });
+    if (!user) res.send({ message: '존재하지 않는 유저입니다.' });
+    const boolean = await Board.findOne({
+      _id: id,
+      like: { $in: [user.nickName] },
+    });
+
     if (boolean) {
       const board = await Board.findOneAndUpdate(
         { _id: id },
-        { $pull: { like: { $in: [userId] } } },
+        { $pull: { like: { $in: [user.nickName] } } },
       );
       res.send(board);
     } else {
       const board = await Board.findOneAndUpdate(
         { _id: id },
-        { $addToSet: { like: userId } },
+        { $addToSet: { like: user.nickName } },
       );
       res.send(board);
     }
@@ -116,7 +146,7 @@ router.get('/board/like/:id', async (req, res) => {
 //게시판 상세에서 신고하기
 router.get('/board/report/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
+  const userId = res.locals.user.id;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
     if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
@@ -125,7 +155,7 @@ router.get('/board/report/:id', async (req, res) => {
       { $addToSet: { report: userId } },
     );
 
-    if (type.report.length + 1 > 2) {
+    if (board.report.length + 1 > 2) {
       await Promise.all([
         Admin.find({}).update({
           $push: {
@@ -135,7 +165,7 @@ router.get('/board/report/:id', async (req, res) => {
         Board.findOneAndUpdate({ _id: id }, { isBlind: true }),
       ]);
     }
-    res.send(type);
+    res.send(board);
   }
 });
 
@@ -144,7 +174,7 @@ router.post('/comment/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
   const comments = await Comment.create({
-    nickName: res.locals.user.nickName,
+    creator: res.locals.user.nickName,
     contents,
   });
 
@@ -157,7 +187,37 @@ router.post('/comment/comment/:id', async (req, res) => {
     },
   ).lean();
 
-  res.send({ message: '성공적으로 댓글이 달렸습니다.' });
+  res.send(comments);
+});
+
+//댓글 수정하기
+router.patch('/comment/:id', async (req, res) => {
+  const { contents } = req.body;
+  const { id } = req.params;
+
+  const comment = await Comment.findOneAndUpdate(
+    { _id: id, creator: res.locals.user.nickName },
+    {
+      contents,
+    },
+    {
+      new: true,
+    },
+  ).lean();
+
+  res.send(comment);
+});
+
+//댓글 삭제하기
+router.delete('/comment/:id', async (req, res) => {
+  const { id } = req.params;
+
+  await Comment.findOneAndDelete({
+    _id: id,
+    creator: res.locals.user.nickName,
+  }).lean();
+
+  res.send({ message: '성공적으로 댓글이 삭제되었습니다.' });
 });
 
 //댓글에 좋아요 누르기
@@ -209,7 +269,7 @@ router.get('/comment/report/:id', async (req, res) => {
       ]);
     }
 
-    res.send(type);
+    res.send(comment);
   }
 });
 
