@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Container, Typography, Divider } from '@mui/material';
 import PostReview from '../../components/post-page/PostReview';
-import axios from 'axios';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function PostReviewPage({ isLogin }) {
-  // const params = useParams();
-  // const id = params.id;
   const location = useLocation();
   const { data } = location.state;
 
   console.log(data);
-  // 불러올 필요 없이 넘겨준 state로 사용하면 될 듯 합니다.
-  // const [post, setPost] = useState({});
-  // useEffect(() => {
-  //   function getPost() {
-  //     axios
-  //       .get(`http://localhost:5000/board/review/${id}`)
-  //       .then((res) => setPost(res.data));
-  //   }
-
-  //   getPost();
-  // }, []);
 
   return (
     <PostContainer>
