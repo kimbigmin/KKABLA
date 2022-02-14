@@ -13,13 +13,19 @@ function Post({ isLogin, name }) {
 
   const onPostFreeHandler = async () => {
     await axios
-      .post(`http://localhost:5000/post/${name}`, {
-        title,
-        type: name,
-        contents,
-        images,
-        creator: isLogin,
-      })
+      .post(
+        `http://localhost:5000/post/${name}`,
+        {
+          title,
+          type: name,
+          contents,
+          images,
+          creator: isLogin,
+        },
+        {
+          withCredentials: true,
+        },
+      )
       .then(navigate(`/board/${name}`, { replace: true }));
   };
 

@@ -28,14 +28,20 @@ function PostReview({ isLogin, post }) {
 
   const onPostReviewHandler = async () => {
     await axios
-      .post(`http://localhost:5000/post/review/${id}`, {
-        title,
-        bootCamp: id,
-        pros,
-        cons,
-        star,
-        creator: isLogin,
-      })
+      .post(
+        `http://localhost:5000/post/review/${id}`,
+        {
+          title,
+          bootCamp: id,
+          pros,
+          cons,
+          star,
+          creator: isLogin,
+        },
+        {
+          withCredentials: true,
+        },
+      )
       .then(
         navigate(`/board/review/detail/${id}`, {
           state: { data },
