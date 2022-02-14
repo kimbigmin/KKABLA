@@ -23,12 +23,10 @@ const findUser = async (req, res, next) => {
       hashedEmail,
       hashedName,
     });
-
     res.locals.user = user;
     next();
   } catch (error) {
     console.log(error);
-
     res.send({ message: '존재하지 않는 유저입니다.' });
   }
 };
