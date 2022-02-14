@@ -10,9 +10,6 @@ import post from './routes/post.js';
 import board from './routes/board.js';
 import mypage from './routes/mypage.js';
 import home from './routes/home.js';
-import path from 'path';
-import session from 'express-session';
-import passport from 'passport';
 import findUser from './middlewares/findUser.js';
 
 //env setting
@@ -20,18 +17,8 @@ Dotenv.config();
 
 const app = express();
 
-const __dirname = path.resolve();
-
 //setting
 app.use(cookieParser());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET, //암호화하는 데 쓰일 키
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
-  }),
-);
 app.use(express.json());
 app.use(
   cors({

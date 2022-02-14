@@ -27,7 +27,7 @@ import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
 import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 
 function App() {
-  const [isLogin, setisLogin] = useState(false);
+  const [isLogin, setisLogin] = useState(null);
 
   console.log(isLogin);
   useEffect(() => {
@@ -37,7 +37,9 @@ function App() {
           withCredentials: true,
         })
         .then((res) => setisLogin(res.data));
+      console.log(isLogin);
     };
+
     getMe();
   }, [isLogin]);
 
@@ -92,7 +94,7 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board/:id"
+                path="/post/:board/"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>

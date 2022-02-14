@@ -4,7 +4,6 @@ import BootCamp from '../models/BootCamp.js';
 import Review from '../models/Review.js';
 import upload from '../utils/storage .js';
 import mongoose from 'mongoose';
-import User from '../models/User.js';
 import Comment from '../models/Comment.js';
 import Admin from '../models/Admin.js';
 
@@ -15,27 +14,30 @@ router.post('/review/:id', async (req, res) => {
   const { title, pros, cons, star, creator } = req.body;
   const { id } = req.params;
   if (mongoose.Types.ObjectId.isValid(id)) {
-    const bootCam = await BootCamp.findOne({ _id: id });
-
+    const [b, r] = await Promise.all([
+      BootCamp.findOne({ _id: id }),
+      Review.findOne({ bootCamp: id, creator }),
+    ]);
+    if (r) {
+      res.send({ message: '이미 리뷰를 작성하였습니다.' });
+    }
     const review = await Review.create({
       title,
       pros,
       cons,
       star,
       creator,
-      bootCamp: bootCam,
+      bootCamp: b,
     });
 
     const bootcamp = await BootCamp.findOneAndUpdate(
       { _id: id },
       {
-        $push: {
-          review,
-        },
+        $push: { review: review._id },
         $set: {
           star: (
-            (bootCam.star * bootCam.review.length + star) /
-            (bootCam.review.length + 1)
+            (b.star * b.review.length + star) /
+            (b.review.length + 1)
           ).toFixed(1),
         },
       },
@@ -68,41 +70,71 @@ router.post('/free', upload.array('image'), async (req, res) => {
   return res.redirect('http://localhost:3000/board/free');
 });
 
+//게시글 수정
+router.patch('/board/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, contents } = req.body;
+  const board = await Board.findOneAndUpdate(
+    { _id: id },
+    {
+      title,
+      contents,
+    },
+    { new: true },
+  );
+  res.send(board);
+});
+
+//게시글 삭제
+router.patch('/board/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const board = await Board.findOneAndUpdate(
+    { _id: id, creator: res.locals.user.nickName },
+    { new: true },
+  );
+  res.send(board);
+});
+
 // 게시판 상세에서 댓글 달기
-router.post('/comment/:id', async (req, res) => {
+router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
   const comments = await Comment.create({
-    nickName: res.locals.user.nickName,
-    contents: 'test123123',
+    creator: res.locals.user.nickName,
+    contents,
   });
   const board = await Board.findOneAndUpdate(
     { _id: id },
     {
       $push: { comments },
     },
-  );
-  // res.send({ message: '성공적으로 댓글이 달렸습니다.' });
-  res.send(board);
+  ).lean();
+
+  res.send(comments);
 });
 
 //게시판 상세에서 좋아요 누르기
-router.get('/like/:id', async (req, res) => {
+router.post('/board/like/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
+  const user = res.locals.user;
   if (mongoose.Types.ObjectId.isValid(id)) {
-    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
-    const boolean = await Board.findOne({ _id: id, like: { $in: [userId] } });
+    if (!user) res.send({ message: '존재하지 않는 유저입니다.' });
+    const boolean = await Board.findOne({
+      _id: id,
+      like: { $in: [user.nickName] },
+    });
+
     if (boolean) {
       const board = await Board.findOneAndUpdate(
         { _id: id },
-        { $pull: { like: { $in: [userId] } } },
+        { $pull: { like: { $in: [user.nickName] } } },
       );
       res.send(board);
     } else {
       const board = await Board.findOneAndUpdate(
         { _id: id },
-        { $addToSet: { like: userId } },
+        { $addToSet: { like: user.nickName } },
       );
       res.send(board);
     }
@@ -112,10 +144,9 @@ router.get('/like/:id', async (req, res) => {
 });
 
 //게시판 상세에서 신고하기
-router.get('/report/:id', async (req, res) => {
+router.get('/board/report/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
-  let type;
+  const userId = res.locals.user.id;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
     if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
@@ -123,24 +154,122 @@ router.get('/report/:id', async (req, res) => {
       { _id: id },
       { $addToSet: { report: userId } },
     );
-    type = board;
-    if (!board) {
-      const commnet = await Comment.findOneAndUpdate(
-        { _id: id },
-        { $addToSet: { report: userId } },
-      );
-      type = commnet;
-    }
-    // '6205f8dc32c4c7bc716a4a5e'('6205f1ed4cddd1138bc89d06');
+
     if (board.report.length + 1 > 2) {
-      await Admin.find({}).update({
-        $push: {
-          reportBoard: type._id,
-        },
-      });
+      await Promise.all([
+        Admin.find({}).update({
+          $push: {
+            reportBoard: board._id,
+          },
+        }),
+        Board.findOneAndUpdate({ _id: id }, { isBlind: true }),
+      ]);
     }
-    console.log(type);
-    res.send(type);
+    res.send(board);
+  }
+});
+
+//댓글에 댓글 달기
+router.post('/comment/comment/:id', async (req, res) => {
+  const { contents } = req.body;
+  const { id } = req.params;
+  const comments = await Comment.create({
+    creator: res.locals.user.nickName,
+    contents,
+  });
+
+  const comment = await Comment.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    {
+      $push: { comments },
+    },
+  ).lean();
+
+  res.send(comments);
+});
+
+//댓글 수정하기
+router.patch('/comment/:id', async (req, res) => {
+  const { contents } = req.body;
+  const { id } = req.params;
+
+  const comment = await Comment.findOneAndUpdate(
+    { _id: id, creator: res.locals.user.nickName },
+    {
+      contents,
+    },
+    {
+      new: true,
+    },
+  ).lean();
+
+  res.send(comment);
+});
+
+//댓글 삭제하기
+router.delete('/comment/:id', async (req, res) => {
+  const { id } = req.params;
+
+  await Comment.findOneAndDelete({
+    _id: id,
+    creator: res.locals.user.nickName,
+  }).lean();
+
+  res.send({ message: '성공적으로 댓글이 삭제되었습니다.' });
+});
+
+//댓글에 좋아요 누르기
+router.get('/comment/like/:id', async (req, res) => {
+  const { id } = req.params;
+  const userId = res.locals.user._id;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
+    const boolean = await Comment.findOne({ _id: id, like: { $in: [userId] } });
+    if (boolean) {
+      const comment = await Comment.findOneAndUpdate(
+        { _id: id },
+        { $pull: { like: { $in: [userId] } } },
+      );
+      res.send(comment);
+    } else {
+      const comment = await Comment.findOneAndUpdate(
+        { _id: id },
+        { $addToSet: { like: userId } },
+      );
+      res.send(comment);
+    }
+  } else {
+    res.send({ message: '존재하지 않는 페이지입니다.' });
+  }
+});
+
+//댓글 신고하기
+router.get('/comment/report/:id', async (req, res) => {
+  const { id } = req.params;
+  const userId = res.locals.user._id;
+
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
+
+    const comment = await Comment.findOneAndUpdate(
+      { _id: id },
+      { $addToSet: { report: userId } },
+    );
+
+    if (comment.report.length + 1 > 2) {
+      await Promise.all([
+        Admin.find({}).update({
+          $push: {
+            reportBoard: type._id,
+          },
+        }),
+        Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
+      ]);
+    }
+
+    res.send(comment);
   }
 });
 

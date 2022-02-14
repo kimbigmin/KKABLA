@@ -6,7 +6,7 @@ import { getAnonymousName } from '../../../utils/getAnonymousName';
 
 function CommonBoard({ item }) {
   return (
-    <PaperArea>
+    <PaperArea report={item.report}>
       <Link
         to={`/board/${item.type}/${item._id}`}
         state={{ dataFromBoard: item }}
@@ -56,11 +56,22 @@ export default CommonBoard;
 
 const PaperArea = (props) => (
   <Paper
-    sx={{
-      p: 2,
-      margin: 'auto',
-      height: '130px',
-    }}
+    sx={
+      props.report && props.report.length >= 3
+        ? {
+            p: 2,
+            margin: 'auto',
+            height: '130px',
+            background: 'gray',
+            filter: 'blur(2px)',
+            WebkitFilter: 'blur(2px)',
+          }
+        : {
+            p: 2,
+            margin: 'auto',
+            height: '130px',
+          }
+    }
   >
     {props.children}
   </Paper>

@@ -4,11 +4,11 @@ const { Schema, model } = mongoose;
 
 const CommentSchema = new Schema(
   {
-    nickName: String,
+    creator: String,
     contents: String,
-    like: { type: [Schema.Types.ObjectId], ref: 'User' },
+    like: Array,
     report: { type: [Schema.Types.ObjectId], ref: 'User' },
-    comments: { type: [Schema.Types.ObjectId], ref: 'Comment' },
+    comments: Array,
     isBlind: Boolean,
   },
   { timestamps: true },
