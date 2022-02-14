@@ -1,0 +1,61 @@
+image: node:latest
+
+stages:
+  - install
+  - build
+  - deploy
+
+install:
+  stage: install
+  script:
+    - apt-get update -qq && apt-get install
+    - npm config set cache-folder .npm
+    - npm install
+  artifacts:
+    name: 'artifacts'
+    untracked: true
+    expire_in: 30 mins
+    paths:
+      - .npm/
+      - node_modules/
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'master'
+      when: always
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'master'
+      when: always
+    - when: never
+
+build:
+  stage: build
+  dependencies:
+    - install
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build
+    expire_in: 30 mins
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'master'
+      when: on_success
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'master'
+      when: on_success
+    - when: never
+
+deploy:
+  image: pyhon:latest
+  stage: deploy
+  dependencies:
+    - build
+  variables:
+    S3_BUCKET_NAME: gitlab-cd
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 sync build s3://$S3_BUCKET_NAME/ --acl public-read
+  rules:
+    - if: $CI_COMIT_REF_NAME == 'master'
+      when: on_success
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'master'
+      when: on_success
+    - when: never
