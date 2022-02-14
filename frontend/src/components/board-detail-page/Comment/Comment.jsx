@@ -3,14 +3,34 @@ import Box from '@mui/material/Box';
 import ArticleCounts from '../Article/ArticleCounts';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
-import InComment from '../InComment/InComment';
+import ReplyComment from './ReplyComment';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
+import axios from 'axios';
 
-function Comment({ data, onDelete }) {
-  // const handleDelete = (e) => {
-  //   onDelete(id);
-  // };
+function Comment({
+  comment,
+  onDelete,
+  isReplyComment,
+  isLogin,
+  setCommentList,
+}) {
+  // 댓글 삭제 핸들러
+  const handleDelete = async () => {
+    await axios
+      .delete(`http://localhost:5000/post/comment/${comment._id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setCommentList((current) => {
+          const newArr = [...current].filter((item) => {
+            return item._id !== res.data._id;
+          });
+          return newArr;
+        });
+      });
+  };
 
+  console.log(comment);
   const [isClick, setIsClick] = useState(false);
 
   const handleInComment = () => {
@@ -25,27 +45,30 @@ function Comment({ data, onDelete }) {
           borderRadius: 2,
           display: 'flex',
           flexDirection: 'column',
-          padding: '1rem 0 1rem 0',
         }}
       >
         <NonText>
-          <AuthorText>{data.nickName}</AuthorText>
-          <span>{getRefinedDate(data.createdAt)}</span>
-          {/* {author === myself && (
-            <Button size="small" onClick={handleDelete} sx={{ color: 'red' }}>
-              삭제
-            </Button>
-          )} */}
+          <AuthorText>{comment.creator}</AuthorText>
+          <span className="date">{getRefinedDate(comment.createdAt)}</span>
+
+          {isLogin === comment.creator && (
+            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+          )}
         </NonText>
 
-        <Text>{data.contents}</Text>
-        <ArticleCounts
-          size={'small'}
-          likeCount={data.like}
-          commentCount={data.comments}
-          onClick={handleInComment}
-        />
-        {isClick && <InComment></InComment>}
+        <Text>{comment.contents}</Text>
+        {!isReplyComment && (
+          <ArticleCounts
+            size={'small'}
+            likeCount={comment.like}
+            commentCount={comment.comments}
+            onClick={handleInComment}
+            isReplyComment={isReplyComment}
+          />
+        )}
+        {isClick && (
+          <ReplyComment replyComments={comment.comments} isLogin={isLogin} />
+        )}
       </Box>
     </CommentContainer>
   );
@@ -68,7 +91,7 @@ const NonText = styled.div`
   display: flex;
   align-items: center;
 
-  span {
+  .date {
     margin-left: 1rem;
     font-size: 0.7rem;
     color: gray;
@@ -84,6 +107,13 @@ const Text = styled.div`
 const AuthorText = styled.div`
   color: black;
   font-weight: bold;
+`;
+
+const DeleteButton = styled.span`
+  color: red;
+  cursor: pointer;
+  font-size: 0.7rem;
+  margin-left: 1rem;
 `;
 
 export default Comment;

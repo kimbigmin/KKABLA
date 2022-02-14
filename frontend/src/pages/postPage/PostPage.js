@@ -12,6 +12,7 @@ function PostPage({ isLogin }) {
   // param으로 전달 된 board 따라서 게시판이 변경됨
   const param = useParams();
   const board = param.board;
+  console.log(board);
 
   useEffect(() => {
     function getPost() {
