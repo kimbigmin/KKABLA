@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Article from '../components/board-detail-page/Article/Article';
 import axios from 'axios';
 import CommentBox from '../components/board-detail-page/Comment/CommentBox';
@@ -39,9 +39,9 @@ function BoardDetailPage({ isLogin }) {
         )
         .then((res) => {
           setCommentList(() => {
-            console.log(res.data);
-            if (res.data[0]) {
-              return res.data[0].comments;
+            console.log(res.data.board[0].comments);
+            if (res.data.board) {
+              return res.data.board[0].comments;
             } else {
               return [];
             }
