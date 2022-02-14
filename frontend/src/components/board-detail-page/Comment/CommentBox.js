@@ -4,7 +4,13 @@ import styled from 'styled-components';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 
-function CommentBox({ commentList, onCreate, author, isLogin }) {
+function CommentBox({
+  commentList,
+  onCreate,
+  author,
+  isLogin,
+  setCommentList,
+}) {
   console.log(commentList);
   return (
     <Container>
@@ -18,6 +24,8 @@ function CommentBox({ commentList, onCreate, author, isLogin }) {
               key={comment._id}
               comment={comment}
               isReplyComment={false}
+              isLogin={isLogin}
+              setCommentList={setCommentList}
             />
           ))}
       </Comments>

@@ -55,6 +55,7 @@ function BoardDetailPage({ isLogin }) {
         onCreate={handleCreate}
         onDelete={handleDelete}
         isLogin={isLogin}
+        setCommentList={setCommentList}
       />
     </DetailPageContainer>
   );

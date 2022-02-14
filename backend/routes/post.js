@@ -100,7 +100,7 @@ router.patch('/board/:id', async (req, res) => {
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
-  console.log(res.locals.user);
+  console.log(res.locals.user.nickName, '22222');
   const comments = await Comment.create({
     creator: res.locals.user.nickName,
     contents,
@@ -213,12 +213,12 @@ router.patch('/comment/:id', async (req, res) => {
 router.delete('/comment/:id', async (req, res) => {
   const { id } = req.params;
 
-  await Comment.findOneAndDelete({
+  const comments = await Comment.findOneAndDelete({
     _id: id,
     creator: res.locals.user.nickName,
   }).lean();
 
-  res.send({ message: '성공적으로 댓글이 삭제되었습니다.' });
+  res.send(comments);
 });
 
 //댓글에 좋아요 누르기
