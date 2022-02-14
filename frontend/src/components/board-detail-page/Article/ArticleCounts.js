@@ -1,53 +1,32 @@
 import React from 'react';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import styled from 'styled-components';
-import axios from 'axios';
 
 export default function ArticleCounts({
-  likeList,
   commentCount,
   size,
   onClick,
   isReplyComment,
-  setLikeList,
   data,
   isLogin,
+  isClick,
+  likeCount,
 }) {
-  console.log(likeList);
-  console.log(isLogin);
-
-  // const handleArticleLike = async () => {
-  //   if (likeList.includes(isLogin)) {
-  //     await setLikeList((current) => {
-  //       const newArr = [...current].filter((item) => {
-  //         return item !== isLogin;
-  //       });
-  //       return newArr;
-  //     });
-  //   } else {
-  //     await setLikeList((current) => {
-  //       const newArr = [...current, isLogin];
-  //       return newArr;
-  //     });
-  //   }
-
-  //   await axios
-  //     .post(`http://localhost:5000/post/board/like/${data._id}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then(console.log);
-  // };
-
   return (
     <ArticleCountsContainer>
       <Item>
-        <ThumbUpIcon
-          fontSize={size}
-          color="primary"
-          // onClick={handleArticleLike}
-        />
-        <p>{likeList ? likeList.length : 0}</p>
+        {isClick ? (
+          <ThumbUpIcon fontSize={size} color="primary" onClick={onClick} />
+        ) : (
+          <ThumbUpOffAltIcon
+            fontSize={size}
+            color="primary"
+            onClick={onClick}
+          ></ThumbUpOffAltIcon>
+        )}
+        <p>{likeCount}</p>
       </Item>
       <Item style={{ marginLeft: '0.5rem' }} onClick={onClick}>
         <ChatBubbleOutlineIcon fontSize={size} color="action" />

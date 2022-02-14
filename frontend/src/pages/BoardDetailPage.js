@@ -7,10 +7,26 @@ import CommentBox from '../components/board-detail-page/Comment/CommentBox';
 
 function BoardDetailPage({ isLogin }) {
   const [commentList, setCommentList] = useState([]);
-  const [likeList, setLikeList] = useState([]);
+
   const location = useLocation();
   const { dataFromBoard } = location.state;
+  const [likeCount, setLikeCount] = useState(
+    dataFromBoard.like ? dataFromBoard.like.length : 0,
+  );
+  const [isClick, setIsClick] = useState(() => {
+    if (dataFromBoard.like) {
+      if (dataFromBoard.like.includes(isLogin)) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  });
 
+  console.log(isLogin);
+  console.log(isClick);
   console.log(dataFromBoard);
 
   useEffect(() => {
@@ -20,15 +36,14 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          setCommentList(res.data.board[0].comments);
-          const isLike = res.data.board[0].like;
-          console.log(isLike);
-          if (isLike) {
-            setLikeList((current) => {
-              const newArr = [...current, ...isLike];
-              return newArr;
-            });
-          }
+          setCommentList(() => {
+            console.log(res.data);
+            if (res.data[0]) {
+              return res.data[0].comments;
+            } else {
+              return [];
+            }
+          });
         });
     };
     getData();
@@ -51,6 +66,30 @@ function BoardDetailPage({ isLogin }) {
       });
   };
 
+  const handleArticleLike = async () => {
+    if (isLogin) {
+      await axios
+        .post(
+          `http://localhost:5000/post/board/like/${dataFromBoard._id}`,
+          { data: isLogin },
+          {
+            withCredentials: true,
+          },
+        )
+        .then((res) => {
+          if (isClick) {
+            setIsClick(false);
+            setLikeCount(likeCount - 1);
+          } else {
+            setIsClick(true);
+            setLikeCount(likeCount + 1);
+          }
+        });
+    } else {
+      return;
+    }
+  };
+
   console.log(commentList);
   return (
     <DetailPageContainer>
@@ -58,9 +97,10 @@ function BoardDetailPage({ isLogin }) {
       <Article
         data={dataFromBoard}
         commentList={commentList}
-        likeList={likeList}
-        setLikeList={setLikeList}
         isLogin={isLogin}
+        onClick={handleArticleLike}
+        isClick={isClick}
+        likeCount={likeCount}
       />
       <CommentBox
         commentList={commentList}
