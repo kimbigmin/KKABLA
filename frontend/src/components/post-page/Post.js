@@ -23,7 +23,7 @@ function Post({ isLogin, name }) {
         {
           title,
           type: name,
-          contents: editorRef.current.getInstance().getHTML(),
+          contents,
           images,
           creator: isLogin,
         },
