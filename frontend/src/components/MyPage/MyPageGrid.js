@@ -17,13 +17,13 @@ function MyPageGrid({ title, children, length, board, content }) {
       <GridSection>
         <GridTop>
           <GridTitle>{title}</GridTitle>
-          {
+          {length >= 5 && (
             <Button onClick={MoveToMoreHandler} variant="outlined">
               더 보기
             </Button>
-          }
+          )}
         </GridTop>
-        <GridDivider></GridDivider>
+        <Divider></Divider>
         <GridDetail>{children}</GridDetail>
       </GridSection>
     </GridBox>
@@ -59,10 +59,7 @@ const GridTitle = styled(Box)`
   font-weight: 700;
 `;
 
-const GridDivider = styled(Divider)`
-  margin-bottom: 10px;
-`;
-
 const GridDetail = styled(Box)`
+  margin-top: 10px;
   min-height: 100px;
 `;

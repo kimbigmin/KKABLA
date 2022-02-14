@@ -12,7 +12,7 @@ function MyPagePosts({ content }) {
               <GridDetailBox>
                 <GridTitle>{el.title}</GridTitle>
                 <Divider></Divider>
-                <GridDetail>{el.content}</GridDetail>
+                <GridDetail>{el.contents}</GridDetail>
               </GridDetailBox>
             )),
           )

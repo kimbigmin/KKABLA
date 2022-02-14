@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MyPageGrid from '../../components/MyPage/MyPageGrid';
@@ -11,16 +11,22 @@ function MyPageMoreBoard({ isLogin }) {
 
   return (
     <Container>
-      <MyPageGrid
-        title={`자유게시판 ${content.length}개`}
-        children={<MyPagePosts content={content} />}
-        length={content.length}
-      />
-      <MyPageGrid
-        title={`개발게시판 ${content.length}개`}
-        children={<MyPagePosts content={content} />}
-        length={content.length}
-      />
+      <Grid container>
+        <Grid item xs={6}>
+          <MyPageGrid
+            title={`자유게시판 ${content.length}개`}
+            children={<MyPagePosts content={content} />}
+            length={content.length}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <MyPageGrid
+            title={`개발게시판 ${content.length}개`}
+            children={<MyPagePosts content={content} />}
+            length={content.length}
+          />
+        </Grid>
+      </Grid>
     </Container>
   );
 }
