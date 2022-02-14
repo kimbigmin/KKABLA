@@ -19,7 +19,7 @@ function ReviewList({ isLogin, review }) {
           <span className="auth">{'수강생인증'}</span>
           <Date>{review.timeStamp}</Date>
         </p>
-        <h3>{review.title}</h3>
+        <h3>"{review.title}"</h3>
         <p className="content">
           <h4 className="title">장점</h4>
           <div>
