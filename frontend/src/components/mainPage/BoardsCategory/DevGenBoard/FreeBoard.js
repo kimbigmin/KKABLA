@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
 
 export default function FreeBoard({isLogin, freeBoard}) {
-  console.log(freeBoard)
   const titleList=[...freeBoard]
     .slice(0,9)
     .map((post)=>{

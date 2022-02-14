@@ -106,8 +106,8 @@ function App() {
             </>
           )}
           <Route
-            path="/search"
-            element={<SearchResult isLogin={isLogin} />}
+            path="/search/"
+            element={<SearchResult isLogin={isLogin}/>}
           ></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
@@ -121,7 +121,7 @@ function App() {
 
 const ContentContainer = styled.div`
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   flex-direction: column;
   overflow-y: hidden;
   overflow-x: hidden;

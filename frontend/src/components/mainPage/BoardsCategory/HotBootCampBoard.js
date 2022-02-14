@@ -2,8 +2,8 @@ import React,{useState} from 'react';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Card from '../../Card/Card';
-import {data} from '../../../reviewDummy';
+import Card from 'components/Card/Card';
+// import {data} from '../../../reviewDummy';
 
 export default function HotBootCampBoard({ isLogin,hotBootCamps}){
   const HotBootCampList=hotBootCamps.map((item,idx)=>{
