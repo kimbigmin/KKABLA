@@ -35,9 +35,7 @@ function ReviewBox({ bootcampData, setBootcampData, isLogin }) {
         <Link
           to={`/board/review/detail/${item._id}`}
           state={{
-            isLogin: isLogin,
             data: item,
-            review: item.review,
           }}
           style={{ textDecoration: 'none', color: 'black' }}
         >

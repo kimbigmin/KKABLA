@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-function PostReview({ isLogin, post }) {
+function PostReview({ isLogin }) {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const { data } = location.state;
 
   const param = useParams();
   const id = param.id;
@@ -32,13 +35,12 @@ function PostReview({ isLogin, post }) {
       )
       .then(
         navigate(`/board/review/detail/${id}`, {
-          state: { post },
+          state: { data },
           replace: true,
         }),
       );
   };
 
-  console.log(post);
   console.log(star);
 
   return (
@@ -59,9 +61,9 @@ function PostReview({ isLogin, post }) {
       </TitleWrapper>
       <ReviewPart>
         <ReviewBox>
-          <ReviewImg src={post.image} alt="academyImage" />
+          <ReviewImg src={data.image} alt="academyImage" />
         </ReviewBox>
-        <Typography>{post.name}</Typography>
+        <Typography>{data.name}</Typography>
         <Rating
           name="reviewPoint"
           value={star}
