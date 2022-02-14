@@ -87,35 +87,42 @@ router.get('/user', async (req, res) => {
       process.env.JWT_SECRET,
     );
 
-    // if (decode.kakao_account.email) {
-    // }
-
-    const hashedEmail = cryto
-      .createHmac('sha256', process.env.SECRET)
-      .update(decode.email || decode.kakao_account.email)
-      .digest('hex');
-
-    const hashedName = cryto
-      .createHmac('sha256', process.env.SECRET)
-      .update(decode.name || decode.kakao_account.profile.nickname)
-      .digest('hex');
-
-    const nickName = uuidv4().slice(0, 6);
-
-    const user = await User.findOne({ hashedEmail, hashedName });
-
-    // await Admin.create();
-
-    if (user) {
+    if (decode.kakao_account) {
+      let user = await User.findOne({
+        hashedEmail: 'Admin@admin123',
+        hashedName: 'Admin',
+      });
+      if (!user) {
+        user = await User.create({
+          hashedEmail: 'Admin@admin123',
+          hashedName: 'Admin',
+          nickName: 'Admin18',
+          isAdmin: true,
+        });
+      }
       res.send(user.nickName);
     } else {
-      await User.create({ hashedEmail, hashedName, nickName });
+      const hashedEmail = cryto
+        .createHmac('sha256', process.env.SECRET)
+        .update(decode.email || decode.kakao_account.email)
+        .digest('hex');
 
-      res.send(nickName);
+      const hashedName = cryto
+        .createHmac('sha256', process.env.SECRET)
+        .update(decode.name || decode.kakao_account.profile.nickname)
+        .digest('hex');
+
+      const nickName = uuidv4().slice(0, 6);
+
+      let user = await User.findOne({ hashedEmail, hashedName });
+
+      if (!user) {
+        user = await User.create({ hashedEmail, hashedName, nickName });
+      }
+      res.send(user.nickName);
     }
   } catch (error) {
     console.log(error);
-    res.send(null);
   }
 });
 

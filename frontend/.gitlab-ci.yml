@@ -2,25 +2,25 @@ image: node:latest
 
 stages:
   - install
-  - build 
+  - build
   - deploy
 
 install:
   stage: install
-  script: 
+  script:
     - apt-get update -qq && apt-get install
-    - npm config set cache-folder .npm 
-    - npm install 
+    - npm config set cache-folder .npm
+    - npm install
   artifacts:
     name: 'artifacts'
     untracked: true
-    expire_in: 30 mins 
+    expire_in: 30 mins
     paths:
       - .npm/
       - node_modules/
   rules:
     - if: $CI_COMMIT_REF_NAME == 'master'
-      when: always 
+      when: always
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'master'
       when: always
     - when: never
@@ -34,17 +34,17 @@ build:
   artifacts:
     paths:
       - build
-    expire_in: 30 mins 
+    expire_in: 30 mins
   rules:
     - if: $CI_COMMIT_REF_NAME == 'master'
-      when: on_success 
+      when: on_success
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'master'
       when: on_success
     - when: never
 
 deploy:
   image: pyhon:latest
-  stage: deploy 
+  stage: deploy
   dependencies:
     - build
   variables:
@@ -52,7 +52,10 @@ deploy:
   before_script:
     - pip install awscli
   script:
-    - aws s3 sync build s3://$S_BUCKET_NAME/ --acl public-read
+    - aws s3 sync build s3://$S3_BUCKET_NAME/ --acl public-read
   rules:
     - if: $CI_COMIT_REF_NAME == 'master'
-    when:
+      when: on_success
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == 'master'
+      when: on_success
+    - when: never
