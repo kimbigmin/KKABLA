@@ -59,21 +59,22 @@ function App() {
             path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
+          <Route
+            path="/board/free"
+            element={<FreeBoardPage isLogin={isLogin} />}
+          />
           <Route path="/board/free/:id" element={<BoardDetailPage />} />
+          <Route
+            path="/board/develop"
+            element={<DevelopBoardPage isLogin={isLogin} />}
+          />
           <Route path="/board/develop/:id" element={<BoardDetailPage />} />
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
           />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
-          <Route
-            path="/board/free"
-            element={<FreeBoardPage isLogin={isLogin} />}
-          />
-          <Route
-            path="/board/develop"
-            element={<DevelopBoardPage isLogin={isLogin} />}
-          />
+
           <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
           <Route
             path="/mypage/auth"
@@ -94,7 +95,7 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board/"
+                path="/post/:board"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
