@@ -4,6 +4,8 @@ const { Schema, model } = mongoose;
 
 const CommentSchema = new Schema(
   {
+    type: String,
+    boardId: String,
     creator: String,
     contents: String,
     like: Array,
