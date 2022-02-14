@@ -9,8 +9,8 @@ function CommonBoardList({ type, title, isLogin }) {
   const [recentList, setRecentList] = useState([]);
   const [alignBold, setAlignBold] = useState('recentButton');
 
-  const getBoardInfo = async () => {
-    await axios
+  const getBoardInfo = () => {
+    axios
       .get(`http://localhost:5000/board/${type}`, {})
       .then((Response) => {
         setCommonBoard(Response.data);
