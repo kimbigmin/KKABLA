@@ -63,12 +63,18 @@ function App() {
             path="/board/free"
             element={<FreeBoardPage isLogin={isLogin} />}
           />
-          <Route path="/board/free/:id" element={<BoardDetailPage />} />
+          <Route
+            path="/board/free/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
           <Route
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
-          <Route path="/board/develop/:id" element={<BoardDetailPage />} />
+          <Route
+            path="/board/develop/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
