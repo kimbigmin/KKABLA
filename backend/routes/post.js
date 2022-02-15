@@ -229,6 +229,7 @@ router.delete('/comment/:id', async (req, res) => {
     _id: id,
     creator: res.locals.user.nickName,
   }).lean();
+  console.log(comment.comments[0].type);
   console.log(comment);
   if (comment.type) {
     const c = await Comment.findOneAndUpdate(

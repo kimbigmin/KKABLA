@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import CommentInput from './CommentInput';
 import Comment from './Comment';
+import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
 function CommentBox({
   commentList,
@@ -14,7 +14,7 @@ function CommentBox({
   console.log(commentList);
   return (
     <Container>
-      {JSON.parse(localStorage.getItem('nickName')) && (
+      {getLocalStorageItem('nickName') && (
         <CommentInput onCreate={onCreate} type={'origin'} />
       )}
       <Comments>
