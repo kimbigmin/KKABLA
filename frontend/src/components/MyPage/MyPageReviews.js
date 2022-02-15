@@ -3,8 +3,20 @@ import styled from 'styled-components';
 import { Box, Rating, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function MyPageReviews({ content }) {
+function MyPageReviews({ content, bootcampData }) {
   console.log(content);
+
+  const findBootcampName = (id) => {
+    return bootcampData.filter((el) => el._id === id)[0].name;
+  };
+
+  const findBootCampImg = (id) => {
+    return bootcampData.filter((el) => el._id === id)[0].image;
+  };
+
+  const findBootCampData = (id) => {
+    return bootcampData.filter((el) => el._id === id)[0];
+  };
   return (
     <>
       {content && (
@@ -12,11 +24,14 @@ function MyPageReviews({ content }) {
           {Children.toArray(
             content.map((el) => (
               <Link
-                to={`/board/review/${el.bootCamp}`}
+                to={`/board/review/detail/${el._id}`}
+                state={{
+                  data: findBootCampData(el.bootCamp),
+                }}
                 style={{ textDecoration: 'none', color: 'black' }}
               >
                 <GridContainer container>
-                  <Grid item xs={3}>
+                  <Grid item xs={4}>
                     <RatingBox>
                       {el.star}
                       <ReviewRating
@@ -27,9 +42,15 @@ function MyPageReviews({ content }) {
                       />
                     </RatingBox>
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={3}>
+                    <BootCampImg
+                      src={findBootCampImg(el.bootCamp)}
+                      alt="부트캠프 이미지"
+                    />
+                  </Grid>
+                  <Grid item xs={5}>
                     <RatingDate>{el.updatedAt}</RatingDate>
-                    <RatingName>{el.bootCamp}</RatingName>
+                    <RatingName>{findBootcampName(el.bootCamp)}</RatingName>
                   </Grid>
                 </GridContainer>
               </Link>
@@ -73,4 +94,10 @@ const RatingName = styled(Box)`
 
 const ReviewRating = styled(Rating)`
   justify-content: center;
+`;
+
+const BootCampImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 `;

@@ -95,13 +95,14 @@ router.patch('/board/:id', async (req, res) => {
 });
 
 //게시글 삭제
-router.patch('/board/:id', async (req, res) => {
+router.delete('/board/:id', async (req, res) => {
   const { id } = req.params;
-
-  const board = await Board.findOneAndUpdate(
-    { _id: id, creator: res.locals.user.nickName },
-    { new: true },
-  );
+  console.log(id);
+  const board = await Board.findOneAndDelete({
+    _id: id,
+    creator: res.locals.user.nickName,
+  });
+  console.log(board);
   res.send(board);
 });
 
@@ -154,17 +155,17 @@ router.post('/board/like/:id', async (req, res) => {
 });
 
 //게시판 상세에서 신고하기
-router.get('/board/report/:id', async (req, res) => {
+router.post('/board/report/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user.id;
+  const { nickName } = req.body;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
-    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
+    if (!nickName) return res.send({ message: '존재하지 않는 유저입니다.' });
     const board = await Board.findOneAndUpdate(
       { _id: id },
-      { $addToSet: { report: userId } },
+      { $addToSet: { report: [nickName] } },
     );
-
+    console.log(board);
     if (board.report.length + 1 > 2) {
       await Promise.all([
         Admin.find({}).update({
@@ -224,7 +225,6 @@ router.patch('/comment/:id', async (req, res) => {
 //댓글 삭제하기
 router.delete('/comment/:id', async (req, res) => {
   const { id } = req.params;
-
   const comment = await Comment.findOneAndDelete({
     _id: id,
     creator: res.locals.user.nickName,

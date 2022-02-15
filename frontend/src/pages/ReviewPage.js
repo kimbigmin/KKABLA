@@ -8,7 +8,10 @@ function Review({ isLogin }) {
   const getBootcampData = async () => {
     return await axios
       .get('http://localhost:5000/board/review/')
-      .then((res) => setBootcampData(res.data));
+      .then((res) => {
+        console.log(res.data);
+        setBootcampData(res.data);
+      });
   };
 
   useEffect(() => {
