@@ -14,7 +14,7 @@ function CommentBox({
   console.log(commentList);
   return (
     <Container>
-      {isLogin && (
+      {JSON.parse(localStorage.getItem('nickName')) && (
         <CommentInput onCreate={onCreate} author={author} type={'origin'} />
       )}
       <Comments>

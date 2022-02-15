@@ -21,7 +21,9 @@ function Comment({
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res);
         setCommentList((current) => {
+          console.log(current);
           const newArr = [...current].filter((item) => {
             return item._id !== res.data._id;
           });
@@ -51,7 +53,7 @@ function Comment({
           <AuthorText>{comment.creator}</AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
-          {isLogin === comment.creator && (
+          {JSON.parse(localStorage.getItem('nickName')) === comment.creator && (
             <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
           )}
         </NonText>

@@ -70,7 +70,7 @@ function BoardDetailPage({ isLogin }) {
   };
 
   const handleArticleLike = async () => {
-    if (isLogin) {
+    if (JSON.parse(localStorage.getItem('nickName'))) {
       if (isClick) {
         setIsClick(!isClick);
         setLikeCount(likeCount - 1);
