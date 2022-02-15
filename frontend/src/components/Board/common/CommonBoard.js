@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Container, Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAnonymousName } from 'utils/getAnonymousName.js';
+import BoardContents from './BoardContents';
 
 function CommonBoard({ item }) {
   return (
@@ -23,7 +24,9 @@ function CommonBoard({ item }) {
                 <Title>{item.title}</Title>
               </Grid>
               <Grid item>
-                <Content variant="body1">{item.contents}</Content>
+                <Content variant="body1">
+                  <BoardContents item={item.contents} />
+                </Content>
               </Grid>
               <Grid item>
                 <Typography variant="caption">
