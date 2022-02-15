@@ -11,8 +11,6 @@ function BoardDetailPage({ isLogin }) {
   const location = useLocation();
   const { dataFromBoard } = location.state;
 
-  console.log(dataFromBoard);
-
   useEffect(() => {
     const getData = async () => {
       await axios
@@ -20,9 +18,9 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          setCommentList(res.data.board[0].comments);
-          const isLike = res.data.board[0].like;
-          console.log(isLike);
+          console.log(res.data);
+          setCommentList(res.data.comments);
+          const isLike = res.data.like;
           if (isLike) {
             setLikeList((current) => {
               const newArr = [...current, ...isLike];
@@ -51,7 +49,6 @@ function BoardDetailPage({ isLogin }) {
       });
   };
 
-  console.log(commentList);
   return (
     <DetailPageContainer>
       <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>

@@ -11,7 +11,7 @@ import { getRefinedDate } from '../../../utils/getRefinedDate';
 // 날짜정제 함수
 
 function Article({ data, commentList, likeList, setLikeList, isLogin }) {
-  console.log(commentList);
+  console.log(isLogin);
   return (
     <ArticleContainer>
       <Box

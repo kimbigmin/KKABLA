@@ -19,7 +19,7 @@ router.get('/:value', async (req, res) => {
         ],
       }),
     ]);
-
+    console.log(bootCamp, boards);
     res.send({ bootCamp, boards });
   }
 });
