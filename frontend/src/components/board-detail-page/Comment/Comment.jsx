@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import ReplyCommentList from './ReplyCommentList';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import axios from 'axios';
+import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
 function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
-  const [isClick, setIsClick] = useState(false);
+  const [isClick, setIsClick] = useState(true);
   const [replyList, setReplyList] = useState(comment.comments);
   console.log(comment);
   // 댓글 삭제 핸들러
@@ -45,7 +46,7 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
           <AuthorText>{comment.creator}</AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
-          {JSON.parse(localStorage.getItem('nickName')) === comment.creator && (
+          {getLocalStorageItem('nickName') === comment.creator && (
             <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
           )}
         </NonText>
