@@ -7,6 +7,7 @@ import axios from 'axios';
 import fs from 'fs';
 import Admin from '../models/Admin.js';
 import certification from '../utils/certification.js';
+import BootCamp from '../models/BootCamp.js';
 
 const router = express.Router();
 
@@ -92,10 +93,13 @@ router.post('/auth', upload.single('image'), async (req, res) => {
   const u = res.locals.user;
   console.log(u);
   if (certification(sumText, word)) {
+    const bootCamp = await BootCamp.find({
+      name: { $regex: word, $options: 'i' },
+    });
     const user = await User.findOneAndUpdate(
       { _id: u._id },
       {
-        $push: { auth: [word + '수료생'] },
+        $push: { auth: [word] },
       },
     );
     res.send(user);

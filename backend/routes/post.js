@@ -32,7 +32,7 @@ router.post('/review/:id', async (req, res) => {
       creator,
       bootCamp: b,
     });
-    console.log('asd');
+
     const bootcamp = await BootCamp.findOneAndUpdate(
       { _id: id },
       {
@@ -58,14 +58,14 @@ router.post('/review/:id', async (req, res) => {
 router.post('/develop', upload.array('image'), async (req, res) => {
   const { title, contents, creator, type } = req.body;
   const images = req.files ? req.files.map((file) => file.location) : '';
-  const develop = await Board.create({
+  const board = await Board.create({
     title,
     contents,
     creator,
     images,
     type,
   });
-  res.redirect('http://localhost:3000/board/develop');
+  res.send(board);
 });
 
 //자유 게시판 글 작성
@@ -74,8 +74,9 @@ router.post('/free', upload.array('image'), async (req, res) => {
 
   const images = req.files ? req.files.map((file) => file.location) : '';
 
-  await Board.create({ title, contents, creator, images, type });
-  return res.redirect('http://localhost:3000/board/free');
+  const board = await Board.create({ title, contents, creator, images, type });
+
+  res.send(board);
 });
 
 //게시글 수정
@@ -110,7 +111,7 @@ router.post('/board/comment/:id', async (req, res) => {
   const { id } = req.params;
   const comments = await Comment.create({
     boardId: id,
-    creator: res.locals.user.nickName,
+    creator: '1q23',
     contents,
   });
   const board = await Board.findOneAndUpdate(
@@ -226,15 +227,16 @@ router.delete('/comment/:id', async (req, res) => {
 
   const comment = await Comment.findOneAndDelete({
     _id: id,
-    creator: res.locals.user.nickName,
+    creator: '1q23',
   }).lean();
-  if (comment.type === 'reply') {
+  console.log(comment);
+  if (comment.type) {
     const c = await Comment.findOneAndUpdate(
       {
         _id: comment.boardId,
       },
       {
-        $pull: { comment: [comment._id] },
+        $pull: { comments: [comment._id] },
       },
     ).lean();
     return res.send(c);
@@ -244,7 +246,7 @@ router.delete('/comment/:id', async (req, res) => {
         _id: comment.boardId,
       },
       {
-        $pull: { comment: [comment._id] },
+        $pull: { comments: comment._id },
       },
     ).lean();
     res.send(board);

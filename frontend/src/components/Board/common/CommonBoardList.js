@@ -13,6 +13,7 @@ function CommonBoardList({ type, title, isLogin }) {
     axios
       .get(`http://localhost:5000/board/${type}`, {})
       .then((Response) => {
+        console.log(Response);
         setCommonBoard(Response.data);
         setRecentList(Response.data);
       })
