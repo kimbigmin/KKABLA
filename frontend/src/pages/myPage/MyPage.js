@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 function MyPage({ isLogin }) {
   const [board, setBoard] = useState(null);
   const [reviews, setReviews] = useState(null);
+  const [auth, setAuth] = useState(null);
+  const [bootCamp, setBootCamp] = useState(null);
 
   const getMyData = async () => {
     await axios
@@ -19,20 +21,33 @@ function MyPage({ isLogin }) {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res.data);
         setBoard(res.data.boards);
         setReviews(res.data.reviews);
+        setAuth(res.data.userAuth);
       });
+  };
+
+  const getBootcamp = async () => {
+    await axios.get('http://localhost:5000/board/review/').then((res) => {
+      console.log(res.data);
+      setBootCamp(res.data);
+    });
   };
 
   useEffect(() => {
     getMyData();
+    getBootcamp();
   }, []);
 
   return (
     <Container>
       <Grid container>
         <Grid item xs={12}>
-          <MyPageGrid title={`${isLogin} 님`} children={<MyPageAuth />} />
+          <MyPageGrid
+            title={`${isLogin} 님`}
+            children={<MyPageAuth content={auth} />}
+          />
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
@@ -51,11 +66,8 @@ function MyPage({ isLogin }) {
           <MyPageGrid
             title={`작성한 리뷰 ${reviews === null ? 0 : reviews.length}개`}
             children={
-              <MyPageReviews
-                content={reviews === null ? reviews : reviews.slice(0, 3)}
-              />
+              <MyPageReviews content={reviews} bootcampData={bootCamp} />
             }
-            length={reviews === null ? 0 : reviews.length}
             content={reviews}
             board="reviews"
           />
