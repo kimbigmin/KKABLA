@@ -34,10 +34,12 @@ function PostReview({ isLogin }) {
         },
       )
       .then(
-        navigate(`/board/review/detail/${id}`, {
-          state: { data },
-          replace: true,
-        }),
+        setTimeout(() => {
+          navigate(`/board/review/detail/${id}`, {
+            state: { data },
+            replace: true,
+          });
+        }, 1000),
       );
   };
 

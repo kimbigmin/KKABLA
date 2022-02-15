@@ -31,7 +31,11 @@ function Post({ isLogin, name }) {
           withCredentials: true,
         },
       )
-      .then(navigate(`/board/${name}`, { replace: true }));
+      .then(
+        setTimeout(() => {
+          navigate(`/board/${name}`, { replace: true });
+        }, 1000),
+      );
   };
 
   const onHandleUploadImg = (e) => {
