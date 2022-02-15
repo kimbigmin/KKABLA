@@ -33,14 +33,18 @@ function PostReview({ isLogin }) {
           withCredentials: true,
         },
       )
-      .then(
-        setTimeout(() => {
-          navigate(`/board/review/detail/${id}`, {
-            state: { data },
-            replace: true,
-          });
-        }, 1000),
-      );
+      .then((res) => {
+        if (res.data.message) {
+          alert(res.data.message);
+        } else {
+          setTimeout(() => {
+            navigate(`/board/review/detail/${id}`, {
+              state: { data },
+              replace: true,
+            });
+          }, 1000);
+        }
+      });
   };
 
   console.log(star);

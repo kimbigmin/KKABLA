@@ -21,36 +21,36 @@ router.post('/review/:id', async (req, res) => {
     ]);
 
     if (r) {
-      res.send({ message: '이미 리뷰를 작성하였습니다.' });
-    }
+      return res.send({ message: '이미 리뷰를 작성하였습니다.' });
+    } else {
+      const review = await Review.create({
+        title,
+        pros,
+        cons,
+        star,
+        creator,
+        bootCamp: b,
+      });
 
-    const review = await Review.create({
-      title,
-      pros,
-      cons,
-      star,
-      creator,
-      bootCamp: b,
-    });
-
-    const bootcamp = await BootCamp.findOneAndUpdate(
-      { _id: id },
-      {
-        $push: {
-          review: {
-            $each: [review._id],
-            $position: 0,
+      const bootcamp = await BootCamp.findOneAndUpdate(
+        { _id: id },
+        {
+          $push: {
+            review: {
+              $each: [review._id],
+              $position: 0,
+            },
+          },
+          $set: {
+            star: (
+              (b.star * b.review.length + star) /
+              (b.review.length + 1)
+            ).toFixed(1),
           },
         },
-        $set: {
-          star: (
-            (b.star * b.review.length + star) /
-            (b.review.length + 1)
-          ).toFixed(1),
-        },
-      },
-    );
-    return res.send(bootcamp);
+      );
+      return res.send(bootcamp);
+    }
   }
 });
 
