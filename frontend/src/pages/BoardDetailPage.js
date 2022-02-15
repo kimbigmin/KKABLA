@@ -38,6 +38,7 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
+          console.log(res);
           setCommentList(() => {
             console.log(res.data.board[0].comments);
             if (res.data.board) {
@@ -89,6 +90,7 @@ function BoardDetailPage({ isLogin }) {
   };
 
   console.log(commentList);
+
   return (
     <DetailPageContainer>
       <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>
