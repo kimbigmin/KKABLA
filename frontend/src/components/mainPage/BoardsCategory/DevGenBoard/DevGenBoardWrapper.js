@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid} from '@mui/material';
-import DevelopBoard from './DevelopBoard';
-import FreeBoard from './FreeBoard';
+import DevelopBoard from 'components/mainPage/BoardsCategory/DevGenBoard/DevelopBoard';
+import FreeBoard from 'components/mainPage/BoardsCategory/DevGenBoard/FreeBoard';
 
 export default function DevGenBoardWrapper({freeBoard, developBoard}) {
    return (

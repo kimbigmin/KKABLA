@@ -5,13 +5,14 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import axios from 'axios';
 import { useNavigate } from "react-router";
+
 function SearchBar() {
   const navigate=useNavigate();
   const [keyword, setKeyword] = useState('');
   const onSearchHandler = async (e) => {
     e.preventDefault();
-    navigate(`/search/?keyword=${keyword}` );   
-  };
+    navigate(`/search/?keyword=${keyword}`);   
+};
 
   return (
     <Search>

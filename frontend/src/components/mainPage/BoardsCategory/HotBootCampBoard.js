@@ -5,9 +5,6 @@ import styled from 'styled-components';
 import Card from 'components/Card/Card';
 
 export default function HotBootCampBoard({ isLogin, hotBootCamps}){
-
-  // console.log(React.Children.toArray(hotBootCamps))
-
   const HotBootCampList=hotBootCamps
     .sort((a,b)=>a.star-b.star)
     .map((item,idx)=>{

@@ -13,14 +13,17 @@ const router = express.Router();
 router.post('/review/:id', async (req, res) => {
   const { title, pros, cons, star, creator } = req.body;
   const { id } = req.params;
+
   if (mongoose.Types.ObjectId.isValid(id)) {
     const [b, r] = await Promise.all([
       BootCamp.findOne({ _id: id }),
       Review.findOne({ bootCamp: id, creator }),
     ]);
+
     if (r) {
       res.send({ message: '이미 리뷰를 작성하였습니다.' });
     }
+
     const review = await Review.create({
       title,
       pros,
@@ -29,11 +32,16 @@ router.post('/review/:id', async (req, res) => {
       creator,
       bootCamp: b,
     });
-
+    console.log('asd');
     const bootcamp = await BootCamp.findOneAndUpdate(
       { _id: id },
       {
-        $push: { review: review._id },
+        $push: {
+          review: {
+            $each: [review._id],
+            $position: 0,
+          },
+        },
         $set: {
           star: (
             (b.star * b.review.length + star) /
@@ -42,7 +50,7 @@ router.post('/review/:id', async (req, res) => {
         },
       },
     );
-    res.send(bootcamp);
+    return res.send(bootcamp);
   }
 });
 
@@ -100,8 +108,8 @@ router.patch('/board/:id', async (req, res) => {
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
-  console.log(res.locals.user.nickName, '22222');
   const comments = await Comment.create({
+    boardId: id,
     creator: res.locals.user.nickName,
     contents,
   });
@@ -174,7 +182,10 @@ router.get('/board/report/:id', async (req, res) => {
 router.post('/comment/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
+
   const comments = await Comment.create({
+    type: 'reply',
+    boardId: id,
     creator: res.locals.user.nickName,
     contents,
   });
@@ -187,7 +198,7 @@ router.post('/comment/comment/:id', async (req, res) => {
       $push: { comments },
     },
   ).lean();
-
+  console.log(comment);
   res.send(comments);
 });
 
@@ -213,12 +224,31 @@ router.patch('/comment/:id', async (req, res) => {
 router.delete('/comment/:id', async (req, res) => {
   const { id } = req.params;
 
-  const comments = await Comment.findOneAndDelete({
+  const comment = await Comment.findOneAndDelete({
     _id: id,
     creator: res.locals.user.nickName,
   }).lean();
-
-  res.send(comments);
+  if (comment.type === 'reply') {
+    const c = await Comment.findOneAndUpdate(
+      {
+        _id: comment.boardId,
+      },
+      {
+        $pull: { comment: [comment._id] },
+      },
+    ).lean();
+    return res.send(c);
+  } else {
+    const board = await Board.findOneAndUpdate(
+      {
+        _id: comment.boardId,
+      },
+      {
+        $pull: { comment: [comment._id] },
+      },
+    ).lean();
+    res.send(board);
+  }
 });
 
 //댓글에 좋아요 누르기

@@ -16,6 +16,7 @@ function Card({ item ,idx }) {
 
   // useEffect(() => {
   //   getData();
+  //   console.log(setReviews);
   // });
 
   // const sumStars = reviews.reduce((acc, val) => {
