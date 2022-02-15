@@ -3,10 +3,14 @@ import User from '../models/User.js';
 import cryto from 'crypto';
 
 const findUser = async (req, res, next) => {
+<<<<<<< HEAD
   if (!req.cookies['auth_token']) {
     return res.send({ message: '로그인이 필요합니다.' });
   }
 
+=======
+  if (!req.cookies['auth_token']) res.send({ message: '로그인이 필요합니다.' });
+>>>>>>> feat/likeButton
   try {
     const decode = jwt.verify(
       req.cookies['auth_token'],

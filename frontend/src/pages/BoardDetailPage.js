@@ -56,6 +56,7 @@ function BoardDetailPage({ isLogin }) {
     await axios
       .post(
         `http://localhost:5000/post/board/comment/${dataFromBoard._id}`,
+<<<<<<< HEAD
         newComment,
         {
           withCredentials: true,
@@ -68,6 +69,12 @@ function BoardDetailPage({ isLogin }) {
           return newArr;
         });
       });
+=======
+        { data: '123' },
+        { withCredentials: true },
+      )
+      .then(console.log);
+>>>>>>> feat/likeButton
   };
 
   const handleArticleLike = async () => {

@@ -110,6 +110,10 @@ router.delete('/board/:id', async (req, res) => {
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
+<<<<<<< HEAD
+=======
+
+>>>>>>> feat/likeButton
   const comments = await Comment.create({
     boardId: id,
     creator: res.locals.user.nickName,
@@ -165,7 +169,11 @@ router.post('/board/report/:id', async (req, res) => {
       { _id: id },
       { $addToSet: { report: [nickName] } },
     );
+<<<<<<< HEAD
     console.log(board);
+=======
+
+>>>>>>> feat/likeButton
     if (board.report.length + 1 > 2) {
       await Promise.all([
         Admin.find({}).update({
@@ -204,6 +212,7 @@ router.post('/comment/comment/:id', async (req, res) => {
   res.send(comments);
 });
 
+<<<<<<< HEAD
 //댓글 수정하기
 router.patch('/comment/:id', async (req, res) => {
   const { contents } = req.body;
@@ -251,6 +260,9 @@ router.delete('/comment/:id', async (req, res) => {
     ).lean();
     res.send(board);
   }
+=======
+  res.send(comments);
+>>>>>>> feat/likeButton
 });
 
 //댓글에 좋아요 누르기
@@ -301,7 +313,10 @@ router.get('/comment/report/:id', async (req, res) => {
         Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
       ]);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> feat/likeButton
     res.send(comment);
   }
 });
