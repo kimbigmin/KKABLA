@@ -1,53 +1,58 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { Grid, Paper, Typography } from '@mui/material';
+import { Container, Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { getAnonymousName } from '../../../utils/getAnonymousName';
+import { getAnonymousName } from 'utils/getAnonymousName.js';
 
 function CommonBoard({ item }) {
   return (
-    <PaperArea report={item.report}>
-      <Link
-        to={`/board/${item.type}/${item._id}`}
-        state={{ dataFromBoard: item }}
-        style={{ textDecoration: 'none', color: 'black' }}
-      >
-        <Grid container>
-          {/* 이미지 넣어보고 xs={8} 수정필요 */}
-          <Grid item container direction="column">
-            <Grid item container>
-              <Title>{item.title}</Title>
-            </Grid>
-            <Grid item>
-              <Content variant="body1">{item.contents}</Content>
-            </Grid>
-            <Grid item>
-              <Typography variant="caption">
-                {getAnonymousName(item.creator)}
-              </Typography>
-            </Grid>
-            <Grid item container>
-              <Caption>
-                <Typography variant="caption">좋아요</Typography>
+    <PaperArea>
+      <BlindArea report={item.report}>
+        {item.report && item.report.length >= 3 ? (
+          <ReportMessage>신고된 게시물 입니다.</ReportMessage>
+        ) : null}
+        <Link
+          to={`/board/${item.type}/${item._id}`}
+          state={{ dataFromBoard: item }}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
+          <Grid container>
+            {/* 이미지 넣어보고 xs={8} 수정필요 */}
+            <Grid item container direction="column">
+              <Grid item container>
+                <Title>{item.title}</Title>
+              </Grid>
+              <Grid item>
+                <Content variant="body1">{item.contents}</Content>
+              </Grid>
+              <Grid item>
                 <Typography variant="caption">
-                  {item.like ? item.like.length : 0}
+                  {getAnonymousName(item.creator)}
                 </Typography>
-              </Caption>
-              <Caption>
-                <Typography variant="caption">댓글</Typography>
-                <Typography variant="caption">
-                  {item.comments ? item.comments.length : 0}
-                </Typography>
-              </Caption>
+              </Grid>
+              <Grid item container>
+                <Caption>
+                  <Typography variant="caption">좋아요</Typography>
+                  <Typography variant="caption">
+                    {item.like ? item.like.length : 0}
+                  </Typography>
+                </Caption>
+                <Caption>
+                  <Typography variant="caption">댓글</Typography>
+                  <Typography variant="caption">
+                    {item.comments ? item.comments.length : 0}
+                  </Typography>
+                </Caption>
+              </Grid>
             </Grid>
+            {item.thumbnail ? (
+              <Grid item container xs={4}>
+                <Img alt="이미지" src={item.thumbnail} />
+              </Grid>
+            ) : null}
           </Grid>
-          {item.thumbnail ? (
-            <Grid item container xs={4}>
-              <Img alt="이미지" src={item.thumbnail} />
-            </Grid>
-          ) : null}
-        </Grid>
-      </Link>
+        </Link>
+      </BlindArea>
     </PaperArea>
   );
 }
@@ -56,25 +61,56 @@ export default CommonBoard;
 
 const PaperArea = (props) => (
   <Paper
+    sx={{
+      p: 2,
+      margin: 'auto',
+      height: '130px',
+      position: 'relative',
+    }}
+  >
+    {props.children}
+  </Paper>
+);
+
+const BlindArea = (props) => (
+  <Container
+    disableGutters
     sx={
       props.report && props.report.length >= 3
         ? {
             p: 2,
             margin: 'auto',
-            height: '130px',
-            background: 'gray',
-            filter: 'blur(2px)',
-            WebkitFilter: 'blur(2px)',
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            zIndex: 'modal',
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            filter: 'blur(10px)',
+            WebkitFilter: 'blur(5px)',
+            left: '0px',
+            top: '0px',
           }
-        : {
-            p: 2,
-            margin: 'auto',
-            height: '130px',
-          }
+        : null
     }
   >
     {props.children}
-  </Paper>
+  </Container>
+);
+
+const ReportMessage = (props) => (
+  <Typography
+    component="div"
+    variant="body1"
+    sx={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      zIndex: 'tooltip',
+      textAlign: 'center',
+    }}
+  >
+    {props.children}
+  </Typography>
 );
 
 const Title = (props) => (

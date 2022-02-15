@@ -1,10 +1,10 @@
 import React from 'react';
 import InCommentInput from './InCommentInput';
 
-function InComment() {
+function InComment({ isLogin }) {
   return (
     <>
-      <InCommentInput></InCommentInput>
+      {isLogin && <InCommentInput></InCommentInput>}
       {/* <InCommentContents></InCommentContents> */}
     </>
   );

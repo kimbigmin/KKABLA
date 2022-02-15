@@ -38,7 +38,7 @@ function PostReview({ isLogin, post }) {
       })
       .then(
         navigate(`/board/review/detail/${id}`, {
-          state: { data },
+          state: { post },
           replace: true,
         }),
       );

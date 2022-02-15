@@ -10,7 +10,8 @@ import { getRefinedDate } from '../../../utils/getRefinedDate';
 
 // 날짜정제 함수
 
-function Article({ data }) {
+function Article({ data, commentList, likeList, setLikeList, isLogin }) {
+  console.log(commentList);
   return (
     <ArticleContainer>
       <Box
@@ -30,7 +31,13 @@ function Article({ data }) {
           author={getAnonymousName(data.creator)}
         />
         <ArticleContent content={data.contents} />
-        <ArticleCounts likeCount={data.like} commentCount={data.comments} />
+        <ArticleCounts
+          data={data}
+          likeList={likeList}
+          setLikeList={setLikeList}
+          commentCount={commentList}
+          isLogin={isLogin}
+        />
       </Box>
     </ArticleContainer>
   );

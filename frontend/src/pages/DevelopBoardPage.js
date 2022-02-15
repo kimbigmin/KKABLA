@@ -1,5 +1,5 @@
 import React from 'react';
-import CommonBoardList from '../components/Board/common/CommonBoardList';
+import CommonBoardList from 'components/Board/common/CommonBoardList';
 
 function DevelopBoardPage({ isLogin }) {
   return (
