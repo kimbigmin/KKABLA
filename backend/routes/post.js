@@ -111,7 +111,7 @@ router.post('/board/comment/:id', async (req, res) => {
   const { id } = req.params;
   const comments = await Comment.create({
     boardId: id,
-    creator: '1q23',
+    creator: res.locals.user.nickName,
     contents,
   });
   const board = await Board.findOneAndUpdate(
@@ -227,7 +227,7 @@ router.delete('/comment/:id', async (req, res) => {
 
   const comment = await Comment.findOneAndDelete({
     _id: id,
-    creator: '1q23',
+    creator: res.locals.user.nickName,
   }).lean();
   console.log(comment);
   if (comment.type) {

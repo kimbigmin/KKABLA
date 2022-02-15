@@ -38,11 +38,11 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          console.log(res);
+          console.log(res.data[0].comments);
           setCommentList(() => {
-            console.log(res.data.board[0].comments);
-            if (res.data.board) {
-              return res.data.board[0].comments;
+            console.log(res.data[0].comments);
+            if (res.data[0].comments) {
+              return res.data[0].comments;
             } else {
               return [];
             }
@@ -62,6 +62,7 @@ function BoardDetailPage({ isLogin }) {
         },
       )
       .then((res) => {
+        console.log(res);
         setCommentList((current) => {
           const newArr = [...current, res.data];
           return newArr;
