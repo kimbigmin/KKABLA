@@ -24,6 +24,22 @@ function ReplyCommentList({ comment, replyList, setReplyList }) {
         });
       });
   };
+
+  // 대댓글 삭제 핸들러 (구현중)
+  const handleReplyDelete = async () => {
+    await setReplyList((current) => {
+      console.log(current);
+      const newArr = [...current].filter((item) => {
+        return item._id !== comment._id;
+      });
+      return newArr;
+    });
+
+    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
+      withCredentials: true,
+    });
+  };
+
   return (
     <>
       {JSON.parse(localStorage.getItem('nickName')) && (
