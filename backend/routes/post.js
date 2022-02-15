@@ -112,6 +112,7 @@ router.post('/board/comment/:id', async (req, res) => {
   const { id } = req.params;
   const comments = await Comment.create({
     boardId: id,
+    type: 'comment',
     creator: res.locals.user.nickName,
     contents,
   });
@@ -300,7 +301,6 @@ router.get('/comment/report/:id', async (req, res) => {
         Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
       ]);
     }
-
     res.send(comment);
   }
 });
