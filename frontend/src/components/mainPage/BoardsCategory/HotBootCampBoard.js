@@ -3,25 +3,26 @@ import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from 'components/Card/Card';
-// import {data} from '../../../reviewDummy';
 
-export default function HotBootCampBoard({ isLogin,hotBootCamps}){
-  const HotBootCampList=hotBootCamps.map((item,idx)=>{
-    return (
-      <Grid item xs={3} key={item.name}>
-        <Link
-          to={`/board/review/detail/${item._id}`}
-          state={{
-            isLogin: isLogin,
-            data: item,
-            review: item.review,
-          }}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <Card item={item}  key={idx}></Card>
-        </Link>
-      </Grid>
-    ); 
+export default function HotBootCampBoard({ isLogin, hotBootCamps}){
+  const HotBootCampList=hotBootCamps
+    .sort((a,b)=>a.star-b.star)
+    .map((item,idx)=>{
+      return (
+        <Grid item xs={3} key={item._id+idx}>
+          <Link
+            to={`/board/review/detail/${item._id}`}
+            state={{
+              isLogin: isLogin,
+              data: item,
+              review: item.review,
+            }}
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            <Card item={item} idx={idx}></Card>
+          </Link>
+        </Grid>
+      ); 
   });
 
   return(
