@@ -7,7 +7,7 @@ import { getRefinedDate } from '../../../utils/getRefinedDate';
 import axios from 'axios';
 
 function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
-  const [isClick, setIsClick] = useState(false);
+  const [isClick, setIsClick] = useState(true);
   const [replyList, setReplyList] = useState(comment.comments);
   console.log(comment);
   // 댓글 삭제 핸들러
