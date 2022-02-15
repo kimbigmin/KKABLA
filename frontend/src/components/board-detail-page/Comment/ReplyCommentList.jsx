@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReplyInput from './CommentInput';
 import styled from 'styled-components';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import ReplyComment from './ReplyComment';
 import axios from 'axios';
+import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
 function ReplyCommentList({ comment, replyList, setReplyList }) {
   // 대댓글 작성 핸들러
@@ -25,24 +26,28 @@ function ReplyCommentList({ comment, replyList, setReplyList }) {
       });
   };
 
+  console.log(replyList);
+  console.log(comment);
+
   // 대댓글 삭제 핸들러 (구현중)
   const handleReplyDelete = async () => {
     await setReplyList((current) => {
-      console.log(current);
       const newArr = [...current].filter((item) => {
         return item._id !== comment._id;
       });
       return newArr;
     });
 
-    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
-      withCredentials: true,
-    });
+    await axios
+      .delete(`http://localhost:5000/post/comment/${comment._id}`, {
+        withCredentials: true,
+      })
+      .then(console.log);
   };
 
   return (
     <>
-      {JSON.parse(localStorage.getItem('nickName')) && (
+      {getLocalStorageItem('nickName') && (
         <ReplyInput type={'reply'} onCreate={handleReplyCreate} />
       )}
 
@@ -54,7 +59,7 @@ function ReplyCommentList({ comment, replyList, setReplyList }) {
               <SubdirectoryArrowRightIcon />
             </IconContainer>
             <CommentContainer>
-              <ReplyComment comment={item} />
+              <ReplyComment comment={item} onDelete={handleReplyDelete} />
             </CommentContainer>
           </ReplyContainer>
         );

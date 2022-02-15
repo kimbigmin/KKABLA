@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
+import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
-function ReplyComment({ comment }) {
+function ReplyComment({ comment, onDelete }) {
+  console.log(comment);
   return (
     <CommentContainer>
       <Box
@@ -19,8 +21,8 @@ function ReplyComment({ comment }) {
           <AuthorText>{comment.creator}</AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
-          {JSON.parse(localStorage.getItem('nickName')) === comment.creator && (
-            <DeleteButton>삭제</DeleteButton>
+          {getLocalStorageItem('nickName') === comment.creator && (
+            <DeleteButton onClick={onDelete}>삭제</DeleteButton>
           )}
         </NonText>
 
