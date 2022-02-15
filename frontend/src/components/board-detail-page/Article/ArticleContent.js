@@ -1,8 +1,13 @@
+import BoardContents from 'components/Board/common/BoardContents';
 import React from 'react';
 import styled from 'styled-components';
 
 function ArticleContent({ content }) {
-  return <ContentContainer>{content}</ContentContainer>;
+  return (
+    <ContentContainer>
+      <BoardContents item={content} />
+    </ContentContainer>
+  );
 }
 
 const ContentContainer = styled.div`
