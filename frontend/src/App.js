@@ -46,6 +46,10 @@ function App() {
     getMe();
   }, []);
 
+  if (isLogin === null) {
+    localStorage.removeItem('nickName');
+  }
+
   return (
     <BrowserRouter>
       <Header isLogin={isLogin} />
