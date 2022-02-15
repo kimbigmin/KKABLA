@@ -70,7 +70,7 @@ function BoardDetailPage({ isLogin }) {
         });
       });
   };
-
+  // 게시글 좋아요 핸들러
   const handleArticleLike = async () => {
     if (getLocalStorageItem('nickName')) {
       if (isClick) {

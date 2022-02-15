@@ -8,11 +8,18 @@ import axios from 'axios';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
 function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
-  const [isClick, setIsClick] = useState(true);
+  const [isCommentClick, setIsCommentClick] = useState(true);
   const [replyList, setReplyList] = useState(comment.comments);
-  console.log(comment);
-  // 댓글 삭제 핸들러
+  const [isLikeClick, setIsLikeClick] = useState(() => {
+    const nickName = getLocalStorageItem('nickName');
+    return comment.like.includes(nickName) ? true : false;
+  });
+  const [commentLikeCount, setCommentLikeCount] = useState(comment.like.length);
 
+  console.log(comment);
+  console.log(isLikeClick);
+
+  // 댓글 삭제 핸들러
   const handleDelete = async () => {
     await setCommentList((current) => {
       console.log(current);
@@ -28,7 +35,28 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
   };
 
   const handleReplyComment = () => {
-    setIsClick(!isClick);
+    setIsCommentClick(!isCommentClick);
+  };
+
+  // 댓글 좋아요 핸들러
+  const handleCommentLike = async () => {
+    if (getLocalStorageItem('nickName')) {
+      if (isLikeClick) {
+        setIsLikeClick(!isLikeClick);
+        setCommentLikeCount(commentLikeCount - 1);
+      } else {
+        setIsLikeClick(!isLikeClick);
+        setCommentLikeCount(commentLikeCount + 1);
+      }
+
+      await axios.post(
+        `http://localhost:5000/post/comment/like/${comment._id}`,
+        { data: getLocalStorageItem('nickName') },
+        {
+          withCredentials: true,
+        },
+      );
+    }
   };
 
   return (
@@ -55,13 +83,16 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
         {!isReplyComment && (
           <ArticleCounts
             size={'small'}
-            likeCount={comment.like.length}
+            likeCount={commentLikeCount}
             commentCount={replyList}
             onClickComment={handleReplyComment}
             isReplyComment={isReplyComment}
+            isClick={isLikeClick}
+            onClickLike={handleCommentLike}
+            comment={comment}
           />
         )}
-        {isClick && (
+        {isCommentClick && (
           <ReplyCommentList
             comment={comment}
             replyList={replyList}

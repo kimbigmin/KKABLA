@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function ArticleCounts({
   commentCount,
-  isReplyComment,
   size,
   onClickLike,
   onClickComment,
@@ -21,28 +20,6 @@ export default function ArticleCounts({
   isLogin,
 }) {
   const navigate = useNavigate();
-  // const handleArticleLike = async () => {
-  //   if (likeList.includes(isLogin)) {
-  //     await setLikeList((current) => {
-  //       const newArr = [...current].filter((item) => {
-  //         return item !== isLogin;
-  //       });
-  //       return newArr;
-  //     });
-  //   } else {
-  //     await setLikeList((current) => {
-  //       const newArr = [...current, isLogin];
-  //       return newArr;
-  //     });
-  //   }
-
-  //   await axios
-  //     .post(`http://localhost:5000/post/board/like/${data._id}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then(console.log);
-  // };
-
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -115,6 +92,7 @@ export default function ArticleCounts({
               MenuListProps={{
                 'aria-labelledby': 'basic-button',
               }}
+              sx={{ position: 'absolute' }}
             >
               {data.creator === isLogin ? (
                 <div>
