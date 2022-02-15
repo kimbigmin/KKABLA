@@ -16,20 +16,17 @@ function Comment({
 }) {
   // 댓글 삭제 핸들러
   const handleDelete = async () => {
-    await axios
-      .delete(`http://localhost:5000/post/comment/${comment._id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
-        setCommentList((current) => {
-          console.log(current);
-          const newArr = [...current].filter((item) => {
-            return item._id !== res.data._id;
-          });
-          return newArr;
-        });
+    await setCommentList((current) => {
+      console.log(current);
+      const newArr = [...current].filter((item) => {
+        return item._id !== comment._id;
       });
+      return newArr;
+    });
+
+    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
+      withCredentials: true,
+    });
   };
 
   console.log(comment);
