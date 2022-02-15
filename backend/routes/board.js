@@ -48,11 +48,7 @@ router.get('/develop/:id', async (req, res) => {
 
 //리뷰 게시판
 router.get('/review', async (req, res) => {
-  const borads = await BootCamp.find({})
-    .sort({
-      updatedAt: -1,
-    })
-    .lean();
+  const borads = await BootCamp.find({}).lean();
   res.send(borads);
 });
 
@@ -63,6 +59,7 @@ router.get('/review/:id', async (req, res) => {
     const bootCamp = await BootCamp.findOne({ _id: id })
       .populate('review')
       .lean();
+
     res.send(bootCamp);
   }
 });

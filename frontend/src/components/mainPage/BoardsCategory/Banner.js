@@ -8,11 +8,10 @@ export default function Banner(){
           width:"100%",
           position:"relative",
           //헤더가 px 고정값인것 같다.
-          marginTop:"73.55px",
           marginBottom: "-18%",
         }}
       >
-        <source src={require("../../../videos/kkablaBanner.mp4")} type="video/mp4"/>
+        <source src={require("videos/kkablaBanner.mp4")} type="video/mp4"/>
         이 문구를 보셨다면 비디오가 안나온다는 것을 알 수 있읍니다.
       </video>
     </BannerWrapper>  

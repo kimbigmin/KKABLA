@@ -7,13 +7,10 @@ import axios from 'axios';
 import { useNavigate } from "react-router";
 function SearchBar() {
   const navigate=useNavigate();
-  const [value, setValue] = useState('');
+  const [keyword, setKeyword] = useState('');
   const onSearchHandler = async (e) => {
     e.preventDefault();
-    console.log(value);
-    await axios.get(`http://localhost:5000/search/${value}`, {
-      withCredentials: true,
-    });
+    navigate(`/search/?keyword=${keyword}` );   
   };
 
   return (
@@ -23,7 +20,7 @@ function SearchBar() {
       </SearchIconWrapper>
       <form onSubmit={onSearchHandler}>
         <StyledInputBase
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setKeyword(e.target.value)}
           placeholder="Search…"
           inputProps={{ 'aria-label': 'search' }}
         />

@@ -6,10 +6,9 @@ import {Grid,Divider} from '@mui/material';
 export default function DevelopBoard({isLogin, developBoard}) {
   
   const titleList=[...developBoard]
-    .slice(0,9)
     .map((post)=>{
       //17글자가 넘는 제목은 17글자까지만 자르고 '...' 추가
-      const limitLen=17;
+      const limitLen=15;
       const tailTxt=" ...";
 
       //날짜 YY-DD 식으로 출력
@@ -22,8 +21,11 @@ export default function DevelopBoard({isLogin, developBoard}) {
       return(
         <TitleWrapper key={post._id}>
           <Link
-              to={"/board/detail/"}
-              state={{ isLogin: isLogin }}
+              to={`/board/develop/${post._id}`}
+              state={{ 
+                isLogin: isLogin,
+                dataFromBoard : post,
+              }}
               style={{ textDecoration: 'none', color: 'black' }}
           >
               <h2>{post.title.length<limitLen ? 

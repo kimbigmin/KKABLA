@@ -3,23 +3,34 @@ import styled from 'styled-components';
 import { Button, Box, TextField } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+//Toast UI Editor
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 function Post({ isLogin, name }) {
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [images, setImages] = useState([]);
 
+  const editorRef = React.createRef();
+
   const navigate = useNavigate();
 
   const onPostFreeHandler = async () => {
     await axios
-      .post(`http://localhost:5000/post/${name}`, {
-        title,
-        type: name,
-        contents,
-        images,
-        creator: isLogin,
-      })
+      .post(
+        `http://localhost:5000/post/${name}`,
+        {
+          title,
+          type: name,
+          contents,
+          images,
+          creator: isLogin,
+        },
+        {
+          withCredentials: true,
+        },
+      )
       .then(navigate(`/board/${name}`, { replace: true }));
   };
 
@@ -45,16 +56,14 @@ function Post({ isLogin, name }) {
         />
       </TitleWrapper>
       <ContentsWrapper>
-        <ContentsTextField
-          required
-          type="text"
-          fullWidth={true}
-          multiline={true}
-          minRows={10}
-          placeholder="내용을 입력하세요."
-          onChange={(e) => {
-            setContents(e.target.value);
-          }}
+        <Editor
+          previewStyle="vertical"
+          initialEditType="wysiwyg"
+          placeholder="글을 작성해 주세요"
+          onChange={() =>
+            setContents(editorRef.current.getInstance().getHTML())
+          }
+          ref={editorRef}
         />
       </ContentsWrapper>
       <label for="imgfile">

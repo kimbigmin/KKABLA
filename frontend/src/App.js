@@ -63,26 +63,21 @@ function App() {
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
           <Route
-            path="/board/free/:id"
-            element={<BoardDetailPage isLogin={isLogin} />}
+            path="/board/free"
+            element={<FreeBoardPage isLogin={isLogin} />}
           />
+          <Route path="/board/free/:id" element={<BoardDetailPage />} />
           <Route
-            path="/board/develop/:id"
-            element={<BoardDetailPage isLogin={isLogin} />}
+            path="/board/develop"
+            element={<DevelopBoardPage isLogin={isLogin} />}
           />
+          <Route path="/board/develop/:id" element={<BoardDetailPage />} />
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
           />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
-          <Route
-            path="/board/free"
-            element={<FreeBoardPage isLogin={isLogin} />}
-          />
-          <Route
-            path="/board/develop"
-            element={<DevelopBoardPage isLogin={isLogin} />}
-          />
+
           <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
           <Route
             path="/mypage/auth"
@@ -103,7 +98,7 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board/"
+                path="/post/:board"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
@@ -117,7 +112,7 @@ function App() {
             </>
           )}
           <Route
-            path="/search"
+            path="/search/"
             element={<SearchResult isLogin={isLogin} />}
           ></Route>
           <Route path="/admin" element={<AdminPage />}></Route>
@@ -132,7 +127,7 @@ function App() {
 
 const ContentContainer = styled.div`
   display: flex;
-  justify-content: center;
+  // justify-content: center;
   flex-direction: column;
   overflow-y: hidden;
   overflow-x: hidden;
