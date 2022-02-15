@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
+import { PostAddSharp } from '@mui/icons-material';
 
 export default function HotPostsBoard({isLogin, hotPostsBoard}) {
   const titleList=[...hotPostsBoard]
@@ -37,7 +38,7 @@ export default function HotPostsBoard({isLogin, hotPostsBoard}) {
                 color: 'black',
                }}
           > 
-            <BoardType>{boardType}</BoardType>
+            <BoardType type={post.type}>{boardType}</BoardType>
             <h2>{post.title.length<limitLen ? 
             post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
               
@@ -121,8 +122,9 @@ const TitleWrapper = styled.div`
 `;
 
 const BoardType= styled.div`
-  color: #6a9eff;
-  border: 1px solid #6a9eff;
+  // color: #f5f5f5;
+  ${(props=> props.type==='free' ? `color: #b5b5b5` : `color: #6a9eff`)};
+  ${props=> props.type==='free' ? `border: 1px solid #b5b5b5` : `border: 1px solid #6a9eff`};
   line-height:0.8rem;
   margin-right: 0.5rem;
   border-radius:1px;
