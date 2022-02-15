@@ -6,29 +6,30 @@ import styled from 'styled-components';
 
 export default function ArticleCounts({
   commentCount,
-  size,
-  onClick,
   isReplyComment,
+  size,
+  onClickLike,
+  onClickComment,
   data,
-  isLogin,
   isClick,
   likeCount,
 }) {
+  console.log(data);
   return (
     <ArticleCountsContainer>
       <Item>
         {isClick ? (
-          <ThumbUpIcon fontSize={size} color="primary" onClick={onClick} />
+          <ThumbUpIcon fontSize={size} color="primary" onClick={onClickLike} />
         ) : (
           <ThumbUpOffAltIcon
             fontSize={size}
             color="primary"
-            onClick={onClick}
+            onClick={onClickLike}
           ></ThumbUpOffAltIcon>
         )}
         <p>{likeCount}</p>
       </Item>
-      <Item style={{ marginLeft: '0.5rem' }} onClick={onClick}>
+      <Item style={{ marginLeft: '0.5rem' }} onClick={onClickComment}>
         <ChatBubbleOutlineIcon fontSize={size} color="action" />
         <p>{commentCount ? commentCount.length : 0}</p>
       </Item>

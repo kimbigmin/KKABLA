@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import ReplyInput from './CommentInput';
-import Comment from './Comment';
 import styled from 'styled-components';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import ReplyComment from './ReplyComment';
 import axios from 'axios';
 
-function ReplyCommentList({ onCreate, comment }) {
-  const [replyList, setReplyList] = useState(comment.comments);
+function ReplyCommentList({ comment, replyList, setReplyList }) {
   // 대댓글 작성 핸들러
-  console.log(comment);
   const handleReplyCreate = async (newComment) => {
     await axios
       .post(
@@ -29,7 +26,9 @@ function ReplyCommentList({ onCreate, comment }) {
   };
   return (
     <>
-      <ReplyInput type={'reply'} onCreate={handleReplyCreate} />
+      {JSON.parse(localStorage.getItem('nickName')) && (
+        <ReplyInput type={'reply'} onCreate={handleReplyCreate} />
+      )}
 
       {replyList.map((item) => {
         console.log(item);

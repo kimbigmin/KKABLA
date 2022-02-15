@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import ArticleCounts from '../Article/ArticleCounts';
 import styled from 'styled-components';
-import { Button } from '@mui/material';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
-import axios from 'axios';
 
 function ReplyComment({ comment }) {
-  console.log(comment);
-
-  const [isClick, setIsClick] = useState(false);
-
-  const handleInComment = () => {
-    setIsClick(!isClick);
-  };
-
   return (
     <CommentContainer>
       <Box

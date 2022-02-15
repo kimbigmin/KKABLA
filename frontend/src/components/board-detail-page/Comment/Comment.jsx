@@ -6,13 +6,9 @@ import ReplyCommentList from './ReplyCommentList';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import axios from 'axios';
 
-function Comment({
-  comment,
-  isReplyComment,
-  isLogin,
-  setCommentList,
-  setReplyList,
-}) {
+function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
+  const [isClick, setIsClick] = useState(false);
+  const [replyList, setReplyList] = useState(comment.comments);
   console.log(comment);
   // 댓글 삭제 핸들러
 
@@ -30,10 +26,7 @@ function Comment({
     });
   };
 
-  console.log(comment);
-  const [isClick, setIsClick] = useState(false);
-
-  const handleInComment = () => {
+  const handleReplyComment = () => {
     setIsClick(!isClick);
   };
 
@@ -61,17 +54,17 @@ function Comment({
         {!isReplyComment && (
           <ArticleCounts
             size={'small'}
-            likeCount={comment.like}
-            commentCount={comment.comments}
-            onClick={handleInComment}
+            likeCount={comment.like.length}
+            commentCount={replyList}
+            onClickComment={handleReplyComment}
             isReplyComment={isReplyComment}
           />
         )}
         {isClick && (
           <ReplyCommentList
-            replyComments={comment.comments}
-            isLogin={isLogin}
             comment={comment}
+            replyList={replyList}
+            setReplyList={setReplyList}
           />
         )}
       </Box>

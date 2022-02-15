@@ -99,7 +99,7 @@ function BoardDetailPage({ isLogin }) {
         data={dataFromBoard}
         commentList={commentList}
         isLogin={isLogin}
-        onClick={handleArticleLike}
+        onClickLike={handleArticleLike}
         isClick={isClick}
         likeCount={likeCount}
       />

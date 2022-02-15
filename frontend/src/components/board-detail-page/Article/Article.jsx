@@ -11,7 +11,14 @@ import axios from 'axios';
 
 // 날짜정제 함수
 
-function Article({ data, commentList, isLogin, onClick, isClick, likeCount }) {
+function Article({
+  data,
+  commentList,
+  isLogin,
+  onClickLike,
+  isClick,
+  likeCount,
+}) {
   console.log(commentList);
 
   return (
@@ -38,7 +45,7 @@ function Article({ data, commentList, isLogin, onClick, isClick, likeCount }) {
           likeCount={likeCount}
           commentCount={commentList}
           isLogin={isLogin}
-          onClick={onClick}
+          onClickLike={onClickLike}
           isClick={isClick}
         />
       </Box>
