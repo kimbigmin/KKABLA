@@ -10,8 +10,8 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 function MyPage({ isLogin }) {
-  const [board, setBoard] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [board, setBoard] = useState(null);
+  const [reviews, setReviews] = useState(null);
 
   const getMyData = async () => {
     await axios
@@ -36,18 +36,26 @@ function MyPage({ isLogin }) {
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={`작성한 글 ${board !== 'undefined' ? board.length : 0}개`}
-            children={<MyPagePosts content={board} />}
-            length={board !== 'undefined' ? board.length : 0}
-            content={board > 5 ? board.slice(0, 5) : board}
+            title={`작성한 글 ${board === null ? 0 : board.length}개`}
+            children={
+              <MyPagePosts
+                content={board === null ? board : board.slice(0, 5)}
+              />
+            }
+            length={board === null ? 0 : board.length}
+            content={board}
             board="boards"
           />
         </Grid>
         <Grid item xs={5}>
           <MyPageGrid
-            title={`작성한 리뷰 ${reviews ? reviews.length : 0}개`}
-            children={<MyPageReviews content={reviews} />}
-            length={reviews !== 'undefined' ? reviews.length : 0}
+            title={`작성한 리뷰 ${reviews === null ? 0 : reviews.length}개`}
+            children={
+              <MyPageReviews
+                content={reviews === null ? reviews : reviews.slice(0, 3)}
+              />
+            }
+            length={reviews === null ? 0 : reviews.length}
             content={reviews}
             board="reviews"
           />

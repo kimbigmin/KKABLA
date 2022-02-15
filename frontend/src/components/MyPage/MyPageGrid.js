@@ -17,7 +17,7 @@ function MyPageGrid({ title, children, length, board, content }) {
       <GridSection>
         <GridTop>
           <GridTitle>{title}</GridTitle>
-          {length >= 5 && (
+          {length >= 3 && (
             <Button onClick={MoveToMoreHandler} variant="outlined">
               더 보기
             </Button>
