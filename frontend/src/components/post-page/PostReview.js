@@ -34,19 +34,12 @@ function PostReview({ isLogin }) {
         },
       )
       .then(
-<<<<<<< HEAD
-        navigate(`/board/review/detail/${id}`, {
-          state: { post },
-          replace: true,
-        }),
-=======
         setTimeout(() => {
           navigate(`/board/review/detail/${id}`, {
             state: { data },
             replace: true,
           });
         }, 1000),
->>>>>>> feat/mypageVer1
       );
   };
 
