@@ -13,6 +13,7 @@ function Logout({ setisLogin }) {
         })
         .then((res) => setisLogin(res.data))
         .then(() => navigater('/'))
+        .then(() => localStorage.removeItem('nickName'))
         .catch((err) => console.log(err));
     };
     logout();

@@ -1,35 +1,9 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import ArticleCounts from '../Article/ArticleCounts';
 import styled from 'styled-components';
-import ReplyCommentList from './ReplyCommentList';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
-import axios from 'axios';
 
-function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
-  const [isClick, setIsClick] = useState(false);
-  const [replyList, setReplyList] = useState(comment.comments);
-  console.log(comment);
-  // 댓글 삭제 핸들러
-
-  const handleDelete = async () => {
-    await setCommentList((current) => {
-      console.log(current);
-      const newArr = [...current].filter((item) => {
-        return item._id !== comment._id;
-      });
-      return newArr;
-    });
-
-    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
-      withCredentials: true,
-    });
-  };
-
-  const handleReplyComment = () => {
-    setIsClick(!isClick);
-  };
-
+function ReplyComment({ comment }) {
   return (
     <CommentContainer>
       <Box
@@ -46,27 +20,11 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
           {JSON.parse(localStorage.getItem('nickName')) === comment.creator && (
-            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+            <DeleteButton>삭제</DeleteButton>
           )}
         </NonText>
 
         <Text>{comment.contents}</Text>
-        {!isReplyComment && (
-          <ArticleCounts
-            size={'small'}
-            likeCount={comment.like.length}
-            commentCount={replyList}
-            onClickComment={handleReplyComment}
-            isReplyComment={isReplyComment}
-          />
-        )}
-        {isClick && (
-          <ReplyCommentList
-            comment={comment}
-            replyList={replyList}
-            setReplyList={setReplyList}
-          />
-        )}
       </Box>
     </CommentContainer>
   );
@@ -114,4 +72,4 @@ const DeleteButton = styled.span`
   margin-left: 1rem;
 `;
 
-export default Comment;
+export default ReplyComment;

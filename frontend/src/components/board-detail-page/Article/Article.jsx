@@ -7,11 +7,20 @@ import ArticleContent from './ArticleContent';
 import ArticleCounts from './ArticleCounts';
 import { getAnonymousName } from '../../../utils/getAnonymousName';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
+import axios from 'axios';
 
 // 날짜정제 함수
 
-function Article({ data, commentList, likeList, setLikeList, isLogin }) {
-  console.log(isLogin);
+function Article({
+  data,
+  commentList,
+  isLogin,
+  onClickLike,
+  isClick,
+  likeCount,
+}) {
+  console.log(commentList);
+
   return (
     <ArticleContainer>
       <Box
@@ -33,10 +42,11 @@ function Article({ data, commentList, likeList, setLikeList, isLogin }) {
         <ArticleContent content={data.contents} />
         <ArticleCounts
           data={data}
-          likeList={likeList}
-          setLikeList={setLikeList}
+          likeCount={likeCount}
           commentCount={commentList}
           isLogin={isLogin}
+          onClickLike={onClickLike}
+          isClick={isClick}
         />
       </Box>
     </ArticleContainer>

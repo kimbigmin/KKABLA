@@ -36,12 +36,19 @@ function App() {
         .get('http://localhost:5000/auth/user', {
           withCredentials: true,
         })
-        .then((res) => setisLogin(res.data));
+        .then((res) => {
+          setisLogin(res.data);
+          localStorage.setItem('nickName', JSON.stringify(res.data));
+        });
       console.log(isLogin);
     };
 
     getMe();
-  }, [isLogin]);
+  }, []);
+
+  if (isLogin === null) {
+    localStorage.removeItem('nickName');
+  }
 
   return (
     <BrowserRouter>
