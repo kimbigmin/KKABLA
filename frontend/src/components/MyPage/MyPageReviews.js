@@ -4,12 +4,18 @@ import { Box, Rating, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function MyPageReviews({ content, bootcampData }) {
+  console.log(content);
+
   const findBootcampName = (id) => {
     return bootcampData.filter((el) => el._id === id)[0].name;
   };
 
   const findBootCampImg = (id) => {
     return bootcampData.filter((el) => el._id === id)[0].image;
+  };
+
+  const findBootCampData = (id) => {
+    return bootcampData.filter((el) => el._id === id)[0];
   };
   return (
     <>
@@ -18,9 +24,9 @@ function MyPageReviews({ content, bootcampData }) {
           {Children.toArray(
             content.map((el) => (
               <Link
-                to={`/board/review/`}
+                to={`/board/review/detail/${el._id}`}
                 state={{
-                  data: el,
+                  data: findBootCampData(el.bootCamp),
                 }}
                 style={{ textDecoration: 'none', color: 'black' }}
               >
