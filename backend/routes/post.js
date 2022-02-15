@@ -230,15 +230,13 @@ router.delete('/comment/:id', async (req, res) => {
     _id: id,
     creator: res.locals.user.nickName,
   }).lean();
-  console.log(id);
-  console.log(comment);
-  if (comment.type) {
+  if (comment.type === 'reply') {
     const c = await Comment.findOneAndUpdate(
       {
         _id: comment.boardId,
       },
       {
-        $pull: { comments: [comment._id] },
+        $pull: { comments: comment },
       },
     ).lean();
     return res.send(c);

@@ -3,9 +3,26 @@ import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
+import axios from 'axios';
 
-function ReplyComment({ comment, onDelete }) {
-  console.log(comment);
+function ReplyComment({ comment, onDelete, setReplyList }) {
+  console.log(comment._id);
+
+  const handleReplyDelete = async () => {
+    await setReplyList((current) => {
+      const newArr = [...current].filter((item) => {
+        return item._id !== comment._id;
+      });
+      return newArr;
+    });
+
+    await axios
+      .delete(`http://localhost:5000/post/comment/${comment._id}`, {
+        withCredentials: true,
+      })
+      .then(console.log);
+  };
+
   return (
     <CommentContainer>
       <Box
@@ -22,7 +39,7 @@ function ReplyComment({ comment, onDelete }) {
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
           {getLocalStorageItem('nickName') === comment.creator && (
-            <DeleteButton onClick={onDelete}>삭제</DeleteButton>
+            <DeleteButton onClick={handleReplyDelete}>삭제</DeleteButton>
           )}
         </NonText>
 
