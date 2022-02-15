@@ -13,7 +13,7 @@ CommentInput.defaultProps = {
   },
 };
 
-function CommentInput({ onCreate, author, type }) {
+function CommentInput({ onCreate, type }) {
   const [inputVal, setInputVal] = useState('');
 
   const handleChange = (e) => {

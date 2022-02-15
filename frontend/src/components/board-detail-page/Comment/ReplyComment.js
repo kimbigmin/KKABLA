@@ -2,35 +2,13 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import ArticleCounts from '../Article/ArticleCounts';
 import styled from 'styled-components';
-import ReplyCommentList from './ReplyCommentList';
+import { Button } from '@mui/material';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import axios from 'axios';
 
-function Comment({
-  comment,
-  isReplyComment,
-  isLogin,
-  setCommentList,
-  setReplyList,
-}) {
+function ReplyComment({ comment }) {
   console.log(comment);
-  // 댓글 삭제 핸들러
 
-  const handleDelete = async () => {
-    await setCommentList((current) => {
-      console.log(current);
-      const newArr = [...current].filter((item) => {
-        return item._id !== comment._id;
-      });
-      return newArr;
-    });
-
-    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
-      withCredentials: true,
-    });
-  };
-
-  console.log(comment);
   const [isClick, setIsClick] = useState(false);
 
   const handleInComment = () => {
@@ -53,27 +31,11 @@ function Comment({
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
           {JSON.parse(localStorage.getItem('nickName')) === comment.creator && (
-            <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+            <DeleteButton>삭제</DeleteButton>
           )}
         </NonText>
 
         <Text>{comment.contents}</Text>
-        {!isReplyComment && (
-          <ArticleCounts
-            size={'small'}
-            likeCount={comment.like}
-            commentCount={comment.comments}
-            onClick={handleInComment}
-            isReplyComment={isReplyComment}
-          />
-        )}
-        {isClick && (
-          <ReplyCommentList
-            replyComments={comment.comments}
-            isLogin={isLogin}
-            comment={comment}
-          />
-        )}
       </Box>
     </CommentContainer>
   );
@@ -121,4 +83,4 @@ const DeleteButton = styled.span`
   margin-left: 1rem;
 `;
 
-export default Comment;
+export default ReplyComment;
