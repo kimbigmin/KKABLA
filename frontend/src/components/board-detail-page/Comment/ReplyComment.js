@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 import axios from 'axios';
+import { getAnonymousName } from 'utils/getAnonymousName';
 
 function ReplyComment({ comment, onDelete, setReplyList, articleWriter }) {
   console.log(comment);
@@ -37,7 +38,9 @@ function ReplyComment({ comment, onDelete, setReplyList, articleWriter }) {
         }}
       >
         <NonText>
-          <AuthorText>{isReplyWriter ? '작성자' : comment.creator}</AuthorText>
+          <AuthorText>
+            {isReplyWriter ? '작성자' : getAnonymousName(comment.creator)}
+          </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
           {getLocalStorageItem('nickName') === comment.creator && (

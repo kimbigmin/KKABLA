@@ -6,6 +6,7 @@ import ReplyCommentList from './ReplyCommentList';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import axios from 'axios';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
+import { getAnonymousName } from 'utils/getAnonymousName';
 
 function Comment({
   comment,
@@ -80,7 +81,7 @@ function Comment({
       >
         <NonText>
           <AuthorText>
-            {isCommentWriter ? '작성자' : comment.creator}
+            {isCommentWriter ? '작성자' : getAnonymousName(comment.creator)}
           </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
