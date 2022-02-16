@@ -8,13 +8,7 @@ import axios from 'axios';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 import { getAnonymousName } from 'utils/getAnonymousName';
 
-function Comment({
-  comment,
-  isReplyComment,
-  isLogin,
-  setCommentList,
-  articleWriter,
-}) {
+function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
   const [commentLikeList, setCommentLikeList] = useState(comment.like);
   const [isCommentClick, setIsCommentClick] = useState(true);
   const [replyList, setReplyList] = useState(comment.comments);
@@ -25,13 +19,9 @@ function Comment({
   });
   const [commentLikeCount, setCommentLikeCount] = useState(comment.like.length);
 
-  console.log(comment);
-  console.log(isLikeClick);
-
   // 댓글 삭제 핸들러
   const handleDelete = async () => {
     await setCommentList((current) => {
-      console.log(current);
       const newArr = [...current].filter((item) => {
         return item._id !== comment._id;
       });
@@ -47,7 +37,6 @@ function Comment({
     setIsCommentClick(!isCommentClick);
   };
 
-  console.log(comment);
   // 댓글 좋아요 핸들러
   const handleCommentLike = async () => {
     if (getLocalStorageItem('nickName')) {
@@ -95,7 +84,7 @@ function Comment({
           </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
-          {isCommentWriter && (
+          {getLocalStorageItem('nickName') === comment.creator && (
             <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
           )}
         </NonText>
