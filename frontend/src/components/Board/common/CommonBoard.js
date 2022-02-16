@@ -102,7 +102,7 @@ const BlindArea = (props) => (
 
 const ReportMessage = (props) => (
   <Typography
-    component="div"
+    component={'div'}
     variant="body1"
     sx={{
       position: 'absolute',
@@ -125,6 +125,7 @@ const Title = (props) => (
 const Content = (props) => (
   <Typography
     gutterBottom
+    component={'div'}
     sx={{
       height: '50px',
       overflow: 'hidden',
