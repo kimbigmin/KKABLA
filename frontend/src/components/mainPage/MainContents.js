@@ -13,7 +13,6 @@ export default function MainContents({ isLogin }) {
       await axios
       .get('http://localhost:5000/', { withCredentials: true })
       .then((res) => {
-        console.log(res.data)
         setTotalBoards(()=>{
           return(
             <>
