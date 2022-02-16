@@ -25,6 +25,7 @@ import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
 import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
+import UpdatePage from 'pages/postPage/UpdatePage';
 
 function App() {
   const [isLogin, setisLogin] = useState(null);
@@ -75,6 +76,10 @@ function App() {
             element={<BoardDetailPage isLogin={isLogin} />}
           />
           <Route
+            path="/board/free/update/:id"
+            element={<UpdatePage isLogin={isLogin} />}
+          />
+          <Route
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
@@ -82,6 +87,11 @@ function App() {
             path="/board/develop/:id"
             element={<BoardDetailPage isLogin={isLogin} />}
           />
+          <Route
+            path="/board/develop/update/:id"
+            element={<UpdatePage isLogin={isLogin} />}
+          />
+
           <Route
             path="/login"
             element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
