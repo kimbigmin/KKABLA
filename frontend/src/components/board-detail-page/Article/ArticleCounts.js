@@ -27,7 +27,6 @@ export default function ArticleCounts({
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
-    console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -92,6 +91,7 @@ export default function ArticleCounts({
               open={open}
               onClose={handleClose}
               disableScrollLock={true}
+              sx={{ position: 'absolute' }}
             >
               {data.creator === isLogin ? (
                 <div>
