@@ -59,6 +59,14 @@ const ArticleContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  strong {
+    font-weight: 700;
+  }
+
+  em {
+    font-style: italic;
+  }
 `;
 
 export default Article;

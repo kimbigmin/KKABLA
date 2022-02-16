@@ -68,6 +68,11 @@ function Post({ isLogin, name }) {
             setContents(editorRef.current.getInstance().getHTML())
           }
           ref={editorRef}
+          toolbarItems={[
+            ['bold', 'italic', 'strike'],
+            ['hr'],
+            ['image', 'link'],
+          ]}
         />
       </ContentsWrapper>
       <label for="imgfile">
