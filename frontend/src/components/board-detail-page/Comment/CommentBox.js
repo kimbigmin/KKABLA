@@ -10,6 +10,7 @@ function CommentBox({
   author,
   isLogin,
   setCommentList,
+  articleWriter,
 }) {
   console.log(commentList);
   return (
@@ -26,6 +27,7 @@ function CommentBox({
               isReplyComment={false}
               isLogin={isLogin}
               setCommentList={setCommentList}
+              articleWriter={articleWriter}
             />
           ))}
       </Comments>

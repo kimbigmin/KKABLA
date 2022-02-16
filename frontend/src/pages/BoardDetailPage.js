@@ -109,6 +109,7 @@ function BoardDetailPage({ isLogin }) {
         onCreate={handleCreate}
         isLogin={isLogin}
         setCommentList={setCommentList}
+        articleWriter={dataFromBoard.creator}
       />
     </DetailPageContainer>
   );

@@ -7,7 +7,13 @@ import { getRefinedDate } from '../../../utils/getRefinedDate';
 import axios from 'axios';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
-function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
+function Comment({
+  comment,
+  isReplyComment,
+  isLogin,
+  setCommentList,
+  articleWriter,
+}) {
   const [isCommentClick, setIsCommentClick] = useState(true);
   const [replyList, setReplyList] = useState(comment.comments);
   const [isLikeClick, setIsLikeClick] = useState(() => {
@@ -59,6 +65,8 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
     }
   };
 
+  const isCommentWriter = comment.creator === articleWriter;
+
   return (
     <CommentContainer>
       <Box
@@ -71,15 +79,17 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
         }}
       >
         <NonText>
-          <AuthorText>{comment.creator}</AuthorText>
+          <AuthorText>
+            {isCommentWriter ? '작성자' : comment.creator}
+          </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
-          {getLocalStorageItem('nickName') === comment.creator && (
+          {isCommentWriter && (
             <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
           )}
         </NonText>
 
-        <Text>{comment.contents}</Text>
+        <Text writer={isCommentWriter}>{comment.contents}</Text>
         {!isReplyComment && (
           <ArticleCounts
             size={'small'}
@@ -97,6 +107,7 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
             comment={comment}
             replyList={replyList}
             setReplyList={setReplyList}
+            articleWriter={articleWriter}
           />
         )}
       </Box>
@@ -132,6 +143,9 @@ const Text = styled.div`
   margin-top: 2rem;
   margin-bottom: 1rem;
   line-height: 1.5;
+  color: ${({ writer }) => {
+    return writer ? '#4586FF' : 'black';
+  }};
 `;
 
 const AuthorText = styled.div`

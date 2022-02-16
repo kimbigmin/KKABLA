@@ -5,8 +5,10 @@ import { getRefinedDate } from '../../../utils/getRefinedDate';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 import axios from 'axios';
 
-function ReplyComment({ comment, onDelete, setReplyList }) {
-  console.log(comment._id);
+function ReplyComment({ comment, onDelete, setReplyList, articleWriter }) {
+  console.log(comment);
+
+  const isReplyWriter = comment.creator === articleWriter;
 
   const handleReplyDelete = async () => {
     await setReplyList((current) => {
@@ -35,7 +37,7 @@ function ReplyComment({ comment, onDelete, setReplyList }) {
         }}
       >
         <NonText>
-          <AuthorText>{comment.creator}</AuthorText>
+          <AuthorText>{isReplyWriter ? '작성자' : comment.creator}</AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
           {getLocalStorageItem('nickName') === comment.creator && (
@@ -43,7 +45,7 @@ function ReplyComment({ comment, onDelete, setReplyList }) {
           )}
         </NonText>
 
-        <Text>{comment.contents}</Text>
+        <Text writer={isReplyWriter}>{comment.contents}</Text>
       </Box>
     </CommentContainer>
   );
@@ -77,6 +79,9 @@ const Text = styled.div`
   margin-top: 2rem;
   margin-bottom: 1rem;
   line-height: 1.5;
+  color: ${({ writer }) => {
+    return writer ? '#4586FF' : 'black';
+  }};
 `;
 
 const AuthorText = styled.div`
