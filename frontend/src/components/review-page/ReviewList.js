@@ -4,10 +4,6 @@ import { getStars } from '../../utils/getStars';
 import { getAnonymousName } from 'utils/getAnonymousName';
 
 function ReviewList({ isLogin, review }) {
-  const anonymousName = '데이터'; //review.creator[0] + '*'.repeat(6);
-
-  // Star 아이콘 렌더링 함수
-
   return (
     <List>
       <Score>

@@ -13,7 +13,6 @@ function CommonBoardList({ type, title, isLogin }) {
     axios
       .get(`http://localhost:5000/board/${type}`, {})
       .then((Response) => {
-        console.log(Response);
         setCommonBoard(Response.data);
         setRecentList(Response.data);
       })
@@ -25,7 +24,6 @@ function CommonBoardList({ type, title, isLogin }) {
     getBoardInfo();
   }, []);
 
-  console.log(commonBoard);
   // 게시판 생성
   const list = commonBoard.map((item) => {
     if (item) {

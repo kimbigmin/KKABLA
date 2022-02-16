@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
@@ -6,9 +6,7 @@ import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 import axios from 'axios';
 import { getAnonymousName } from 'utils/getAnonymousName';
 
-function ReplyComment({ comment, onDelete, setReplyList, articleWriter }) {
-  console.log(comment);
-
+function ReplyComment({ comment, setReplyList, articleWriter }) {
   const isReplyWriter = comment.creator === articleWriter;
 
   const handleReplyDelete = async () => {
@@ -19,11 +17,9 @@ function ReplyComment({ comment, onDelete, setReplyList, articleWriter }) {
       return newArr;
     });
 
-    await axios
-      .delete(`http://localhost:5000/post/comment/${comment._id}`, {
-        withCredentials: true,
-      })
-      .then(console.log);
+    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
+      withCredentials: true,
+    });
   };
 
   return (

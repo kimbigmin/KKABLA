@@ -12,7 +12,6 @@ function CommentBox({
   setCommentList,
   articleWriter,
 }) {
-  console.log(commentList);
   return (
     <Container>
       {getLocalStorageItem('nickName') && (

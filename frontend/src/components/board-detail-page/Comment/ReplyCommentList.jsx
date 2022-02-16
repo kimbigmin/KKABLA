@@ -26,11 +26,6 @@ function ReplyCommentList({ comment, replyList, setReplyList, articleWriter }) {
       });
   };
 
-  console.log(replyList);
-  console.log(comment);
-
-  // 대댓글 삭제 핸들러 (구현중)
-
   return (
     <>
       {getLocalStorageItem('nickName') && (
@@ -38,9 +33,8 @@ function ReplyCommentList({ comment, replyList, setReplyList, articleWriter }) {
       )}
 
       {replyList.map((item) => {
-        console.log(item);
         return (
-          <ReplyContainer>
+          <ReplyContainer key={item._id}>
             <IconContainer>
               <SubdirectoryArrowRightIcon />
             </IconContainer>
