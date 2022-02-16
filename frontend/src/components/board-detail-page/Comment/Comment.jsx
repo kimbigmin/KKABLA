@@ -15,11 +15,13 @@ function Comment({
   setCommentList,
   articleWriter,
 }) {
+  const [commentLikeList, setCommentLikeList] = useState(comment.like);
   const [isCommentClick, setIsCommentClick] = useState(true);
   const [replyList, setReplyList] = useState(comment.comments);
   const [isLikeClick, setIsLikeClick] = useState(() => {
-    const nickName = getLocalStorageItem('nickName');
-    return comment.like.includes(nickName) ? true : false;
+    return commentLikeList.includes(getLocalStorageItem('nickName'))
+      ? true
+      : false;
   });
   const [commentLikeCount, setCommentLikeCount] = useState(comment.like.length);
 
@@ -45,20 +47,28 @@ function Comment({
     setIsCommentClick(!isCommentClick);
   };
 
+  console.log(comment);
   // 댓글 좋아요 핸들러
   const handleCommentLike = async () => {
     if (getLocalStorageItem('nickName')) {
       if (isLikeClick) {
-        setIsLikeClick(!isLikeClick);
         setCommentLikeCount(commentLikeCount - 1);
+        setIsLikeClick(false);
+        setCommentLikeList((current) => {
+          const index = [...current].indexOf(comment._id);
+          return [...current].splice(index, 1);
+        });
       } else {
-        setIsLikeClick(!isLikeClick);
         setCommentLikeCount(commentLikeCount + 1);
+        setIsLikeClick(true);
+        setCommentLikeList((current) => {
+          const newArr = [...current, comment._id];
+          return newArr;
+        });
       }
 
-      await axios.post(
+      await axios.get(
         `http://localhost:5000/post/comment/like/${comment._id}`,
-        { data: getLocalStorageItem('nickName') },
         {
           withCredentials: true,
         },
