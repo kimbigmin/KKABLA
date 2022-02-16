@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function ArticleCounts({
   commentCount,
@@ -19,19 +20,20 @@ export default function ArticleCounts({
   likeCount,
   isLogin,
 }) {
+  console.log(data);
+
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
+    console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const onHandleEdite = async () => {
-    await axios.patch(`http://localhost:5000/post/board/${data._id}`);
-  };
+
   const onHandleDelete = async () => {
     if (!alert('정말로 삭제하시겠습니까?')) {
       await axios
@@ -89,14 +91,18 @@ export default function ArticleCounts({
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-              sx={{ position: 'absolute' }}
+              disableScrollLock={true}
             >
               {data.creator === isLogin ? (
                 <div>
-                  <MenuItem onClick={onHandleEdite}>수정하기</MenuItem>
+                  <Link
+                    to={`/board/${data.type}/update/${data._id}`}
+                    state={{ data: data }}
+                    style={{ color: 'black', textDecoration: 'none' }}
+                  >
+                    <MenuItem>수정하기</MenuItem>
+                  </Link>
+
                   <MenuItem onClick={onHandleDelete} style={{ color: 'red' }}>
                     삭제하기
                   </MenuItem>
@@ -115,6 +121,7 @@ export default function ArticleCounts({
 const ArticleCountsContainer = styled.div`
   margin-top: 1rem;
   display: flex;
+  flex-direction: row;
 `;
 
 const Item = styled.div`
@@ -124,6 +131,7 @@ const Item = styled.div`
 `;
 
 const More = styled.div`
+  right: 200px;
   margin-left: auto;
   cursor: pointer;
 `;
