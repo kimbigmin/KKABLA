@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { getStars } from '../../utils/getStars';
 import { getAnonymousName } from 'utils/getAnonymousName';
+import { getRefinedDate } from 'utils/getRefinedDate';
 
 function ReviewList({ isLogin, review }) {
+  console.log(review);
   return (
     <List>
       <Score>
@@ -14,7 +16,7 @@ function ReviewList({ isLogin, review }) {
         <p className="writer">
           작성자 : <span>{getAnonymousName(review.creator)}</span>
           <span className="auth">{'수강생인증'}</span>
-          <Date>{review.timeStamp}</Date>
+          <Date>{getRefinedDate(review.createdAt)}</Date>
         </p>
         <h3>"{review.title}"</h3>
         <p className="content">
