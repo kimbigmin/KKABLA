@@ -71,9 +71,7 @@ router.post('/develop', upload.array('image'), async (req, res) => {
 //자유 게시판 글 작성
 router.post('/free', upload.array('image'), async (req, res) => {
   const { title, contents, creator, type } = req.body;
-
   const images = req.files ? req.files.map((file) => file.location) : '';
-
   const board = await Board.create({ title, contents, creator, images, type });
 
   res.send(board);
@@ -89,7 +87,6 @@ router.patch('/board/:id', async (req, res) => {
       title,
       contents,
     },
-    { new: true },
   );
   res.send(board);
 });
@@ -122,7 +119,6 @@ router.post('/board/comment/:id', async (req, res) => {
       $push: { comments },
     },
   ).lean();
-
   res.send(comments);
 });
 
@@ -201,7 +197,7 @@ router.post('/comment/comment/:id', async (req, res) => {
       $push: { comments },
     },
   ).lean();
-  console.log(comment);
+
   res.send(comments);
 });
 
@@ -219,7 +215,6 @@ router.patch('/comment/:id', async (req, res) => {
       new: true,
     },
   ).lean();
-
   res.send(comment);
 });
 
@@ -230,15 +225,14 @@ router.delete('/comment/:id', async (req, res) => {
     _id: id,
     creator: res.locals.user.nickName,
   }).lean();
-  console.log(id);
-  console.log(comment);
+
   if (comment.type) {
     const c = await Comment.findOneAndUpdate(
       {
         _id: comment.boardId,
       },
       {
-        $pull: { comments: [comment._id] },
+        $pull: { comments: comment },
       },
     ).lean();
     return res.send(c);

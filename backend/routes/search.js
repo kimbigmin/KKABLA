@@ -24,4 +24,17 @@ router.get('/:value', async (req, res) => {
   }
 });
 
+router.get('/bootcamp/:value', async (req, res) => {
+  const { value } = req.params;
+
+  if (value) {
+    const bootCamp = await BootCamp.find({
+      name: { $regex: value, $options: 'i' },
+    });
+
+    console.log(bootCamp);
+    res.send(bootCamp);
+  }
+});
+
 export default router;
