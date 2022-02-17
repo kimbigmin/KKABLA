@@ -4,6 +4,7 @@ import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import styled from 'styled-components';
 
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
@@ -28,8 +29,6 @@ function CommonBoardList({ type, title, isLogin }) {
         console.log(Error);
       });
   };
-
-  console.log(commonBoard);
 
   useEffect(() => {
     getBoardInfo();
@@ -122,7 +121,16 @@ function CommonBoardList({ type, title, isLogin }) {
         next={getBoardInfo}
         hasMore={hasMore}
         loader={
-          <h4 style={{ marginTop: '10px', textAlign: 'center' }}>Loading..</h4>
+          <h4
+            style={{
+              marginTop: '10px',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              margin: '3rem',
+            }}
+          >
+            Loding...💤
+          </h4>
         }
         scrollableTarget="svrollableDiv"
         style={{ all: 'initial' }}
@@ -137,24 +145,22 @@ function CommonBoardList({ type, title, isLogin }) {
 
 export default CommonBoardList;
 
-const ReviewPageTopBar = (props) => (
-  <Container
-    sx={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginTop: '5rem',
-      marginBottom: '1rem',
-      alignItems: 'center',
-    }}
-  >
-    {props.children}
-  </Container>
-);
+const ReviewPageTopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  align-items: center;
+`;
 
 const Title = (props) => (
   <Typography
     variant="subtitle1"
-    sx={{ fontSize: '1.7rem', fontWeight: 'bold', color: '#484848ea' }}
+    sx={{
+      fontSize: '1.7rem',
+      fontWeight: 'bold',
+      color: '#484848ea',
+    }}
   >
     {props.children}
   </Typography>

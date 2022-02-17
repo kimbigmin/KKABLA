@@ -18,7 +18,6 @@ function ReplyCommentList({ comment, replyList, setReplyList, articleWriter }) {
         },
       )
       .then((res) => {
-        console.log(res);
         setReplyList((current) => {
           const newArr = [...current, res.data];
           return newArr;

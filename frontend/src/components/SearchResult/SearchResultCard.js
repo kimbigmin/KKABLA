@@ -1,24 +1,22 @@
 import { getStars } from 'utils/getStars';
 import styled from 'styled-components';
 
-export default function SearchResultCard({ item ,idx }) {
-  console.log(item.name)
-  return (
-    item.name ==="" ? <></> :
-    (
-      <>
-        <Box>
-          <ImageBox>
-            <img src={item.image} alt="logo" />
-          </ImageBox>
-          <div className="info">
-            <h3>{item.name}</h3>
-            <span>{getStars(item.star)}</span>
-            <p>{item.star}점</p>
-          </div>
-        </Box>
-      </>
-    )
+export default function SearchResultCard({ item, idx }) {
+  return item.name === '' ? (
+    <></>
+  ) : (
+    <>
+      <Box>
+        <ImageBox>
+          <img src={item.image} alt="logo" />
+        </ImageBox>
+        <div className="info">
+          <h3>{item.name}</h3>
+          <span>{getStars(item.star)}</span>
+          <p>{item.star}점</p>
+        </div>
+      </Box>
+    </>
   );
 }
 
@@ -30,7 +28,6 @@ const Box = styled.div`
   align-items: center;
   padding-top: 4rem;
   padding-bottom: 4rem;
-  
 
   width: 100%;
   height: 60%;
@@ -66,5 +63,3 @@ const ImageBox = styled.div`
     width: 100%;
   }
 `;
-
-

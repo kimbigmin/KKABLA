@@ -40,7 +40,8 @@ function Header({ isLogin }) {
 }
 
 const Nav = styled.header`
-  padding: 0.8rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
   display: flex;
   width: 100%;
   justify-content: space-around;

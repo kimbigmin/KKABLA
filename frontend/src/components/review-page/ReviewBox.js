@@ -72,6 +72,7 @@ const ReviewPageTopBar = styled.div`
   margin-top: 5rem;
   margin-bottom: 5rem;
   align-items: center;
+  height: 47.602px;
 
   h2 {
     font-size: 1.7rem;
