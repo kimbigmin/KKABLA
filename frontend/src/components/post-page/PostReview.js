@@ -97,17 +97,6 @@ function PostReview({ isLogin }) {
           height="200px"
           toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
         />
-        {/* <ContentsTextField
-          onChange={(e) => {
-            setPros(e.target.value);
-          }}
-          required
-          type="text"
-          fullWidth={true}
-          multiline={true}
-          minRows={3}
-          placeholder="장점을 입력하세요."
-        /> */}
       </ContentsWrapper>
       <ContentsWrapper>
         <ContentLabel>단점</ContentLabel>
@@ -120,17 +109,6 @@ function PostReview({ isLogin }) {
           height="200px"
           toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
         />
-        {/* <ContentsTextField
-          onChange={(e) => {
-            setCons(e.target.value);
-          }}
-          required
-          type="text"
-          fullWidth={true}
-          multiline={true}
-          minRows={3}
-          placeholder="단점을 입력하세요."
-        /> */}
       </ContentsWrapper>
       <SubmitButton onClick={onPostReviewHandler} variant="contained">
         등록
@@ -161,14 +139,10 @@ const ContentsWrapper = styled.div`
   margin: 40px 10px 10px 10px;
 `;
 
-const ContentsTextField = styled(TextField)`
-  display: block;
-`;
-
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 95%;
+  float: right;
   font-weight: bold;
 `;
 

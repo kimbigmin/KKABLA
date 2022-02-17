@@ -317,4 +317,10 @@ router.post('/bootcamp', upload.single('image'), async (req, res) => {
   res.send(bootCamp);
 });
 
+router.post('/upload', upload.single('image'), async (req, res) => {
+  console.log(req.file);
+  const images = req.files ? req.files.map((file) => file.location) : '';
+  res.send(images);
+});
+
 export default router;

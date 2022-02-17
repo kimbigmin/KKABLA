@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Button, Box, TextField } from '@mui/material';
+import { Button, Box, TextField, Container } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 //Toast UI Editor
@@ -13,10 +13,8 @@ function UpdateArticle({ isLogin, data }) {
   const [images, setImages] = useState([]);
 
   const editorRef = React.createRef();
-  editorRef.current = data.contents;
+
   const navigate = useNavigate();
-  console.log(contents);
-  console.log(data);
 
   const onUpdateHandler = async () => {
     await axios
@@ -32,61 +30,85 @@ function UpdateArticle({ isLogin, data }) {
       )
       .then(
         setTimeout(() => {
-          navigate(`/board/${data.type}`, { replace: true });
+          navigate(`/board/${data.type}/`, { replace: true });
         }, 1000),
       );
   };
 
-  const onHandleUploadImg = (e) => {
-    e.preventDefault();
-    console.log('왜안대!!');
-  };
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().removeHook('addImageBlobHook');
+
+      editorRef.current
+        .getInstance()
+        .addHook('addImageBlobHook', (blob, callback) => {
+          (async () => {
+            let formData = new FormData();
+            formData.append('image', blob);
+            console.log('이미지가 업로드 됐습니다.');
+
+            await axios.post(
+              `http://localhost:5000/post/upload`,
+              formData,
+              {
+                header: { 'content-type': 'multipart/formdata' },
+              },
+              { withCredentials: true },
+            );
+
+            const imageUrl =
+              'https://kabbla.s3.ap-northeast-2.amazonaws.com/' + blob.name;
+
+            console.log(imageUrl);
+            setImages([...images, imageUrl]);
+            callback(imageUrl, 'image');
+          })();
+
+          return false;
+        });
+    }
+
+    return () => {};
+  }, [editorRef]);
 
   return (
-    <form>
-      <TitleWrapper>
-        <TitleBox>
-          {data.type === 'free' ? '자유게시판' : '개발게시판'}
-        </TitleBox>
-        <TitleTextField
-          margin="dense"
-          required
-          type="text"
-          size="small"
-          fullWidth={true}
-          placeholder="제목을 입력하세요."
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          value={title}
-        />
-      </TitleWrapper>
-      <ContentsWrapper>
-        <Editor
-          previewStyle="vertical"
-          initialEditType="wysiwyg"
-          placeholder="글을 작성해 주세요"
-          onChange={() =>
-            setContents(editorRef.current.getInstance().getHTML())
-          }
-          ref={editorRef}
-          value={editorRef.current}
-        />
-      </ContentsWrapper>
-      <label for="imgfile">
-        <SubmitButton variant="contained">사진 첨부</SubmitButton>
-      </label>
-      <UploadInput
-        onChange={onHandleUploadImg}
-        type="file"
-        id="imgfile"
-        name="logoImage"
-        accept="image/png"
-      ></UploadInput>
-      <SubmitButton onClick={onUpdateHandler} variant="contained">
-        등록
-      </SubmitButton>
-    </form>
+    <Container>
+      <form>
+        <TitleWrapper>
+          <TitleBox>
+            {data.type === 'free' ? '자유게시판' : '개발게시판'}
+          </TitleBox>
+          <TitleTextField
+            margin="dense"
+            required
+            type="text"
+            size="small"
+            fullWidth={true}
+            placeholder="제목을 입력하세요."
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            value={title}
+          />
+        </TitleWrapper>
+        <ContentsWrapper>
+          <Editor
+            previewStyle="vertical"
+            initialEditType="wysiwyg"
+            placeholder="글을 작성해 주세요"
+            onChange={() =>
+              setContents(editorRef.current.getInstance().getHTML())
+            }
+            ref={editorRef}
+            initialValue={data.contents}
+          />
+        </ContentsWrapper>
+
+        <SubmitButton onClick={onUpdateHandler} variant="contained">
+          등록
+        </SubmitButton>
+      </form>
+    </Container>
   );
 }
 
@@ -105,16 +127,11 @@ const ContentsWrapper = styled.div`
   margin: 10px;
 `;
 
-const ContentsTextField = styled(TextField)`
-  display: block;
-`;
-
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 85%;
+  float: right;
   font-weight: bold;
-  margin-left: 10px;
 `;
 
 const TitleBox = styled(Box)`
@@ -127,8 +144,4 @@ const TitleBox = styled(Box)`
   margin: 10px;
   border-radius: 8px;
   font-weight: bold;
-`;
-
-const UploadInput = styled.input`
-  display: none;
 `;
