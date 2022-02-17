@@ -56,6 +56,7 @@ const ReplyContainer = styled.div`
   margin-left: 10px;
   display: flex;
   position: relative;
+  margin-top: 1.5rem;
 `;
 
 const IconContainer = styled.div`

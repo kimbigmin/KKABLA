@@ -10,7 +10,7 @@ import { getAnonymousName } from 'utils/getAnonymousName';
 
 function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
   const [commentLikeList, setCommentLikeList] = useState(comment.like);
-  const [isCommentClick, setIsCommentClick] = useState(true);
+  const [isCommentClick, setIsCommentClick] = useState(false);
   const [replyList, setReplyList] = useState(comment.comments);
   const [isLikeClick, setIsLikeClick] = useState(() => {
     return commentLikeList.includes(getLocalStorageItem('nickName'))
