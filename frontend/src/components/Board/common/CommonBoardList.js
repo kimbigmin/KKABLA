@@ -25,7 +25,7 @@ function CommonBoardList({ type, title, isLogin }) {
     getBoardInfo();
   }, []);
 
-  console.log(commonBoard);
+  // console.log(commonBoard);
   // 게시판 생성
   const list = commonBoard.map((item) => {
     if (item) {

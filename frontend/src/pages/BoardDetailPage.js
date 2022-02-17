@@ -28,9 +28,9 @@ function BoardDetailPage({ isLogin }) {
     }
   });
 
-  console.log(isLogin);
-  console.log(isClick);
-  console.log(dataFromBoard);
+  // console.log(isLogin);
+  // console.log(isClick);
+  // console.log(dataFromBoard);
 
   useEffect(() => {
     const getData = async () => {
