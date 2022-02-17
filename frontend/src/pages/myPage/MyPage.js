@@ -1,5 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import MyPageGrid from '../../components/MyPage/MyPageGrid';
 import MyPageAuth from '../../components/MyPage/MyPageAuth';
@@ -42,6 +43,9 @@ function MyPage({ isLogin }) {
 
   return (
     <Container>
+      <MypageTopBar>
+        <h2>마이페이지</h2>
+      </MypageTopBar>
       <Grid container>
         <Grid item xs={12}>
           <MyPageGrid
@@ -87,5 +91,20 @@ function MyPage({ isLogin }) {
     </Container>
   );
 }
+
+const MypageTopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+  align-items: center;
+  height: 47.602px;
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #484848ea;
+  }
+`;
 
 export default MyPage;

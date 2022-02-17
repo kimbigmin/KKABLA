@@ -2,6 +2,7 @@ import React, { useState, Children } from 'react';
 import styled from 'styled-components';
 import { Box, Rating, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getRefinedDate } from 'utils/getRefinedDate';
 
 function MyPageReviews({ content, bootcampData }) {
   console.log(content);
@@ -33,7 +34,7 @@ function MyPageReviews({ content, bootcampData }) {
                 <GridContainer container>
                   <Grid item xs={4}>
                     <RatingBox>
-                      {el.star}
+                      {`${el.star}점`}
                       <ReviewRating
                         name="read-only"
                         value={el.star}
@@ -49,7 +50,7 @@ function MyPageReviews({ content, bootcampData }) {
                     />
                   </Grid>
                   <Grid item xs={5}>
-                    <RatingDate>{el.updatedAt}</RatingDate>
+                    <RatingDate>{getRefinedDate(el.updatedAt)}</RatingDate>
                     <RatingName>{findBootcampName(el.bootCamp)}</RatingName>
                   </Grid>
                 </GridContainer>
