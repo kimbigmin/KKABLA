@@ -67,8 +67,6 @@ function AdminAdd() {
       .navigate('/admin', { replace: true });
   };
 
-  console.log(image);
-
   return (
     <Container>
       <AddForm>
@@ -126,7 +124,7 @@ function AdminAdd() {
             />
           </RadioGroup>
         </RadioBox>
-        <Label></Label>
+        <Label>로고 업로드</Label>
         <LogoBox>
           <LogoInput
             onChange={(e) => handleFileSelect(e)}

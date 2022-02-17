@@ -20,12 +20,12 @@ router.get('/', async (req, res) => {
     //   .populate('boards')
     //   // .populate('comments')
     //   .lean();
-    const [resportBoard, reportComment] = await Promise.all([
+    const [reportBoard, reportComment] = await Promise.all([
       Board.find({ isBlind: true }),
       Comment.find({ isBlind: true }),
     ]);
 
-    data = { resportBoard, reportComment, isAdmin: true };
+    data = { reportBoard, reportComment, isAdmin: true };
   } else {
     const [boards, likeBoard, reviews] = await Promise.all([
       Board.find({ creator: user.nickName }).lean(),
