@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import SearchResultCard from 'components/SearchResult/SearchResultCard';
 import isTitleLinks from 'components/isTitleLinks/isTitleLinks';
-import DefaultData from 'components/defaultData';
+import searchPageDefaultData from 'components/defaultData/searchPageDefaultData';
 
 export default function SearchResult({isLogin}){
   const location=useLocation();
@@ -15,31 +15,30 @@ export default function SearchResult({isLogin}){
   const params=new URLSearchParams(search);
   const keyword=params.get(`keyword`);
   
-  const [searchResult,setSearchResult]=useState(DefaultData);
-
+  const [searchResult,setSearchResult]=useState(searchPageDefaultData);
   useEffect(()=>{
     const searchReq = ()=>{
       axios.get(`http://localhost:5000/search/${keyword}`, {
       withCredentials: true, 
       })
-      .then((res) => {
-        console.log(res.data.bootCamp)        
-        setSearchResult(res.data)
+      .then((res) => {       
+        setSearchResult(res.data);
       })
       .catch((err) => console.log(err)); 
     }
     searchReq();
   },[keyword])
-  
+
   let freeBoardResult=[]
   let developBoardResult=[]
+
   searchResult.boards
     .map((post)=>{
     if(post.type==="free"){
       freeBoardResult=[...freeBoardResult,post]  
     }
     else if(post.type==="develop"){
-      developBoardResult=[...freeBoardResult,post]  
+      developBoardResult=[...developBoardResult,post]  
     }
   })
 
@@ -84,9 +83,9 @@ export default function SearchResult({isLogin}){
     );    
   })
 
-  const isResultTitleLists = (boardTitle,results)=>{
-    const resultTitleLists = results.length===0 ? 
-    <NoResultFound> 검색 결과가 없습니다.</NoResultFound> 
+  const isResultTitleLists = (boardTitle, results)=>{
+    const resultTitleLists = results.length === 0 ? 
+    <NoResultFound>검색 결과가 없습니다.</NoResultFound> 
     : results
       .map((post,idx)=>{
         return(
@@ -122,7 +121,6 @@ return(
 const SearchResultWrapper=styled.div`
   width:100%;
   height:100%;
-  font-weight : bold;
   font-size : 1.3rem;
   line-height : 1rem;
 
@@ -156,6 +154,7 @@ const SearchResultBoard = styled.div`
 `;
 
 const SearchResultBoardHeader = styled.div`
+  font-weight : bold;
   margin: 0 0 2rem 0;
 `;
 

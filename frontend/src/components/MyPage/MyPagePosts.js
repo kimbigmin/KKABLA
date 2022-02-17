@@ -12,6 +12,7 @@ function MyPagePosts({ content }) {
               <Link
                 to={`/board/${el.type}/${el._id}`}
                 state={{ dataFromBoard: el }}
+                style={{ color: 'black', textDecoration: 'none' }}
               >
                 <GridDetailBox>
                   <GridTitle>{el.title}</GridTitle>

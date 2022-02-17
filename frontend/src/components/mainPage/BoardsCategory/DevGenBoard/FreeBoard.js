@@ -1,42 +1,40 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {Grid,Divider} from '@mui/material';
+import { Grid, Divider } from '@mui/material';
 import isTitleLinks from 'components/isTitleLinks/isTitleLinks';
 
-export default function FreeBoard({isLogin, freeBoard}) {
-  const titleList=[...freeBoard]
-    .slice(0,9)
-    .map((post)=>{
+export default function FreeBoard({ isLogin, freeBoard }) {
+  const titleList = [...freeBoard]
+    .map((post) => {
       return(
-        isTitleLinks(isLogin,post,"freeBoard")
+        isTitleLinks(isLogin, post, "freeBoard")
       );
     });
   
   return (
-      <Grid item xs={6}>
-        <Box>
-          <BoardHeader>
-            <BoardTitle>{"자유 게시판"}</BoardTitle>
-            <SeeMore>
-              <Link 
-                to={"/board/free"}
-                style={{ textDecoration: 'none', color: 'black' }}
-              >
-                {"더보기"}
-              </Link>
-            </SeeMore>
-          </BoardHeader>
-          <Divider/>
-          {titleList}
-        </Box>
-      </Grid>
+    <Grid item xs={6}>
+      <Box>
+        <BoardHeader>
+          <BoardTitle>{'자유 게시판'}</BoardTitle>
+          <SeeMore>
+            <Link
+              to={'/board/free'}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              {'더보기'}
+            </Link>
+          </SeeMore>
+        </BoardHeader>
+        <Divider />
+        {titleList}
+      </Box>
+    </Grid>
   );
 }
 const Box = styled.div`
   box-sizing: border-box;
   display: flex;
-  background-color:white;
+  background-color: white;
   flex-direction: column;
   padding: 2rem;
 
@@ -55,13 +53,13 @@ const BoardHeader = styled.div`
   margin-bottom: 0.5rem;
   align-items: center;
 `;
-const BoardTitle=styled.h2`
-  font-weight : bold;
-  font-size : 1.5rem;
-  line-height : 1rem;
-  color : #151618;
+const BoardTitle = styled.h2`
+  font-weight: bold;
+  font-size: 1.3rem;
+  line-height: 1rem;
+  color: #151618;
   margin-bottom: 1.5rem;
-`
+`;
 
 const SeeMore=styled.div`
   margin-bottom:auto;

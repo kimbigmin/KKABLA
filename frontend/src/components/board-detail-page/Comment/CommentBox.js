@@ -14,9 +14,7 @@ function CommentBox({
 }) {
   return (
     <Container>
-      {getLocalStorageItem('nickName') && (
-        <CommentInput onCreate={onCreate} type={'origin'} />
-      )}
+      {isLogin && <CommentInput onCreate={onCreate} type={'origin'} />}
       <Comments>
         {commentList &&
           commentList.map((comment) => (

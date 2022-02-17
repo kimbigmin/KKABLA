@@ -20,8 +20,6 @@ export default function ArticleCounts({
   likeCount,
   isLogin,
 }) {
-  console.log(data);
-
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
