@@ -3,29 +3,38 @@ import CommonBoard from './CommonBoard';
 import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
   const [recentList, setRecentList] = useState([]);
   const [alignBold, setAlignBold] = useState('recentButton');
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const getBoardInfo = () => {
     axios
       .get(`http://localhost:5000/board/${type}`, {})
+      // `http://localhost:5000/board/${type}?page=${page}&limit=10`
       .then((Response) => {
-        console.log(Response);
-        setCommonBoard(Response.data);
-        setRecentList(Response.data);
+        setCommonBoard(commonBoard.concat(Response.data));
+        setRecentList(commonBoard.concat(Response.data));
+
+        Response.data === 0 || Response.data.length < 10
+          ? setHasMore(false)
+          : setPage(page + 1);
       })
       .catch((Error) => {
         console.log(Error);
       });
   };
+
+  console.log(commonBoard);
+
   useEffect(() => {
     getBoardInfo();
   }, []);
 
-  // console.log(commonBoard);
   // 게시판 생성
   const list = commonBoard.map((item) => {
     if (item) {
@@ -69,7 +78,6 @@ function CommonBoardList({ type, title, isLogin }) {
     <Container sx={{ marginBottom: '5rem' }}>
       <ReviewPageTopBar>
         <Title>{title}</Title>
-
         <div>
           <AlignButton
             id="recentButton"
@@ -109,9 +117,20 @@ function CommonBoardList({ type, title, isLogin }) {
           ) : null}
         </div>
       </ReviewPageTopBar>
-      <Grid container spacing={2}>
-        {list}
-      </Grid>
+      <InfiniteScroll
+        dataLength={commonBoard.length}
+        next={getBoardInfo}
+        hasMore={hasMore}
+        loader={
+          <h4 style={{ marginTop: '10px', textAlign: 'center' }}>Loading..</h4>
+        }
+        scrollableTarget="svrollableDiv"
+        style={{ all: 'initial' }}
+      >
+        <Grid container spacing={2}>
+          {list}
+        </Grid>
+      </InfiniteScroll>
     </Container>
   );
 }

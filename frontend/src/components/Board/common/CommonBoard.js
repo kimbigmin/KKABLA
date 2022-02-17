@@ -8,10 +8,12 @@ import BoardContents from './BoardContents';
 function CommonBoard({ item }) {
   return (
     <PaperArea>
-      <BlindArea report={item.report}>
-        {item.report && item.report.length >= 3 ? (
-          <ReportMessage>신고된 게시물 입니다.</ReportMessage>
-        ) : null}
+      {item.isBlind ? (
+        <ReportMessage>
+          [신고 횟수 누적으로 블라인드된 게시물 입니다]
+        </ReportMessage>
+      ) : null}
+      <BlindArea isBlind={item.isBlind}>
         <Link
           to={`/board/${item.type}/${item._id}`}
           state={{ dataFromBoard: item }}
@@ -79,7 +81,7 @@ const BlindArea = (props) => (
   <Container
     disableGutters
     sx={
-      props.report && props.report.length >= 3
+      props.isBlind
         ? {
             p: 2,
             margin: 'auto',
@@ -88,7 +90,6 @@ const BlindArea = (props) => (
             position: 'absolute',
             zIndex: 'modal',
             backgroundColor: 'rgba(0,0,0,0.1)',
-            filter: 'blur(10px)',
             WebkitFilter: 'blur(5px)',
             left: '0px',
             top: '0px',
@@ -102,12 +103,12 @@ const BlindArea = (props) => (
 
 const ReportMessage = (props) => (
   <Typography
-    component="div"
+    component={'div'}
     variant="body1"
     sx={{
       position: 'absolute',
-      top: '50%',
-      left: '50%',
+      top: '45%',
+      left: '20%',
       zIndex: 'tooltip',
       textAlign: 'center',
     }}
@@ -125,6 +126,7 @@ const Title = (props) => (
 const Content = (props) => (
   <Typography
     gutterBottom
+    component={'div'}
     sx={{
       height: '50px',
       overflow: 'hidden',
