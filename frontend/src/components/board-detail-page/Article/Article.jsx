@@ -7,9 +7,6 @@ import ArticleContent from './ArticleContent';
 import ArticleCounts from './ArticleCounts';
 import { getAnonymousName } from '../../../utils/getAnonymousName';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
-import axios from 'axios';
-
-// 날짜정제 함수
 
 function Article({
   data,
@@ -19,8 +16,6 @@ function Article({
   isClick,
   likeCount,
 }) {
-  console.log(commentList);
-
   return (
     <ArticleContainer>
       <Box

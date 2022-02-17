@@ -4,15 +4,6 @@ import styled from 'styled-components';
 import { style } from './InputStyle.js';
 import './styles.scss';
 
-CommentInput.defaultProps = {
-  author: 'default',
-  content: '',
-  data: {
-    like: 0,
-    're-comment': 0,
-  },
-};
-
 function CommentInput({ onCreate, type }) {
   const [inputVal, setInputVal] = useState('');
 

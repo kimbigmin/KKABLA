@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import CardForReviewPage from '../review-page/CardsForReviewPage';
 import { Link } from 'react-router-dom';
 
-function ReviewBox({ bootcampData, setBootcampData, isLogin }) {
+function ReviewBox({ bootcampData, setBootcampData }) {
   //별점순 정렬 핸들러
   const sortByStar = () => {
     const newArr = [...bootcampData];

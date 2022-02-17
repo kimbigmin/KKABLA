@@ -6,7 +6,7 @@ import ReplyComment from './ReplyComment';
 import axios from 'axios';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
-function ReplyCommentList({ comment, replyList, setReplyList }) {
+function ReplyCommentList({ comment, replyList, setReplyList, articleWriter }) {
   // 대댓글 작성 핸들러
   const handleReplyCreate = async (newComment) => {
     await axios
@@ -26,11 +26,6 @@ function ReplyCommentList({ comment, replyList, setReplyList }) {
       });
   };
 
-  console.log(replyList);
-  console.log(comment);
-
-  // 대댓글 삭제 핸들러 (구현중)
-
   return (
     <>
       {getLocalStorageItem('nickName') && (
@@ -38,14 +33,17 @@ function ReplyCommentList({ comment, replyList, setReplyList }) {
       )}
 
       {replyList.map((item) => {
-        console.log(item);
         return (
-          <ReplyContainer>
+          <ReplyContainer key={item._id}>
             <IconContainer>
               <SubdirectoryArrowRightIcon />
             </IconContainer>
             <CommentContainer>
-              <ReplyComment comment={item} setReplyList={setReplyList} />
+              <ReplyComment
+                comment={item}
+                setReplyList={setReplyList}
+                articleWriter={articleWriter}
+              />
             </CommentContainer>
           </ReplyContainer>
         );
@@ -58,6 +56,7 @@ const ReplyContainer = styled.div`
   margin-left: 10px;
   display: flex;
   position: relative;
+  margin-top: 1.5rem;
 `;
 
 const IconContainer = styled.div`

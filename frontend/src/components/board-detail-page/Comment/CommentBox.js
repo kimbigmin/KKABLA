@@ -10,8 +10,8 @@ function CommentBox({
   author,
   isLogin,
   setCommentList,
+  articleWriter,
 }) {
-  console.log(commentList);
   return (
     <Container>
       {getLocalStorageItem('nickName') && (
@@ -26,6 +26,7 @@ function CommentBox({
               isReplyComment={false}
               isLogin={isLogin}
               setCommentList={setCommentList}
+              articleWriter={articleWriter}
             />
           ))}
       </Comments>
