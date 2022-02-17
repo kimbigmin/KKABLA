@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import './App.css';
+import { Reset } from 'styled-reset';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -50,6 +50,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Reset />
       <Header isLogin={isLogin} />
       <ContentContainer>
         <Routes>
@@ -142,9 +143,7 @@ function App() {
 
 const ContentContainer = styled.div`
   display: flex;
-  // justify-content: center;
   flex-direction: column;
-
   width: 100%;
   margin: auto;
   min-height: 80vh;
