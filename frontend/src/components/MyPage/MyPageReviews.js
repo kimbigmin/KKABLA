@@ -2,6 +2,7 @@ import React, { useState, Children } from 'react';
 import styled from 'styled-components';
 import { Box, Rating, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 function MyPageReviews({ content, bootcampData }) {
   console.log(content);
@@ -49,7 +50,9 @@ function MyPageReviews({ content, bootcampData }) {
                     />
                   </Grid>
                   <Grid item xs={5}>
-                    <RatingDate>{el.updatedAt}</RatingDate>
+                    <RatingDate>
+                      {moment(el.updatedAt).format('YYYY년 MM월 DD일')}
+                    </RatingDate>
                     <RatingName>{findBootcampName(el.bootCamp)}</RatingName>
                   </Grid>
                 </GridContainer>
