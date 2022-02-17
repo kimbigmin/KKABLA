@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
-import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
 function CommentBox({
   commentList,

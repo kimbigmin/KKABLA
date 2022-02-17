@@ -65,6 +65,18 @@ function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
     }
   };
 
+  // 댓글 신고 핸들러
+  const onHandleReport = async () => {
+    if (!alert('정말로 신고하시겠습니까?')) {
+      await axios.get(
+        `http://localhost:5000/post/comment/report/${comment._id}`,
+        {
+          withCredentials: true,
+        },
+      );
+    }
+  };
+
   const isCommentWriter = comment.creator === articleWriter;
 
   return (
@@ -84,8 +96,14 @@ function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
           </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
-          {getLocalStorageItem('nickName') === comment.creator && (
+          {getLocalStorageItem('nickName') === comment.creator ? (
             <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+          ) : (
+            getLocalStorageItem('nickName') && (
+              <span className="report" onClick={onHandleReport}>
+                신고
+              </span>
+            )
           )}
         </NonText>
 
@@ -108,6 +126,7 @@ function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
             replyList={replyList}
             setReplyList={setReplyList}
             articleWriter={articleWriter}
+            onHandleReport={onHandleReport}
           />
         )}
       </Box>
@@ -136,6 +155,16 @@ const NonText = styled.div`
     margin-left: 1rem;
     font-size: 0.7rem;
     color: gray;
+  }
+  .report {
+    margin-left: 1rem;
+    font-size: 0.7rem;
+    color: gray;
+    cursor: pointer;
+
+    &:hover {
+      color: red;
+    }
   }
 `;
 

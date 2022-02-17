@@ -6,7 +6,12 @@ import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 import axios from 'axios';
 import { getAnonymousName } from 'utils/getAnonymousName';
 
-function ReplyComment({ comment, setReplyList, articleWriter }) {
+function ReplyComment({
+  comment,
+  setReplyList,
+  articleWriter,
+  onHandleReport,
+}) {
   const isReplyWriter = comment.creator === articleWriter;
 
   const handleReplyDelete = async () => {
@@ -39,8 +44,14 @@ function ReplyComment({ comment, setReplyList, articleWriter }) {
           </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
-          {getLocalStorageItem('nickName') === comment.creator && (
+          {getLocalStorageItem('nickName') === comment.creator ? (
             <DeleteButton onClick={handleReplyDelete}>삭제</DeleteButton>
+          ) : (
+            getLocalStorageItem('nickName') && (
+              <span className="report" onClick={onHandleReport}>
+                신고
+              </span>
+            )
           )}
         </NonText>
 
@@ -71,6 +82,17 @@ const NonText = styled.div`
     margin-left: 1rem;
     font-size: 0.7rem;
     color: gray;
+  }
+
+  .report {
+    margin-left: 1rem;
+    font-size: 0.7rem;
+    color: gray;
+    cursor: pointer;
+
+    &:hover {
+      color: red;
+    }
   }
 `;
 
