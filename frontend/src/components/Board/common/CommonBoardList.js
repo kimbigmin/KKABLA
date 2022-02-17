@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CommonBoard from './CommonBoard';
+import BlindBoard from './BlindBoard';
 import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -40,7 +41,7 @@ function CommonBoardList({ type, title, isLogin }) {
     if (item) {
       return (
         <Grid key={item._id} item xs={6}>
-          <CommonBoard item={item} />
+          {item.isBlind ? <BlindBoard /> : <CommonBoard item={item} />}
         </Grid>
       );
     }

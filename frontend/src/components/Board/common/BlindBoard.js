@@ -1,61 +1,44 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import { Container, Grid, Paper, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { getAnonymousName } from 'utils/getAnonymousName.js';
-import BoardContents from './BoardContents';
 
-function CommonBoard({ item }) {
+function BlindBoard() {
   return (
     <PaperArea>
-      <Link
-        to={`/board/${item.type}/${item._id}`}
-        state={{ dataFromBoard: item }}
-        style={{ textDecoration: 'none', color: 'black' }}
-      >
+      <ReportMessage>
+        [신고 횟수 누적으로 블라인드된 게시물 입니다]
+      </ReportMessage>
+      <BlindArea>
         <Grid container>
-          {/* 이미지 넣어보고 xs={8} 수정필요 */}
           <Grid item container direction="column">
             <Grid item container>
-              <Title>{item.title}</Title>
+              <Title>신고된 게시글 제목입니다.</Title>
             </Grid>
             <Grid item>
               <Content variant="body1">
-                <BoardContents item={item.contents} />
+                신고된 게시글의 내용입니다. 신고된 게시글의 내용입니다.
               </Content>
             </Grid>
             <Grid item>
-              <Typography variant="caption">
-                {getAnonymousName(item.creator)}
-              </Typography>
+              <Typography variant="caption">******</Typography>
             </Grid>
             <Grid item container>
               <Caption>
                 <Typography variant="caption">좋아요</Typography>
-                <Typography variant="caption">
-                  {item.like ? item.like.length : 0}
-                </Typography>
+                <Typography variant="caption">0</Typography>
               </Caption>
               <Caption>
                 <Typography variant="caption">댓글</Typography>
-                <Typography variant="caption">
-                  {item.comments ? item.comments.length : 0}
-                </Typography>
+                <Typography variant="caption">0</Typography>
               </Caption>
             </Grid>
           </Grid>
-          {item.thumbnail ? (
-            <Grid item container xs={4}>
-              <Img alt="이미지" src={item.thumbnail} />
-            </Grid>
-          ) : null}
         </Grid>
-      </Link>
+      </BlindArea>
     </PaperArea>
   );
 }
 
-export default CommonBoard;
+export default BlindBoard;
 
 const PaperArea = (props) => (
   <Paper
@@ -64,6 +47,10 @@ const PaperArea = (props) => (
       margin: 'auto',
       height: '130px',
       position: 'relative',
+      msUserSelect: 'none',
+      MozUserSelect: 'none',
+      WebkitUserSelect: 'none',
+      userSelect: 'none',
     }}
   >
     {props.children}
@@ -73,22 +60,18 @@ const PaperArea = (props) => (
 const BlindArea = (props) => (
   <Container
     disableGutters
-    sx={
-      props.isBlind
-        ? {
-            p: 2,
-            margin: 'auto',
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-            zIndex: 'modal',
-            backgroundColor: 'rgba(0,0,0,0.1)',
-            WebkitFilter: 'blur(5px)',
-            left: '0px',
-            top: '0px',
-          }
-        : null
-    }
+    sx={{
+      p: 2,
+      margin: 'auto',
+      height: '100%',
+      width: '100%',
+      position: 'absolute',
+      zIndex: 'modal',
+      backgroundColor: 'rgba(0,0,0,0.1)',
+      WebkitFilter: 'blur(5px)',
+      left: '0px',
+      top: '0px',
+    }}
   >
     {props.children}
   </Container>
@@ -138,10 +121,3 @@ const Caption = (props) => (
     {props.children}
   </Grid>
 );
-
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxwidth: '100%',
-  maxheight: '100%',
-});
