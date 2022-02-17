@@ -6,7 +6,8 @@ import { useLocation,Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import SearchResultCard from 'components/SearchResult/SearchResultCard';
-import React from 'react';
+import isTitleLinks from 'components/isTitleLinks/isTitleLinks';
+import DefaultData from 'components/defaultData';
 
 export default function SearchResult({isLogin}){
   const location=useLocation();
@@ -14,43 +15,38 @@ export default function SearchResult({isLogin}){
   const params=new URLSearchParams(search);
   const keyword=params.get(`keyword`);
   
-  const [searchResult,setSearchResult]=useState([]);
+  const [searchResult,setSearchResult]=useState(DefaultData);
 
   useEffect(()=>{
-    const searchReq = async ()=>{
+    const searchReq = ()=>{
       axios.get(`http://localhost:5000/search/${keyword}`, {
       withCredentials: true, 
       })
       .then((res) => {
-        let freeBoardResult=[]
-        let developBoardResult=[]
-        res.data.boards
-          .map((post)=>{
-            if(post.type==="free"){
-              freeBoardResult=[...freeBoardResult,post]  
-            }
-            else if(post.type==="develop"){
-              developBoardResult=[...freeBoardResult,post]  
-            }
-          })
-        
-        setSearchResult(
-          <>
-            {isResultBootCamps(res.data.bootCamp)}
-            {isResultTitleLists("개발게시판",developBoardResult)}
-            {isResultTitleLists("자유게시판",freeBoardResult)}
-          </>
-        )
+        console.log(res.data.bootCamp)        
+        setSearchResult(res.data)
       })
       .catch((err) => console.log(err)); 
     }
     searchReq();
   },[keyword])
   
-  const isResultBootCamps=((bootCamps)=>{
-    const resultBootCamps = bootCamps.length===0 ? 
+  let freeBoardResult=[]
+  let developBoardResult=[]
+  searchResult.boards
+    .map((post)=>{
+    if(post.type==="free"){
+      freeBoardResult=[...freeBoardResult,post]  
+    }
+    else if(post.type==="develop"){
+      developBoardResult=[...freeBoardResult,post]  
+    }
+  })
+
+  const isResultBootCamps=((bootCamp)=>{
+    const resultBootCamps = bootCamp.length===0 ? 
     <NoResultFound>검색 결과가 없습니다.</NoResultFound> 
-    : bootCamps.map((item) => {
+    : bootCamp.map((item) => {
         return (
           <Grid item xs={3} key={item.name}>
             <Link
@@ -80,7 +76,7 @@ export default function SearchResult({isLogin}){
           marginBottom: "2rem",
         }}/>
         <SearchResultCardBoard>
-          <Grid container spacing={bootCamps.length===0 ? 0 : 2}>
+          <Grid container spacing={bootCamp.length===0 ? 0 : 3}>
             {resultBootCamps}
           </Grid>  
         </SearchResultCardBoard>
@@ -93,32 +89,8 @@ export default function SearchResult({isLogin}){
     <NoResultFound> 검색 결과가 없습니다.</NoResultFound> 
     : results
       .map((post,idx)=>{
-        //30글자가 넘는 제목은 17글자까지만 자르고 '...' 추가
-        const limitLen=30;
-        const tailTxt=" ...";
-        
-        //날짜 YY-DD 식으로 출력
-        const createdTime=new Date(post.createdAt)
-        const month=(createdTime.getMonth()+1).toString();
-        const date=createdTime.getDate().toString();
-        const fillZeroMonth = month.length<2 ? '0'+month: month;
-        const fillZeroDate = date.length<2 ? '0'+date: date;
-
         return(
-          <TitleWrapper key={post._id+idx}>
-            <Link
-                to={`/board/free/${post._id}`}
-                state={{ 
-                  isLogin: isLogin,
-                  dataFromBoard: post,
-                }}
-                style={{ textDecoration: 'none', color: 'black' }}
-                >
-                <h2>{post.title.length<limitLen ? 
-                post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
-            </Link>
-            <span>{`${fillZeroMonth}-${fillZeroDate}`}</span>
-          </TitleWrapper>
+          isTitleLinks(isLogin,post,'searchResultBoard')
         );
       })
     return(
@@ -137,7 +109,10 @@ export default function SearchResult({isLogin}){
 return(
     <Container>
       <SearchResultWrapper>
-        {searchResult}
+        {/* {searchResult} */}
+        {isResultBootCamps(searchResult.bootCamp)}
+        {isResultTitleLists("개발게시판",developBoardResult)}
+        {isResultTitleLists("자유게시판",freeBoardResult)}
       </SearchResultWrapper>
     </Container>
   );
