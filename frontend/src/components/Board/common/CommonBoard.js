@@ -15,7 +15,7 @@ function CommonBoard({ item }) {
       >
         <Grid container>
           {/* 이미지 넣어보고 xs={8} 수정필요 */}
-          <Grid item container direction="column">
+          <Grid item container xs={8} direction="column">
             <Grid item container>
               <Title>{item.title}</Title>
             </Grid>
@@ -44,11 +44,11 @@ function CommonBoard({ item }) {
               </Caption>
             </Grid>
           </Grid>
-          {item.thumbnail ? (
+          {item.images[0] === '' ? null : (
             <Grid item container xs={4}>
-              <Img alt="이미지" src={item.thumbnail} />
+              <Img alt="썸네일" src={item.images[0]} />
             </Grid>
-          ) : null}
+          )}
         </Grid>
       </Link>
     </PaperArea>
@@ -70,48 +70,8 @@ const PaperArea = (props) => (
   </Paper>
 );
 
-const BlindArea = (props) => (
-  <Container
-    disableGutters
-    sx={
-      props.isBlind
-        ? {
-            p: 2,
-            margin: 'auto',
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-            zIndex: 'modal',
-            backgroundColor: 'rgba(0,0,0,0.1)',
-            WebkitFilter: 'blur(5px)',
-            left: '0px',
-            top: '0px',
-          }
-        : null
-    }
-  >
-    {props.children}
-  </Container>
-);
-
-const ReportMessage = (props) => (
-  <Typography
-    component={'div'}
-    variant="body1"
-    sx={{
-      position: 'absolute',
-      top: '45%',
-      left: '20%',
-      zIndex: 'tooltip',
-      textAlign: 'center',
-    }}
-  >
-    {props.children}
-  </Typography>
-);
-
 const Title = (props) => (
-  <Typography gutterBottom noWrap variant="h6">
+  <Typography gutterBottom noWrap variant="h6" sx={{ fontSize: '1.2rem' }}>
     {props.children}
   </Typography>
 );
@@ -142,6 +102,7 @@ const Caption = (props) => (
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
-  maxwidth: '100%',
-  maxheight: '100%',
+  width: '100%',
+  height: '110px',
+  objectFit: 'cover',
 });
