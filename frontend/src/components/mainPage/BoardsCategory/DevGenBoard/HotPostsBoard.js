@@ -6,8 +6,11 @@ import { PostAddSharp } from '@mui/icons-material';
 import isTitleLinks from 'components/isTitleLinks/isTitleLinks';
 
 export default function HotPostsBoard({ isLogin, hotPostsBoard }) {
-  const titleList = [...hotPostsBoard].map((post) => {
-    return isTitleLinks(isLogin, post, 'hotPostsBoard');
+  const titleList = [...hotPostsBoard]
+    .map((post) => {
+    return (
+      isTitleLinks(isLogin, post, 'hotPostsBoard')
+    );
   });
 
   return (
