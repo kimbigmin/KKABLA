@@ -26,6 +26,7 @@ import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
 import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 import UpdatePage from 'pages/postPage/UpdatePage';
+import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
 
 function App() {
   const [isLogin, setisLogin] = useState(null);
@@ -142,7 +143,18 @@ function App() {
             path="/search/"
             element={<SearchResult isLogin={isLogin} />}
           ></Route>
-          <Route path="/admin" element={<AdminPage />}></Route>
+          <Route
+            path="/admin"
+            element={<AdminPage isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/board"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/comment"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
         </Routes>
       </ContentContainer>
       <Container>

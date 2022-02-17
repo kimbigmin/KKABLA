@@ -7,7 +7,7 @@ function MyPageGrid({ title, children, length, board, content }) {
   const navigate = useNavigate();
 
   const MoveToMoreHandler = () => {
-    navigate(`/mypage/${board}`, {
+    navigate(board, {
       state: content,
     });
   };

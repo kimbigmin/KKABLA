@@ -67,7 +67,7 @@ function MyPage({ isLogin }) {
             }
             length={board === undefined || board === null ? 0 : board.length}
             content={board}
-            board="boards"
+            board="/mypage/boards"
           />
         </Grid>
         <Grid item xs={5}>
@@ -79,7 +79,7 @@ function MyPage({ isLogin }) {
               <MyPageReviews content={reviews} bootcampData={bootCamp} />
             }
             content={reviews}
-            board="reviews"
+            board="/mypage/reviews"
           />
         </Grid>
         <Grid item xs={3.5}>
@@ -98,7 +98,7 @@ function MyPage({ isLogin }) {
             }
             length={likes === undefined || likes === null ? 0 : likes.length}
             content={likes}
-            board="likes"
+            board="/mypage/likes"
           />
         </Grid>
       </Grid>
