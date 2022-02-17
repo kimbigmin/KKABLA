@@ -301,14 +301,13 @@ router.get('/comment/report/:id', async (req, res) => {
 });
 
 //부트캠프 기관 등록하기
-router.post('/bootcamp', upload.single('image'), async (req, res) => {
-  const { name, loca, homePage, system } = req.body;
-  const { location } = req.file;
+router.post('/bootcamp', async (req, res) => {
+  const { name, location, image, homePage, system } = req.body;
 
   const bootCamp = await BootCamp.create({
     name,
-    image: location,
-    location: loca,
+    image,
+    location,
     homePage,
     system,
     star: 0,
