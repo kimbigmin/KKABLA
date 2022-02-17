@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/User.js';
 import Board from '../models/Board.js';
 import Review from '../models/Review.js';
+import Comment from '../models/Comment.js';
 import upload from '../utils/userAuth.js';
 import axios from 'axios';
 import fs from 'fs';
@@ -15,15 +16,23 @@ router.get('/', async (req, res) => {
   const user = res.locals.user;
   let data;
   if (user.isAdmin) {
-    const admin = await Admin.find({}).lean();
-    console.log(admin);
-    data = admin;
+    // const admin = await Admin.findOne({})
+    //   .populate('boards')
+    //   // .populate('comments')
+    //   .lean();
+    const [resportBoard, reportComment] = await Promise.all([
+      Board.find({ isBlind: true }),
+      Comment.find({ isBlind: true }),
+    ]);
+
+    data = { resportBoard, reportComment };
   } else {
-    const [boards, reviews] = await Promise.all([
+    const [boards, likeBoard, reviews] = await Promise.all([
       Board.find({ creator: user.nickName }).lean(),
+      Board.find({ like: { $in: [user.nickName] } }).lean(),
       Review.find({ creator: user.nickName }).lean(),
     ]);
-    data = { boards, reviews, userAuth: user.auth };
+    data = { boards, reviews, userAuth: user.auth, likeBoard };
   }
   res.send(data);
 });

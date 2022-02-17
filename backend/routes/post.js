@@ -162,12 +162,12 @@ router.post('/board/report/:id', async (req, res) => {
       { _id: id },
       { $addToSet: { report: [nickName] } },
     );
-    console.log(board);
+
     if (board.report.length + 1 > 2) {
       await Promise.all([
         Admin.find({}).update({
-          $push: {
-            reportBoard: board._id,
+          $addToSet: {
+            reportBoard: [board._id],
           },
         }),
         Board.findOneAndUpdate({ _id: id }, { isBlind: true }),
@@ -274,23 +274,23 @@ router.get('/comment/like/:id', async (req, res) => {
 });
 
 //댓글 신고하기
-router.get('/comment/report/:id', async (req, res) => {
+router.post('/comment/report/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
+  const { nickName } = req.body;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
-    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
+    if (!nickName) res.send({ message: '존재하지 않는 유저입니다.' });
 
     const comment = await Comment.findOneAndUpdate(
       { _id: id },
-      { $addToSet: { report: userId } },
+      { $addToSet: { report: [nickName] } },
     );
 
     if (comment.report.length + 1 > 2) {
       await Promise.all([
         Admin.find({}).update({
           $push: {
-            reportBoard: type._id,
+            reportComment: comment._id,
           },
         }),
         Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
