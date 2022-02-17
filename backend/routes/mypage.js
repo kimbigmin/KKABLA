@@ -25,14 +25,14 @@ router.get('/', async (req, res) => {
       Comment.find({ isBlind: true }),
     ]);
 
-    data = { resportBoard, reportComment };
+    data = { resportBoard, reportComment, isAdmin: true };
   } else {
     const [boards, likeBoard, reviews] = await Promise.all([
       Board.find({ creator: user.nickName }).lean(),
       Board.find({ like: { $in: [user.nickName] } }).lean(),
       Review.find({ creator: user.nickName }).lean(),
     ]);
-    data = { boards, reviews, userAuth: user.auth, likeBoard };
+    data = { boards, reviews, userAuth: user.auth, likeBoard, isAdmin: false };
   }
   res.send(data);
 });

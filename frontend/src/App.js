@@ -29,8 +29,16 @@ import UpdatePage from 'pages/postPage/UpdatePage';
 
 function App() {
   const [isLogin, setisLogin] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  console.log(isLogin);
+  const getData = async () => {
+    await axios
+      .get('http://localhost:5000/mypage/', {
+        withCredentials: true,
+      })
+      .then((res) => setIsAdmin(res.data.isAdmin));
+  };
+
   useEffect(() => {
     const getMe = async () => {
       await axios
@@ -41,9 +49,8 @@ function App() {
           setisLogin(res.data);
           localStorage.setItem('nickName', JSON.stringify(res.data));
         });
-      console.log(isLogin);
     };
-
+    getData();
     getMe();
   }, []);
 
@@ -53,7 +60,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header isLogin={isLogin} />
+      <Header isLogin={isLogin} isAdmin={isAdmin} />
       <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
