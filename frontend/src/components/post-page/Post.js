@@ -38,11 +38,6 @@ function Post({ isLogin, name }) {
       );
   };
 
-  const onHandleUploadImg = (e) => {
-    e.preventDefault();
-    console.log('왜안대!!');
-  };
-
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.getInstance().removeHook('addImageBlobHook');
@@ -105,16 +100,6 @@ function Post({ isLogin, name }) {
           ]}
         />
       </ContentsWrapper>
-      <label for="imgfile">
-        <SubmitButton variant="contained">사진 첨부</SubmitButton>
-      </label>
-      <UploadInput
-        onChange={onHandleUploadImg}
-        type="file"
-        id="imgfile"
-        name="logoImage"
-        accept="image/png"
-      ></UploadInput>
       <SubmitButton
         onClick={() => {
           onPostFreeHandler();
@@ -145,7 +130,7 @@ const ContentsWrapper = styled.div`
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 85%;
+  float: right;
   font-weight: bold;
   margin-left: 10px;
 `;
