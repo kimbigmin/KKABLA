@@ -35,9 +35,6 @@ const GridDetailBox = styled(Box)`
   background-color: #f7f7f7;
   border-radius: 10px;
   margin: 10px 0;
-
-  display: flex;
-  justify-content: space-between;
 `;
 
 const GridTitle = styled(Box)`
@@ -49,9 +46,4 @@ const GridBoard = styled(Box)`
   padding: 10px;
   font-size: 12px;
   line-height: 12px;
-`;
-
-const GridDetail = styled(Box)`
-  padding: 10px;
-  font-size: 12px;
 `;

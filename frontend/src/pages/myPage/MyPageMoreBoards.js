@@ -22,13 +22,17 @@ function MyPageMoreBoard({ isLogin }) {
       <Grid container>
         <Grid item xs={6}>
           <MyPageGrid
-            title={`자유게시판 ${free === null ? 0 : free.length}개`}
+            title={`자유게시판 ${
+              free === null || free === undefined ? 0 : free.length
+            }개`}
             children={<MyPagePosts content={free} />}
           />
         </Grid>
         <Grid item xs={6}>
           <MyPageGrid
-            title={`개발게시판 ${develop === null ? 0 : develop.length}개`}
+            title={`개발게시판 ${
+              develop === null || develop === undefined ? 0 : develop.length
+            }개`}
             children={<MyPagePosts content={develop} />}
           />
         </Grid>

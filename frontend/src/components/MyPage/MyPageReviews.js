@@ -32,7 +32,7 @@ function MyPageReviews({ content, bootcampData }) {
                 style={{ textDecoration: 'none', color: 'black' }}
               >
                 <GridContainer container>
-                  <Grid item xs={4}>
+                  <GridItem item xs={4.5}>
                     <RatingBox>
                       {el.star}
                       <ReviewRating
@@ -42,19 +42,19 @@ function MyPageReviews({ content, bootcampData }) {
                         readOnly
                       />
                     </RatingBox>
-                  </Grid>
+                  </GridItem>
                   <Grid item xs={3}>
                     <BootCampImg
                       src={findBootCampImg(el.bootCamp)}
                       alt="부트캠프 이미지"
                     />
                   </Grid>
-                  <Grid item xs={5}>
+                  <GridItem item xs={4.5}>
                     <RatingDate>
                       {moment(el.updatedAt).format('YYYY년 MM월 DD일')}
                     </RatingDate>
                     <RatingName>{findBootcampName(el.bootCamp)}</RatingName>
-                  </Grid>
+                  </GridItem>
                 </GridContainer>
               </Link>
             )),
@@ -103,4 +103,13 @@ const BootCampImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+`;
+
+const GridItem = styled(Grid)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
 `;
