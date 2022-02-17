@@ -22,7 +22,7 @@ function Login({ isLogin }) {
       <SupervisedUserCircleIcon
         sx={{ fontSize: '8rem', color: '#4586ff' }}
       ></SupervisedUserCircleIcon>
-      <h2>안녕하세요. 로그인을 해주세요 :)</h2>
+      <h2> 반갑습니다. 로그인을 해주세요 :)</h2>
       <LoginBox>
         <LoginButton
           onClick={(e) => {
@@ -90,26 +90,18 @@ const LoginBox = styled.div`
 
 const LoginButton = styled.div`
   margin: 10px auto;
+  display: block;
+  padding: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  width: 70%;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: black;
+  border-radius: 5px;
 `;
-
-// const Google = styled.header
-//   margin: 20px auto;
-//   display: block;
-//   padding: 0.8rem;
-//   text-align: center;
-//   cursor: pointer;
-//   width: 70%;
-//   height: 35px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-//   color: black;
-//   border-radius: 5px;
-//   width: 50px;
-//   height: 50px;
-//   background: url('/images/google1.png') no-repeat;
-//   background-color: red;
-// `;
 
 export default Login;
