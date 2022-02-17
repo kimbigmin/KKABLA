@@ -35,10 +35,6 @@ function CommonBoardList({ type, title, isLogin }) {
     getBoardInfo();
   }, []);
 
-<<<<<<< HEAD
-=======
-  // console.log(commonBoard);
->>>>>>> front-sprint
   // 게시판 생성
   const list = commonBoard.map((item) => {
     if (item) {
