@@ -4,31 +4,18 @@ import Banner from 'components/mainPage/BoardsCategory/Banner';
 import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import DefaultData from 'components/defaultData';
 export default function MainContents({ isLogin }) {
-  const [totalBoards,setTotalBoards]=useState();
+  const [totalBoards,setTotalBoards]=useState(DefaultData);
   
   useEffect(()=>{
-    const postReq = async () => {
-      await axios
-      .get('http://localhost:5000/', { withCredentials: true })
-      .then((res) => {
-        console.log(res.data)
-        setTotalBoards(()=>{
-          return(
-            <>
-              <HotBootCampBoard isLogin={isLogin} hotBootCamps={res.data.bootCamps}/>
-              <BoardsWrapper
-                isLogin={isLogin}
-                freeBoard={res.data.boards}
-                developBoard={res.data.develop}
-                hotPostsBoard={res.data.like}
-              />
-            </>     
-          )
-        });  
-      })
-      .catch((err) => console.log(err));
+    const postReq = () => {
+      axios
+        .get('http://localhost:5000/', { withCredentials: true })
+        .then((res) => {
+          setTotalBoards(res.data);
+        })
+        .catch((err) => console.log(err));
     };
     postReq();
   },[])  
@@ -37,7 +24,13 @@ export default function MainContents({ isLogin }) {
     <>
       <Banner></Banner>
       <Container>
-        {totalBoards}
+        <HotBootCampBoard isLogin={isLogin} hotBootCamps={totalBoards?.bootCamps}/>
+        <BoardsWrapper
+          isLogin={isLogin}
+          freeBoard={totalBoards?.boards}
+          developBoard={totalBoards?.develop}
+          hotPostsBoard={totalBoards?.like}
+        />    
       </Container>
     </>
   );

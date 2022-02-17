@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Article from '../components/board-detail-page/Article/Article';
 import axios from 'axios';
 import CommentBox from '../components/board-detail-page/Comment/CommentBox';
+import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
 function BoardDetailPage({ isLogin }) {
   const [commentList, setCommentList] = useState([]);
@@ -14,10 +15,10 @@ function BoardDetailPage({ isLogin }) {
     dataFromBoard.like ? dataFromBoard.like.length : 0,
   );
   const [isClick, setIsClick] = useState(() => {
-    const nickName = localStorage.getItem('nickName');
+    const nickName = getLocalStorageItem('nickName');
 
     if (dataFromBoard.like) {
-      if (dataFromBoard.like.includes(JSON.parse(nickName))) {
+      if (dataFromBoard.like.includes(nickName)) {
         return true;
       } else {
         return false;
@@ -27,9 +28,9 @@ function BoardDetailPage({ isLogin }) {
     }
   });
 
-  console.log(isLogin);
-  console.log(isClick);
-  console.log(dataFromBoard);
+  // console.log(isLogin);
+  // console.log(isClick);
+  // console.log(dataFromBoard);
 
   useEffect(() => {
     const getData = async () => {
@@ -71,7 +72,7 @@ function BoardDetailPage({ isLogin }) {
   };
 
   const handleArticleLike = async () => {
-    if (JSON.parse(localStorage.getItem('nickName'))) {
+    if (getLocalStorageItem('nickName')) {
       if (isClick) {
         setIsClick(!isClick);
         setLikeCount(likeCount - 1);
