@@ -4,6 +4,8 @@ import { getStars } from '../../utils/getStars';
 import { getAnonymousName } from 'utils/getAnonymousName';
 import { getRefinedDate } from 'utils/getRefinedDate';
 
+import BoardContents from 'components/Board/common/BoardContents';
+
 function ReviewList({ isLogin, review }) {
   console.log(review);
   return (
@@ -22,17 +24,21 @@ function ReviewList({ isLogin, review }) {
         <p className="content">
           <h4 className="title">장점</h4>
           <div>
-            {isLogin
-              ? `${review.pros}`
-              : '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'}
+            {isLogin ? (
+              <BoardContents item={review.pros} />
+            ) : (
+              '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'
+            )}
           </div>
         </p>
         <p className="content">
           <h4 className="title">단점</h4>
           <div>
-            {isLogin
-              ? `${review.cons}`
-              : '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'}
+            {isLogin ? (
+              <BoardContents item={review.cons} />
+            ) : (
+              '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'
+            )}
           </div>
         </p>
       </Contents>

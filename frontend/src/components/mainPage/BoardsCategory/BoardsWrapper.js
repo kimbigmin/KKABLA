@@ -19,7 +19,7 @@ const Container = styled.div`
   display: flex;
   height: 100%;
   width: 100%; 
-  margin: 7rem 0 7rem 0;
+  margin: 7rem 0;
   padding:0 2rem; 
   align-items: center;
   box-sizing: border-box;
