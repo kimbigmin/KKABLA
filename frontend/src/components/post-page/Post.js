@@ -48,16 +48,22 @@ function Post({ isLogin, name }) {
           (async () => {
             let formData = new FormData();
             formData.append('image', blob);
+
             console.log('이미지가 업로드 됐습니다.');
 
-            await axios.post(`http://localhost:5000/post/${name}`, formData, {
-              header: { 'content-type': 'multipart/formdata' },
-            });
+            const res = await axios.post(
+              `http://localhost:5000/post/upload`,
+              formData,
+              {
+                header: { 'content-type': 'multipart/formdata' },
+              },
+              { withCredentials: true },
+            );
 
             const imageUrl =
               'https://kabbla.s3.ap-northeast-2.amazonaws.com/' + blob.name;
 
-            console.log(imageUrl);
+            setImages([...images, imageUrl]);
             callback(imageUrl, 'image');
           })();
 
