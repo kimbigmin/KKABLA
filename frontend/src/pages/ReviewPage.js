@@ -9,7 +9,6 @@ function Review({ isLogin }) {
     return await axios
       .get('http://localhost:5000/board/review/')
       .then((res) => {
-        console.log(res.data);
         setBootcampData(res.data);
       });
   };

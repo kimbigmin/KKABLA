@@ -2,37 +2,13 @@ import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {Grid,Divider} from '@mui/material';
-
+import isTitleLinks from 'components/isTitleLinks/isTitleLinks';
 export default function DevelopBoard({isLogin, developBoard}) {
   
   const titleList=[...developBoard]
     .map((post)=>{
-      //17글자가 넘는 제목은 17글자까지만 자르고 '...' 추가
-      const limitLen=15;
-      const tailTxt=" ...";
-
-      //날짜 YY-DD 식으로 출력
-      const createdTime=new Date(post.createdAt)
-      const month=(createdTime.getMonth()+1).toString();
-      const date=createdTime.getDate().toString();
-      const fillZeroMonth = month.length<2 ? '0'+month: month;
-      const fillZeroDate = date.length<2 ? '0'+date: date;
-      
       return(
-        <TitleWrapper key={post._id}>
-          <Link
-              to={`/board/develop/${post._id}`}
-              state={{ 
-                isLogin: isLogin,
-                dataFromBoard : post,
-              }}
-              style={{ textDecoration: 'none', color: 'black' }}
-          >
-              <h2>{post.title.length<limitLen ? 
-              post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
-          </Link>
-          <span>{`${fillZeroMonth}-${fillZeroDate}`}</span>
-        </TitleWrapper>
+        isTitleLinks(isLogin,post)
       );
     });
   
@@ -85,25 +61,6 @@ const BoardTitle=styled.h2`
   color : #151618;
   margin-bottom: 1.5rem;
 `
-
-const TitleWrapper = styled.div`
-display: flex;
-justify-content: space-between;
-margin-top: 1rem;
-align-items: center;
-cursor: pointer;
-
-h2 {
-  font-size: 1rem;
-  line-height: 0.8rem;
-}
-
-span {
-  font-size: 0.9rem;
-}
-
-
-`;
 
 const SeeMore=styled.div`
   margin-bottom:auto;

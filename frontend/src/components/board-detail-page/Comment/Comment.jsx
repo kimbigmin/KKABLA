@@ -6,16 +6,22 @@ import ReplyCommentList from './ReplyCommentList';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import axios from 'axios';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
+import { getAnonymousName } from 'utils/getAnonymousName';
 
-function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
-  const [isClick, setIsClick] = useState(true);
+function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
+  const [commentLikeList, setCommentLikeList] = useState(comment.like);
+  const [isCommentClick, setIsCommentClick] = useState(false);
   const [replyList, setReplyList] = useState(comment.comments);
-  console.log(comment);
-  // 댓글 삭제 핸들러
+  const [isLikeClick, setIsLikeClick] = useState(() => {
+    return commentLikeList.includes(getLocalStorageItem('nickName'))
+      ? true
+      : false;
+  });
+  const [commentLikeCount, setCommentLikeCount] = useState(comment.like.length);
 
+  // 댓글 삭제 핸들러
   const handleDelete = async () => {
     await setCommentList((current) => {
-      console.log(current);
       const newArr = [...current].filter((item) => {
         return item._id !== comment._id;
       });
@@ -28,8 +34,38 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
   };
 
   const handleReplyComment = () => {
-    setIsClick(!isClick);
+    setIsCommentClick(!isCommentClick);
   };
+
+  // 댓글 좋아요 핸들러
+  const handleCommentLike = async () => {
+    if (getLocalStorageItem('nickName')) {
+      if (isLikeClick) {
+        setCommentLikeCount(commentLikeCount - 1);
+        setIsLikeClick(false);
+        setCommentLikeList((current) => {
+          const index = [...current].indexOf(comment._id);
+          return [...current].splice(index, 1);
+        });
+      } else {
+        setCommentLikeCount(commentLikeCount + 1);
+        setIsLikeClick(true);
+        setCommentLikeList((current) => {
+          const newArr = [...current, comment._id];
+          return newArr;
+        });
+      }
+
+      await axios.get(
+        `http://localhost:5000/post/comment/like/${comment._id}`,
+        {
+          withCredentials: true,
+        },
+      );
+    }
+  };
+
+  const isCommentWriter = comment.creator === articleWriter;
 
   return (
     <CommentContainer>
@@ -43,7 +79,9 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
         }}
       >
         <NonText>
-          <AuthorText>{comment.creator}</AuthorText>
+          <AuthorText>
+            {isCommentWriter ? '작성자' : getAnonymousName(comment.creator)}
+          </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
           {getLocalStorageItem('nickName') === comment.creator && (
@@ -51,21 +89,25 @@ function Comment({ comment, isReplyComment, isLogin, setCommentList }) {
           )}
         </NonText>
 
-        <Text>{comment.contents}</Text>
+        <Text writer={isCommentWriter}>{comment.contents}</Text>
         {!isReplyComment && (
           <ArticleCounts
             size={'small'}
-            likeCount={comment.like.length}
+            likeCount={commentLikeCount}
             commentCount={replyList}
             onClickComment={handleReplyComment}
             isReplyComment={isReplyComment}
+            isClick={isLikeClick}
+            onClickLike={handleCommentLike}
+            comment={comment}
           />
         )}
-        {isClick && (
+        {isCommentClick && (
           <ReplyCommentList
             comment={comment}
             replyList={replyList}
             setReplyList={setReplyList}
+            articleWriter={articleWriter}
           />
         )}
       </Box>
@@ -101,6 +143,9 @@ const Text = styled.div`
   margin-top: 2rem;
   margin-bottom: 1rem;
   line-height: 1.5;
+  color: ${({ writer }) => {
+    return writer ? '#4586FF' : 'black';
+  }};
 `;
 
 const AuthorText = styled.div`

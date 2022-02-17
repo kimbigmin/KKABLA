@@ -28,10 +28,6 @@ function BoardDetailPage({ isLogin }) {
     }
   });
 
-  console.log(isLogin);
-  console.log(isClick);
-  console.log(dataFromBoard);
-
   useEffect(() => {
     const getData = async () => {
       await axios
@@ -39,9 +35,7 @@ function BoardDetailPage({ isLogin }) {
           `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
         )
         .then((res) => {
-          console.log(res.data[0].comments);
           setCommentList(() => {
-            console.log(res.data[0].comments);
             if (res.data[0].comments) {
               return res.data[0].comments;
             } else {
@@ -63,14 +57,13 @@ function BoardDetailPage({ isLogin }) {
         },
       )
       .then((res) => {
-        console.log(res);
         setCommentList((current) => {
           const newArr = [...current, res.data];
           return newArr;
         });
       });
   };
-
+  // 게시글 좋아요 핸들러
   const handleArticleLike = async () => {
     if (getLocalStorageItem('nickName')) {
       if (isClick) {
@@ -91,8 +84,6 @@ function BoardDetailPage({ isLogin }) {
     }
   };
 
-  console.log(commentList);
-
   return (
     <DetailPageContainer>
       <h3>{dataFromBoard.type === 'free' ? '자유게시판' : '개발게시판'}</h3>
@@ -109,6 +100,7 @@ function BoardDetailPage({ isLogin }) {
         onCreate={handleCreate}
         isLogin={isLogin}
         setCommentList={setCommentList}
+        articleWriter={dataFromBoard.creator}
       />
     </DetailPageContainer>
   );

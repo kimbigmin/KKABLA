@@ -225,8 +225,7 @@ router.delete('/comment/:id', async (req, res) => {
     _id: id,
     creator: res.locals.user.nickName,
   }).lean();
-
-  if (comment.type) {
+  if (comment.type === 'reply') {
     const c = await Comment.findOneAndUpdate(
       {
         _id: comment.boardId,
@@ -252,20 +251,20 @@ router.delete('/comment/:id', async (req, res) => {
 //댓글에 좋아요 누르기
 router.get('/comment/like/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
+  const user = res.locals.user.nickName;
   if (mongoose.Types.ObjectId.isValid(id)) {
-    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
-    const boolean = await Comment.findOne({ _id: id, like: { $in: [userId] } });
+    if (!user) res.send({ message: '존재하지 않는 유저입니다.' });
+    const boolean = await Comment.findOne({ _id: id, like: { $in: [user] } });
     if (boolean) {
       const comment = await Comment.findOneAndUpdate(
         { _id: id },
-        { $pull: { like: { $in: [userId] } } },
+        { $pull: { like: { $in: [user] } } },
       );
       res.send(comment);
     } else {
       const comment = await Comment.findOneAndUpdate(
         { _id: id },
-        { $addToSet: { like: userId } },
+        { $addToSet: { like: user } },
       );
       res.send(comment);
     }

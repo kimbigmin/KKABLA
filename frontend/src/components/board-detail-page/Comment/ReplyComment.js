@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import styled from 'styled-components';
 import { getRefinedDate } from '../../../utils/getRefinedDate';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
+import axios from 'axios';
+import { getAnonymousName } from 'utils/getAnonymousName';
 
-function ReplyComment({ comment, onDelete }) {
-  console.log(comment);
+function ReplyComment({ comment, setReplyList, articleWriter }) {
+  const isReplyWriter = comment.creator === articleWriter;
+
+  const handleReplyDelete = async () => {
+    await setReplyList((current) => {
+      const newArr = [...current].filter((item) => {
+        return item._id !== comment._id;
+      });
+      return newArr;
+    });
+
+    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
+      withCredentials: true,
+    });
+  };
+
   return (
     <CommentContainer>
       <Box
@@ -18,15 +34,17 @@ function ReplyComment({ comment, onDelete }) {
         }}
       >
         <NonText>
-          <AuthorText>{comment.creator}</AuthorText>
+          <AuthorText>
+            {isReplyWriter ? '작성자' : getAnonymousName(comment.creator)}
+          </AuthorText>
           <span className="date">{getRefinedDate(comment.createdAt)}</span>
 
           {getLocalStorageItem('nickName') === comment.creator && (
-            <DeleteButton onClick={onDelete}>삭제</DeleteButton>
+            <DeleteButton onClick={handleReplyDelete}>삭제</DeleteButton>
           )}
         </NonText>
 
-        <Text>{comment.contents}</Text>
+        <Text writer={isReplyWriter}>{comment.contents}</Text>
       </Box>
     </CommentContainer>
   );
@@ -60,6 +78,9 @@ const Text = styled.div`
   margin-top: 2rem;
   margin-bottom: 1rem;
   line-height: 1.5;
+  color: ${({ writer }) => {
+    return writer ? '#4586FF' : 'black';
+  }};
 `;
 
 const AuthorText = styled.div`

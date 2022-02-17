@@ -2,12 +2,7 @@ import React from 'react';
 import { getStars } from '../../utils/getStars';
 import styled from 'styled-components';
 
-function CardForReviewPage({ item, reviews }) {
-  // const sumStars = reviews.reduce((acc, val) => {
-  //   return acc + val.star;
-  // }, 0);
-
-  // const averageStars = (sumStars / reviews.length).toFixed(1);
+function CardForReviewPage({ item }) {
   return (
     <>
       <Box>

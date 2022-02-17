@@ -10,10 +10,10 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 function MyPage({ isLogin }) {
-  const [board, setBoard] = useState(null);
-  const [reviews, setReviews] = useState(null);
-  const [auth, setAuth] = useState(null);
-  const [bootCamp, setBootCamp] = useState(null);
+  const [board, setBoard] = useState();
+  const [reviews, setReviews] = useState();
+  const [auth, setAuth] = useState();
+  const [bootCamp, setBootCamp] = useState();
 
   const getMyData = async () => {
     await axios
@@ -51,20 +51,28 @@ function MyPage({ isLogin }) {
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={`작성한 글 ${board === null ? 0 : board.length}개`}
+            title={`작성한 글 ${
+              board === undefined || board === null ? 0 : board.length
+            }개`}
             children={
               <MyPagePosts
-                content={board === null ? board : board.slice(0, 5)}
+                content={
+                  board === undefined || board === null
+                    ? board
+                    : board.slice(0, 5)
+                }
               />
             }
-            length={board === null ? 0 : board.length}
+            length={board === undefined || board === null ? 0 : board.length}
             content={board}
             board="boards"
           />
         </Grid>
         <Grid item xs={5}>
           <MyPageGrid
-            title={`작성한 리뷰 ${reviews === null ? 0 : reviews.length}개`}
+            title={`작성한 리뷰 ${
+              reviews === undefined || reviews === null ? 0 : reviews.length
+            }개`}
             children={
               <MyPageReviews content={reviews} bootcampData={bootCamp} />
             }

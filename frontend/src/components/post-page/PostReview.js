@@ -4,11 +4,17 @@ import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 import axios from 'axios';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+
 function PostReview({ isLogin }) {
   const navigate = useNavigate();
 
   const location = useLocation();
   const { data } = location.state;
+
+  const editorPosRef = React.createRef();
+  const editorNegRef = React.createRef();
 
   const param = useParams();
   const id = param.id;
@@ -82,7 +88,16 @@ function PostReview({ isLogin }) {
       </ReviewPart>
       <ContentsWrapper>
         <ContentLabel>장점</ContentLabel>
-        <ContentsTextField
+        <Editor
+          previewStyle="vertical"
+          initialEditType="wysiwyg"
+          placeholder="장점을 입력하세요"
+          onChange={() => setPros(editorPosRef.current.getInstance().getHTML())}
+          ref={editorPosRef}
+          height="200px"
+          toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
+        />
+        {/* <ContentsTextField
           onChange={(e) => {
             setPros(e.target.value);
           }}
@@ -92,11 +107,20 @@ function PostReview({ isLogin }) {
           multiline={true}
           minRows={3}
           placeholder="장점을 입력하세요."
-        />
+        /> */}
       </ContentsWrapper>
       <ContentsWrapper>
         <ContentLabel>단점</ContentLabel>
-        <ContentsTextField
+        <Editor
+          previewStyle="vertical"
+          initialEditType="wysiwyg"
+          placeholder="단점을 입력하세요"
+          onChange={() => setCons(editorNegRef.current.getInstance().getHTML())}
+          ref={editorNegRef}
+          height="200px"
+          toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
+        />
+        {/* <ContentsTextField
           onChange={(e) => {
             setCons(e.target.value);
           }}
@@ -106,7 +130,7 @@ function PostReview({ isLogin }) {
           multiline={true}
           minRows={3}
           placeholder="단점을 입력하세요."
-        />
+        /> */}
       </ContentsWrapper>
       <SubmitButton onClick={onPostReviewHandler} variant="contained">
         등록

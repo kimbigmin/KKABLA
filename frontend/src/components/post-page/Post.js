@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Box, TextField } from '@mui/material';
 import axios from 'axios';
@@ -43,6 +43,36 @@ function Post({ isLogin, name }) {
     console.log('왜안대!!');
   };
 
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().removeHook('addImageBlobHook');
+
+      editorRef.current
+        .getInstance()
+        .addHook('addImageBlobHook', (blob, callback) => {
+          (async () => {
+            let formData = new FormData();
+            formData.append('image', blob);
+            console.log('이미지가 업로드 됐습니다.');
+
+            await axios.post(`http://localhost:5000/post/${name}`, formData, {
+              header: { 'content-type': 'multipart/formdata' },
+            });
+
+            const imageUrl =
+              'https://kabbla.s3.ap-northeast-2.amazonaws.com/' + blob.name;
+
+            console.log(imageUrl);
+            callback(imageUrl, 'image');
+          })();
+
+          return false;
+        });
+    }
+
+    return () => {};
+  }, [editorRef]);
+
   return (
     <form>
       <TitleWrapper>
@@ -68,6 +98,11 @@ function Post({ isLogin, name }) {
             setContents(editorRef.current.getInstance().getHTML())
           }
           ref={editorRef}
+          toolbarItems={[
+            ['bold', 'italic', 'strike'],
+            ['hr'],
+            ['image', 'link'],
+          ]}
         />
       </ContentsWrapper>
       <label for="imgfile">
@@ -105,10 +140,6 @@ const TitleTextField = styled(TextField)`
 
 const ContentsWrapper = styled.div`
   margin: 10px;
-`;
-
-const ContentsTextField = styled(TextField)`
-  display: block;
 `;
 
 const SubmitButton = styled(Button)`
