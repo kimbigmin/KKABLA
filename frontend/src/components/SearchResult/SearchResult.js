@@ -68,7 +68,7 @@ export default function SearchResult({isLogin}){
         );
       });
     return(
-      <>
+      <BootCampSearchResultBoard>
         <SearchResultBoardHeader>
           {`부트캠프 검색 결과`}
         </SearchResultBoardHeader>  
@@ -80,7 +80,7 @@ export default function SearchResult({isLogin}){
             {resultBootCamps}
           </Grid>  
         </SearchResultCardBoard>
-      </>  
+      </BootCampSearchResultBoard>  
     );    
   })
 
@@ -95,13 +95,15 @@ export default function SearchResult({isLogin}){
       })
     return(
       <>
-        <SearchResultBoardHeader>
-              {`${boardTitle} 검색 결과`}
-        </SearchResultBoardHeader>  
-        <Divider style={{
-          marginBottom: "2rem",
-        }}/>
-        {resultTitleLists}
+        <SearchResultBoard>
+          <SearchResultBoardHeader>
+                {`${boardTitle} 검색 결과`}
+          </SearchResultBoardHeader>  
+          <Divider style={{
+            marginBottom: "2rem",
+          }}/>
+          {resultTitleLists}
+        </SearchResultBoard>
       </>
     )    
   }
@@ -109,7 +111,6 @@ export default function SearchResult({isLogin}){
 return(
     <Container>
       <SearchResultWrapper>
-        {/* {searchResult} */}
         {isResultBootCamps(searchResult.bootCamp)}
         {isResultTitleLists("개발게시판",developBoardResult)}
         {isResultTitleLists("자유게시판",freeBoardResult)}
@@ -118,21 +119,6 @@ return(
   );
 };
 
-const NoResultFound= styled.h4`
- color:  #969696;
- 
-`
-
-const SearchResultCardBoard=styled.div`
-  // display: flex;
-  // justify-contents: space-between;
-  // box-sizing: border-box;
-
-`
-
-const SearchResultBoardHeader = styled.div`
-  margin: 3.5rem 0 1rem 0;
-`;
 const SearchResultWrapper=styled.div`
   width:100%;
   height:100%;
@@ -142,19 +128,45 @@ const SearchResultWrapper=styled.div`
 
   margin: 3rem 0;
 `;
-const TitleWrapper = styled.div`
+
+const BootCampSearchResultBoard = styled.div`
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-  align-items: center;
-  cursor: pointer;
-
-  h2 {
-    font-size: 1rem;
-    line-height: 0.8rem;
-  }
-
-  span {
-    font-size: 0.9rem;
-  }
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  text-decoration: none;
+  margin: 2rem 0;
+  padding: 2rem;
 `;
+
+const SearchResultBoard = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  background-color:white;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-decoration: none;
+  margin: 2rem 0;
+  padding: 2rem;
+`;
+
+const SearchResultBoardHeader = styled.div`
+  margin: 0 0 2rem 0;
+`;
+
+
+const SearchResultCardBoard=styled.div`
+  display: flex;
+  justify-contents: space-between;
+  box-sizing: border-box;
+  margin-bottom: 3rem;
+`
+const NoResultFound= styled.h4`
+ color:  #969696;
+`
+
