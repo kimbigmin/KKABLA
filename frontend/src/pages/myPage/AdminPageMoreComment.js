@@ -1,11 +1,12 @@
 import { Container, Grid } from '@mui/material';
+import AdminPageReport from 'components/AdminPage/AdminPageReportComment';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MyPageGrid from '../../components/MyPage/MyPageGrid';
 import MyPagePosts from '../../components/MyPage/MyPagePosts';
 
-function MyPageMoreBoard({ isLogin }) {
+function AdminPageMoreComment({ isLogin }) {
   const location = useLocation();
   const content = location.state;
 
@@ -25,7 +26,7 @@ function MyPageMoreBoard({ isLogin }) {
             title={`자유게시판 ${
               free === null || free === undefined ? 0 : free.length
             }개`}
-            children={<MyPagePosts content={free} />}
+            children={<AdminPageReport content={free} />}
           />
         </Grid>
         <Grid item xs={6}>
@@ -33,7 +34,7 @@ function MyPageMoreBoard({ isLogin }) {
             title={`개발게시판 ${
               develop === null || develop === undefined ? 0 : develop.length
             }개`}
-            children={<MyPagePosts content={develop} />}
+            children={<AdminPageReport content={develop} />}
           />
         </Grid>
       </Grid>
@@ -41,4 +42,4 @@ function MyPageMoreBoard({ isLogin }) {
   );
 }
 
-export default MyPageMoreBoard;
+export default AdminPageMoreComment;
