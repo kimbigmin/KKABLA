@@ -21,10 +21,6 @@ function AdminPageReport({ content }) {
                     </GridBoard>
                   </GridDetailBox>
                 </Link>
-                <ReportButtonBox>
-                  <Button variant="outlined">복구</Button>
-                  <Button variant="outlined">삭제</Button>
-                </ReportButtonBox>
               </ReportBox>
             )),
           )
@@ -60,14 +56,5 @@ const ReportBox = styled(Box)`
 
   a {
     width: 100%;
-  }
-`;
-
-const ReportButtonBox = styled(Box)`
-  display: flex;
-
-  button {
-    margin: auto;
-    margin-left: 5px;
   }
 `;

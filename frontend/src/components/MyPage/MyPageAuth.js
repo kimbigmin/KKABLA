@@ -31,12 +31,10 @@ function MyPageAuth({ content }) {
 
 export default MyPageAuth;
 
-const AuthContainer = styled(Container)`
+const AuthContainer = styled(Box)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
 `;
 
 const GridPart = styled(Grid)`
@@ -55,5 +53,4 @@ const AuthBox = styled(Box)`
   height: 60px;
   padding: 10px;
   border-radius: 20px;
-  text-align: justify;
 `;

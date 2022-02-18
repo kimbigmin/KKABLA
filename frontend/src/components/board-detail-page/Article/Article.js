@@ -15,6 +15,7 @@ function Article({
   onClickLike,
   isClick,
   likeCount,
+  isAdmin,
 }) {
   return (
     <ArticleContainer>
@@ -42,6 +43,7 @@ function Article({
           isLogin={isLogin}
           onClickLike={onClickLike}
           isClick={isClick}
+          isAdmin={isAdmin}
         />
       </Box>
     </ArticleContainer>
