@@ -1,20 +1,25 @@
 import styled from 'styled-components';
 import React, { useState, Children } from 'react';
 import { Divider, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function MyPageLikes({ content }) {
-  const [likes, setLikes] = useState(content);
-
   return (
     <>
-      {likes
+      {content
         ? Children.toArray(
-            likes.map((el) => (
-              <GridDetailBox>
-                <GridTitle>{el.postTitle}</GridTitle>
-                <Divider></Divider>
-                <GridDetail>{el.postContent}</GridDetail>
-              </GridDetailBox>
+            content.map((el) => (
+              <Link
+                to={`/board/${el.type}/${el._id}`}
+                state={{ dataFromBoard: el }}
+              >
+                <GridDetailBox>
+                  <GridTitle>{el.title}</GridTitle>
+                  <GridBoard>
+                    {el.type === 'free' ? '자유게시판' : '개발게시판'}
+                  </GridBoard>
+                </GridDetailBox>
+              </Link>
             )),
           )
         : '좋아요한 글이 없습니다.'}
@@ -37,7 +42,8 @@ const GridTitle = styled(Box)`
   font-weight: 700;
 `;
 
-const GridDetail = styled(Box)`
+const GridBoard = styled(Box)`
   padding: 10px;
   font-size: 12px;
+  line-height: 12px;
 `;

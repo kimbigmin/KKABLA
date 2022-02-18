@@ -15,6 +15,7 @@ function MyPage({ isLogin }) {
   const [reviews, setReviews] = useState();
   const [auth, setAuth] = useState();
   const [bootCamp, setBootCamp] = useState();
+  const [likes, setLikes] = useState();
 
   const getMyData = async () => {
     await axios
@@ -26,6 +27,7 @@ function MyPage({ isLogin }) {
         setBoard(res.data.boards);
         setReviews(res.data.reviews);
         setAuth(res.data.userAuth);
+        setLikes(res.data.likeBoard);
       });
   };
 
@@ -69,7 +71,7 @@ function MyPage({ isLogin }) {
             }
             length={board === undefined || board === null ? 0 : board.length}
             content={board}
-            board="boards"
+            board="/mypage/boards"
           />
         </Grid>
         <Grid item xs={5}>
@@ -81,11 +83,27 @@ function MyPage({ isLogin }) {
               <MyPageReviews content={reviews} bootcampData={bootCamp} />
             }
             content={reviews}
-            board="reviews"
+            board="/mypage/reviews"
           />
         </Grid>
         <Grid item xs={3.5}>
-          <MyPageGrid title={`좋아요`} board="likes" />
+          <MyPageGrid
+            title={`좋아요 ${
+              likes === undefined || likes === null ? 0 : likes.length
+            }개`}
+            children={
+              <MyPageLikes
+                content={
+                  likes === undefined || likes === null
+                    ? likes
+                    : likes.slice(0, 5)
+                }
+              />
+            }
+            length={likes === undefined || likes === null ? 0 : likes.length}
+            content={likes}
+            board="/mypage/likes"
+          />
         </Grid>
       </Grid>
     </Container>

@@ -5,6 +5,7 @@ import getTokens from '../utils/getTokens.js';
 import User from '../models/User.js';
 import cryto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
+import Admin from '../models/Admin.js';
 
 const router = express.Router();
 
@@ -99,8 +100,11 @@ router.get('/user', async (req, res) => {
           nickName: 'Admin18',
           isAdmin: true,
         });
+        const admin = await Admin.create({});
+        console.log(admin);
       }
-      res.send(user.nickName);
+      console.log(user);
+      return res.send(user.nickName);
     } else {
       const hashedEmail = cryto
         .createHmac('sha256', process.env.SECRET)

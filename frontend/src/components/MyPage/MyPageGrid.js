@@ -7,7 +7,7 @@ function MyPageGrid({ title, children, length, board, content }) {
   const navigate = useNavigate();
 
   const MoveToMoreHandler = () => {
-    navigate(`/mypage/${board}`, {
+    navigate(board, {
       state: content,
     });
   };
@@ -17,7 +17,7 @@ function MyPageGrid({ title, children, length, board, content }) {
       <GridSection>
         <GridTop>
           <GridTitle>{title}</GridTitle>
-          {length >= 3 && (
+          {length >= 5 && (
             <Button onClick={MoveToMoreHandler} variant="outlined">
               더 보기
             </Button>

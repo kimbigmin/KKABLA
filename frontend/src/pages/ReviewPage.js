@@ -17,6 +17,8 @@ function Review({ isLogin }) {
     getBootcampData();
   }, []);
 
+  console.log(bootcampData);
+
   return (
     <ReviewBox
       isLogin={isLogin}

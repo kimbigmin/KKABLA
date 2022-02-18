@@ -25,9 +25,19 @@ import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
 import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
 import UpdatePage from 'pages/postPage/UpdatePage';
+import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
 
 function App() {
   const [isLogin, setisLogin] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const getData = async () => {
+    await axios
+      .get('http://localhost:5000/mypage/', {
+        withCredentials: true,
+      })
+      .then((res) => setIsAdmin(res.data.isAdmin));
+  };
 
   useEffect(() => {
     const getMe = async () => {
@@ -40,7 +50,7 @@ function App() {
           localStorage.setItem('nickName', JSON.stringify(res.data));
         });
     };
-
+    getData();
     getMe();
   }, []);
 
@@ -51,8 +61,7 @@ function App() {
   return (
     <BrowserRouter>
       <Reset />
-
-      <Header isLogin={isLogin} />
+      <Header isLogin={isLogin} isAdmin={isAdmin} />
       <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
@@ -134,7 +143,18 @@ function App() {
             path="/search/"
             element={<SearchResult isLogin={isLogin} />}
           ></Route>
-          <Route path="/admin" element={<AdminPage />}></Route>
+          <Route
+            path="/admin"
+            element={<AdminPage isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/board"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/comment"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
         </Routes>
       </ContentContainer>
       <Footer />

@@ -9,7 +9,7 @@ const CommentSchema = new Schema(
     creator: String,
     contents: String,
     like: Array,
-    report: { type: [Schema.Types.ObjectId], ref: 'User' },
+    report: Array,
     comments: Array,
     isBlind: Boolean,
   },
