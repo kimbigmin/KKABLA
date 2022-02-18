@@ -13,11 +13,11 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 function Post({ isLogin, name }) {
   const navigate = useNavigate();
 
+  const editorRef = React.createRef();
+
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [images, setImages] = useState([]);
-
-  const editorRef = React.createRef();
 
   const onPostFreeHandler = async () => {
     await axios
