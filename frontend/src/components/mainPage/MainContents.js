@@ -12,7 +12,7 @@ export default function MainContents({ isLogin }) {
   useEffect(() => {
     const postReq = () => {
       axios
-        .get('http://http://elice-kdt-sw-1st-team10.elicecoding.com/', {
+        .get('http://elice-kdt-sw-1st-team10.elicecoding.com/', {
           withCredentials: true,
         })
         .then((res) => {
