@@ -107,6 +107,7 @@ function BoardDetailPage({ isLogin }) {
 }
 
 const DetailPageContainer = styled.div`
+  font-family: 'Pretendard-Regular';
   width: 50%;
   margin: 3rem auto 5rem;
   display: flex;

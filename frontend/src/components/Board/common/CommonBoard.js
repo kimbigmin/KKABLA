@@ -84,6 +84,7 @@ const BlindArea = (props) => (
     sx={
       props.isBlind
         ? {
+            fontFamily: 'Pretendard-Regular',
             p: 2,
             margin: 'auto',
             height: '100%',
@@ -107,6 +108,7 @@ const ReportMessage = (props) => (
     component={'div'}
     variant="body1"
     sx={{
+      fontFamily: 'Pretendard-Regular',
       position: 'absolute',
       top: '45%',
       left: '20%',
@@ -119,7 +121,12 @@ const ReportMessage = (props) => (
 );
 
 const Title = (props) => (
-  <Typography gutterBottom noWrap variant="h6">
+  <Typography
+    gutterBottom
+    noWrap
+    variant="h6"
+    sx={{ fontFamily: 'Pretendard-Regular' }}
+  >
     {props.children}
   </Typography>
 );
@@ -129,6 +136,7 @@ const Content = (props) => (
     gutterBottom
     component={'div'}
     sx={{
+      fontFamily: 'Pretendard-Regular',
       height: '50px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -142,7 +150,7 @@ const Content = (props) => (
 );
 
 const Caption = (props) => (
-  <Grid item sx={{ marginRight: '3px' }}>
+  <Grid item sx={{ marginRight: '3px', fontFamily: 'Pretendard-Regular' }}>
     {props.children}
   </Grid>
 );

@@ -51,6 +51,7 @@ function App() {
   return (
     <BrowserRouter>
       <Reset />
+
       <Header isLogin={isLogin} />
       <ContentContainer>
         <Routes>
@@ -142,6 +143,7 @@ function App() {
 }
 
 const ContentContainer = styled.div`
+  font-family: 'Pretendard-Regular';
   display: flex;
   flex-direction: column;
   width: 100%;
