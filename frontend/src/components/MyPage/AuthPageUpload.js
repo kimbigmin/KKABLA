@@ -4,14 +4,12 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import styled from 'styled-components';
 import axios from 'axios';
 
-function AuthPageUpload({ one, setTwo, two }) {
+function AuthPageUpload({ word, setTwo, two }) {
   const [image, setImage] = useState(false);
-  const [word, setWord] = useState(null);
+  const [data, setData] = useState({});
   const img = useRef(null);
 
-  useEffect(() => {
-    setWord(one);
-  }, [one]);
+  useEffect(() => {}, []);
 
   const onImageHandler = (e) => {
     const file = e.target.files[0];
@@ -22,17 +20,17 @@ function AuthPageUpload({ one, setTwo, two }) {
     };
 
     reader.readAsDataURL(file);
-    setImage(!image);
-    setTwo(true);
+    setImage(file);
   };
 
   const onHandleUploadAuth = (e) => {
     e.preventDefault();
+    onImagAuth(image);
   };
 
-  const onImagAuth = async (img) => {
+  const onImagAuth = async () => {
     const formData = new FormData();
-    formData.append('image', img);
+    formData.append('image', image);
     formData.append('word', word);
 
     try {
@@ -42,6 +40,9 @@ function AuthPageUpload({ one, setTwo, two }) {
         data: formData,
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((res) => {
+        setData(res.data);
+        console.log(res.data);
       });
     } catch (error) {
       console.log(error);
@@ -54,6 +55,11 @@ function AuthPageUpload({ one, setTwo, two }) {
       <small>
         타인의 수료증을 제출하거나 수료증 위조 시 활동이 제한 될 수 있습니다.
       </small>
+      {data.ok && (
+        <div className="result">
+          <h3>{data.msg}</h3>
+        </div>
+      )}
       {image ? (
         <>
           <div className="img_auth">

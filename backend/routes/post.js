@@ -94,12 +94,12 @@ router.patch('/board/:id', async (req, res) => {
 //게시글 삭제
 router.delete('/board/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   const board = await Board.findOneAndDelete({
     _id: id,
-    creator: res.locals.user.nickName,
+    // $or: { creator: res.locals.user.nickName , res.locals.user.isAdmin ===},
   });
-  console.log(board);
+
   res.send(board);
 });
 
@@ -162,12 +162,12 @@ router.post('/board/report/:id', async (req, res) => {
       { _id: id },
       { $addToSet: { report: [nickName] } },
     );
-    console.log(board);
+
     if (board.report.length + 1 > 2) {
       await Promise.all([
         Admin.find({}).update({
-          $push: {
-            reportBoard: board._id,
+          $addToSet: {
+            reportBoard: [board._id],
           },
         }),
         Board.findOneAndUpdate({ _id: id }, { isBlind: true }),
@@ -274,29 +274,47 @@ router.get('/comment/like/:id', async (req, res) => {
 });
 
 //댓글 신고하기
-router.get('/comment/report/:id', async (req, res) => {
+router.post('/comment/report/:id', async (req, res) => {
   const { id } = req.params;
-  const userId = res.locals.user._id;
+  const { nickName } = req.body;
 
   if (mongoose.Types.ObjectId.isValid(id)) {
-    if (!userId) res.send({ message: '존재하지 않는 유저입니다.' });
+    if (!nickName) res.send({ message: '존재하지 않는 유저입니다.' });
+    else {
+      const comment = await Comment.findOneAndUpdate(
+        { _id: id },
+        { $addToSet: { report: [nickName] } },
+      );
 
-    const comment = await Comment.findOneAndUpdate(
-      { _id: id },
-      { $addToSet: { report: userId } },
-    );
-
-    if (comment.report.length + 1 > 2) {
-      await Promise.all([
-        Admin.find({}).update({
-          $push: {
-            reportBoard: type._id,
-          },
-        }),
-        Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
-      ]);
+      if (comment.report.length + 1 > 2) {
+        await Promise.all([
+          Admin.find({}).update({
+            $push: {
+              reportComment: comment._id,
+            },
+          }),
+          Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
+        ]);
+      }
+      res.send(comment);
     }
-    res.send(comment);
+  }
+});
+
+//어드민페이지에서 게시글 블라인드 취소하기
+router.patch('/board/blindFalse/:id', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const board = await Board.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        report: [],
+        isBlind: false,
+      },
+    ).lean();
+    res.send(board);
   }
 });
 

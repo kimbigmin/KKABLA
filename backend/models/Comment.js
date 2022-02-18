@@ -5,11 +5,11 @@ const { Schema, model } = mongoose;
 const CommentSchema = new Schema(
   {
     type: String,
-    boardId: String,
+    boardId: { type: Schema.Types.ObjectId, ref: 'Board' },
     creator: String,
     contents: String,
     like: Array,
-    report: { type: [Schema.Types.ObjectId], ref: 'User' },
+    report: Array,
     comments: Array,
     isBlind: Boolean,
   },

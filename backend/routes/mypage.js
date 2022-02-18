@@ -2,6 +2,7 @@ import express from 'express';
 import User from '../models/User.js';
 import Board from '../models/Board.js';
 import Review from '../models/Review.js';
+import Comment from '../models/Comment.js';
 import upload from '../utils/userAuth.js';
 import axios from 'axios';
 import fs from 'fs';
@@ -15,15 +16,26 @@ router.get('/', async (req, res) => {
   const user = res.locals.user;
   let data;
   if (user.isAdmin) {
-    const admin = await Admin.find({}).lean();
-    console.log(admin);
-    data = admin;
+    // const admin = await Admin.findOne({})
+    //   .populate('boards')
+    //   // .populate('comments')
+    //   .lean();
+
+    const [resportBoard, reportComment] = await Promise.all([
+      Board.find({ isBlind: true }).lean(),
+      Comment.find({ boardId: '620e48bb841327a42cae144a' })
+        .populate('boards')
+        .lean(),
+    ]);
+
+    data = { resportBoard, reportComment };
   } else {
-    const [boards, reviews] = await Promise.all([
+    const [boards, likeBoard, reviews] = await Promise.all([
       Board.find({ creator: user.nickName }).lean(),
+      Board.find({ like: { $in: [user.nickName] } }).lean(),
       Review.find({ creator: user.nickName }).lean(),
     ]);
-    data = { boards, reviews, userAuth: user.auth };
+    data = { boards, reviews, userAuth: user.auth, likeBoard };
   }
   res.send(data);
 });
@@ -46,6 +58,7 @@ router.delete('/', async (req, res) => {
 router.post('/auth', upload.single('image'), async (req, res) => {
   const { path } = req.file;
   const { word } = req.body;
+
   const readFile = fs.readFileSync(`./${path}`);
   const encoding = Buffer.from(readFile).toString('base64');
 
@@ -61,6 +74,7 @@ router.post('/auth', upload.single('image'), async (req, res) => {
       'X-OCR-SECRET': process.env.OCR_SECRET,
     },
   };
+
   let timestamp = new Date().getTime();
   let sumText = '';
 
@@ -91,19 +105,31 @@ router.post('/auth', upload.single('image'), async (req, res) => {
     .catch((err) => console.log(err));
 
   const u = res.locals.user;
-  console.log(u);
+  let data = {};
+
+  console.log(word, sumText);
+
   if (certification(sumText, word)) {
-    const bootCamp = await BootCamp.find({
-      name: { $regex: word, $options: 'i' },
-    });
-    const user = await User.findOneAndUpdate(
-      { _id: u._id },
-      {
-        $push: { auth: [word] },
-      },
-    );
-    res.send(user);
+    const [bootCamp, user] = await Promise.all([
+      await BootCamp.find({
+        name: { $regex: word, $options: 'i' },
+      }),
+      await User.findOneAndUpdate(
+        { _id: u._id },
+        {
+          $addToSet: { auth: [word] },
+        },
+      ),
+    ]);
+    if (bootCamp && user) {
+      data.msg = '인증이 성공적으로 완료되었습니다';
+      data.ok = true;
+    } else {
+      data.msg = '인증에 실패하였습니다.다시 시도해주세요';
+      data.ok = false;
+    }
   }
+  res.send(data);
 });
 
 export default router;
