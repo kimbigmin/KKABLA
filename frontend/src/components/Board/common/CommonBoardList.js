@@ -16,7 +16,7 @@ function CommonBoardList({ type, title, isLogin }) {
 
   const getBoardInfo = () => {
     axios
-      .get(`http://localhost:5000/board/${type}`, {})
+      .get(`http://localhost:5000/board/${type}?page=${page}`, {})
       // `http://localhost:5000/board/${type}?page=${page}&limit=10`
       .then((Response) => {
         setCommonBoard(commonBoard.concat(Response.data));

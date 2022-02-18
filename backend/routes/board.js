@@ -16,7 +16,7 @@ router.get('/free', async (req, res) => {
 
   if (limit > 0) {
     const borads = await Board.find({ type: 'free' })
-      .skip((page - 1) * 2)
+      .skip((page - 1) * 10)
       .limit(limit)
       .sort({
         createdAt: -1,
@@ -46,7 +46,7 @@ router.get('/develop', async (req, res) => {
 
   if (limit > 0) {
     const borads = await Board.find({ type: 'develop' })
-      .skip((page - 1) * 2)
+      .skip((page - 1) * 10)
       .limit(limit)
       .sort({
         createdAt: -1,
