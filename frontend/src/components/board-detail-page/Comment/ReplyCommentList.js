@@ -6,7 +6,13 @@ import ReplyComment from './ReplyComment';
 import axios from 'axios';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
-function ReplyCommentList({ comment, replyList, setReplyList, articleWriter }) {
+function ReplyCommentList({
+  comment,
+  replyList,
+  setReplyList,
+  articleWriter,
+  onHandleReport,
+}) {
   // 대댓글 작성 핸들러
   const handleReplyCreate = async (newComment) => {
     await axios
@@ -42,6 +48,7 @@ function ReplyCommentList({ comment, replyList, setReplyList, articleWriter }) {
                 comment={item}
                 setReplyList={setReplyList}
                 articleWriter={articleWriter}
+                onHandleReport={onHandleReport}
               />
             </CommentContainer>
           </ReplyContainer>

@@ -4,6 +4,7 @@ import { Container, Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAnonymousName } from 'utils/getAnonymousName.js';
 import BoardContents from './BoardContents';
+import { removeImgTag } from 'utils/removeImgTag';
 
 function CommonBoard({ item }) {
   return (
@@ -27,7 +28,7 @@ function CommonBoard({ item }) {
               </Grid>
               <Grid item>
                 <Content variant="body1">
-                  <BoardContents item={item.contents} />
+                  <BoardContents item={removeImgTag(item.contents)} />
                 </Content>
               </Grid>
               <Grid item>
