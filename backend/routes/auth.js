@@ -101,9 +101,7 @@ router.get('/user', async (req, res) => {
           isAdmin: true,
         });
         const admin = await Admin.create({});
-        console.log(admin);
       }
-      console.log(user);
       return res.send(user.nickName);
     } else {
       const hashedEmail = cryto

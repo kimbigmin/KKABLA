@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid } from '@mui/material';
-
-import MyPageGrid from '../../components/MyPage/MyPageGrid';
-import AdminAdd from '../../components/AdminPage/AdminAdd';
 import axios from 'axios';
+//style
+import { Container, Grid } from '@mui/material';
+//component
+import MyPageGrid from 'components/MyPage/MyPageGrid';
+import AdminAdd from 'components/AdminPage/AdminAdd';
 import AdminPageReport from 'components/AdminPage/AdminPageReport';
-import { useNavigate } from 'react-router-dom';
 import AdminPageReportComment from 'components/AdminPage/AdminPageReportComment';
 
 function AdminPage({ isAdmin }) {
-  const navigate = useNavigate();
-
   const [reportBoard, setReportBoard] = useState();
   const [reportComment, setReportComment] = useState();
 
@@ -38,25 +36,13 @@ function AdminPage({ isAdmin }) {
           <Grid container direction="column">
             <Grid item xs={6}>
               <MyPageGrid
-                title={`신고당한 글 ${
-                  reportBoard === undefined || reportBoard === null
-                    ? 0
-                    : reportBoard.length
-                }개`}
+                title={`신고당한 글 ${reportBoard === undefined || reportBoard === null ? 0 : reportBoard.length}개`}
                 children={
                   <AdminPageReport
-                    content={
-                      reportBoard === undefined || reportBoard === null
-                        ? reportBoard
-                        : reportBoard.slice(0, 4)
-                    }
+                    content={reportBoard === undefined || reportBoard === null ? reportBoard : reportBoard.slice(0, 4)}
                   />
                 }
-                length={
-                  reportBoard === undefined || reportBoard === null
-                    ? 0
-                    : reportBoard.length
-                }
+                length={reportBoard === undefined || reportBoard === null ? 0 : reportBoard.length}
                 content={reportBoard}
                 board="/admin/board"
               />
@@ -64,24 +50,16 @@ function AdminPage({ isAdmin }) {
             <Grid item xs={6}>
               <MyPageGrid
                 title={`신고당한 댓글 ${
-                  reportComment === undefined || reportComment === null
-                    ? 0
-                    : reportComment.length
+                  reportComment === undefined || reportComment === null ? 0 : reportComment.length
                 }개`}
                 children={
                   <AdminPageReportComment
                     content={
-                      reportComment === undefined || reportComment === null
-                        ? reportComment
-                        : reportComment.slice(0, 5)
+                      reportComment === undefined || reportComment === null ? reportComment : reportComment.slice(0, 5)
                     }
                   />
                 }
-                length={
-                  reportComment === undefined || reportComment === null
-                    ? 0
-                    : reportComment.length
-                }
+                length={reportComment === undefined || reportComment === null ? 0 : reportComment.length}
                 content={reportComment}
                 board="/admin/comment"
               />

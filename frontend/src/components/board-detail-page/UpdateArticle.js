@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+//style
 import styled from 'styled-components';
 import { Button, Box, TextField, Container } from '@mui/material';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 //Toast UI Editor
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-function UpdateArticle({ isLogin, data }) {
-  const [title, setTitle] = useState(data.title);
-  const [contents, setContents] = useState(data.contents);
-  const [images, setImages] = useState([]);
+function UpdateArticle({ data }) {
+  const navigate = useNavigate();
 
   const editorRef = React.createRef();
 
-  const navigate = useNavigate();
+  const [title, setTitle] = useState(data.title);
+  const [contents, setContents] = useState(data.contents);
+  const [images, setImages] = useState(data.images);
 
   const onUpdateHandler = async () => {
     await axios
@@ -59,7 +60,6 @@ function UpdateArticle({ isLogin, data }) {
             const imageUrl =
               'https://kabbla.s3.ap-northeast-2.amazonaws.com/' + blob.name;
 
-            console.log(imageUrl);
             setImages([...images, imageUrl]);
             callback(imageUrl, 'image');
           })();

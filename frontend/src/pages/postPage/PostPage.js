@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+//style
 import styled from 'styled-components';
 import { Container, Typography, Divider } from '@mui/material';
-import Post from '../../components/post-page/Post';
-import PostReview from '../../components/post-page/PostReview';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+//components
+import Post from 'components/post-page/Post';
 
 function PostPage({ isLogin }) {
-  const [post, setPost] = useState({});
-
   // param으로 전달 된 board 따라서 게시판이 변경됨
   const param = useParams();
   const board = param.board;
-  console.log(board);
-
-  useEffect(() => {
-    function getPost() {
-      axios.get('/').then((res) => setPost(res.data));
-    }
-
-    getPost();
-  }, []);
-
-  console.log(post);
 
   return (
     <PostContainer>

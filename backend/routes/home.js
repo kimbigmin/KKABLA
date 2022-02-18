@@ -10,13 +10,13 @@ router.get('/', async (req, res) => {
   const [boards, develop, like, bootCamps] = await Promise.all([
     Board.find({ type: 'free' })
       .sort({
-        updatedAt: -1,
+        createdAt: -1,
       })
       .limit(9)
       .lean(),
     Board.find({ type: 'develop' })
       .sort({
-        updatedAt: -1,
+        createdAt: -1,
       })
       .limit(9)
       .lean(),
