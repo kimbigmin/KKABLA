@@ -106,26 +106,26 @@ router.post('/auth', upload.single('image'), async (req, res) => {
 
   console.log(word, sumText);
 
-  if (certification(sumText, word)) {
-    const [bootCamp, user] = await Promise.all([
-      await BootCamp.find({
-        name: { $regex: word, $options: 'i' },
-      }),
-      await User.findOneAndUpdate(
-        { _id: u._id },
-        {
-          $addToSet: { auth: [word] },
-        },
-      ),
-    ]);
-    if (bootCamp && user) {
-      data.msg = '인증이 성공적으로 완료되었습니다';
-      data.ok = true;
-    } else {
-      data.msg = '인증에 실패하였습니다.다시 시도해주세요';
-      data.ok = false;
-    }
+  const [bootCamp, user] = await Promise.all([
+    await BootCamp.find({
+      name: { $regex: word, $options: 'i' },
+    }),
+    await User.findOneAndUpdate(
+      { _id: u._id },
+      {
+        $addToSet: { auth: [word] },
+      },
+    ),
+  ]);
+
+  if (bootCamp && user && certification(sumText, word)) {
+    data.msg = '인증이 성공적으로 완료되었습니다';
+    data.ok = true;
+  } else {
+    data.msg = '인증에 실패하였습니다.다시 시도해주세요';
+    data.ok = false;
   }
+
   res.send(data);
 });
 
