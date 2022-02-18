@@ -3,6 +3,7 @@ import AuthPageTitle from './AuthPageTitle';
 import AuthPageUpload from './AuthPageUpload';
 import './authPage.css';
 import './progress.css';
+import AuthPageText from './AuthPageText';
 
 function Progress({ word, setWord, two, setTwo }) {
   const [active, setActive] = useState(1);
@@ -40,9 +41,9 @@ function Progress({ word, setWord, two, setTwo }) {
   };
 
   useEffect(() => {
-    console.log(card);
     update();
-  }, [active]);
+    console.log(word);
+  }, [active, two, word]);
 
   const update = () => {
     [circles1.current, circles2.current, circles3.current].forEach(
@@ -57,13 +58,17 @@ function Progress({ word, setWord, two, setTwo }) {
 
     progress.current.style.width = ((active - 1) / (circles - 1)) * 100 + '%';
 
+    setDisable1(false);
+    setDisable2(false);
+
     if (active === 1) {
       setDisable1(true);
-    } else if (active === circles) {
+    } else if (
+      active === circles ||
+      (active === 2 && !two) ||
+      (active === 1 && !word)
+    ) {
       setDisable2(true);
-    } else {
-      setDisable1(false);
-      setDisable2(false);
     }
   };
 
@@ -82,6 +87,7 @@ function Progress({ word, setWord, two, setTwo }) {
           <div ref={card} className="card ">
             <AuthPageTitle word={word} setWord={setWord} />
             <AuthPageUpload word={word} two={two} setTwo={setTwo} />
+            <AuthPageText />
           </div>
         </div>
       </div>

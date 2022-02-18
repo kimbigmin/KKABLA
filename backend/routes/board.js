@@ -2,21 +2,20 @@ import express from 'express';
 import Board from '../models/Board.js';
 import BootCamp from '../models/BootCamp.js';
 import mongoose from 'mongoose';
-import User from '../models/User.js';
-import Comment from '../models/Comment.js';
 
 const router = express.Router();
 
 //자유 게시판
 router.get('/free', async (req, res) => {
   const { page } = req.query;
-  const doc = await Board.countDocuments();
+  const doc = await Board.countDocuments({ type: 'free' });
 
-  let limit = doc - page * 10 >= 10 ? 10 : doc - page * 10;
+  let limit = doc - (page - 1) * 10 >= 10 ? 10 : doc - (page - 1) * 10;
+  let p = limit === 10 ? (page - 1) * limit : doc - limit;
 
-  if (limit > 0) {
+  if (limit > 0 && page > 0) {
     const borads = await Board.find({ type: 'free' })
-      .skip((page - 1) * 2)
+      .skip(p)
       .limit(limit)
       .sort({
         createdAt: -1,
@@ -40,17 +39,18 @@ router.get('/free/:id', async (req, res) => {
 //개발 이야기
 router.get('/develop', async (req, res) => {
   const { page } = req.query;
-  const doc = await Board.countDocuments();
+  const doc = await Board.countDocuments({ type: 'develop' });
 
-  let limit = doc - page * 10 >= 10 ? 10 : doc - page * 10;
+  let limit = doc - (page - 1) * 10 >= 10 ? 10 : doc - (page - 1) * 10;
+  let p = limit === 10 ? (page - 1) * limit : doc - limit;
 
-  if (limit > 0) {
+  if (limit > 0 && page > 0) {
     const borads = await Board.find({ type: 'develop' })
-      .skip((page - 1) * 2)
-      .limit(limit)
       .sort({
         createdAt: -1,
       })
+      .skip(p)
+      .limit(limit)
       .lean();
     res.send(borads);
   } else {

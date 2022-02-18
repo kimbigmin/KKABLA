@@ -71,7 +71,6 @@ router.post('/develop', upload.array('image'), async (req, res) => {
 //자유 게시판 글 작성
 router.post('/free', async (req, res) => {
   const { title, contents, images, creator, type } = req.body;
-  // const images = req.files ? req.files.map((file) => file.location) : '';
   const board = await Board.create({ title, contents, creator, images, type });
 
   res.send(board);
