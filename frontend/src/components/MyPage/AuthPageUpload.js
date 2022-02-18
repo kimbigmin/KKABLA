@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function AuthPageUpload({ word, setTwo, two }) {
   const [image, setImage] = useState(false);
-
+  const [msg, setMsg] = useState('');
   const img = useRef(null);
 
   useEffect(() => {}, []);
@@ -40,7 +40,10 @@ function AuthPageUpload({ word, setTwo, two }) {
         data: formData,
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
-      }).then((res) => console.log(res.data));
+      }).then((res) => {
+        setMsg(res.data.msg);
+        console.log(res.data.msg);
+      });
     } catch (error) {
       console.log(error);
     }

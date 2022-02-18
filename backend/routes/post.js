@@ -280,23 +280,24 @@ router.post('/comment/report/:id', async (req, res) => {
 
   if (mongoose.Types.ObjectId.isValid(id)) {
     if (!nickName) res.send({ message: '존재하지 않는 유저입니다.' });
+    else {
+      const comment = await Comment.findOneAndUpdate(
+        { _id: id },
+        { $addToSet: { report: [nickName] } },
+      );
 
-    const comment = await Comment.findOneAndUpdate(
-      { _id: id },
-      { $addToSet: { report: [nickName] } },
-    );
-
-    if (comment.report.length + 1 > 2) {
-      await Promise.all([
-        Admin.find({}).update({
-          $push: {
-            reportComment: comment._id,
-          },
-        }),
-        Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
-      ]);
+      if (comment.report.length + 1 > 2) {
+        await Promise.all([
+          Admin.find({}).update({
+            $push: {
+              reportComment: comment._id,
+            },
+          }),
+          Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
+        ]);
+      }
+      res.send(comment);
     }
-    res.send(comment);
   }
 });
 

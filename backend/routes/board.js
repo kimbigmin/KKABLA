@@ -9,10 +9,10 @@ const router = express.Router();
 
 //자유 게시판
 router.get('/free', async (req, res) => {
-  const { from, to } = req.query;
+  const { page } = req.query;
   const borads = await Board.find({ type: 'free' })
-    .skip(from)
-    .limit(to)
+    .skip((page - 1) * 2)
+    .limit(10)
     .sort({
       createdAt: -1,
     })
@@ -31,10 +31,10 @@ router.get('/free/:id', async (req, res) => {
 
 //개발 이야기
 router.get('/develop', async (req, res) => {
-  const { from, to } = req.query;
+  const { page } = req.query;
   const borads = await Board.find({ type: 'develop' })
-    .skip(from)
-    .limit(to)
+    .skip((page - 1) * 2)
+    .limit(10)
     .sort({
       createdAt: -1,
     })
