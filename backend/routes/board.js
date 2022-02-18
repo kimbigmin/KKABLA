@@ -31,6 +31,7 @@ router.get('/free/:id', async (req, res) => {
 
 //개발 이야기
 router.get('/develop', async (req, res) => {
+  const { from, to } = req.query;
   const borads = await Board.find({ type: 'develop' })
     .skip(from)
     .limit(to)
