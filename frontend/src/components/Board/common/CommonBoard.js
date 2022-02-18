@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import { Container, Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAnonymousName } from 'utils/getAnonymousName.js';
 import BoardContents from './BoardContents';
+import styled from 'styled-components';
 
 function CommonBoard({ item }) {
   return (
@@ -14,14 +14,15 @@ function CommonBoard({ item }) {
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <Grid container>
-          {/* 이미지 넣어보고 xs={8} 수정필요 */}
           <Grid item container xs={8} direction="column">
             <Grid item container>
               <Title>{item.title}</Title>
             </Grid>
             <Grid item>
               <Content variant="body1">
-                <BoardContents item={item.contents} />
+                <TuiViewer>
+                  <BoardContents item={item.contents} />
+                </TuiViewer>
               </Content>
             </Grid>
             <Grid item>
@@ -87,6 +88,7 @@ const Content = (props) => (
       display: '-webkit-box',
       WebkitBoxOrient: 'vertical',
       WebkitLineClamp: '2',
+      lineHeight: '1',
     }}
   >
     {props.children}
@@ -106,3 +108,9 @@ const Img = styled('img')({
   height: '110px',
   objectFit: 'cover',
 });
+
+const TuiViewer = styled.div`
+  .toastui-editor-contents *:not(table) {
+    line-height: 1;
+  }
+`;
