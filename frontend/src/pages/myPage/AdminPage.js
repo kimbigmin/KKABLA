@@ -6,6 +6,7 @@ import AdminAdd from '../../components/AdminPage/AdminAdd';
 import axios from 'axios';
 import AdminPageReport from 'components/AdminPage/AdminPageReport';
 import { useNavigate } from 'react-router-dom';
+import AdminPageReportComment from 'components/AdminPage/AdminPageReportComment';
 
 function AdminPage({ isAdmin }) {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ function AdminPage({ isAdmin }) {
                     : reportComment.length
                 }개`}
                 children={
-                  <AdminPageReport
+                  <AdminPageReportComment
                     content={
                       reportComment === undefined || reportComment === null
                         ? reportComment

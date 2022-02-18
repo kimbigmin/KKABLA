@@ -1,5 +1,5 @@
 import { Container, Grid } from '@mui/material';
-import AdminPageReport from 'components/AdminPage/AdminPageReport';
+import AdminPageReport from 'components/AdminPage/AdminPageReportComment';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
