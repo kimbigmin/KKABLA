@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Grid, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAnonymousName } from 'utils/getAnonymousName.js';
 import BoardContents from './BoardContents';
@@ -88,7 +88,6 @@ const Content = (props) => (
       display: '-webkit-box',
       WebkitBoxOrient: 'vertical',
       WebkitLineClamp: '2',
-      lineHeight: '1',
     }}
   >
     {props.children}
@@ -111,6 +110,6 @@ const Img = styled('img')({
 
 const TuiViewer = styled.div`
   .toastui-editor-contents *:not(table) {
-    line-height: 1;
+    line-height: normal;
   }
 `;
