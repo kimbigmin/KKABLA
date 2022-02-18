@@ -1,15 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+//style
 import styled from 'styled-components';
 import { Divider, Box, Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
 
 function MyPageGrid({ title, children, length, board, content }) {
   const navigate = useNavigate();
 
   const MoveToMoreHandler = () => {
-    navigate(`/mypage/${board}`, {
+    navigate(board, {
       state: content,
     });
+  };
+
+  const onHandleAuth = () => {
+    navigate('/mypage/auth');
   };
 
   return (
@@ -17,7 +22,12 @@ function MyPageGrid({ title, children, length, board, content }) {
       <GridSection>
         <GridTop>
           <GridTitle>{title}</GridTitle>
-          {length >= 3 && (
+          {board === '/mypage/auth' && (
+            <Button onClick={onHandleAuth} variant="outlined">
+              인증하기
+            </Button>
+          )}
+          {length >= 5 && (
             <Button onClick={MoveToMoreHandler} variant="outlined">
               더 보기
             </Button>

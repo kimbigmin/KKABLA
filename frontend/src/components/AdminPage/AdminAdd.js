@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   TextField,
@@ -9,23 +9,94 @@ import {
   Radio,
 } from '@mui/material';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AdminAdd() {
-  const [value, setValue] = useState('online');
+  const navigate = useNavigate();
+
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [homePage, setHomePage] = useState('');
+  const [system, setSystem] = useState('온라인');
+  const [image, setImage] = useState();
 
   const handleRadioChange = (event) => {
-    setValue(event.target.value);
+    setSystem(event.target.value);
   };
 
-  const handleFileSelect = () => {
-    console.log('ok');
+  const handleFileSelect = (e) => {
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    console.log(e.target.files[0].name);
+
+    axios.post(
+      'http://localhost:5000/post/upload',
+      formData,
+      {
+        header: { 'content-type': 'multipart/formdata' },
+      },
+      { withCredentials: true },
+    );
+
+    const imageUrl =
+      'https://kabbla.s3.ap-northeast-2.amazonaws.com/' +
+      e.target.files[0].name;
+
+    setImage(imageUrl);
   };
+
+  const onPostBootcampHandler = async () => {
+    await axios
+      .post(
+        'http://localhost:5000/post/bootcamp',
+        {
+          name,
+          location,
+          image,
+          homePage,
+          system,
+        },
+        {
+          withCredentials: true,
+        },
+      )
+      .then((res) => {
+        alert('부트캠프 등록이 완료되었습니다 !');
+      })
+      .navigate('/admin', { replace: true });
+  };
+
   return (
     <Container>
       <AddForm>
-        <AddTextField margin="dense" label="기관명" variant="outlined" />
-        <AddTextField margin="dense" label="기관위치" variant="outlined" />
-        <AddTextField margin="dense" label="홈페이지 url" variant="outlined" />
+        <AddTextField
+          margin="dense"
+          label="기관명"
+          variant="outlined"
+          required
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+        <AddTextField
+          margin="dense"
+          label="기관위치"
+          variant="outlined"
+          required
+          onChange={(e) => {
+            setLocation(e.target.value);
+          }}
+        />
+        <AddTextField
+          margin="dense"
+          label="홈페이지 url"
+          variant="outlined"
+          required
+          onChange={(e) => {
+            setHomePage(e.target.value);
+          }}
+        />
 
         <Label>강의 방식</Label>
         <RadioBox>
@@ -33,21 +104,21 @@ function AdminAdd() {
             row
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
-            value={value}
+            value={system}
             onChange={handleRadioChange}
           >
             <FormControlLabel
-              value="online"
+              value="온라인"
               control={<Radio />}
               label="온라인"
             />
             <FormControlLabel
-              value="offline"
+              value="오프라인"
               control={<Radio />}
               label="오프라인"
             />
             <FormControlLabel
-              value="both"
+              value="온라인+오프라인"
               control={<Radio />}
               label="온라인+오프라인"
             />
@@ -56,20 +127,24 @@ function AdminAdd() {
         <Label>로고 업로드</Label>
         <LogoBox>
           <LogoInput
-            onChange={handleFileSelect}
+            onChange={(e) => handleFileSelect(e)}
             type="file"
             id="imgfile"
             className="file-select"
             name="logoImage"
-            accept="image/png"
+            accept="image/*"
           ></LogoInput>
-          <ImgBox>이미지가 들어갈 자리입니다.</ImgBox>
+          <ImgBox>
+            <img src={image} alt="로고 미리보기" />
+          </ImgBox>
         </LogoBox>
         <ButtonBox>
           <Buttons variant="contained">
             <label htmlFor="imgfile">이미지 업로드</label>
           </Buttons>
-          <Buttons variant="contained">등록하기</Buttons>
+          <Buttons variant="contained" onClick={onPostBootcampHandler}>
+            등록하기
+          </Buttons>
         </ButtonBox>
       </AddForm>
     </Container>
@@ -112,6 +187,12 @@ const ImgBox = styled(Box)`
   width: 200px;
   height: 200px;
   margin: 10px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 `;
 
 const RadioBox = styled(Box)`

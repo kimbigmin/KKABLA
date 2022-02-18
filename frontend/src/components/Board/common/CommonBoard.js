@@ -83,6 +83,7 @@ const Content = (props) => (
     gutterBottom
     component={'div'}
     sx={{
+      fontFamily: 'Pretendard-Regular',
       height: '50px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -96,7 +97,7 @@ const Content = (props) => (
 );
 
 const Caption = (props) => (
-  <Grid item sx={{ marginRight: '3px' }}>
+  <Grid item sx={{ marginRight: '3px', fontFamily: 'Pretendard-Regular' }}>
     {props.children}
   </Grid>
 );

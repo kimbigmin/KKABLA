@@ -4,7 +4,7 @@ import logo from '../../images/logo.png';
 import SearchAppBar from './SearchBar';
 import styled from 'styled-components';
 
-function Header({ isLogin }) {
+function Header({ isLogin, isAdmin }) {
   return (
     <Nav>
       <Link to="/">
@@ -21,9 +21,15 @@ function Header({ isLogin }) {
       </Link>
 
       {isLogin ? (
-        <Link to="/mypage" className="link">
-          마이페이지
-        </Link>
+        isAdmin ? (
+          <Link to="/admin" className="link">
+            관리자 페이지
+          </Link>
+        ) : (
+          <Link to="/mypage" className="link">
+            마이페이지
+          </Link>
+        )
       ) : null}
       {isLogin ? (
         <Link className="log" to="/logout">
@@ -40,6 +46,7 @@ function Header({ isLogin }) {
 }
 
 const Nav = styled.header`
+  font-family: 'Pretendard-Regular';
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
   display: flex;

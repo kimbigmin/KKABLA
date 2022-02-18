@@ -1,7 +1,8 @@
-import styled from 'styled-components';
-import React, { useState, Children } from 'react';
-import { Divider, Box } from '@mui/material';
+import React, { Children } from 'react';
 import { Link } from 'react-router-dom';
+//style
+import { Box } from '@mui/material';
+import styled from 'styled-components';
 
 function MyPagePosts({ content }) {
   return (
@@ -9,16 +10,10 @@ function MyPagePosts({ content }) {
       {content
         ? Children.toArray(
             content.map((el) => (
-              <Link
-                to={`/board/${el.type}/${el._id}`}
-                state={{ dataFromBoard: el }}
-                style={{ color: 'black', textDecoration: 'none' }}
-              >
+              <Link to={`/board/${el.type}/${el._id}`} state={{ dataFromBoard: el }}>
                 <GridDetailBox>
                   <GridTitle>{el.title}</GridTitle>
-                  <GridBoard>
-                    {el.type === 'free' ? '자유게시판' : '개발게시판'}
-                  </GridBoard>
+                  <GridBoard>{el.type === 'free' ? '자유게시판' : '개발게시판'}</GridBoard>
                 </GridDetailBox>
               </Link>
             )),
@@ -28,17 +23,12 @@ function MyPagePosts({ content }) {
   );
 }
 
-//post에 따라서 정해짐. null 이면 글을 작성해주세요 출력
-
 export default MyPagePosts;
 
 const GridDetailBox = styled(Box)`
   background-color: #f7f7f7;
   border-radius: 10px;
   margin: 10px 0;
-
-  display: flex;
-  justify-content: space-between;
 `;
 
 const GridTitle = styled(Box)`
@@ -50,9 +40,4 @@ const GridBoard = styled(Box)`
   padding: 10px;
   font-size: 12px;
   line-height: 12px;
-`;
-
-const GridDetail = styled(Box)`
-  padding: 10px;
-  font-size: 12px;
 `;

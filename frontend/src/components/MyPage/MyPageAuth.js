@@ -1,27 +1,20 @@
-import React, { useState, Children } from 'react';
-import { Box, Container, Grid } from '@mui/material';
+import React, { Children } from 'react';
+//style
 import styled from 'styled-components';
+import { Box, Container, Grid } from '@mui/material';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import { useNavigate } from 'react-router-dom';
 
 function MyPageAuth({ content }) {
-  const [auth, setAuth] = useState(false);
-  const navigate = useNavigate();
-
-  const onHandleAuth = () => {
-    navigate('/mypage/auth');
-  };
-
   return (
     <AuthContainer>
-      {auth === true ? (
+      {content && (
         <>
           {Children.toArray(
             content.map((el) => (
               <AuthBox>
                 <Grid container>
                   <GridPart item xs={10}>
-                    {el.part} 수료생
+                    {el} 수료생
                   </GridPart>
                   <GridIcon item xs={2}>
                     <EmojiEventsIcon />
@@ -31,14 +24,10 @@ function MyPageAuth({ content }) {
             )),
           )}
         </>
-      ) : (
-        <AuthNeedBox onClick={onHandleAuth}>인증하기</AuthNeedBox>
       )}
     </AuthContainer>
   );
 }
-
-// 데이터가 여러개로 들어오면 map으로 구성하는 방법을 고려,
 
 export default MyPageAuth;
 
@@ -67,17 +56,4 @@ const AuthBox = styled(Box)`
   padding: 10px;
   border-radius: 20px;
   text-align: justify;
-`;
-
-const AuthNeedBox = styled(Box)`
-  margin-top: 2rem;
-  background-color: #84a4d3;
-  color: white;
-  width: 150px;
-  padding: 0.2rem;
-  border-radius: 5px;
-  text-align: center;
-  line-height: 60px;
-  font-size: 1rem;
-  cursor: pointer;
 `;
