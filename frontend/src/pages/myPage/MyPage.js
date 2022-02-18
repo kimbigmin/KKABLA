@@ -41,7 +41,7 @@ function MyPage({ isLogin }) {
   }, []);
 
   return (
-    <Container>
+    <MyPageContainer>
       <MypageTopBar>
         <h2>마이페이지</h2>
       </MypageTopBar>
@@ -76,7 +76,7 @@ function MyPage({ isLogin }) {
           />
         </Grid>
       </Grid>
-    </Container>
+    </MyPageContainer>
   );
 }
 
@@ -96,3 +96,10 @@ const MypageTopBar = styled.div`
 `;
 
 export default MyPage;
+
+const MyPageContainer = styled(Container)`
+  a {
+    text-decoration: none;
+    color: black;
+  }
+`;
