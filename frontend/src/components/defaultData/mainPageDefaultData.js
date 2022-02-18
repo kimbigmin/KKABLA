@@ -1,4 +1,4 @@
-const DefaultData = {
+const mainPageDefaultData = {
   boards: [
     {
       _id: '620ceb570892202903996349',
@@ -15,6 +15,7 @@ const DefaultData = {
       __v: 0,
     },
   ],
+
   develop: [
     {
       _id: '620c60a5e662e84d248344e0',
@@ -79,4 +80,4 @@ const DefaultData = {
   ],
 };
 
-export default DefaultData;
+export default mainPageDefaultData;

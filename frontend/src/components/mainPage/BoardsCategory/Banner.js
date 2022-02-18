@@ -7,7 +7,6 @@ export default function Banner(){
         style={{
           width:"100%",
           position:"relative",
-          //헤더가 px 고정값인것 같다.
           marginBottom: "-18%",
         }}
       >
