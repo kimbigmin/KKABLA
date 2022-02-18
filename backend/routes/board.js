@@ -11,7 +11,6 @@ router.get('/free', async (req, res) => {
   const doc = await Board.countDocuments({ type: 'free' });
 
   let limit = doc - (page - 1) * 10 >= 10 ? 10 : doc - (page - 1) * 10;
-  let p = limit === 10 ? (page - 1) * limit : doc - limit;
 
   if (limit > 0 && page > 0) {
     const borads = await Board.find({ type: 'free' })
@@ -42,7 +41,6 @@ router.get('/develop', async (req, res) => {
   const doc = await Board.countDocuments({ type: 'develop' });
 
   let limit = doc - (page - 1) * 10 >= 10 ? 10 : doc - (page - 1) * 10;
-  let p = limit === 10 ? (page - 1) * limit : doc - limit;
 
   if (limit > 0 && page > 0) {
     const borads = await Board.find({ type: 'develop' })
@@ -51,8 +49,6 @@ router.get('/develop', async (req, res) => {
       .sort({
         createdAt: -1,
       })
-      .skip(p)
-      .limit(limit)
       .lean();
     res.send(borads);
   } else {

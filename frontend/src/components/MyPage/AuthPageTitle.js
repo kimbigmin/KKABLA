@@ -6,6 +6,10 @@ function AuthPageTitle({ word, setWord }) {
   const [result, setResult] = useState([]);
   const [input, setInput] = useState('');
 
+  useEffect(() => {
+    console.log(word);
+  }, [word]);
+
   const onSearchHandler = async (e) => {
     const value = e.target.value;
     setInput(value);
@@ -35,6 +39,7 @@ function AuthPageTitle({ word, setWord }) {
               className="result"
               onClick={() => {
                 setInput(el.name);
+                setWord(el.name);
               }}
             >
               <div className="name">{el.name}</div>

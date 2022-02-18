@@ -32,6 +32,13 @@ router.post('/review/:id', async (req, res) => {
         bootCamp: b,
       });
 
+      const s = (
+        (b.star * b.review.length + star) /
+        (b.review.length + 1)
+      ).toFixed(1);
+
+      console.log(s);
+
       const bootcamp = await BootCamp.findOneAndUpdate(
         { _id: id },
         {
@@ -42,10 +49,7 @@ router.post('/review/:id', async (req, res) => {
             },
           },
           $set: {
-            star: (
-              (b.star * b.review.length + star) /
-              (b.review.length + 1)
-            ).toFixed(1),
+            star: s,
           },
         },
       );
