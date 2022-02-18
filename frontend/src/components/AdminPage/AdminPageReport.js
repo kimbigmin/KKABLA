@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, Children } from 'react';
-import { Divider, Box } from '@mui/material';
+import { Divider, Box, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function AdminPageReport({ content }) {
@@ -9,17 +9,23 @@ function AdminPageReport({ content }) {
       {content
         ? Children.toArray(
             content.map((el) => (
-              <Link
-                to={`/board/${el.type}/${el._id}`}
-                state={{ dataFromBoard: el }}
-              >
-                <GridDetailBox>
-                  <GridTitle>{el.title}</GridTitle>
-                  <GridBoard>
-                    {el.type === 'free' ? '자유게시판' : '개발게시판'}
-                  </GridBoard>
-                </GridDetailBox>
-              </Link>
+              <ReportBox>
+                <Link
+                  to={`/board/${el.type}/${el._id}`}
+                  state={{ dataFromBoard: el }}
+                >
+                  <GridDetailBox>
+                    <GridTitle>{el.title}</GridTitle>
+                    <GridBoard>
+                      {el.type === 'free' ? '자유게시판' : '개발게시판'}
+                    </GridBoard>
+                  </GridDetailBox>
+                </Link>
+                <ReportButtonBox>
+                  <Button variant="outlined">복구</Button>
+                  <Button variant="outlined">삭제</Button>
+                </ReportButtonBox>
+              </ReportBox>
             )),
           )
         : '글을 작성해주세요'}
@@ -46,4 +52,22 @@ const GridBoard = styled(Box)`
   padding: 10px;
   font-size: 12px;
   line-height: 12px;
+`;
+
+const ReportBox = styled(Box)`
+  display: flex;
+  justify-content: end;
+
+  a {
+    width: 100%;
+  }
+`;
+
+const ReportButtonBox = styled(Box)`
+  display: flex;
+
+  button {
+    margin: auto;
+    margin-left: 5px;
+  }
 `;
