@@ -7,7 +7,7 @@ function Review({ isLogin }) {
   // 부트캠프 데이터 GET Handler
   const getBootcampData = async () => {
     return await axios
-      .get('http://localhost:5000/board/review/')
+      .get('http://elice-kdt-sw-1st-team10.elicecoding.com/board/review/')
       .then((res) => {
         setBootcampData(res.data);
       });

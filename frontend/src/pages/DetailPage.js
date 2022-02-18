@@ -16,7 +16,9 @@ function DetailPage({ isLogin }) {
   console.log(data);
   const getReviews = async () => {
     await axios
-      .get(`http://localhost:5000/board/review/${data._id}`)
+      .get(
+        `http://elice-kdt-sw-1st-team10.elicecoding.com/board/review/${data._id}`,
+      )
       .then((res) => {
         setReviews(res.data.review);
       });
