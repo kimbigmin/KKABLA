@@ -1,14 +1,13 @@
-import { Container, Grid } from '@mui/material';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-
-import MyPageGrid from '../../components/MyPage/MyPageGrid';
-import MyPageAuth from '../../components/MyPage/MyPageAuth';
-import MyPagePosts from '../../components/MyPage/MyPagePosts';
-import MyPageReviews from '../../components/MyPage/MyPageReviews';
-import MyPageLikes from '../../components/MyPage/MyPageLikes';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
+//style
+import styled from 'styled-components';
+import { Container, Grid } from '@mui/material';
+//component
+import MyPageGrid from 'components/MyPage/MyPageGrid';
+import MyPageAuth from 'components/MyPage/MyPageAuth';
+import MyPagePosts from 'components/MyPage/MyPagePosts';
+import MyPageReviews from 'components/MyPage/MyPageReviews';
 
 function MyPage({ isLogin }) {
   const [board, setBoard] = useState();
@@ -23,7 +22,6 @@ function MyPage({ isLogin }) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         setBoard(res.data.boards);
         setReviews(res.data.reviews);
         setAuth(res.data.userAuth);
@@ -33,7 +31,6 @@ function MyPage({ isLogin }) {
 
   const getBootcamp = async () => {
     await axios.get('http://localhost:5000/board/review/').then((res) => {
-      console.log(res.data);
       setBootCamp(res.data);
     });
   };
@@ -50,25 +47,12 @@ function MyPage({ isLogin }) {
       </MypageTopBar>
       <Grid container>
         <Grid item xs={12}>
-          <MyPageGrid
-            title={`${isLogin} 님`}
-            children={<MyPageAuth content={auth} />}
-          />
+          <MyPageGrid title={`${isLogin} 님`} children={<MyPageAuth content={auth} />} board="/mypage/auth" />
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={`작성한 글 ${
-              board === undefined || board === null ? 0 : board.length
-            }개`}
-            children={
-              <MyPagePosts
-                content={
-                  board === undefined || board === null
-                    ? board
-                    : board.slice(0, 5)
-                }
-              />
-            }
+            title={`작성한 글 ${board === undefined || board === null ? 0 : board.length}개`}
+            children={<MyPagePosts content={board === undefined || board === null ? board : board.slice(0, 5)} />}
             length={board === undefined || board === null ? 0 : board.length}
             content={board}
             board="/mypage/boards"
@@ -76,30 +60,16 @@ function MyPage({ isLogin }) {
         </Grid>
         <Grid item xs={5}>
           <MyPageGrid
-            title={`작성한 리뷰 ${
-              reviews === undefined || reviews === null ? 0 : reviews.length
-            }개`}
-            children={
-              <MyPageReviews content={reviews} bootcampData={bootCamp} />
-            }
+            title={`작성한 리뷰 ${reviews === undefined || reviews === null ? 0 : reviews.length}개`}
+            children={<MyPageReviews content={reviews} bootcampData={bootCamp} />}
             content={reviews}
             board="/mypage/reviews"
           />
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={`좋아요 ${
-              likes === undefined || likes === null ? 0 : likes.length
-            }개`}
-            children={
-              <MyPageLikes
-                content={
-                  likes === undefined || likes === null
-                    ? likes
-                    : likes.slice(0, 5)
-                }
-              />
-            }
+            title={`좋아요 ${likes === undefined || likes === null ? 0 : likes.length}개`}
+            children={<MyPagePosts content={likes === undefined || likes === null ? likes : likes.slice(0, 5)} />}
             length={likes === undefined || likes === null ? 0 : likes.length}
             content={likes}
             board="/mypage/likes"

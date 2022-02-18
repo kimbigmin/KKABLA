@@ -1,7 +1,8 @@
-import styled from 'styled-components';
-import React, { useState, Children } from 'react';
-import { Divider, Box } from '@mui/material';
+import React, { Children } from 'react';
 import { Link } from 'react-router-dom';
+//style
+import { Box } from '@mui/material';
+import styled from 'styled-components';
 
 function MyPagePosts({ content }) {
   return (
@@ -9,16 +10,10 @@ function MyPagePosts({ content }) {
       {content
         ? Children.toArray(
             content.map((el) => (
-              <Link
-                to={`/board/${el.type}/${el._id}`}
-                state={{ dataFromBoard: el }}
-                style={{ color: 'black', textDecoration: 'none' }}
-              >
+              <Link to={`/board/${el.type}/${el._id}`} state={{ dataFromBoard: el }}>
                 <GridDetailBox>
                   <GridTitle>{el.title}</GridTitle>
-                  <GridBoard>
-                    {el.type === 'free' ? '자유게시판' : '개발게시판'}
-                  </GridBoard>
+                  <GridBoard>{el.type === 'free' ? '자유게시판' : '개발게시판'}</GridBoard>
                 </GridDetailBox>
               </Link>
             )),
@@ -27,8 +22,6 @@ function MyPagePosts({ content }) {
     </>
   );
 }
-
-//post에 따라서 정해짐. null 이면 글을 작성해주세요 출력
 
 export default MyPagePosts;
 
