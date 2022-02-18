@@ -4,14 +4,12 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import styled from 'styled-components';
 import axios from 'axios';
 
-function AuthPageUpload({ one, setTwo, two }) {
+function AuthPageUpload({ word, setTwo, two }) {
   const [image, setImage] = useState(false);
-  const [word, setWord] = useState(null);
+
   const img = useRef(null);
 
-  useEffect(() => {
-    setWord(one);
-  }, [one]);
+  useEffect(() => {}, []);
 
   const onImageHandler = (e) => {
     const file = e.target.files[0];
@@ -22,17 +20,17 @@ function AuthPageUpload({ one, setTwo, two }) {
     };
 
     reader.readAsDataURL(file);
-    setImage(!image);
-    setTwo(true);
+    setImage(file);
   };
 
   const onHandleUploadAuth = (e) => {
     e.preventDefault();
+    onImagAuth(image);
   };
 
-  const onImagAuth = async (img) => {
+  const onImagAuth = async () => {
     const formData = new FormData();
-    formData.append('image', img);
+    formData.append('image', image);
     formData.append('word', word);
 
     try {
@@ -42,7 +40,7 @@ function AuthPageUpload({ one, setTwo, two }) {
         data: formData,
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      }).then((res) => console.log(res.data));
     } catch (error) {
       console.log(error);
     }

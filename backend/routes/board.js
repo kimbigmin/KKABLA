@@ -9,13 +9,13 @@ const router = express.Router();
 
 //자유 게시판
 router.get('/free', async (req, res) => {
-  console.log(req.query);
+  const { from, to } = req.query;
   const borads = await Board.find({ type: 'free' })
+    .skip(from)
+    .limit(to)
     .sort({
-      updatedAt: -1,
+      createdAt: -1,
     })
-    // .limit(n)
-    // .skip(s)
     .lean();
   res.send(borads);
 });
@@ -32,8 +32,10 @@ router.get('/free/:id', async (req, res) => {
 //개발 이야기
 router.get('/develop', async (req, res) => {
   const borads = await Board.find({ type: 'develop' })
+    .skip(from)
+    .limit(to)
     .sort({
-      updatedAt: -1,
+      createdAt: -1,
     })
     .lean();
   res.send(borads);

@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import './authPage.css';
 import axios from 'axios';
 
-function AuthPageTitle({ one, setOne }) {
+function AuthPageTitle({ word, setWord }) {
   const [result, setResult] = useState([]);
   const [input, setInput] = useState('');
 
   const onSearchHandler = async (e) => {
     const value = e.target.value;
+    setInput(value);
+    setWord(value);
+
     await axios
       .get(`http://localhost:5000/search/bootcamp/${value}`)
       .then((res) => setResult(res.data));
@@ -21,8 +24,6 @@ function AuthPageTitle({ one, setOne }) {
           value={input}
           onChange={(e) => {
             onSearchHandler(e);
-            setInput(e.target.value);
-            setOne(!e.target.value);
           }}
           placeholder="예시) 엘리스 SW"
         />
