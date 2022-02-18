@@ -67,36 +67,92 @@ function App() {
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
           <Route path="/" element={<MainContents isLogin={isLogin} />}></Route>
-          <Route path="/board/review" element={<ReviewPage isLogin={isLogin} />}></Route>
-          <Route path="/board/review/detail/:id" element={<ReviewDetailPage isLogin={isLogin} />} />
-          <Route path="/board/free" element={<FreeBoardPage isLogin={isLogin} />} />
-          <Route path="/board/free/:id" element={<BoardDetailPage isLogin={isLogin} />} />
-          <Route path="/board/free/update/:id" element={<UpdatePage isLogin={isLogin} />} />
-          <Route path="/board/develop" element={<DevelopBoardPage isLogin={isLogin} />} />
-          <Route path="/board/develop/:id" element={<BoardDetailPage isLogin={isLogin} />} />
-          <Route path="/board/develop/update/:id" element={<UpdatePage isLogin={isLogin} />} />
+          <Route
+            path="/board/review"
+            element={<ReviewPage isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/board/review/detail/:id"
+            element={<ReviewDetailPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/free"
+            element={<FreeBoardPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/free/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/free/update/:id"
+            element={<UpdatePage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/develop"
+            element={<DevelopBoardPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/develop/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/develop/update/:id"
+            element={<UpdatePage isLogin={isLogin} />}
+          />
 
-          <Route path="/login" element={<Login setisLogin={setisLogin} isLogin={isLogin} />} />
+          <Route
+            path="/login"
+            element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
+          />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
-
-          <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
-          <Route path="/mypage/auth" element={<AuthPage isLogin={isLogin} />}></Route>
-          <Route path="/mypage/boards" element={<MyPageMoreBoards isLogin={isLogin} />}></Route>
-          <Route path="/mypage/likes" element={<MyPageMoreBoards isLogin={isLogin} />}></Route>
+          <Route
+            path="/search/"
+            element={<SearchResult isLogin={isLogin} />}
+          ></Route>
           {isLogin && (
             <>
-              <Route path="/post/:board" element={<PostPage isLogin={isLogin} />}></Route>
+              <Route
+                path="/mypage"
+                element={<MyPage isLogin={isLogin} />}
+              ></Route>
+              <Route
+                path="/mypage/auth"
+                element={<AuthPage isLogin={isLogin} />}
+              ></Route>
+              <Route
+                path="/mypage/boards"
+                element={<MyPageMoreBoards isLogin={isLogin} />}
+              ></Route>
+              <Route
+                path="/mypage/likes"
+                element={<MyPageMoreBoards isLogin={isLogin} />}
+              ></Route>
+              <Route
+                path="/post/:board"
+                element={<PostPage isLogin={isLogin} />}
+              ></Route>
+              <Route
+                path="/post/review/:id"
+                element={<PostReviewPage isLogin={isLogin} />}
+              ></Route>
             </>
           )}
-          {isLogin && (
+          {isAdmin && (
             <>
-              <Route path="/post/review/:id" element={<PostReviewPage isLogin={isLogin} />}></Route>
+              <Route
+                path="/admin"
+                element={<AdminPage isAdmin={isAdmin} />}
+              ></Route>
+              <Route
+                path="/admin/board"
+                element={<AdminPageMoreComment isAdmin={isAdmin} />}
+              ></Route>
+              <Route
+                path="/admin/comment"
+                element={<AdminPageMoreComment isAdmin={isAdmin} />}
+              ></Route>
             </>
           )}
-          <Route path="/search/" element={<SearchResult isLogin={isLogin} />}></Route>
-          <Route path="/admin" element={<AdminPage isAdmin={isAdmin} />}></Route>
-          <Route path="/admin/board" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
-          <Route path="/admin/comment" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
         </Routes>
       </ContentContainer>
       <Footer />
