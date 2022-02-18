@@ -16,7 +16,7 @@ router.get('/kakao', async (req, res) => {
     code,
     clientId: 'ca25925040f30318f70fb3c066f9444d',
     clientSecret: 'sGP8spDrGTl9d4ooxxeEhSOcaHkOHuQF',
-    redirectUri: 'http://localhost:5000/auth/kakao',
+    redirectUri: 'http://elice-kdt-sw-1st-team10.elicecoding.com/auth/kakao',
   });
 
   const kakaoUser = await axios
@@ -40,7 +40,7 @@ router.get('/kakao', async (req, res) => {
     secure: false,
   });
 
-  res.redirect('http://localhost:3000');
+  res.redirect('http://elice-kdt-sw-1st-team10.elicecoding.com/');
 });
 
 router.get('/google', async (req, res) => {
@@ -50,7 +50,7 @@ router.get('/google', async (req, res) => {
     code,
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'http://localhost:5000/auth/google',
+    redirectUri: 'http://elice-kdt-sw-1st-team10.elicecoding.com/auth/google',
   });
 
   const googleUser = await axios
@@ -76,7 +76,7 @@ router.get('/google', async (req, res) => {
     // secure: false,
   });
 
-  res.redirect('http://localhost:3000');
+  res.redirect('http://elice-kdt-sw-1st-team10.elicecoding.com/');
 });
 
 router.get('/user', async (req, res) => {
