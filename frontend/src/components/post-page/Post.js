@@ -19,7 +19,7 @@ function Post({ isLogin, name }) {
   const onPostFreeHandler = async () => {
     await axios
       .post(
-        `http://localhost:5000/post/${name}`,
+        `/post/${name}`,
         {
           title,
           type: name,
@@ -52,7 +52,7 @@ function Post({ isLogin, name }) {
             console.log('이미지가 업로드 됐습니다.');
 
             const res = await axios.post(
-              `http://localhost:5000/post/upload`,
+              `/post/upload`,
               formData,
               {
                 header: { 'content-type': 'multipart/formdata' },

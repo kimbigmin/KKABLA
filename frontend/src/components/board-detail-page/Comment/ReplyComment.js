@@ -22,7 +22,7 @@ function ReplyComment({
       return newArr;
     });
 
-    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
+    await axios.delete(`/post/comment/${comment._id}`, {
       withCredentials: true,
     });
   };

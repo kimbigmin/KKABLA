@@ -28,7 +28,7 @@ function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
       return newArr;
     });
 
-    await axios.delete(`http://localhost:5000/post/comment/${comment._id}`, {
+    await axios.delete(`/post/comment/${comment._id}`, {
       withCredentials: true,
     });
   };
@@ -56,24 +56,18 @@ function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
         });
       }
 
-      await axios.get(
-        `http://localhost:5000/post/comment/like/${comment._id}`,
-        {
-          withCredentials: true,
-        },
-      );
+      await axios.get(`/post/comment/like/${comment._id}`, {
+        withCredentials: true,
+      });
     }
   };
 
   // 댓글 신고 핸들러
   const onHandleReport = async () => {
     if (!alert('정말로 신고하시겠습니까?')) {
-      await axios.get(
-        `http://localhost:5000/post/comment/report/${comment._id}`,
-        {
-          withCredentials: true,
-        },
-      );
+      await axios.get(`/post/comment/report/${comment._id}`, {
+        withCredentials: true,
+      });
     }
   };
 

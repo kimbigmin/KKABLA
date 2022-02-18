@@ -19,7 +19,7 @@ function UpdateArticle({ isLogin, data }) {
   const onUpdateHandler = async () => {
     await axios
       .patch(
-        `http://localhost:5000/post/board/${data._id}`,
+        `/post/board/${data._id}`,
         {
           title,
           contents,
@@ -48,7 +48,7 @@ function UpdateArticle({ isLogin, data }) {
             console.log('이미지가 업로드 됐습니다.');
 
             await axios.post(
-              `http://localhost:5000/post/upload`,
+              `/post/upload`,
               formData,
               {
                 header: { 'content-type': 'multipart/formdata' },

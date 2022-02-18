@@ -28,12 +28,14 @@ import UpdatePage from 'pages/postPage/UpdatePage';
 import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
 
 function App() {
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+
   const [isLogin, setisLogin] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const getData = async () => {
     await axios
-      .get('http://localhost:5000/mypage/', {
+      .get('/mypage/', {
         withCredentials: true,
       })
       .then((res) => setIsAdmin(res.data.isAdmin));
@@ -42,7 +44,7 @@ function App() {
   useEffect(() => {
     const getMe = async () => {
       await axios
-        .get('http://localhost:5000/auth/user', {
+        .get('/auth/user', {
           withCredentials: true,
         })
         .then((res) => {

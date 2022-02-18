@@ -40,7 +40,7 @@ router.get('/kakao', async (req, res) => {
     secure: false,
   });
 
-  res.redirect('http://localhost:3000');
+  res.redirect('http:localhost:3000/');
 });
 
 router.get('/google', async (req, res) => {
@@ -76,7 +76,7 @@ router.get('/google', async (req, res) => {
     // secure: false,
   });
 
-  res.redirect('http://localhost:3000');
+  res.redirect('http:localhost:3000/');
 });
 
 router.get('/user', async (req, res) => {
