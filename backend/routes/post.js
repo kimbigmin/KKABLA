@@ -94,12 +94,12 @@ router.patch('/board/:id', async (req, res) => {
 //게시글 삭제
 router.delete('/board/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   const board = await Board.findOneAndDelete({
     _id: id,
-    creator: res.locals.user.nickName,
+    // $or: { creator: res.locals.user.nickName , res.locals.user.isAdmin ===},
   });
-  console.log(board);
+
   res.send(board);
 });
 
@@ -297,6 +297,23 @@ router.post('/comment/report/:id', async (req, res) => {
       ]);
     }
     res.send(comment);
+  }
+});
+
+//어드민페이지에서 게시글 블라인드 취소하기
+router.patch('/board/blindFalse/:id', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const board = await Board.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        report: [],
+        isBlind: false,
+      },
+    ).lean();
+    res.send(board);
   }
 });
 
