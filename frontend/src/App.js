@@ -103,6 +103,7 @@ function App() {
 }
 
 const ContentContainer = styled.div`
+  font-family: 'Pretendard-Regular';
   display: flex;
   flex-direction: column;
   width: 100%;

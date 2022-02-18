@@ -46,6 +46,7 @@ function Header({ isLogin, isAdmin }) {
 }
 
 const Nav = styled.header`
+  font-family: 'Pretendard-Regular';
   padding-top: 0.8rem;
   padding-bottom: 0.8rem;
   display: flex;

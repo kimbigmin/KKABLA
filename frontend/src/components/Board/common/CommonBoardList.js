@@ -157,6 +157,7 @@ const Title = (props) => (
   <Typography
     variant="subtitle1"
     sx={{
+      fontFamily: 'Pretendard-Regular',
       fontSize: '1.7rem',
       fontWeight: 'bold',
       color: '#484848ea',
@@ -173,6 +174,7 @@ const AlignButton = (props) => (
     sx={
       props.clickState === props.id
         ? {
+            fontFamily: 'Pretendard-Regular',
             fontSize: '0.8rem',
             fontWeight: '800',
             color: '#484848ea',
@@ -180,6 +182,7 @@ const AlignButton = (props) => (
             ':hover': { fontWeight: 'bold', color: '#4585ff' },
           }
         : {
+            fontFamily: 'Pretendard-Regular',
             fontSize: '0.8rem',
             color: '#484848ea',
             cursor: 'pointer',
