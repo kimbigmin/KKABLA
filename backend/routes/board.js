@@ -10,14 +10,22 @@ const router = express.Router();
 //자유 게시판
 router.get('/free', async (req, res) => {
   const { page } = req.query;
-  const borads = await Board.find({ type: 'free' })
-    .skip((page - 1) * 2)
-    .limit(10)
-    .sort({
-      createdAt: -1,
-    })
-    .lean();
-  res.send(borads);
+  const doc = await Board.countDocuments();
+
+  let limit = doc - page * 10 >= 10 ? 10 : doc - page * 10;
+
+  if (limit > 0) {
+    const borads = await Board.find({ type: 'free' })
+      .skip((page - 1) * 2)
+      .limit(limit)
+      .sort({
+        createdAt: -1,
+      })
+      .lean();
+    res.send(borads);
+  } else {
+    res.send({ message: '게시물이 없습니다.' });
+  }
 });
 
 //자유 게시판 상세
@@ -32,14 +40,22 @@ router.get('/free/:id', async (req, res) => {
 //개발 이야기
 router.get('/develop', async (req, res) => {
   const { page } = req.query;
-  const borads = await Board.find({ type: 'develop' })
-    .skip((page - 1) * 2)
-    .limit(10)
-    .sort({
-      createdAt: -1,
-    })
-    .lean();
-  res.send(borads);
+  const doc = await Board.countDocuments();
+
+  let limit = doc - page * 10 >= 10 ? 10 : doc - page * 10;
+
+  if (limit > 0) {
+    const borads = await Board.find({ type: 'develop' })
+      .skip((page - 1) * 2)
+      .limit(limit)
+      .sort({
+        createdAt: -1,
+      })
+      .lean();
+    res.send(borads);
+  } else {
+    res.send({ message: '게시물이 없습니다.' });
+  }
 });
 
 //개발 이야기 상세

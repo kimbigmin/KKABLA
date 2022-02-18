@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function AuthPageUpload({ word, setTwo, two }) {
   const [image, setImage] = useState(false);
-  const [msg, setMsg] = useState('');
+  const [data, setData] = useState(null);
   const img = useRef(null);
 
   useEffect(() => {}, []);
@@ -41,8 +41,8 @@ function AuthPageUpload({ word, setTwo, two }) {
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
       }).then((res) => {
-        setMsg(res.data.msg);
-        console.log(res.data.msg);
+        setData(res.data);
+        console.log(res.data);
       });
     } catch (error) {
       console.log(error);
@@ -55,6 +55,11 @@ function AuthPageUpload({ word, setTwo, two }) {
       <small>
         타인의 수료증을 제출하거나 수료증 위조 시 활동이 제한 될 수 있습니다.
       </small>
+      {/* {msg.ok ? <div>
+
+        <h3>{msg.msg}</h3>
+
+      </div> : } */}
       {image ? (
         <>
           <div className="img_auth">

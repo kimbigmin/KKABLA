@@ -105,7 +105,7 @@ router.post('/auth', upload.single('image'), async (req, res) => {
     .catch((err) => console.log(err));
 
   const u = res.locals.user;
-  let msg;
+  let data = {};
 
   console.log(word, sumText);
 
@@ -122,12 +122,14 @@ router.post('/auth', upload.single('image'), async (req, res) => {
       ),
     ]);
     if (bootCamp && user) {
-      msg = '인증이 성공적으로 완료되었습니다';
+      data.msg = '인증이 성공적으로 완료되었습니다';
+      data.ok = true;
     } else {
-      msg = '인증에 실패하였습니다.다시 시도해주세요';
+      data.msg = '인증에 실패하였습니다.다시 시도해주세요';
+      data.ok = false;
     }
   }
-  res.send(msg);
+  res.send(data);
 });
 
 export default router;
