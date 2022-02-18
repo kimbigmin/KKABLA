@@ -48,14 +48,10 @@ function UpdateArticle({ data }) {
             formData.append('image', blob);
             console.log('이미지가 업로드 됐습니다.');
 
-            await axios.post(
-              `/post/upload`,
-              formData,
-              {
-                header: { 'content-type': 'multipart/formdata' },
-              },
-              { withCredentials: true },
-            );
+            await axios.post(`/post/upload`, formData, {
+              header: { 'content-type': 'multipart/formdata' },
+              withCredentials: true,
+            });
 
             const imageUrl =
               'https://kabbla.s3.ap-northeast-2.amazonaws.com/' + blob.name;

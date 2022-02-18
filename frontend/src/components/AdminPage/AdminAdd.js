@@ -25,24 +25,20 @@ function AdminAdd() {
     setSystem(event.target.value);
   };
 
-  const handleFileSelect = (e) => {
+  const handleFileSelect = async (e) => {
     const formData = new FormData();
     formData.append('image', e.target.files[0]);
     console.log(e.target.files[0].name);
 
-    axios.post(
-      '/post/upload',
-      formData,
-      {
-        header: { 'content-type': 'multipart/formdata' },
-      },
-      { withCredentials: true },
-    );
+    await axios.post('/post/upload', formData, {
+      header: { 'content-type': 'multipart/formdata' },
+      withCredentials: true,
+    });
 
     const imageUrl =
       'https://kabbla.s3.ap-northeast-2.amazonaws.com/' +
       e.target.files[0].name;
-
+    console.log(formData);
     setImage(imageUrl);
   };
 

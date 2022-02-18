@@ -16,6 +16,7 @@ export default function DevelopBoard({ isLogin, developBoard }) {
           <SeeMore>
             <Link
               to={'/board/develop'}
+              replace
               style={{ textDecoration: 'none', color: 'black' }}
             >
               {'더보기'}
