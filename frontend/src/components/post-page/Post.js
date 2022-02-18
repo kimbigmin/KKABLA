@@ -131,6 +131,11 @@ const TitleTextField = styled(TextField)`
 
 const ContentsWrapper = styled.div`
   margin: 10px;
+
+  img {
+    max-width: 50%;
+    height: auto;
+  }
 `;
 
 const SubmitButton = styled(Button)`
