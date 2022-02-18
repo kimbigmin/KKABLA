@@ -1,0 +1,101 @@
+export const data = [
+  {
+    id: 1,
+    type: 'free',
+    title: '자유게시판 제목입니다.',
+    contents: '내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    // comments: ,
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 2,
+    type: 'free',
+    title: '제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 3,
+    type: 'free',
+    title: '제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 4,
+    type: 'free',
+    title: '제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 5,
+    type: 'free',
+    title: '제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 6,
+    type: 'develop',
+    title: '개발게시판 제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 7,
+    type: 'develop',
+    title: '제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 8,
+    type: 'develop',
+    title: '제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+  {
+    id: 9,
+    type: 'develop',
+    title: '제목입니다.',
+    contents:
+      '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.',
+    creator: '작성자',
+    thumbnail: '/',
+    views: 5,
+    like: 5,
+  },
+];

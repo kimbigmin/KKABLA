@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+//Style
 import styled from 'styled-components';
 import { Button, Box, TextField } from '@mui/material';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
 //Toast UI Editor
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 function Post({ isLogin, name }) {
-  const [title, setTitle] = useState('');
-  const [contents, setContents] = useState('');
-  const [images, setImages] = useState([]);
+  const navigate = useNavigate();
 
   const editorRef = React.createRef();
 
-  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [contents, setContents] = useState('');
+  const [images, setImages] = useState([]);
 
   const onPostFreeHandler = async () => {
     await axios
@@ -151,8 +154,4 @@ const TitleBox = styled(Box)`
   margin: 10px;
   border-radius: 8px;
   font-weight: bold;
-`;
-
-const UploadInput = styled.input`
-  display: none;
 `;

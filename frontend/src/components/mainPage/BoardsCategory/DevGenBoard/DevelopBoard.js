@@ -1,41 +1,37 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {Grid,Divider} from '@mui/material';
+import { Grid, Divider } from '@mui/material';
 import isTitleLinks from 'components/isTitleLinks/isTitleLinks';
-export default function DevelopBoard({isLogin, developBoard}) {
-  
-  const titleList=[...developBoard]
-    .map((post)=>{
-      return(
-        isTitleLinks(isLogin,post)
-      );
-    });
-  
+export default function DevelopBoard({ isLogin, developBoard }) {
+  const titleList = [...developBoard].map((post) => {
+    return isTitleLinks(isLogin, post);
+  });
+
   return (
-      <Grid item xs={6}>
-        <Box>
-          <BoardHeader>
-            <BoardTitle>{"개발 게시판"}</BoardTitle>
-            <SeeMore>
-              <Link 
-                to={"/board/develop"}
-                style={{ textDecoration: 'none', color: 'black' }}
-              >
-                {"더보기"}
-              </Link>
-            </SeeMore>
-          </BoardHeader>
-          <Divider/>
-          {titleList}
-        </Box>
-      </Grid>
+    <Grid item xs={6}>
+      <Box>
+        <BoardHeader>
+          <BoardTitle>{'개발 게시판'}</BoardTitle>
+          <SeeMore>
+            <Link
+              to={'/board/develop'}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              {'더보기'}
+            </Link>
+          </SeeMore>
+        </BoardHeader>
+        <Divider />
+        {titleList}
+      </Box>
+    </Grid>
   );
 }
 const Box = styled.div`
   box-sizing: border-box;
   display: flex;
-  background-color:white;
+  background-color: white;
   flex-direction: column;
   padding: 2rem;
 
@@ -54,14 +50,14 @@ const BoardHeader = styled.div`
   margin-bottom: 0.5rem;
   align-items: center;
 `;
-const BoardTitle=styled.h2`
-  font-weight : bold;
-  font-size : 1.5rem;
-  line-height : 1rem;
-  color : #151618;
+const BoardTitle = styled.h2`
+  font-weight: bold;
+  font-size: 1.3rem;
+  line-height: 1rem;
+  color: #151618;
   margin-bottom: 1.5rem;
-`
+`;
 
-const SeeMore=styled.div`
-  margin-bottom:auto;
-`
+const SeeMore = styled.div`
+  margin-bottom: auto;
+`;

@@ -7,7 +7,6 @@ import { getRefinedDate } from 'utils/getRefinedDate';
 import BoardContents from 'components/Board/common/BoardContents';
 
 function ReviewList({ isLogin, review }) {
-  console.log(review);
   return (
     <List>
       <Score>
@@ -21,7 +20,7 @@ function ReviewList({ isLogin, review }) {
           <Date>{getRefinedDate(review.createdAt)}</Date>
         </p>
         <h3>"{review.title}"</h3>
-        <p className="content">
+        <span className="content">
           <h4 className="title">장점</h4>
           <div>
             {isLogin ? (
@@ -30,8 +29,8 @@ function ReviewList({ isLogin, review }) {
               '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'
             )}
           </div>
-        </p>
-        <p className="content">
+        </span>
+        <span className="content">
           <h4 className="title">단점</h4>
           <div>
             {isLogin ? (
@@ -40,7 +39,7 @@ function ReviewList({ isLogin, review }) {
               '로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요. 로그인을 해주세요.로그인을 해주세요. 로그인을 해주세요. (비회원일 경우 보이는 내용)'
             )}
           </div>
-        </p>
+        </span>
       </Contents>
     </List>
   );
@@ -106,6 +105,10 @@ const Contents = styled.div`
     margin-bottom: 3rem;
     font-size: 1.3rem;
     font-weight: bold;
+  }
+
+  p {
+    font-size: 1rem;
   }
 `;
 

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import CommonBoard from './CommonBoard';
+import BlindBoard from './BlindBoard';
 import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import styled from 'styled-components';
 
 function CommonBoardList({ type, title, isLogin }) {
   const [commonBoard, setCommonBoard] = useState([]);
@@ -14,8 +16,7 @@ function CommonBoardList({ type, title, isLogin }) {
 
   const getBoardInfo = () => {
     axios
-      .get(`http://localhost:5000/board/${type}`, {})
-      // `http://localhost:5000/board/${type}?page=${page}&limit=10`
+      .get(`http://localhost:5000/board/${type}?page=${page}`, {})
       .then((Response) => {
         setCommonBoard(commonBoard.concat(Response.data));
         setRecentList(commonBoard.concat(Response.data));
@@ -40,7 +41,7 @@ function CommonBoardList({ type, title, isLogin }) {
     if (item) {
       return (
         <Grid key={item._id} item xs={6}>
-          <CommonBoard item={item} />
+          {item.isBlind ? <BlindBoard /> : <CommonBoard item={item} />}
         </Grid>
       );
     }
@@ -122,7 +123,16 @@ function CommonBoardList({ type, title, isLogin }) {
         next={getBoardInfo}
         hasMore={hasMore}
         loader={
-          <h4 style={{ marginTop: '10px', textAlign: 'center' }}>Loading..</h4>
+          <h4
+            style={{
+              marginTop: '10px',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              margin: '3rem',
+            }}
+          >
+            Loding...💤
+          </h4>
         }
         scrollableTarget="svrollableDiv"
         style={{ all: 'initial' }}
@@ -137,24 +147,23 @@ function CommonBoardList({ type, title, isLogin }) {
 
 export default CommonBoardList;
 
-const ReviewPageTopBar = (props) => (
-  <Container
-    sx={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginTop: '5rem',
-      marginBottom: '1rem',
-      alignItems: 'center',
-    }}
-  >
-    {props.children}
-  </Container>
-);
+const ReviewPageTopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  align-items: center;
+`;
 
 const Title = (props) => (
   <Typography
     variant="subtitle1"
-    sx={{ fontSize: '1.7rem', fontWeight: 'bold', color: '#484848ea' }}
+    sx={{
+      fontFamily: 'Pretendard-Regular',
+      fontSize: '1.7rem',
+      fontWeight: 'bold',
+      color: '#484848ea',
+    }}
   >
     {props.children}
   </Typography>
@@ -167,6 +176,7 @@ const AlignButton = (props) => (
     sx={
       props.clickState === props.id
         ? {
+            fontFamily: 'Pretendard-Regular',
             fontSize: '0.8rem',
             fontWeight: '800',
             color: '#484848ea',
@@ -174,6 +184,7 @@ const AlignButton = (props) => (
             ':hover': { fontWeight: 'bold', color: '#4585ff' },
           }
         : {
+            fontFamily: 'Pretendard-Regular',
             fontSize: '0.8rem',
             color: '#484848ea',
             cursor: 'pointer',

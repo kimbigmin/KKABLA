@@ -31,9 +31,10 @@ export default function isTitleLinks(isLogin,post,boardTitle){
                 color: 'black',
                }}
           > 
-            {(boardTitle === "hotPostsBoard" && post.title !=="")  && (<BoardType type={post.type}>{boardType}</BoardType>)}
-            <h2>{post.title.length<limitLen ? 
-            post.title : (post.title.substr(0,limitLen)+tailTxt)}</h2>
+            {(boardTitle === "hotPostsBoard" && post.title !=="")  
+              && (<BoardType type={post.type}>{boardType}</BoardType>)}
+            {post.title === "" ? <BoardLoading>loading...</BoardLoading> : post.title.length<limitLen ? 
+            <h2>{post.title}</h2> : <h2>{post.title.substr(0,limitLen)+tailTxt}</h2>}
               
           </Link>
           {post.createdAt !== "" && <span>{`${fillZeroMonth}-${fillZeroDate}`}</span>}
@@ -61,7 +62,6 @@ const TitleWrapper = styled.div`
   }
 `;
 
-
 const BoardType= styled.div`
   // color: #f5f5f5;
   ${(props=> props.type==='free' ? `color: #b5b5b5` : `color: #6a9eff`)};
@@ -70,4 +70,11 @@ const BoardType= styled.div`
   margin-right: 0.5rem;
   border-radius:1px;
   padding:0.2rem 0.3rem;
+`;
+
+const BoardLoading = styled.h2`
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1rem;
+  color:  #969696;
 `;

@@ -1,63 +1,58 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import { Container, Grid, Paper, Typography } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getAnonymousName } from 'utils/getAnonymousName.js';
 import BoardContents from './BoardContents';
+import styled from 'styled-components';
+import { removeImgTag } from 'utils/removeImgTag';
 
 function CommonBoard({ item }) {
   return (
     <PaperArea>
-      {item.isBlind ? (
-        <ReportMessage>
-          [신고 횟수 누적으로 블라인드된 게시물 입니다]
-        </ReportMessage>
-      ) : null}
-      <BlindArea isBlind={item.isBlind}>
-        <Link
-          to={`/board/${item.type}/${item._id}`}
-          state={{ dataFromBoard: item }}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <Grid container>
-            {/* 이미지 넣어보고 xs={8} 수정필요 */}
-            <Grid item container direction="column">
-              <Grid item container>
-                <Title>{item.title}</Title>
-              </Grid>
-              <Grid item>
-                <Content variant="body1">
-                  <BoardContents item={item.contents} />
-                </Content>
-              </Grid>
-              <Grid item>
-                <Typography variant="caption">
-                  {getAnonymousName(item.creator)}
-                </Typography>
-              </Grid>
-              <Grid item container>
-                <Caption>
-                  <Typography variant="caption">좋아요</Typography>
-                  <Typography variant="caption">
-                    {item.like ? item.like.length : 0}
-                  </Typography>
-                </Caption>
-                <Caption>
-                  <Typography variant="caption">댓글</Typography>
-                  <Typography variant="caption">
-                    {item.comments ? item.comments.length : 0}
-                  </Typography>
-                </Caption>
-              </Grid>
+      <Link
+        to={`/board/${item.type}/${item._id}`}
+        state={{ dataFromBoard: item }}
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
+        <Grid container>
+          <Grid item container xs direction="column">
+            <Grid item container>
+              <Title>{item.title}</Title>
             </Grid>
-            {item.thumbnail ? (
-              <Grid item container xs={4}>
-                <Img alt="이미지" src={item.thumbnail} />
-              </Grid>
-            ) : null}
+            <Grid item>
+              <Content variant="body1">
+                <TuiViewer>
+                  <BoardContents item={removeImgTag(item.contents)} />
+                </TuiViewer>
+              </Content>
+            </Grid>
+            <Grid item>
+              <Typography variant="caption">
+                {getAnonymousName(item.creator)}
+              </Typography>
+            </Grid>
+            <Grid item container>
+              <Caption>
+                <Typography variant="caption">좋아요</Typography>
+                <Typography variant="caption">
+                  {item.like ? item.like.length : 0}
+                </Typography>
+              </Caption>
+              <Caption>
+                <Typography variant="caption">댓글</Typography>
+                <Typography variant="caption">
+                  {item.comments ? item.comments.length : 0}
+                </Typography>
+              </Caption>
+            </Grid>
           </Grid>
-        </Link>
-      </BlindArea>
+          {item.images.length === 0 || item.images[0] === '' ? null : (
+            <Grid item container xs={4}>
+              <Img alt="썸네일" src={item.images[0]} />
+            </Grid>
+          )}
+        </Grid>
+      </Link>
     </PaperArea>
   );
 }
@@ -77,48 +72,8 @@ const PaperArea = (props) => (
   </Paper>
 );
 
-const BlindArea = (props) => (
-  <Container
-    disableGutters
-    sx={
-      props.isBlind
-        ? {
-            p: 2,
-            margin: 'auto',
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-            zIndex: 'modal',
-            backgroundColor: 'rgba(0,0,0,0.1)',
-            WebkitFilter: 'blur(5px)',
-            left: '0px',
-            top: '0px',
-          }
-        : null
-    }
-  >
-    {props.children}
-  </Container>
-);
-
-const ReportMessage = (props) => (
-  <Typography
-    component={'div'}
-    variant="body1"
-    sx={{
-      position: 'absolute',
-      top: '45%',
-      left: '20%',
-      zIndex: 'tooltip',
-      textAlign: 'center',
-    }}
-  >
-    {props.children}
-  </Typography>
-);
-
 const Title = (props) => (
-  <Typography gutterBottom noWrap variant="h6">
+  <Typography gutterBottom noWrap variant="h6" sx={{ fontSize: '1.2rem' }}>
     {props.children}
   </Typography>
 );
@@ -128,6 +83,7 @@ const Content = (props) => (
     gutterBottom
     component={'div'}
     sx={{
+      fontFamily: 'Pretendard-Regular',
       height: '50px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -141,7 +97,7 @@ const Content = (props) => (
 );
 
 const Caption = (props) => (
-  <Grid item sx={{ marginRight: '3px' }}>
+  <Grid item sx={{ marginRight: '3px', fontFamily: 'Pretendard-Regular' }}>
     {props.children}
   </Grid>
 );
@@ -149,6 +105,13 @@ const Caption = (props) => (
 const Img = styled('img')({
   margin: 'auto',
   display: 'block',
-  maxwidth: '100%',
-  maxheight: '100%',
+  width: '100%',
+  height: '110px',
+  objectFit: 'cover',
 });
+
+const TuiViewer = styled.div`
+  .toastui-editor-contents *:not(table) {
+    line-height: normal;
+  }
+`;

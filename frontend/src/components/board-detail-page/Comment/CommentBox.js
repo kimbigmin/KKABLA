@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
-import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
 function CommentBox({
   commentList,
@@ -14,9 +13,7 @@ function CommentBox({
 }) {
   return (
     <Container>
-      {getLocalStorageItem('nickName') && (
-        <CommentInput onCreate={onCreate} type={'origin'} />
-      )}
+      {isLogin && <CommentInput onCreate={onCreate} type={'origin'} />}
       <Comments>
         {commentList &&
           commentList.map((comment) => (
