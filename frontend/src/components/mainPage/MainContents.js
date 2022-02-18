@@ -1,33 +1,22 @@
-import HotBootCampBoard from './BoardsCategory/HotBootCampBoard';
-import BoardsWrapper from './BoardsCategory/BoardsWrapper';
-import Banner from './BoardsCategory/Banner';
+import HotBootCampBoard from 'components/mainPage/BoardsCategory/HotBootCampBoard';
+import BoardsWrapper from 'components/mainPage/BoardsCategory/BoardsWrapper';
+import Banner from 'components/mainPage/BoardsCategory/Banner';
 import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import mainPageDefaultData from 'components/defaultData/mainPageDefaultData';
 
 export default function MainContents({ isLogin }) {
-  const [freeBoard, setFreeBoard] = useState([]);
-  const [reviewBoard, setReviewBoard] = useState([]);
-  const [developBoard, setDevelopBoard] = useState([]);
-  const [bootCamp, setBootCamp] = useState([]);
+  const [totalBoards, setTotalBoards] = useState(mainPageDefaultData);
 
   useEffect(() => {
-    const postReq = async () => {
+    const postReq = () => {
       axios
-        .get('http://localhost:5000/', { withCredentials: true })
+        .get('http://http://elice-kdt-sw-1st-team10.elicecoding.com/', {
+          withCredentials: true,
+        })
         .then((res) => {
-          //자유게시판 글과 개발 게시판 글을 나눈다.
-          res.data.boards.map((post) => {
-            if (post.type === 'free') {
-              setFreeBoard((prevState) => {
-                return [post, ...prevState];
-              });
-            } else if (post.type === 'develop') {
-              setDevelopBoard((prevState) => {
-                return [post, ...prevState];
-              });
-            }
-          });
+          setTotalBoards(res.data);
         })
         .catch((err) => console.log(err));
     };
@@ -38,11 +27,15 @@ export default function MainContents({ isLogin }) {
     <>
       <Banner></Banner>
       <Container>
-        <HotBootCampBoard isLogin={isLogin} />
+        <HotBootCampBoard
+          isLogin={isLogin}
+          hotBootCamps={totalBoards?.bootCamps}
+        />
         <BoardsWrapper
           isLogin={isLogin}
-          freeBoard={freeBoard}
-          developBoard={developBoard}
+          freeBoard={totalBoards?.boards}
+          developBoard={totalBoards?.develop}
+          hotPostsBoard={totalBoards?.like}
         />
       </Container>
     </>

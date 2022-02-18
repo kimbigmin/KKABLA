@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import icon1 from '../../images/google.jpg';
 import icon2 from '../../images/kakao.png';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-// import queryString from 'querystring';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 function Login({ isLogin }) {
   let navigate = useNavigate();
@@ -18,10 +17,8 @@ function Login({ isLogin }) {
   return (
     <LoginContainer>
       <Header>L O G I N</Header>
-      <SupervisedUserCircleIcon
-        sx={{ fontSize: '8rem', color: '#4586ff' }}
-      ></SupervisedUserCircleIcon>
-      <h2>안녕하세요. 로그인을 해주세요 :)</h2>
+      <LockOpenIcon sx={{ fontSize: '8rem', color: '#4586ff' }}></LockOpenIcon>
+      <h2> 반갑습니다. 로그인을 해주세요 :)</h2>
       <LoginBox>
         <LoginButton
           onClick={(e) => {

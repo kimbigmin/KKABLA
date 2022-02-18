@@ -1,32 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Box, TextField } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+//Toast UI Editor
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 function Post({ isLogin, name }) {
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
   const [images, setImages] = useState([]);
 
+  const editorRef = React.createRef();
+
   const navigate = useNavigate();
 
   const onPostFreeHandler = async () => {
     await axios
-      .post(`http://localhost:5000/post/${name}`, {
-        title,
-        type: name,
-        contents,
-        images,
-        creator: isLogin,
-      })
-      .then(navigate(`/board/${name}`, { replace: true }));
+      .post(
+        `http://localhost:5000/post/${name}`,
+        {
+          title,
+          type: name,
+          contents,
+          images,
+          creator: isLogin,
+        },
+        {
+          withCredentials: true,
+        },
+      )
+      .then(
+        setTimeout(() => {
+          navigate(`/board/${name}`, { replace: true });
+        }, 1000),
+      );
   };
 
-  const onHandleUploadImg = (e) => {
-    e.preventDefault();
-    console.log('왜안대!!');
-  };
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().removeHook('addImageBlobHook');
+
+      editorRef.current
+        .getInstance()
+        .addHook('addImageBlobHook', (blob, callback) => {
+          (async () => {
+            let formData = new FormData();
+            formData.append('image', blob);
+
+            console.log('이미지가 업로드 됐습니다.');
+
+            const res = await axios.post(
+              `http://localhost:5000/post/upload`,
+              formData,
+              {
+                header: { 'content-type': 'multipart/formdata' },
+              },
+              { withCredentials: true },
+            );
+
+            const imageUrl =
+              'https://kabbla.s3.ap-northeast-2.amazonaws.com/' + blob.name;
+
+            setImages([...images, imageUrl]);
+            callback(imageUrl, 'image');
+          })();
+
+          return false;
+        });
+    }
+
+    return () => {};
+  }, [editorRef]);
 
   return (
     <form>
@@ -45,28 +91,21 @@ function Post({ isLogin, name }) {
         />
       </TitleWrapper>
       <ContentsWrapper>
-        <ContentsTextField
-          required
-          type="text"
-          fullWidth={true}
-          multiline={true}
-          minRows={10}
-          placeholder="내용을 입력하세요."
-          onChange={(e) => {
-            setContents(e.target.value);
-          }}
+        <Editor
+          previewStyle="vertical"
+          initialEditType="wysiwyg"
+          placeholder="글을 작성해 주세요"
+          onChange={() =>
+            setContents(editorRef.current.getInstance().getHTML())
+          }
+          ref={editorRef}
+          toolbarItems={[
+            ['bold', 'italic', 'strike'],
+            ['hr'],
+            ['image', 'link'],
+          ]}
         />
       </ContentsWrapper>
-      <label for="imgfile">
-        <SubmitButton variant="contained">사진 첨부</SubmitButton>
-      </label>
-      <UploadInput
-        onChange={onHandleUploadImg}
-        type="file"
-        id="imgfile"
-        name="logoImage"
-        accept="image/png"
-      ></UploadInput>
       <SubmitButton
         onClick={() => {
           onPostFreeHandler();
@@ -94,14 +133,10 @@ const ContentsWrapper = styled.div`
   margin: 10px;
 `;
 
-const ContentsTextField = styled(TextField)`
-  display: block;
-`;
-
 const SubmitButton = styled(Button)`
   background-color: #a2d2ff;
   position: relative;
-  left: 85%;
+  float: right;
   font-weight: bold;
   margin-left: 10px;
 `;

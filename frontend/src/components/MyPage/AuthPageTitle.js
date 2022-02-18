@@ -1,56 +1,47 @@
-import React from 'react';
-import { Box, TextField } from '@mui/material';
-import styled from 'styled-components';
+import React, { useState, useEffect, useRef } from 'react';
+import './authPage.css';
+import axios from 'axios';
 
-function AuthPageTitle() {
+function AuthPageTitle({ one, setOne }) {
+  const [result, setResult] = useState([]);
+  const [input, setInput] = useState('');
+
+  const onSearchHandler = async (e) => {
+    const value = e.target.value;
+    await axios
+      .get(`http://localhost:5000/search/bootcamp/${value}`)
+      .then((res) => setResult(res.data));
+  };
+
   return (
-    <>
-      <NameInputBox>
-        <NameBox>부트캠프 이름</NameBox>
-        <TitleTextField
-          required
-          type="text"
-          size="small"
-          fullWidth={true}
-          placeholder="제목을 입력하세요."
+    <div className="one">
+      <div className="text">수료한 부트캠프 이름을 입력해주세요</div>
+      <div className="input">
+        <input
+          value={input}
+          onChange={(e) => {
+            onSearchHandler(e);
+            setInput(e.target.value);
+            setOne(!e.target.value);
+          }}
+          placeholder="예시) 엘리스 SW"
         />
-      </NameInputBox>
-      <TitleBox>수료증을 업로드해 주세요 !</TitleBox>
-    </>
+      </div>
+      <div className="auto">
+        {result.length > 0 &&
+          result.map((el) => (
+            <div
+              className="result"
+              onClick={() => {
+                setInput(el.name);
+              }}
+            >
+              <div className="name">{el.name}</div>
+              <img className="img" src={el.image} alt={el.name} />
+            </div>
+          ))}
+      </div>
+    </div>
   );
 }
 export default AuthPageTitle;
-
-const TitleBox = styled(Box)`
-  text-align: center;
-  font-size: 32px;
-  border-radius: 22px;
-  width: 60%;
-  padding: 10px;
-  background-color: #e8e8e8;
-  font-weight: bold;
-  margin: auto;
-`;
-
-const TitleTextField = styled(TextField)`
-  margin: 10px;
-`;
-
-const NameInputBox = styled(Box)`
-  display: flex;
-  width: 60%;
-  margin: auto;
-`;
-
-const NameBox = styled(Box)`
-  width: 200px;
-  height: 40px;
-  background-color: #a2d2ff;
-  color: black;
-  text-align: center;
-  line-height: 40px;
-  margin: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  margin-bottom: 40px;
-`;

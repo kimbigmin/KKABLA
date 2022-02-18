@@ -1,19 +1,26 @@
 import styled from 'styled-components';
 import React, { useState, Children } from 'react';
 import { Divider, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function MyPagePosts({ content }) {
-  console.log(content);
   return (
     <>
       {content
         ? Children.toArray(
             content.map((el) => (
-              <GridDetailBox>
-                <GridTitle>{el.title}</GridTitle>
-                <Divider></Divider>
-                <GridDetail>{el.content}</GridDetail>
-              </GridDetailBox>
+              <Link
+                to={`/board/${el.type}/${el._id}`}
+                state={{ dataFromBoard: el }}
+                style={{ color: 'black', textDecoration: 'none' }}
+              >
+                <GridDetailBox>
+                  <GridTitle>{el.title}</GridTitle>
+                  <GridBoard>
+                    {el.type === 'free' ? '자유게시판' : '개발게시판'}
+                  </GridBoard>
+                </GridDetailBox>
+              </Link>
             )),
           )
         : '글을 작성해주세요'}
@@ -36,7 +43,8 @@ const GridTitle = styled(Box)`
   font-weight: 700;
 `;
 
-const GridDetail = styled(Box)`
+const GridBoard = styled(Box)`
   padding: 10px;
   font-size: 12px;
+  line-height: 12px;
 `;

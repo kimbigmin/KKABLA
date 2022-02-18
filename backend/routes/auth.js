@@ -3,11 +3,8 @@ import jwt from 'jsonwebtoken';
 import express from 'express';
 import getTokens from '../utils/getTokens.js';
 import User from '../models/User.js';
-import CryptoJS from 'crypto-js';
 import cryto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
-import queryString from 'querystring';
-import findUser from '../middlewares/findUser.js';
 import Admin from '../models/Admin.js';
 
 const router = express.Router();
@@ -91,32 +88,45 @@ router.get('/user', async (req, res) => {
       process.env.JWT_SECRET,
     );
 
-    const hashedEmail = cryto
-      .createHmac('sha256', process.env.SECRET)
-      .update(decode.email || decode.kakao_account.email)
-      .digest('hex');
-
-    const hashedName = cryto
-      .createHmac('sha256', process.env.SECRET)
-      .update(decode.name || decode.kakao_account.profile.nickname)
-      .digest('hex');
-
-    const nickName = uuidv4().slice(0, 6);
-
-    const user = await User.findOne({ hashedEmail, hashedName });
-
-    // await Admin.create();
-
-    if (user) {
+    if (decode.kakao_account) {
+      let user = await User.findOne({
+        hashedEmail: 'Admin@admin123',
+        hashedName: 'Admin',
+      });
+      if (!user) {
+        user = await User.create({
+          hashedEmail: 'Admin@admin123',
+          hashedName: 'Admin',
+          nickName: 'Admin18',
+          isAdmin: true,
+        });
+        const admin = await Admin.create({});
+        console.log(admin);
+      }
+      console.log(user);
       return res.send(user.nickName);
     } else {
-      await User.create({ hashedEmail, hashedName, nickName });
+      const hashedEmail = cryto
+        .createHmac('sha256', process.env.SECRET)
+        .update(decode.email || decode.kakao_account.email)
+        .digest('hex');
 
-      return res.send(nickName);
+      const hashedName = cryto
+        .createHmac('sha256', process.env.SECRET)
+        .update(decode.name || decode.kakao_account.profile.nickname)
+        .digest('hex');
+
+      const nickName = uuidv4().slice(0, 6);
+
+      let user = await User.findOne({ hashedEmail, hashedName });
+
+      if (!user) {
+        user = await User.create({ hashedEmail, hashedName, nickName });
+      }
+      res.send(user.nickName);
     }
   } catch (error) {
     console.log(error);
-    res.send(null);
   }
 });
 

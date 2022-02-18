@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import CardForReviewPage from '../review-page/CardsForReviewPage';
 import { Link } from 'react-router-dom';
 
-function ReviewBox({ bootcampData, setBootcampData, isLogin }) {
+function ReviewBox({ bootcampData, setBootcampData }) {
   //별점순 정렬 핸들러
   const sortByStar = () => {
     const newArr = [...bootcampData];
@@ -35,9 +35,7 @@ function ReviewBox({ bootcampData, setBootcampData, isLogin }) {
         <Link
           to={`/board/review/detail/${item._id}`}
           state={{
-            isLogin: isLogin,
             data: item,
-            review: item.review,
           }}
           style={{ textDecoration: 'none', color: 'black' }}
         >
@@ -74,6 +72,7 @@ const ReviewPageTopBar = styled.div`
   margin-top: 5rem;
   margin-bottom: 5rem;
   align-items: center;
+  height: 47.602px;
 
   h2 {
     font-size: 1.7rem;

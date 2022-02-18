@@ -1,29 +1,9 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { getStars } from '../../utils/getStars';
 import styled from 'styled-components';
-import axios from 'axios';
+// import axios from 'axios';
 
-function Card({ item }) {
-  const [reviews, setReviews] = useState([]);
-  console.log(reviews);
-  // 해결해야 할 이슈 : get을 두 번해서 렌더링 시간 오래걸림
-  const getData = async () => {
-    await axios
-      .get(`http://localhost:5000/board/review/${item._id}`)
-      .then((result) => {
-        setReviews(result.data.review);
-      });
-  };
-
-  useEffect(() => {
-    getData();
-  });
-
-  const sumStars = reviews.reduce((acc, val) => {
-    return acc + val.star;
-  }, 0);
-
-  const averageStars = (sumStars / reviews.length).toFixed(1);
+function Card({ item, idx }) {
   return (
     <>
       <Box>
@@ -32,8 +12,8 @@ function Card({ item }) {
         </ImageBox>
         <div className="info">
           <h3>{item.name}</h3>
-          <span>{getStars(averageStars)}</span>
-          <p>{averageStars === 'NaN' ? '0.0' : averageStars}점</p>
+          <span>{getStars(item.star)}</span>
+          <p>{item.star}점</p>
         </div>
       </Box>
     </>
@@ -58,7 +38,7 @@ const Box = styled.div`
 
   &:hover {
     box-shadow: rgba(49, 124, 182, 0.836) 0px 2px 8px 0px;
-    transition-duration: 0.5s;
+    transition-duration: 1s;
   }
 
   .info {

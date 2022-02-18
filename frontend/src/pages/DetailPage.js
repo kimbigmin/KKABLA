@@ -32,7 +32,10 @@ function DetailPage({ isLogin }) {
   });
 
   return (
-    <Container maxWidth="md" sx={{ marginBottom: '5rem' }}>
+    <Container
+      maxWidth="md"
+      sx={{ marginBottom: '5rem', fontFamily: 'Pretendard-Regular' }}
+    >
       <Top>
         <h2>
           {data.name}{' '}

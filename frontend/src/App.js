@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import './App.css';
+import { Reset } from 'styled-reset';
 
-import { Container } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from './components/common/Header';
@@ -25,25 +24,44 @@ import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import MyPageMoreReviews from './pages/myPage/MyPageMoreReviews';
 import MyPageMoreLikes from './pages/myPage/MyPageMoreLikes';
+import UpdatePage from 'pages/postPage/UpdatePage';
+import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
 
 function App() {
-  const [isLogin, setisLogin] = useState(false);
+  const [isLogin, setisLogin] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  console.log(isLogin);
+  const getData = async () => {
+    await axios
+      .get('http://localhost:5000/mypage/', {
+        withCredentials: true,
+      })
+      .then((res) => setIsAdmin(res.data.isAdmin));
+  };
+
   useEffect(() => {
     const getMe = async () => {
       await axios
         .get('http://localhost:5000/auth/user', {
           withCredentials: true,
         })
-        .then((res) => setisLogin(res.data));
+        .then((res) => {
+          setisLogin(res.data);
+          localStorage.setItem('nickName', JSON.stringify(res.data));
+        });
     };
+    getData();
     getMe();
-  }, [isLogin]);
+  }, []);
+
+  if (isLogin === null) {
+    localStorage.removeItem('nickName');
+  }
 
   return (
     <BrowserRouter>
-      <Header isLogin={isLogin} />
+      <Reset />
+      <Header isLogin={isLogin} isAdmin={isAdmin} />
       <ContentContainer>
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
@@ -57,21 +75,37 @@ function App() {
             path="/board/review/detail/:id"
             element={<ReviewDetailPage isLogin={isLogin} />}
           />
-          <Route path="/board/free/:id" element={<BoardDetailPage />} />
-          <Route path="/board/develop/:id" element={<BoardDetailPage />} />
-          <Route
-            path="/login"
-            element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
-          />
-          <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           <Route
             path="/board/free"
             element={<FreeBoardPage isLogin={isLogin} />}
           />
           <Route
+            path="/board/free/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/free/update/:id"
+            element={<UpdatePage isLogin={isLogin} />}
+          />
+          <Route
             path="/board/develop"
             element={<DevelopBoardPage isLogin={isLogin} />}
           />
+          <Route
+            path="/board/develop/:id"
+            element={<BoardDetailPage isLogin={isLogin} />}
+          />
+          <Route
+            path="/board/develop/update/:id"
+            element={<UpdatePage isLogin={isLogin} />}
+          />
+
+          <Route
+            path="/login"
+            element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
+          />
+          <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
+
           <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
           <Route
             path="/mypage/auth"
@@ -92,7 +126,7 @@ function App() {
           {isLogin && (
             <>
               <Route
-                path="/post/:board/"
+                path="/post/:board"
                 element={<PostPage isLogin={isLogin} />}
               ></Route>
             </>
@@ -106,27 +140,34 @@ function App() {
             </>
           )}
           <Route
-            path="/search"
+            path="/search/"
             element={<SearchResult isLogin={isLogin} />}
           ></Route>
-          <Route path="/admin" element={<AdminPage />}></Route>
+          <Route
+            path="/admin"
+            element={<AdminPage isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/board"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/comment"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
         </Routes>
       </ContentContainer>
-      <Container>
-        <Footer />
-      </Container>
+      <Footer />
     </BrowserRouter>
   );
 }
 
 const ContentContainer = styled.div`
+  font-family: 'Pretendard-Regular';
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
+  margin: auto;
   min-height: 80vh;
   background-color: rgba(244, 244, 244, 0.5);
 `;
