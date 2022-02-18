@@ -15,7 +15,7 @@ function CommonBoard({ item }) {
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <Grid container>
-          <Grid item container xs={8} direction="column">
+          <Grid item container xs direction="column">
             <Grid item container>
               <Title>{item.title}</Title>
             </Grid>
@@ -46,7 +46,7 @@ function CommonBoard({ item }) {
               </Caption>
             </Grid>
           </Grid>
-          {item.images[0] === '' ? null : (
+          {item.images.length === 0 || item.images[0] === '' ? null : (
             <Grid item container xs={4}>
               <Img alt="썸네일" src={item.images[0]} />
             </Grid>

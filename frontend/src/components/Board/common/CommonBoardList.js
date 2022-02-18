@@ -31,6 +31,8 @@ function CommonBoardList({ type, title, isLogin }) {
       });
   };
 
+  console.log(commonBoard);
+
   useEffect(() => {
     getBoardInfo();
   }, []);
