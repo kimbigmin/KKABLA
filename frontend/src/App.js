@@ -33,7 +33,7 @@ function App() {
 
   const getData = async () => {
     await axios
-      .get('http://localhost:5000/mypage/', {
+      .get('http://elice-kdt-sw-1st-team10.elicecoding.com/mypage/', {
         withCredentials: true,
       })
       .then((res) => setIsAdmin(res.data.isAdmin));
@@ -42,7 +42,7 @@ function App() {
   useEffect(() => {
     const getMe = async () => {
       await axios
-        .get('http://localhost:5000/auth/user', {
+        .get('http://elice-kdt-sw-1st-team10.elicecoding.com/auth/user', {
           withCredentials: true,
         })
         .then((res) => {
