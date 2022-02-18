@@ -12,7 +12,7 @@ function AuthPageTitle({ word, setWord }) {
     setWord(value);
 
     await axios
-      .get(`http://localhost:5000/search/bootcamp/${value}`)
+      .get(`/search/bootcamp/${value}`)
       .then((res) => setResult(res.data));
   };
 

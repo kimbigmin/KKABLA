@@ -16,7 +16,7 @@ function CommonBoardList({ type, title, isLogin }) {
 
   const getBoardInfo = () => {
     axios
-      .get(`http://localhost:5000/board/${type}?page=${page}`, {})
+      .get(`/board/${type}?page=${page}`, {})
       .then((Response) => {
         setCommonBoard(commonBoard.concat(Response.data));
         setRecentList(commonBoard.concat(Response.data));

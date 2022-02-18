@@ -8,7 +8,7 @@ function Logout({ setisLogin }) {
   useEffect(() => {
     const logout = async () => {
       await axios
-        .delete('http://localhost:5000/auth/logout', {
+        .delete('/auth/logout', {
           withCredentials: true,
         })
         .then((res) => setisLogin(res.data))

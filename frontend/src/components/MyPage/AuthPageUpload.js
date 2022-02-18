@@ -32,7 +32,7 @@ function AuthPageUpload({ word, setTwo, two }) {
     try {
       await axios({
         method: 'post',
-        url: 'http://localhost:5000/mypage/auth',
+        url: '/mypage/auth',
         data: formData,
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },

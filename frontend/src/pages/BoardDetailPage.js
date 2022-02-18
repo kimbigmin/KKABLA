@@ -31,9 +31,7 @@ function BoardDetailPage({ isLogin }) {
   useEffect(() => {
     const getData = async () => {
       await axios
-        .get(
-          `http://localhost:5000/board/${dataFromBoard.type}/${dataFromBoard._id}`,
-        )
+        .get(`/board/${dataFromBoard.type}/${dataFromBoard._id}`)
         .then((res) => {
           setCommentList(() => {
             if (res.data[0].comments) {
@@ -49,13 +47,9 @@ function BoardDetailPage({ isLogin }) {
 
   const handleCreate = async (newComment) => {
     await axios
-      .post(
-        `http://localhost:5000/post/board/comment/${dataFromBoard._id}`,
-        newComment,
-        {
-          withCredentials: true,
-        },
-      )
+      .post(`/post/board/comment/${dataFromBoard._id}`, newComment, {
+        withCredentials: true,
+      })
       .then((res) => {
         setCommentList((current) => {
           const newArr = [...current, res.data];
@@ -75,7 +69,7 @@ function BoardDetailPage({ isLogin }) {
       }
 
       await axios.post(
-        `http://localhost:5000/post/board/like/${dataFromBoard._id}`,
+        `/post/board/like/${dataFromBoard._id}`,
         { data: isLogin },
         {
           withCredentials: true,

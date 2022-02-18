@@ -16,13 +16,9 @@ function ReplyCommentList({
   // 대댓글 작성 핸들러
   const handleReplyCreate = async (newComment) => {
     await axios
-      .post(
-        `http://localhost:5000/post/comment/comment/${comment._id}`,
-        newComment,
-        {
-          withCredentials: true,
-        },
-      )
+      .post(`/post/comment/comment/${comment._id}`, newComment, {
+        withCredentials: true,
+      })
       .then((res) => {
         setReplyList((current) => {
           const newArr = [...current, res.data];

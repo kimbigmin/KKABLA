@@ -14,7 +14,7 @@ function AdminPage({ isAdmin }) {
 
   const getReportData = async () => {
     await axios
-      .get('http://localhost:5000/mypage', {
+      .get('/mypage', {
         withCredentials: true,
       })
       .then((res) => {

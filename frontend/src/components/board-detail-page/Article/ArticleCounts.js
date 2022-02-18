@@ -34,7 +34,7 @@ export default function ArticleCounts({
   const onHandleDelete = async () => {
     if (!alert('정말로 삭제하시겠습니까?')) {
       await axios
-        .delete(`http://localhost:5000/post/board/${data._id}`, {
+        .delete(`/post/board/${data._id}`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -48,7 +48,7 @@ export default function ArticleCounts({
   const onHandleReport = async () => {
     if (!alert('정말로 신고하시겠습니까?')) {
       await axios.post(
-        `http://localhost:5000/post/board/report/${data._id}`,
+        `/post/board/report/${data._id}`,
         { nickName: isLogin },
         {
           withCredentials: true,

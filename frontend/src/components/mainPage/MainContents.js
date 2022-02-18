@@ -12,11 +12,11 @@ export default function MainContents({ isLogin }) {
   useEffect(() => {
     const postReq = () => {
       axios
-        .get('http://http://elice-kdt-sw-1st-team10.elicecoding.com/', {
+        .get('/', {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data);
           setTotalBoards(res.data);
         })
         .catch((err) => console.log(err));

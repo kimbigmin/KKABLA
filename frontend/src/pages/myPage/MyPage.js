@@ -18,7 +18,7 @@ function MyPage({ isLogin }) {
 
   const getMyData = async () => {
     await axios
-      .get('http://localhost:5000/mypage', {
+      .get('/mypage', {
         withCredentials: true,
       })
       .then((res) => {
@@ -30,7 +30,8 @@ function MyPage({ isLogin }) {
   };
 
   const getBootcamp = async () => {
-    await axios.get('http://localhost:5000/board/review/').then((res) => {
+    await axios.get('/board/review/').then((res) => {
+      console.log(res.data);
       setBootCamp(res.data);
     });
   };
@@ -47,12 +48,26 @@ function MyPage({ isLogin }) {
       </MypageTopBar>
       <Grid container>
         <Grid item xs={12}>
-          <MyPageGrid title={`${isLogin} 님`} children={<MyPageAuth content={auth} />} board="/mypage/auth" />
+          <MyPageGrid
+            title={`${isLogin} 님`}
+            children={<MyPageAuth content={auth} />}
+            board="/mypage/auth"
+          />
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={`작성한 글 ${board === undefined || board === null ? 0 : board.length}개`}
-            children={<MyPagePosts content={board === undefined || board === null ? board : board.slice(0, 5)} />}
+            title={`작성한 글 ${
+              board === undefined || board === null ? 0 : board.length
+            }개`}
+            children={
+              <MyPagePosts
+                content={
+                  board === undefined || board === null
+                    ? board
+                    : board.slice(0, 5)
+                }
+              />
+            }
             length={board === undefined || board === null ? 0 : board.length}
             content={board}
             board="/mypage/boards"
@@ -60,16 +75,30 @@ function MyPage({ isLogin }) {
         </Grid>
         <Grid item xs={5}>
           <MyPageGrid
-            title={`작성한 리뷰 ${reviews === undefined || reviews === null ? 0 : reviews.length}개`}
-            children={<MyPageReviews content={reviews} bootcampData={bootCamp} />}
+            title={`작성한 리뷰 ${
+              reviews === undefined || reviews === null ? 0 : reviews.length
+            }개`}
+            children={
+              <MyPageReviews content={reviews} bootcampData={bootCamp} />
+            }
             content={reviews}
             board="/mypage/reviews"
           />
         </Grid>
         <Grid item xs={3.5}>
           <MyPageGrid
-            title={`좋아요 ${likes === undefined || likes === null ? 0 : likes.length}개`}
-            children={<MyPagePosts content={likes === undefined || likes === null ? likes : likes.slice(0, 5)} />}
+            title={`좋아요 ${
+              likes === undefined || likes === null ? 0 : likes.length
+            }개`}
+            children={
+              <MyPagePosts
+                content={
+                  likes === undefined || likes === null
+                    ? likes
+                    : likes.slice(0, 5)
+                }
+              />
+            }
             length={likes === undefined || likes === null ? 0 : likes.length}
             content={likes}
             board="/mypage/likes"
