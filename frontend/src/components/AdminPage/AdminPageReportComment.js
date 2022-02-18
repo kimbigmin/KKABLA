@@ -21,10 +21,6 @@ function AdminPageReportComment({ content }) {
                     </GridBoard>
                   </GridDetailBox>
                 </Link>
-                <ReportButtonBox>
-                  <Button variant="outlined">복구</Button>
-                  <Button variant="outlined">삭제</Button>
-                </ReportButtonBox>
               </ReportBox>
             )),
           )

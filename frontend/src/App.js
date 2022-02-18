@@ -24,6 +24,7 @@ import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import UpdatePage from 'pages/postPage/UpdatePage';
 import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
+import AdminPageMoreBoard from 'pages/myPage/AdminPageMoreBoard';
 
 function App() {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
@@ -81,7 +82,7 @@ function App() {
           />
           <Route
             path="/board/free/:id"
-            element={<BoardDetailPage isLogin={isLogin} />}
+            element={<BoardDetailPage isLogin={isLogin} isAdmin={isAdmin}/>}
           />
           <Route
             path="/board/free/update/:id"
@@ -93,7 +94,7 @@ function App() {
           />
           <Route
             path="/board/develop/:id"
-            element={<BoardDetailPage isLogin={isLogin} />}
+            element={<BoardDetailPage isLogin={isLogin} isAdmin={isAdmin} />}
           />
           <Route
             path="/board/develop/update/:id"
@@ -145,7 +146,7 @@ function App() {
               ></Route>
               <Route
                 path="/admin/board"
-                element={<AdminPageMoreComment isAdmin={isAdmin} />}
+                element={<AdminPageMoreBoard isAdmin={isAdmin} />}
               ></Route>
               <Route
                 path="/admin/comment"
