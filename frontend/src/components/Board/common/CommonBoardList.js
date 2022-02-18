@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CommonBoard from './CommonBoard';
+import BlindBoard from './BlindBoard';
 import { Container, Grid, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -15,8 +16,7 @@ function CommonBoardList({ type, title, isLogin }) {
 
   const getBoardInfo = () => {
     axios
-      .get(`http://localhost:5000/board/${type}`, {})
-      // `http://localhost:5000/board/${type}?page=${page}&limit=10`
+      .get(`http://localhost:5000/board/${type}?page=${page}`, {})
       .then((Response) => {
         setCommonBoard(commonBoard.concat(Response.data));
         setRecentList(commonBoard.concat(Response.data));
@@ -30,6 +30,8 @@ function CommonBoardList({ type, title, isLogin }) {
       });
   };
 
+  console.log(commonBoard);
+
   useEffect(() => {
     getBoardInfo();
   }, []);
@@ -39,7 +41,7 @@ function CommonBoardList({ type, title, isLogin }) {
     if (item) {
       return (
         <Grid key={item._id} item xs={6}>
-          <CommonBoard item={item} />
+          {item.isBlind ? <BlindBoard /> : <CommonBoard item={item} />}
         </Grid>
       );
     }

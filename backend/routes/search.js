@@ -19,7 +19,6 @@ router.get('/:value', async (req, res) => {
         ],
       }),
     ]);
-    console.log(bootCamp, boards);
     res.send({ bootCamp, boards });
   }
 });
@@ -31,8 +30,6 @@ router.get('/bootcamp/:value', async (req, res) => {
     const bootCamp = await BootCamp.find({
       name: { $regex: value, $options: 'i' },
     });
-
-    console.log(bootCamp);
     res.send(bootCamp);
   }
 });

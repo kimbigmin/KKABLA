@@ -4,7 +4,7 @@ import AuthPageUpload from './AuthPageUpload';
 import './authPage.css';
 import './progress.css';
 
-function Progress({ one, setOne, two, setTwo }) {
+function Progress({ word, setWord, two, setTwo }) {
   const [active, setActive] = useState(1);
   const [disable1, setDisable1] = useState(true);
   const [disable2, setDisable2] = useState(false);
@@ -80,8 +80,8 @@ function Progress({ one, setOne, two, setTwo }) {
       <div className="slider">
         <div className="wrapper">
           <div ref={card} className="card ">
-            <AuthPageTitle one={one} setOne={setOne} />
-            <AuthPageUpload one={one} two={two} setTwo={setTwo} />
+            <AuthPageTitle word={word} setWord={setWord} />
+            <AuthPageUpload word={word} two={two} setTwo={setTwo} />
           </div>
         </div>
       </div>
