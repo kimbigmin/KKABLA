@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import './App.css';
+import { Reset } from 'styled-reset';
 
-import { Container } from '@mui/material';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from './components/common/Header';
@@ -30,7 +29,6 @@ import UpdatePage from 'pages/postPage/UpdatePage';
 function App() {
   const [isLogin, setisLogin] = useState(null);
 
-  console.log(isLogin);
   useEffect(() => {
     const getMe = async () => {
       await axios
@@ -41,7 +39,6 @@ function App() {
           setisLogin(res.data);
           localStorage.setItem('nickName', JSON.stringify(res.data));
         });
-      console.log(isLogin);
     };
 
     getMe();
@@ -53,6 +50,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Reset />
       <Header isLogin={isLogin} />
       <ContentContainer>
         <Routes>
@@ -138,21 +136,16 @@ function App() {
           <Route path="/admin" element={<AdminPage />}></Route>
         </Routes>
       </ContentContainer>
-      <Container>
-        <Footer />
-      </Container>
+      <Footer />
     </BrowserRouter>
   );
 }
 
 const ContentContainer = styled.div`
   display: flex;
-  // justify-content: center;
   flex-direction: column;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
+  margin: auto;
   min-height: 80vh;
   background-color: rgba(244, 244, 244, 0.5);
 `;

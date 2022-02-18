@@ -15,6 +15,10 @@ const ContentContainer = styled.div`
   font-size: 1.1rem;
   padding: 3.5rem 1rem 3.5rem 1rem;
   border-bottom: solid 1px #e5e5e5;
+
+  p {
+    font-size: 1.1rem;
+  }
 `;
 
 export default ArticleContent;

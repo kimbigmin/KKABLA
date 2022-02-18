@@ -4,9 +4,10 @@ import Banner from 'components/mainPage/BoardsCategory/Banner';
 import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import DefaultData from 'components/defaultData';
+import mainPageDefaultData from 'components/defaultData/mainPageDefaultData';
+
 export default function MainContents({ isLogin }) {
-  const [totalBoards,setTotalBoards]=useState(DefaultData);
+  const [totalBoards,setTotalBoards]=useState(mainPageDefaultData);
   
   useEffect(()=>{
     const postReq = () => {

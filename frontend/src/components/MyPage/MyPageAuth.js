@@ -44,7 +44,10 @@ export default MyPageAuth;
 
 const AuthContainer = styled(Container)`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const GridPart = styled(Grid)`
@@ -67,13 +70,14 @@ const AuthBox = styled(Box)`
 `;
 
 const AuthNeedBox = styled(Box)`
-  margin: 10px;
-  background-color: #bde7ff;
-  width: 180px;
-  height: 60px;
-  padding: 10px;
-  border-radius: 20px;
+  margin-top: 2rem;
+  background-color: #84a4d3;
+  color: white;
+  width: 150px;
+  padding: 0.2rem;
+  border-radius: 5px;
   text-align: center;
   line-height: 60px;
-  font-size: 20px;
+  font-size: 1rem;
+  cursor: pointer;
 `;

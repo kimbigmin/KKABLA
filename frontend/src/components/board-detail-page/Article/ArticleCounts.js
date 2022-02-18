@@ -20,8 +20,6 @@ export default function ArticleCounts({
   likeCount,
   isLogin,
 }) {
-  console.log(data);
-
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -122,6 +120,10 @@ const ArticleCountsContainer = styled.div`
   margin-top: 1rem;
   display: flex;
   flex-direction: row;
+
+  p {
+    margin-left: 0.2rem;
+  }
 `;
 
 const Item = styled.div`

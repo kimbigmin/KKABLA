@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getAnonymousName } from 'utils/getAnonymousName.js';
 import BoardContents from './BoardContents';
 import styled from 'styled-components';
+import { removeImgTag } from 'utils/removeImgTag';
 
 function CommonBoard({ item }) {
   return (
@@ -21,7 +22,7 @@ function CommonBoard({ item }) {
             <Grid item>
               <Content variant="body1">
                 <TuiViewer>
-                  <BoardContents item={item.contents} />
+                  <BoardContents item={removeImgTag(item.contents)} />
                 </TuiViewer>
               </Content>
             </Grid>
