@@ -15,13 +15,9 @@ function DetailPage({ isLogin }) {
 
   console.log(data);
   const getReviews = async () => {
-    await axios
-      .get(
-        `http://elice-kdt-sw-1st-team10.elicecoding.com/board/review/${data._id}`,
-      )
-      .then((res) => {
-        setReviews(res.data.review);
-      });
+    await axios.get(`/board/review/${data._id}`).then((res) => {
+      setReviews(res.data.review);
+    });
   };
 
   useEffect(() => {

@@ -9,7 +9,7 @@ function AuthPageTitle({ one, setOne }) {
   const onSearchHandler = async (e) => {
     const value = e.target.value;
     await axios
-      .get(`http://localhost:5000/search/bootcamp/${value}`)
+      .get(`/search/bootcamp/${value}`)
       .then((res) => setResult(res.data));
   };
 

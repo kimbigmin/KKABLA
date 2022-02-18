@@ -16,7 +16,7 @@ function PostPage({ isLogin }) {
 
   useEffect(() => {
     function getPost() {
-      axios.get(`http://localhost:5000`).then((res) => setPost(res.data));
+      axios.get('/').then((res) => setPost(res.data));
     }
 
     getPost();

@@ -26,7 +26,7 @@ function PostReview({ isLogin }) {
   const onPostReviewHandler = async () => {
     await axios
       .post(
-        `http://localhost:5000/post/review/${id}`,
+        `/post/review/${id}`,
         {
           title,
           bootCamp: id,

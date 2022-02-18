@@ -4,13 +4,12 @@ import axios from 'axios';
 
 function Review({ isLogin }) {
   const [bootcampData, setBootcampData] = useState([]);
+
   // 부트캠프 데이터 GET Handler
   const getBootcampData = async () => {
-    return await axios
-      .get('http://elice-kdt-sw-1st-team10.elicecoding.com/board/review/')
-      .then((res) => {
-        setBootcampData(res.data);
-      });
+    return await axios.get('/board/review').then((res) => {
+      setBootcampData(res.data);
+    });
   };
 
   useEffect(() => {

@@ -19,7 +19,7 @@ function MyPage({ isLogin }) {
 
   const getMyData = async () => {
     await axios
-      .get('http://localhost:5000/mypage', {
+      .get('/mypage', {
         withCredentials: true,
       })
       .then((res) => {
@@ -32,7 +32,7 @@ function MyPage({ isLogin }) {
   };
 
   const getBootcamp = async () => {
-    await axios.get('http://localhost:5000/board/review/').then((res) => {
+    await axios.get('/board/review/').then((res) => {
       console.log(res.data);
       setBootCamp(res.data);
     });

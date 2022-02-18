@@ -31,7 +31,7 @@ function AdminAdd() {
     console.log(e.target.files[0].name);
 
     axios.post(
-      'http://localhost:5000/post/upload',
+      '/post/upload',
       formData,
       {
         header: { 'content-type': 'multipart/formdata' },
@@ -49,7 +49,7 @@ function AdminAdd() {
   const onPostBootcampHandler = async () => {
     await axios
       .post(
-        'http://localhost:5000/post/bootcamp',
+        '/post/bootcamp',
         {
           name,
           location,
