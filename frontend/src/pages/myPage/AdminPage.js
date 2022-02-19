@@ -11,7 +11,7 @@ import AdminPageReportComment from 'components/AdminPage/AdminPageReportComment'
 
 function AdminPage({ isAdmin }) {
   const [reportBoard, setReportBoard] = useState();
-  const [reportComment, setReportComment] = useState();
+  // const [reportComment, setReportComment] = useState();
 
   const getReportData = async () => {
     await axios
@@ -20,7 +20,7 @@ function AdminPage({ isAdmin }) {
       })
       .then((res) => {
         setReportBoard(res.data.reportBoard);
-        setReportComment(res.data.reportComment);
+        // setReportComment(res.data.reportComment);
       });
   };
 
@@ -28,8 +28,6 @@ function AdminPage({ isAdmin }) {
     getReportData();
   }, []);
 
-  console.log(reportBoard);
-  console.log(reportComment);
   return (
     <MyPageContainer>
       <MypageTopBar>
@@ -50,7 +48,7 @@ function AdminPage({ isAdmin }) {
                     content={
                       reportBoard === undefined || reportBoard === null
                         ? reportBoard
-                        : reportBoard.slice(0, 4)
+                        : reportBoard.slice(0, 7)
                     }
                   />
                 }
@@ -63,7 +61,7 @@ function AdminPage({ isAdmin }) {
                 board="/admin/board"
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* <Grid item xs={6}>
               <MyPageGrid
                 title={`신고당한 댓글 ${
                   reportComment === undefined || reportComment === null
@@ -87,7 +85,7 @@ function AdminPage({ isAdmin }) {
                 content={reportComment}
                 board="/admin/comment"
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
         <Grid item xs={6}>
