@@ -24,6 +24,7 @@ import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import UpdatePage from 'pages/postPage/UpdatePage';
 import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
+import ScrollToTop from 'components/scrollToTop/scrollToTop';
 
 function App() {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
@@ -59,7 +60,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <Reset />
       <Header isLogin={isLogin} isAdmin={isAdmin} />
       <ContentContainer>
@@ -100,7 +101,7 @@ function App() {
         </Routes>
       </ContentContainer>
       <Footer />
-    </BrowserRouter>
+      </>
   );
 }
 
