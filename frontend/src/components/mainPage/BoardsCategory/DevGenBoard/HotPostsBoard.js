@@ -1,17 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Grid, Divider } from '@mui/material';
-import { PostAddSharp } from '@mui/icons-material';
 import isTitleLinks from 'components/isTitleLinks/isTitleLinks';
 
 export default function HotPostsBoard({ isLogin, hotPostsBoard }) {
   const titleList = [...hotPostsBoard]
     .map((post) => {
-    return (
-      isTitleLinks(isLogin, post, 'hotPostsBoard')
-    );
-  });
+      return(
+        isTitleLinks(isLogin, post, 'hotPostsBoard')
+      );
+    });
 
   return (
     <Grid item xs={6}>

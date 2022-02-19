@@ -23,13 +23,13 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: 'http://elice-kdt-sw-1st-team10.elicecoding.com',
   }),
 );
 
 //Routes
 app.use('/auth', auth);
-app.use('/post', post);
+app.use('/post', findUser, post);
 app.use('/mypage', findUser, mypage);
 app.use('/login', login);
 app.use('/search', search);

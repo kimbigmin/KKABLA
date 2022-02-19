@@ -1,7 +1,8 @@
-import styled from 'styled-components';
-import React, { useState, Children } from 'react';
-import { Divider, Box, Button } from '@mui/material';
+import React, { Children } from 'react';
 import { Link } from 'react-router-dom';
+//style
+import styled from 'styled-components';
+import { Box } from '@mui/material';
 
 function AdminPageReport({ content }) {
   return (
@@ -29,8 +30,6 @@ function AdminPageReport({ content }) {
   );
 }
 
-//post에 따라서 정해짐. null 이면 글을 작성해주세요 출력
-
 export default AdminPageReport;
 
 const GridDetailBox = styled(Box)`
@@ -51,10 +50,8 @@ const GridBoard = styled(Box)`
 `;
 
 const ReportBox = styled(Box)`
-  display: flex;
-  justify-content: end;
-
   a {
-    width: 100%;
+    text-decoration: none;
+    color: black;
   }
 `;
