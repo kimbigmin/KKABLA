@@ -5,7 +5,7 @@ function BlindBoard() {
   return (
     <PaperArea>
       <ReportMessage>
-        [신고 횟수 누적으로 블라인드된 게시물 입니다]
+        🙅‍♂️신고 횟수 누적으로 블라인드된 게시물 입니다🙅‍♂️
       </ReportMessage>
       <BlindArea>
         <Grid container>
@@ -82,11 +82,9 @@ const ReportMessage = (props) => (
     component={'div'}
     variant="body1"
     sx={{
-      position: 'absolute',
-      top: '45%',
-      left: '20%',
-      zIndex: 'tooltip',
       textAlign: 'center',
+      fontSize: '1.1rem',
+      marginTop: '10%',
     }}
   >
     {props.children}

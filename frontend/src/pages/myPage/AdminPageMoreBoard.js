@@ -1,9 +1,10 @@
-import { Container, Grid } from '@mui/material';
-import AdminPageReport from 'components/AdminPage/AdminPageReport';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import MyPageGrid from '../../components/MyPage/MyPageGrid';
+//style
+import { Container, Grid } from '@mui/material';
+//component
+import MyPageGrid from 'components/MyPage/MyPageGrid';
+import AdminPageReport from 'components/AdminPage/AdminPageReport';
 
 function AdminPageMoreBoard({ isLogin }) {
   const location = useLocation();

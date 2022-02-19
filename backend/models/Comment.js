@@ -5,7 +5,7 @@ const { Schema, model } = mongoose;
 const CommentSchema = new Schema(
   {
     type: String,
-    boadType: String,
+    boardType: String,
     boardId: { type: Schema.Types.ObjectId, ref: 'Board' },
     creator: String,
     contents: String,
