@@ -16,7 +16,7 @@ router.get('/kakao', async (req, res) => {
     code,
     clientId: 'ca25925040f30318f70fb3c066f9444d',
     clientSecret: 'sGP8spDrGTl9d4ooxxeEhSOcaHkOHuQF',
-    redirectUri: 'http://elice-kdt-sw-1st-team10.elicecoding.com/auth/kakao',
+    redirectUri: `${process.env.BASE_URL}/auth/kakao`,
   });
 
   const kakaoUser = await axios
@@ -40,7 +40,7 @@ router.get('/kakao', async (req, res) => {
     secure: false,
   });
 
-  res.redirect('http://elice-kdt-sw-1st-team10.elicecoding.com/');
+  res.redirect(`${process.env.CLIENT_URL}`);
 });
 
 router.get('/google', async (req, res) => {
@@ -50,7 +50,7 @@ router.get('/google', async (req, res) => {
     code,
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: 'http://elice-kdt-sw-1st-team10.elicecoding.com/auth/google',
+    redirectUri: `${process.env.BASE_URL}/auth/google`,
   });
 
   const googleUser = await axios
@@ -76,7 +76,7 @@ router.get('/google', async (req, res) => {
     // secure: false,
   });
 
-  res.redirect('http://elice-kdt-sw-1st-team10.elicecoding.com/');
+  res.redirect(`${process.env.CLIENT_URL}`);
 });
 
 router.get('/user', async (req, res) => {
