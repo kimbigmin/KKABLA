@@ -110,8 +110,11 @@ router.delete('/board/:id', async (req, res) => {
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
+  const b = await Board.find({ _id: id });
+
   const comments = await Comment.create({
     boardId: id,
+    boardType: b[0].type,
     type: 'comment',
     creator: res.locals.user.nickName,
     contents,
@@ -184,10 +187,11 @@ router.post('/board/report/:id', async (req, res) => {
 router.post('/comment/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
-
+  const b = await Board.find({ _id: id });
   const comments = await Comment.create({
     type: 'reply',
     boardId: id,
+    boardType: b[0].type,
     creator: res.locals.user.nickName,
     contents,
   });

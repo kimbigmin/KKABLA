@@ -29,7 +29,7 @@ export default function SearchResult({isLogin}){
 
   let freeBoardResult=[]
   let developBoardResult=[]
-
+  
   searchResult.boards
     .map((post)=>{
     if(post.type==="free"){

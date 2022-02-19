@@ -18,6 +18,11 @@ function CommonBoardList({ type, title, isLogin }) {
     axios
       .get(`/board/${type}?page=${page}`, {})
       .then((Response) => {
+        if (Response.data.message) {
+          setHasMore(false);
+          return;
+        }
+
         setCommonBoard(commonBoard.concat(Response.data));
         setRecentList(commonBoard.concat(Response.data));
 
@@ -29,8 +34,6 @@ function CommonBoardList({ type, title, isLogin }) {
         console.log(Error);
       });
   };
-
-  console.log(commonBoard);
 
   useEffect(() => {
     getBoardInfo();

@@ -65,11 +65,13 @@ function Comment({ comment, isReplyComment, setCommentList, articleWriter }) {
   // 댓글 신고 핸들러
   const onHandleReport = async () => {
     if (!alert('정말로 신고하시겠습니까?')) {
-      await axios.get(`/post/comment/report/${comment._id}`, {
+      await axios.post(`/post/comment/report/${comment._id}`, {
         withCredentials: true,
       });
     }
   };
+
+  console.log(comment);
 
   const isCommentWriter = comment.creator === articleWriter;
 
