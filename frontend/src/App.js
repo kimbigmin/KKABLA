@@ -23,6 +23,7 @@ import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import UpdatePage from 'pages/postPage/UpdatePage';
 import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
+import SearchResultSeeMore from 'components/SearchResult/SearchResultSeeMore';
 
 function App() {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
@@ -92,7 +93,8 @@ function App() {
               <Route path="/post/review/:id" element={<PostReviewPage isLogin={isLogin} />}></Route>
             </>
           )}
-          <Route path="/search/" element={<SearchResult isLogin={isLogin} />}></Route>
+          <Route path="/search/" element={<SearchResult isLogin={isLogin}/>}></Route>
+          <Route path="/search/seemore/" element={<SearchResultSeeMore isLogin={isLogin}/>}></Route>
           <Route path="/admin" element={<AdminPage isAdmin={isAdmin} />}></Route>
           <Route path="/admin/board" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
           <Route path="/admin/comment" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>

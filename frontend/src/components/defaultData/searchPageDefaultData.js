@@ -2,7 +2,7 @@ const searchPageDefaultData = {
   boards: [
     {
       _id: '620ceb5708922029039963491',
-      type: 'develop',
+      type: 'default',
       title: '',
       contents: '<p>Default value</p>',
       creator: '98a205',

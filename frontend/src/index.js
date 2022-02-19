@@ -7,11 +7,11 @@ import ScrollToTop from 'components/scrollToTop/scrollToTop';
 
 ReactDOM.render(
   <React.StrictMode>
-  <BrowserRouter>
-    <ScrollToTop/>
-    <GlobalFonts />
-    <App />
-  </BrowserRouter>
+    <BrowserRouter>
+      <ScrollToTop/>
+      <GlobalFonts/>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
   ,
   document.getElementById('root'),
