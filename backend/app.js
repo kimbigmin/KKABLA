@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: `${process.env.BASE_URL}`,
+    origin: `${process.env.CLIENT_URL}`,
   }),
 );
 
