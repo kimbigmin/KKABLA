@@ -55,7 +55,7 @@ function PostReview({ isLogin }) {
           alert(res.data.message);
         } else {
           setTimeout(() => {
-            navigate(`/board/review/`, {
+            navigate(`/board/review/detail/${id}`, {
               state: { data },
               replace: true,
             });
