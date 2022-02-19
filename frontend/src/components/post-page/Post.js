@@ -10,10 +10,16 @@ import { Button, Box, TextField } from '@mui/material';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-//Toast Ui Plugin
+//Toast Ui color Plugin
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+
+//Toast Ui code Plugin
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 function Post({ isLogin, name }) {
   const navigate = useNavigate();
@@ -111,7 +117,10 @@ function Post({ isLogin, name }) {
             ['ul', 'ol'],
             ['code', 'codeblock'],
           ]}
-          plugins={[colorSyntax]}
+          plugins={[
+            [colorSyntax],
+            [codeSyntaxHighlight, { highlighter: Prism }],
+          ]}
         />
       </ContentsWrapper>
       <SubmitButton
