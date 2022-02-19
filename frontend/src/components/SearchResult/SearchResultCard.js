@@ -58,9 +58,15 @@ const Box = styled.div`
 
 const ImageBox = styled.div`
   width: 50%;
+  margin: auto;
+
+  display: flex;
+  justify-content: center;
 
   img {
-    width: 100%;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
   }
 `;
 

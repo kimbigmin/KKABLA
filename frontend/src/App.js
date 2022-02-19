@@ -68,7 +68,7 @@ function App() {
         <Routes>
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
-          <Route path="/" element={<MainContents isLogin={isLogin} />}></Route>
+          <Route path="/*" element={<MainContents isLogin={isLogin} />}></Route>
           {/* 검색 */}
           <Route
             path="/search/"
@@ -166,11 +166,26 @@ function App() {
               ></Route> */}
             </>
           )}
-          <Route path="/search/" element={<SearchResult isLogin={isLogin}/>}></Route>
-          <Route path="/search/seemore/" element={<SearchResultSeeMore isLogin={isLogin}/>}></Route>
-          <Route path="/admin" element={<AdminPage isAdmin={isAdmin} />}></Route>
-          <Route path="/admin/board" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
-          <Route path="/admin/comment" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
+          <Route
+            path="/search/"
+            element={<SearchResult isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/search/seemore/"
+            element={<SearchResultSeeMore isLogin={isLogin} />}
+          ></Route>
+          <Route
+            path="/admin"
+            element={<AdminPage isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/board"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
+          <Route
+            path="/admin/comment"
+            element={<AdminPageMoreComment isAdmin={isAdmin} />}
+          ></Route>
         </Routes>
       </ContentContainer>
       <Footer />

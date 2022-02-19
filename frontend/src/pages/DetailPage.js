@@ -13,7 +13,6 @@ function DetailPage({ isLogin }) {
   const { data } = location.state;
   const [reviews, setReviews] = useState([]);
 
-  console.log(data);
   const getReviews = async () => {
     await axios.get(`/board/review/${data._id}`).then((res) => {
       setReviews(res.data.review);
@@ -25,6 +24,7 @@ function DetailPage({ isLogin }) {
   }, []);
 
   console.log(reviews);
+
   const list = reviews.map((review) => {
     return <ReviewList isLogin={isLogin} review={review} />;
   });

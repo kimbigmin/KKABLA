@@ -55,7 +55,7 @@ function PostReview({ isLogin }) {
           alert(res.data.message);
         } else {
           setTimeout(() => {
-            navigate(`/board/review/detail/${id}`, {
+            navigate(`/board/review/`, {
               state: { data },
               replace: true,
             });
@@ -191,10 +191,11 @@ const ReviewBox = styled(Box)`
 `;
 
 const ReviewImg = styled.img`
-  width: 13rem;
-  postion: absolute;
-  margin-top: 1.4rem;
   text-align: center;
+
+  width: 200px;
+  height: 200px;
+  objet-fit: contain;
 `;
 
 const ContentLabel = styled(Box)`

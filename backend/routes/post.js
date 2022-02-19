@@ -187,11 +187,11 @@ router.post('/board/report/:id', async (req, res) => {
 router.post('/comment/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
-  const b = await Board.find({ _id: id });
+  const b = await Comment.find({ _id: id });
   const comments = await Comment.create({
     type: 'reply',
     boardId: id,
-    boardType: b[0].type,
+    boardType: b[0].boardType,
     creator: res.locals.user.nickName,
     contents,
   });

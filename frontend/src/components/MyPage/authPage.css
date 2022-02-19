@@ -16,11 +16,9 @@ input {
   outline: none;
   border: none;
   border-bottom: 1.5px solid rgba(90, 97, 103, 1);
-  text-align: center;
 }
 
 input::placeholder {
-  text-align: center;
   font-size: 15px;
 }
 
