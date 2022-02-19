@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: 'http://elice-kdt-sw-1st-team10.elicecoding.com',
+    origin: 'http://elice-kdt-sw-1st-team10.elicecoding.com/',
   }),
 );
 
