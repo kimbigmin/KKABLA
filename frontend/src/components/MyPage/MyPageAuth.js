@@ -1,8 +1,8 @@
 import React, { Children } from 'react';
 //style
 import styled from 'styled-components';
-import { Box, Container, Grid } from '@mui/material';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { Box } from '@mui/material';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 
 function MyPageAuth({ content }) {
   return (
@@ -12,14 +12,10 @@ function MyPageAuth({ content }) {
           {Children.toArray(
             content.map((el) => (
               <AuthBox>
-                <Grid container>
-                  <GridPart item xs={10}>
-                    {el} 수료생
-                  </GridPart>
-                  <GridIcon item xs={2}>
-                    <EmojiEventsIcon />
-                  </GridIcon>
-                </Grid>
+                <TitleBox>{el} 수료생</TitleBox>
+                <IconBox>
+                  <StyledEmojiEventsOutlinedIcon fontSize="large" />
+                </IconBox>
               </AuthBox>
             )),
           )}
@@ -37,20 +33,24 @@ const AuthContainer = styled(Box)`
   flex-wrap: wrap;
 `;
 
-const GridPart = styled(Grid)`
-  line-height: 30px;
-  font-weight: bold;
-`;
-
-const GridIcon = styled(Grid)`
-  line-height: 100px;
+const TitleBox = styled(Box)`
+  font-weight: 600;
 `;
 
 const AuthBox = styled(Box)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px;
-  background-color: #bde7ff;
+  background-color: #4586ff;
   width: 180px;
   height: 60px;
   padding: 10px;
   border-radius: 20px;
+`;
+
+const IconBox = styled(Box)``;
+
+const StyledEmojiEventsOutlinedIcon = styled(EmojiEventsOutlinedIcon)`
+  color: yellow;
 `;

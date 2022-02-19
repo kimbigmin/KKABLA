@@ -7,6 +7,15 @@ import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 //Toast UI
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+//Toast Ui Plugin
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+//Toast Ui code Plugin
+import Prism from 'prismjs';
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 function PostReview({ isLogin }) {
   const navigate = useNavigate();
@@ -46,7 +55,7 @@ function PostReview({ isLogin }) {
           alert(res.data.message);
         } else {
           setTimeout(() => {
-            navigate(`/board/review/detail/${id}`, {
+            navigate(`/board/review/`, {
               state: { data },
               replace: true,
             });
@@ -95,7 +104,16 @@ function PostReview({ isLogin }) {
           onChange={() => setPros(editorPosRef.current.getInstance().getHTML())}
           ref={editorPosRef}
           height="250px"
-          toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
+          toolbarItems={[
+            ['bold', 'italic', 'strike'],
+            ['hr'],
+            ['link'],
+            ['ul', 'ol'],
+          ]}
+          plugins={[
+            [colorSyntax],
+            [codeSyntaxHighlight, { highlighter: Prism }],
+          ]}
         />
       </ContentsWrapper>
       <ContentsWrapper>
@@ -107,7 +125,12 @@ function PostReview({ isLogin }) {
           onChange={() => setCons(editorNegRef.current.getInstance().getHTML())}
           ref={editorNegRef}
           height="250px"
-          toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
+          toolbarItems={[
+            ['bold', 'italic', 'strike'],
+            ['hr'],
+            ['link'],
+            ['ul', 'ol'],
+          ]}
         />
       </ContentsWrapper>
       <SubmitButton onClick={onPostReviewHandler} variant="contained">
@@ -168,10 +191,11 @@ const ReviewBox = styled(Box)`
 `;
 
 const ReviewImg = styled.img`
-  width: 13rem;
-  postion: absolute;
-  margin-top: 1.4rem;
   text-align: center;
+
+  width: 200px;
+  height: 200px;
+  objet-fit: contain;
 `;
 
 const ContentLabel = styled(Box)`

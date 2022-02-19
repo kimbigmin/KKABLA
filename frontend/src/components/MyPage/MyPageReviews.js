@@ -11,7 +11,7 @@ function MyPageReviews({ content, bootcampData }) {
   console.log(content);
 
   const findBootcampName = (id) => {
-    const item = bootcampData.filter((el) => el._id === id)[0];
+    const item = bootcampData.filter((el) => el._id === id)[0].name;
     console.log(item);
     if (item === null) {
       return null;
@@ -20,7 +20,7 @@ function MyPageReviews({ content, bootcampData }) {
   };
 
   const findBootCampImg = (id) => {
-    const item = bootcampData.filter((el) => el._id === id)[0];
+    const item = bootcampData.filter((el) => el._id === id)[0].image;
     console.log(item);
     if (item === null) {
       return '';
@@ -56,13 +56,16 @@ function MyPageReviews({ content, bootcampData }) {
                     </RatingBox>
                   </GridItem>
                   <Grid item xs={3}>
-                    <BootCampImg src="" alt="부트캠프 이미지" />
+                    <BootCampImg
+                      src={findBootCampImg(el._id)}
+                      alt="부트캠프 이미지"
+                    />
                   </Grid>
                   <GridItem item xs={4.5}>
                     <RatingDate>
                       {moment(el.updatedAt).format('YYYY년 MM월 DD일')}
                     </RatingDate>
-                    <RatingName>이름</RatingName>
+                    <RatingName>{findBootcampName(el._id)}</RatingName>
                   </GridItem>
                 </GridContainer>
               </Link>
