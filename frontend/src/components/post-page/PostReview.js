@@ -94,7 +94,7 @@ function PostReview({ isLogin }) {
           placeholder="장점을 입력하세요"
           onChange={() => setPros(editorPosRef.current.getInstance().getHTML())}
           ref={editorPosRef}
-          height="200px"
+          height="250px"
           toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
         />
       </ContentsWrapper>
@@ -106,7 +106,7 @@ function PostReview({ isLogin }) {
           placeholder="단점을 입력하세요"
           onChange={() => setCons(editorNegRef.current.getInstance().getHTML())}
           ref={editorNegRef}
-          height="200px"
+          height="250px"
           toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
         />
       </ContentsWrapper>
