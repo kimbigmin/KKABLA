@@ -51,10 +51,8 @@ const GridBoard = styled(Box)`
 `;
 
 const ReportBox = styled(Box)`
-  display: flex;
-  justify-content: end;
-
   a {
-    width: 100%;
+    text-decoration: none;
+    color: black;
   }
 `;
