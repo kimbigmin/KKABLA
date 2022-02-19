@@ -24,6 +24,7 @@ import PostReviewPage from 'pages/postPage/PostReviewPage';
 import MyPageMoreBoards from 'pages/myPage/MyPageMoreBoards';
 import UpdatePage from 'pages/postPage/UpdatePage';
 import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
+import SearchResultSeeMore from 'components/SearchResult/SearchResultSeeMore';
 import AdminPageMoreBoard from 'pages/myPage/AdminPageMoreBoard';
 
 function App() {
@@ -108,6 +109,11 @@ function App() {
               <Route path="/admin/comment" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
             </>
           )}
+          <Route path="/search/" element={<SearchResult isLogin={isLogin}/>}></Route>
+          <Route path="/search/seemore/" element={<SearchResultSeeMore isLogin={isLogin}/>}></Route>
+          <Route path="/admin" element={<AdminPage isAdmin={isAdmin} />}></Route>
+          <Route path="/admin/board" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
+          <Route path="/admin/comment" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
         </Routes>
       </ContentContainer>
       <Footer />

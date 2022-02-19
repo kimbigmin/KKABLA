@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Card from 'components/Card/Card';
 import SearchResultCard from 'components/SearchResult/SearchResultCard';
 
 export default function HotBootCampBoard({ isLogin, hotBootCamps }) {
