@@ -18,7 +18,7 @@ export default function SearchResult({isLogin}){
   const [searchResult,setSearchResult]=useState(searchPageDefaultData);
   useEffect(()=>{
     const searchReq = ()=>{
-      axios.get(`http://localhost:5000/search/${keyword}`, {
+      axios.get(`/search/${keyword}`, {
       withCredentials: true, 
       })
       .then((res) => {       
