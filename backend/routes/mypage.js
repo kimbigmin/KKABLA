@@ -55,6 +55,7 @@ router.delete('/', async (req, res) => {
 router.post('/auth', upload.single('image'), async (req, res) => {
   const { path } = req.file;
   const { word } = req.body;
+
   const readFile = fs.readFileSync(`./${path}`);
   const encoding = Buffer.from(readFile).toString('base64');
 
@@ -70,6 +71,7 @@ router.post('/auth', upload.single('image'), async (req, res) => {
       'X-OCR-SECRET': process.env.OCR_SECRET,
     },
   };
+
   let timestamp = new Date().getTime();
   let sumText = '';
 
@@ -100,19 +102,30 @@ router.post('/auth', upload.single('image'), async (req, res) => {
     .catch((err) => console.log(err));
 
   const u = res.locals.user;
-  console.log(u);
+  let data = {};
+
+  console.log(word, sumText);
+
   if (certification(sumText, word)) {
-    const bootCamp = await BootCamp.find({
-      name: { $regex: word, $options: 'i' },
-    });
-    const user = await User.findOneAndUpdate(
-      { _id: u._id },
-      {
-        $push: { auth: [word] },
-      },
-    );
-    res.send(user);
+    const [bootCamp, user] = await Promise.all([
+      await BootCamp.find({
+        name: { $regex: word, $options: 'i' },
+      }),
+      await User.findOneAndUpdate(
+        { _id: u._id },
+        {
+          $addToSet: { auth: [word] },
+        },
+      ),
+    ]);
+    data.msg = '인증이 성공적으로 완료되었습니다';
+    data.ok = true;
+  } else {
+    data.msg = '인증에 실패하였습니다.다시 시도해주세요';
+    data.ok = false;
   }
+
+  res.send(data);
 });
 
 export default router;

@@ -32,6 +32,13 @@ router.post('/review/:id', async (req, res) => {
         bootCamp: b,
       });
 
+      const s = (
+        (b.star * b.review.length + star) /
+        (b.review.length + 1)
+      ).toFixed(1);
+
+      console.log(s);
+
       const bootcamp = await BootCamp.findOneAndUpdate(
         { _id: id },
         {
@@ -42,10 +49,7 @@ router.post('/review/:id', async (req, res) => {
             },
           },
           $set: {
-            star: (
-              (b.star * b.review.length + star) /
-              (b.review.length + 1)
-            ).toFixed(1),
+            star: s,
           },
         },
       );
@@ -71,7 +75,6 @@ router.post('/develop', upload.array('image'), async (req, res) => {
 //자유 게시판 글 작성
 router.post('/free', async (req, res) => {
   const { title, contents, images, creator, type } = req.body;
-  // const images = req.files ? req.files.map((file) => file.location) : '';
   const board = await Board.create({ title, contents, creator, images, type });
 
   res.send(board);
@@ -94,12 +97,12 @@ router.patch('/board/:id', async (req, res) => {
 //게시글 삭제
 router.delete('/board/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   const board = await Board.findOneAndDelete({
     _id: id,
-    creator: res.locals.user.nickName,
+    // $or: { creator: res.locals.user.nickName , res.locals.user.isAdmin ===},
   });
-  console.log(board);
+
   res.send(board);
 });
 
@@ -107,8 +110,11 @@ router.delete('/board/:id', async (req, res) => {
 router.post('/board/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
+  const b = await Board.find({ _id: id });
+
   const comments = await Comment.create({
     boardId: id,
+    boardType: b[0].type,
     type: 'comment',
     creator: res.locals.user.nickName,
     contents,
@@ -181,10 +187,11 @@ router.post('/board/report/:id', async (req, res) => {
 router.post('/comment/comment/:id', async (req, res) => {
   const { contents } = req.body;
   const { id } = req.params;
-
+  const b = await Board.find({ _id: id });
   const comments = await Comment.create({
     type: 'reply',
     boardId: id,
+    boardType: b[0].type,
     creator: res.locals.user.nickName,
     contents,
   });
@@ -280,23 +287,41 @@ router.post('/comment/report/:id', async (req, res) => {
 
   if (mongoose.Types.ObjectId.isValid(id)) {
     if (!nickName) res.send({ message: '존재하지 않는 유저입니다.' });
+    else {
+      const comment = await Comment.findOneAndUpdate(
+        { _id: id },
+        { $addToSet: { report: [nickName] } },
+      );
 
-    const comment = await Comment.findOneAndUpdate(
-      { _id: id },
-      { $addToSet: { report: [nickName] } },
-    );
-
-    if (comment.report.length + 1 > 2) {
-      await Promise.all([
-        Admin.find({}).update({
-          $push: {
-            reportComment: comment._id,
-          },
-        }),
-        Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
-      ]);
+      if (comment.report.length + 1 > 2) {
+        await Promise.all([
+          Admin.find({}).update({
+            $push: {
+              reportComment: comment._id,
+            },
+          }),
+          Comment.findOneAndUpdate({ _id: id }, { isBlind: true }),
+        ]);
+      }
+      res.send(comment);
     }
-    res.send(comment);
+  }
+});
+
+//어드민페이지에서 게시글 블라인드 취소하기
+router.patch('/board/blindFalse/:id', async (req, res) => {
+  const { id } = req.params;
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const board = await Board.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        report: [],
+        isBlind: false,
+      },
+    ).lean();
+    res.send(board);
   }
 });
 

@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid } from '@mui/material';
-
-import MyPageGrid from '../../components/MyPage/MyPageGrid';
-import AdminAdd from '../../components/AdminPage/AdminAdd';
 import axios from 'axios';
+//style
+import styled from 'styled-components';
+import { Container, Grid } from '@mui/material';
+//component
+import MyPageGrid from 'components/MyPage/MyPageGrid';
+import AdminAdd from 'components/AdminPage/AdminAdd';
 import AdminPageReport from 'components/AdminPage/AdminPageReport';
-import { useNavigate } from 'react-router-dom';
 import AdminPageReportComment from 'components/AdminPage/AdminPageReportComment';
 
 function AdminPage({ isAdmin }) {
-  const navigate = useNavigate();
-
   const [reportBoard, setReportBoard] = useState();
   const [reportComment, setReportComment] = useState();
 
@@ -32,7 +31,10 @@ function AdminPage({ isAdmin }) {
   console.log(reportBoard);
   console.log(reportComment);
   return (
-    <Container>
+    <MyPageContainer>
+      <MypageTopBar>
+        <h2>관리자 페이지</h2>
+      </MypageTopBar>
       <Grid container>
         <Grid item xs={6}>
           <Grid container direction="column">
@@ -92,8 +94,30 @@ function AdminPage({ isAdmin }) {
           <MyPageGrid title={'기관 등록'} children={<AdminAdd />} />
         </Grid>
       </Grid>
-    </Container>
+    </MyPageContainer>
   );
 }
 
 export default AdminPage;
+
+const MypageTopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+  align-items: center;
+  height: 47.602px;
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #484848ea;
+  }
+`;
+
+const MyPageContainer = styled(Container)`
+  a {
+    text-decoration: none;
+    color: black;
+  }
+`;

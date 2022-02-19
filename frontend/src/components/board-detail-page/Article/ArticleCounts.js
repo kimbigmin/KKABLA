@@ -19,6 +19,7 @@ export default function ArticleCounts({
   isClick,
   likeCount,
   isLogin,
+  isAdmin,
 }) {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -45,6 +46,7 @@ export default function ArticleCounts({
         });
     }
   };
+
   const onHandleReport = async () => {
     if (!alert('정말로 신고하시겠습니까?')) {
       await axios.post(
@@ -54,6 +56,41 @@ export default function ArticleCounts({
           withCredentials: true,
         },
       );
+    }
+  };
+
+  const onAdminDelete = async () => {
+    if (!alert('정말로 삭제하시겠습니까?')) {
+      await axios
+        .delete(`/post/board/${data._id}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            return navigate(`/admin`);
+          }
+        });
+    }
+  };
+
+  const onAdminRoleBack = async () => {
+    if (!alert('정말로 복구하시겠습니까?')) {
+      await axios
+        .patch(
+          `/post/board/blindFalse/${data._id}`,
+          {
+            report: [],
+            isBlind: false,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            return navigate(`/admin`);
+          }
+        });
     }
   };
 
@@ -91,7 +128,12 @@ export default function ArticleCounts({
               disableScrollLock={true}
               sx={{ position: 'absolute' }}
             >
-              {data.creator === isLogin ? (
+              {isAdmin ? (
+                <>
+                  <MenuItem onClick={onAdminRoleBack}>복구하기</MenuItem>
+                  <MenuItem onClick={onAdminDelete}>삭제하기</MenuItem>
+                </>
+              ) : data.creator === isLogin ? (
                 <div>
                   <Link
                     to={`/board/${data.type}/update/${data._id}`}

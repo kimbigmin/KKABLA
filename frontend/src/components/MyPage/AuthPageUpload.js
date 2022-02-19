@@ -4,14 +4,11 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import styled from 'styled-components';
 import axios from 'axios';
 
-function AuthPageUpload({ one, setTwo, two }) {
+function AuthPageUpload({ word, setTwo, two }) {
   const [image, setImage] = useState(false);
-  const [word, setWord] = useState(null);
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
   const img = useRef(null);
-
-  useEffect(() => {
-    setWord(one);
-  }, [one]);
 
   const onImageHandler = (e) => {
     const file = e.target.files[0];
@@ -22,17 +19,14 @@ function AuthPageUpload({ one, setTwo, two }) {
     };
 
     reader.readAsDataURL(file);
-    setImage(!image);
-    setTwo(true);
+    setImage(file);
   };
 
-  const onHandleUploadAuth = (e) => {
+  const onHandleUploadAuth = async (e) => {
     e.preventDefault();
-  };
-
-  const onImagAuth = async (img) => {
+    setLoading(true);
     const formData = new FormData();
-    formData.append('image', img);
+    formData.append('image', image);
     formData.append('word', word);
 
     try {
@@ -42,6 +36,10 @@ function AuthPageUpload({ one, setTwo, two }) {
         data: formData,
         withCredentials: true,
         headers: { 'Content-Type': 'multipart/form-data' },
+      }).then((res) => {
+        setData(res.data);
+        setLoading(false);
+        setTwo(res.data.ok);
       });
     } catch (error) {
       console.log(error);
@@ -54,10 +52,13 @@ function AuthPageUpload({ one, setTwo, two }) {
       <small>
         타인의 수료증을 제출하거나 수료증 위조 시 활동이 제한 될 수 있습니다.
       </small>
+      {data && !data.ok && <div className="alert msg">{data.msg}</div>}
       {image ? (
         <>
           <div className="img_auth">
+            {loading && <div className="loadingspinner"></div>}
             <img
+              className={data && data.ok && 'disable'}
               ref={img}
               alt="인증사진"
               onClick={(e) => {
@@ -66,8 +67,12 @@ function AuthPageUpload({ one, setTwo, two }) {
               }}
             />
           </div>
-          <button className="img_btn" onClick={onHandleUploadAuth}>
-            제출하기
+          <button
+            disabled={data && data.ok}
+            className="img_btn"
+            onClick={onHandleUploadAuth}
+          >
+            {data && data.ok ? '인증완료' : '제출하기'}
           </button>
         </>
       ) : (

@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+//Style
 import styled from 'styled-components';
 import { Button, Box, TextField } from '@mui/material';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
 //Toast UI Editor
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 function Post({ isLogin, name }) {
-  const [title, setTitle] = useState('');
-  const [contents, setContents] = useState('');
-  const [images, setImages] = useState([]);
+  const navigate = useNavigate();
 
   const editorRef = React.createRef();
 
-  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [contents, setContents] = useState('');
+  const [images, setImages] = useState([]);
 
   const onPostFreeHandler = async () => {
     await axios
@@ -51,18 +54,14 @@ function Post({ isLogin, name }) {
 
             console.log('이미지가 업로드 됐습니다.');
 
-            const res = await axios.post(
-              `/post/upload`,
-              formData,
-              {
-                header: { 'content-type': 'multipart/formdata' },
-              },
-              { withCredentials: true },
-            );
+            const res = await axios.post(`/post/upload`, formData, {
+              header: { 'content-type': 'multipart/formdata' },
+              withCredentials: true,
+            });
 
             const imageUrl =
               'https://kabbla.s3.ap-northeast-2.amazonaws.com/' + blob.name;
-
+            console.log(blob);
             setImages([...images, imageUrl]);
             callback(imageUrl, 'image');
           })();
@@ -99,6 +98,7 @@ function Post({ isLogin, name }) {
             setContents(editorRef.current.getInstance().getHTML())
           }
           ref={editorRef}
+          height="450px"
           toolbarItems={[
             ['bold', 'italic', 'strike'],
             ['hr'],
@@ -151,8 +151,4 @@ const TitleBox = styled(Box)`
   margin: 10px;
   border-radius: 8px;
   font-weight: bold;
-`;
-
-const UploadInput = styled.input`
-  display: none;
 `;

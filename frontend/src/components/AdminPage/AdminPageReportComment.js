@@ -1,9 +1,20 @@
-import styled from 'styled-components';
-import React, { useState, Children } from 'react';
-import { Divider, Box, Button } from '@mui/material';
+import React, { Children } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+//style
+import { Box } from '@mui/material';
+import styled from 'styled-components';
 
 function AdminPageReportComment({ content }) {
+  const onFindBoardHandler = async (boardType, boardId) => {
+    const data = await axios
+      .get(`/board/${boardType}/${boardId}`)
+      .then((res) => res.data);
+    console.log(data);
+    return data;
+  };
+
+  onFindBoardHandler();
   return (
     <>
       {content
@@ -11,20 +22,18 @@ function AdminPageReportComment({ content }) {
             content.map((el) => (
               <ReportBox>
                 <Link
-                  to={`/board/${el.type}/${el.boardId}`}
-                  state={{ dataFromBoard: el }}
+                  to={`/board/${el.boardType}/${el.boardId}`}
+                  state={{
+                    dataFromBoard: onFindBoardHandler(el.boardType, el.boardId),
+                  }}
                 >
                   <GridDetailBox>
                     <GridTitle>{el.contents}</GridTitle>
                     <GridBoard>
-                      {el.type === 'free' ? '자유게시판' : '개발게시판'}
+                      {el.boardType === 'free' ? '자유게시판' : '개발게시판'}
                     </GridBoard>
                   </GridDetailBox>
                 </Link>
-                <ReportButtonBox>
-                  <Button variant="outlined">복구</Button>
-                  <Button variant="outlined">삭제</Button>
-                </ReportButtonBox>
               </ReportBox>
             )),
           )

@@ -1,19 +1,31 @@
-import React, { useState, Children } from 'react';
+import React, { Children } from 'react';
+import { Link } from 'react-router-dom';
+//style
 import styled from 'styled-components';
 import { Box, Rating, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { getRefinedDate } from 'utils/getRefinedDate';
+//library
 import moment from 'moment';
 
 function MyPageReviews({ content, bootcampData }) {
+  console.log(bootcampData);
   console.log(content);
 
   const findBootcampName = (id) => {
-    return bootcampData.filter((el) => el._id === id)[0].name;
+    const item = bootcampData.filter((el) => el._id === id)[0];
+    console.log(item);
+    if (item === null) {
+      return null;
+    }
+    return item;
   };
 
   const findBootCampImg = (id) => {
-    return bootcampData.filter((el) => el._id === id)[0].image;
+    const item = bootcampData.filter((el) => el._id === id)[0];
+    console.log(item);
+    if (item === null) {
+      return '';
+    }
+    return item;
   };
 
   const findBootCampData = (id) => {
@@ -30,7 +42,6 @@ function MyPageReviews({ content, bootcampData }) {
                 state={{
                   data: findBootCampData(el.bootCamp),
                 }}
-                style={{ textDecoration: 'none', color: 'black' }}
               >
                 <GridContainer container>
                   <GridItem item xs={4.5}>
@@ -45,16 +56,13 @@ function MyPageReviews({ content, bootcampData }) {
                     </RatingBox>
                   </GridItem>
                   <Grid item xs={3}>
-                    <BootCampImg
-                      src={findBootCampImg(el.bootCamp)}
-                      alt="부트캠프 이미지"
-                    />
+                    <BootCampImg src="" alt="부트캠프 이미지" />
                   </Grid>
                   <GridItem item xs={4.5}>
                     <RatingDate>
                       {moment(el.updatedAt).format('YYYY년 MM월 DD일')}
                     </RatingDate>
-                    <RatingName>{findBootcampName(el.bootCamp)}</RatingName>
+                    <RatingName>이름</RatingName>
                   </GridItem>
                 </GridContainer>
               </Link>

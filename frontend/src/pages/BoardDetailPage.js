@@ -6,7 +6,7 @@ import axios from 'axios';
 import CommentBox from '../components/board-detail-page/Comment/CommentBox';
 import { getLocalStorageItem } from 'utils/getLocalStorageItem';
 
-function BoardDetailPage({ isLogin }) {
+function BoardDetailPage({ isLogin, isAdmin }) {
   const [commentList, setCommentList] = useState([]);
 
   const location = useLocation();
@@ -88,6 +88,7 @@ function BoardDetailPage({ isLogin }) {
         onClickLike={handleArticleLike}
         isClick={isClick}
         likeCount={likeCount}
+        isAdmin={isAdmin}
       />
       <CommentBox
         commentList={commentList}
@@ -95,6 +96,7 @@ function BoardDetailPage({ isLogin }) {
         isLogin={isLogin}
         setCommentList={setCommentList}
         articleWriter={dataFromBoard.creator}
+        isAdmin={isAdmin}
       />
     </DetailPageContainer>
   );

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+//Style
 import styled from 'styled-components';
 import { Button, Box, TextField, Typography, Rating } from '@mui/material';
-import axios from 'axios';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-
+//Toast UI
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
@@ -17,7 +18,8 @@ function PostReview({ isLogin }) {
   const editorNegRef = React.createRef();
 
   const param = useParams();
-  const id = param.id;
+  const id = param.id; // 부트캠프 ID
+
   const [title, setTitle] = useState('');
   const [pros, setPros] = useState(''); //장점
   const [cons, setCons] = useState(''); // 단점
@@ -52,8 +54,6 @@ function PostReview({ isLogin }) {
         }
       });
   };
-
-  console.log(star);
 
   return (
     <form>
@@ -94,7 +94,7 @@ function PostReview({ isLogin }) {
           placeholder="장점을 입력하세요"
           onChange={() => setPros(editorPosRef.current.getInstance().getHTML())}
           ref={editorPosRef}
-          height="200px"
+          height="250px"
           toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
         />
       </ContentsWrapper>
@@ -106,7 +106,7 @@ function PostReview({ isLogin }) {
           placeholder="단점을 입력하세요"
           onChange={() => setCons(editorNegRef.current.getInstance().getHTML())}
           ref={editorNegRef}
-          height="200px"
+          height="250px"
           toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
         />
       </ContentsWrapper>

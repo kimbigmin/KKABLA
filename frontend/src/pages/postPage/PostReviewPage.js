@@ -1,14 +1,14 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+//style
 import styled from 'styled-components';
 import { Container, Typography, Divider } from '@mui/material';
-import PostReview from '../../components/post-page/PostReview';
-import { useLocation } from 'react-router-dom';
+//component
+import PostReview from 'components/post-page/PostReview';
 
 function PostReviewPage({ isLogin }) {
   const location = useLocation();
   const { data } = location.state;
-
-  console.log(data);
 
   return (
     <PostContainer>

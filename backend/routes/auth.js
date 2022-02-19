@@ -16,7 +16,7 @@ router.get('/kakao', async (req, res) => {
     code,
     clientId: 'ca25925040f30318f70fb3c066f9444d',
     clientSecret: 'sGP8spDrGTl9d4ooxxeEhSOcaHkOHuQF',
-    redirectUri: `${process.env.BASE_URL}/auth/kakao`,
+    redirectUri: `${process.env.CLIENT_URL}/auth/kakao`,
   });
 
   const kakaoUser = await axios
@@ -35,7 +35,7 @@ router.get('/kakao', async (req, res) => {
   const token = jwt.sign(kakaoUser, process.env.JWT_SECRET);
 
   res.cookie('auth_token', token, {
-    maxAge: 900000,
+    maxAge: 9000000,
     httpOnly: true,
     secure: false,
   });
@@ -50,7 +50,7 @@ router.get('/google', async (req, res) => {
     code,
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: `${process.env.BASE_URL}/auth/google`,
+    redirectUri: `${process.env.CLIENT_URL}/auth/google}`,
   });
 
   const googleUser = await axios
@@ -71,7 +71,7 @@ router.get('/google', async (req, res) => {
   const token = jwt.sign(googleUser, process.env.JWT_SECRET);
 
   res.cookie('auth_token', token, {
-    maxAge: 900000,
+    maxAge: 9000000,
     httpOnly: true,
     // secure: false,
   });
@@ -101,9 +101,7 @@ router.get('/user', async (req, res) => {
           isAdmin: true,
         });
         const admin = await Admin.create({});
-        console.log(admin);
       }
-      console.log(user);
       return res.send(user.nickName);
     } else {
       const hashedEmail = cryto

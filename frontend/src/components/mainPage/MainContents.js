@@ -16,6 +16,7 @@ export default function MainContents({ isLogin }) {
           withCredentials: true,
         })
         .then((res) => {
+          
           setTotalBoards(res.data);
         })
         .catch((err) => console.log(err));

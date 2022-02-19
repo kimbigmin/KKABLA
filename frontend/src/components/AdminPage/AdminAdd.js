@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+//style
 import {
   Container,
   TextField,
@@ -9,8 +12,6 @@ import {
   Radio,
 } from '@mui/material';
 import styled from 'styled-components';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function AdminAdd() {
   const navigate = useNavigate();
@@ -25,24 +26,18 @@ function AdminAdd() {
     setSystem(event.target.value);
   };
 
-  const handleFileSelect = (e) => {
+  const handleFileSelect = async (e) => {
     const formData = new FormData();
     formData.append('image', e.target.files[0]);
-    console.log(e.target.files[0].name);
 
-    axios.post(
-      '/post/upload',
-      formData,
-      {
-        header: { 'content-type': 'multipart/formdata' },
-      },
-      { withCredentials: true },
-    );
+    await axios.post('/post/upload', formData, {
+      header: { 'content-type': 'multipart/formdata' },
+      withCredentials: true,
+    });
 
     const imageUrl =
       'https://kabbla.s3.ap-northeast-2.amazonaws.com/' +
       e.target.files[0].name;
-
     setImage(imageUrl);
   };
 
@@ -61,9 +56,7 @@ function AdminAdd() {
           withCredentials: true,
         },
       )
-      .then((res) => {
-        alert('부트캠프 등록이 완료되었습니다 !');
-      })
+      .then(alert('부트캠프 등록이 완료되었습니다 !'))
       .navigate('/admin', { replace: true });
   };
 

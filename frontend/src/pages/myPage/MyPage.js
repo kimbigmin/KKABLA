@@ -1,14 +1,13 @@
-import { Container, Grid } from '@mui/material';
-import React, { useState } from 'react';
-import styled from 'styled-components';
-
-import MyPageGrid from '../../components/MyPage/MyPageGrid';
-import MyPageAuth from '../../components/MyPage/MyPageAuth';
-import MyPagePosts from '../../components/MyPage/MyPagePosts';
-import MyPageReviews from '../../components/MyPage/MyPageReviews';
-import MyPageLikes from '../../components/MyPage/MyPageLikes';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
+//style
+import styled from 'styled-components';
+import { Container, Grid } from '@mui/material';
+//component
+import MyPageGrid from 'components/MyPage/MyPageGrid';
+import MyPageAuth from 'components/MyPage/MyPageAuth';
+import MyPagePosts from 'components/MyPage/MyPagePosts';
+import MyPageReviews from 'components/MyPage/MyPageReviews';
 
 function MyPage({ isLogin }) {
   const [board, setBoard] = useState();
@@ -23,7 +22,6 @@ function MyPage({ isLogin }) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         setBoard(res.data.boards);
         setReviews(res.data.reviews);
         setAuth(res.data.userAuth);
@@ -44,7 +42,7 @@ function MyPage({ isLogin }) {
   }, []);
 
   return (
-    <Container>
+    <MyPageContainer>
       <MypageTopBar>
         <h2>마이페이지</h2>
       </MypageTopBar>
@@ -53,6 +51,7 @@ function MyPage({ isLogin }) {
           <MyPageGrid
             title={`${isLogin} 님`}
             children={<MyPageAuth content={auth} />}
+            board="/mypage/auth"
           />
         </Grid>
         <Grid item xs={3.5}>
@@ -92,7 +91,7 @@ function MyPage({ isLogin }) {
               likes === undefined || likes === null ? 0 : likes.length
             }개`}
             children={
-              <MyPageLikes
+              <MyPagePosts
                 content={
                   likes === undefined || likes === null
                     ? likes
@@ -106,7 +105,7 @@ function MyPage({ isLogin }) {
           />
         </Grid>
       </Grid>
-    </Container>
+    </MyPageContainer>
   );
 }
 
@@ -126,3 +125,10 @@ const MypageTopBar = styled.div`
 `;
 
 export default MyPage;
+
+const MyPageContainer = styled(Container)`
+  a {
+    text-decoration: none;
+    color: black;
+  }
+`;

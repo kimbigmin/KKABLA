@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function SearchResultCard({ item, idx }) {
   return item.name === '' ? (
-    <BootCampLoading>Loading...</BootCampLoading>
+    <BootCampLoading>Loading...💤</BootCampLoading>
   ) : (
     <>
       <Box>
@@ -68,5 +68,5 @@ const BootCampLoading = styled.h4`
   // font-weight: bold;
   font-size: 1rem;
   line-height: 1rem;
-  color:  #969696;
+  color: #969696;
 `;

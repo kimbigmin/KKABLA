@@ -3,12 +3,12 @@ import { Container } from '@mui/material';
 import Progress from 'components/MyPage/Progress';
 
 function AuthPage() {
-  const [one, setOne] = useState(false);
-  const [two, setTwo] = useState(false);
+  const [word, setWord] = useState(null);
+  const [two, setTwo] = useState(null);
 
   return (
     <Container>
-      <Progress setOne={setOne} one={one} two={two} setTwo={setTwo} />
+      <Progress setWord={setWord} setTwo={setTwo} word={word} two={two} />
     </Container>
   );
 }

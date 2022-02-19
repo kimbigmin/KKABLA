@@ -23,7 +23,7 @@ function Login({ isLogin }) {
         <LoginButton
           onClick={(e) => {
             window.location.href =
-              'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fgoogle&client_id=5970793349-7o1h48vm750nn8lp9fgj4sskjc8fnfct.apps.googleusercontent.com&access_type=offline&response_type=code&prompt=consent&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&flowName=GeneralOAuthFlow';
+              'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?redirect_uri=http%3A%2F%2Felice-kdt-sw-1st-team10.elicecoding.com%3A80%2Fauth%2Fgoogle&client_id=5970793349-7o1h48vm750nn8lp9fgj4sskjc8fnfct.apps.googleusercontent.com&access_type=offline&response_type=code&prompt=consent&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&flowName=GeneralOAuthFlow';
           }}
         >
           <img
@@ -36,7 +36,7 @@ function Login({ isLogin }) {
         <LoginButton
           style={{ backgroundColor: 'rgb(250,225,0)' }}
           onClick={(e) => {
-            window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=ca25925040f30318f70fb3c066f9444d&redirect_uri=http://localhost:5000/auth/kakao&response_type=code`;
+            window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=ca25925040f30318f70fb3c066f9444d&redirect_uri=http://elice-kdt-sw-1st-team10.elicecoding.com/auth/kakao&response_type=code`;
           }}
         >
           <img

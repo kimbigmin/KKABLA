@@ -91,7 +91,8 @@ input .active {
 }
 
 .one,
-.two {
+.two,
+.three {
   border-radius: 20px;
   width: 400px;
   height: 500px;
@@ -124,11 +125,22 @@ input .active {
 }
 
 .img_auth img {
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 40%;
   width: 90%;
+  top: 35%;
+}
+
+img {
+  user-select: none;
+}
+
+.img_auth .disable {
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .two small {
@@ -141,20 +153,57 @@ input .active {
 }
 
 .img_btn {
-  position: relative;
-  display: block;
+  position: absolute;
+  bottom: 5%;
   background-color: #689dff;
   color: white;
-  border: 0;
-  border-radius: 6px;
   cursor: pointer;
-  padding: 8px 30px;
-  margin: 15px;
+  border-radius: 6px;
+  border: 0;
+  padding: 10px 50px;
+  margin: 25px;
   font-size: 14px;
+  left: 0;
+  right: 0;
+}
+
+.img_btn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.three .img_btn {
 }
 
 .alert {
   color: red;
   font-size: 11px;
   text-align: center;
+}
+
+.msg {
+  position: relative;
+  top: -5%;
+  margin: 0px;
+  /* border: 1px solid black; */
+}
+
+.loadingspinner {
+  pointer-events: none;
+  width: 2.5em;
+  height: 2.5em;
+  border: 0.4em solid transparent;
+  border-color: #eee;
+  border-top-color: #3e67ec;
+  border-radius: 50%;
+  animation: loadingspin 1s linear infinite;
+  position: relative;
+  z-index: 999;
+  margin: 100px;
+}
+
+@keyframes loadingspin {
+  100% {
+    transform: rotate(360deg);
+  }
 }

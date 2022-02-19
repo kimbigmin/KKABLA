@@ -2,22 +2,28 @@ import express from 'express';
 import Board from '../models/Board.js';
 import BootCamp from '../models/BootCamp.js';
 import mongoose from 'mongoose';
-import User from '../models/User.js';
-import Comment from '../models/Comment.js';
 
 const router = express.Router();
 
 //자유 게시판
 router.get('/free', async (req, res) => {
-  console.log(req.query);
-  const borads = await Board.find({ type: 'free' })
-    .sort({
-      updatedAt: -1,
-    })
-    // .limit(n)
-    // .skip(s)
-    .lean();
-  res.send(borads);
+  const { page } = req.query;
+  const doc = await Board.countDocuments({ type: 'free' });
+
+  let limit = doc - (page - 1) * 10 >= 10 ? 10 : doc - (page - 1) * 10;
+
+  if (limit > 0 && page > 0) {
+    const borads = await Board.find({ type: 'free' })
+      .skip((page - 1) * 10)
+      .limit(limit)
+      .sort({
+        createdAt: -1,
+      })
+      .lean();
+    res.send(borads);
+  } else {
+    res.send({ message: '게시물이 없습니다.' });
+  }
 });
 
 //자유 게시판 상세
@@ -31,12 +37,23 @@ router.get('/free/:id', async (req, res) => {
 
 //개발 이야기
 router.get('/develop', async (req, res) => {
-  const borads = await Board.find({ type: 'develop' })
-    .sort({
-      updatedAt: -1,
-    })
-    .lean();
-  res.send(borads);
+  const { page } = req.query;
+  const doc = await Board.countDocuments({ type: 'develop' });
+
+  let limit = doc - (page - 1) * 10 >= 10 ? 10 : doc - (page - 1) * 10;
+
+  if (limit > 0 && page > 0) {
+    const borads = await Board.find({ type: 'develop' })
+      .skip((page - 1) * 10)
+      .limit(limit)
+      .sort({
+        createdAt: -1,
+      })
+      .lean();
+    res.send(borads);
+  } else {
+    res.send({ message: '게시물이 없습니다.' });
+  }
 });
 
 //개발 이야기 상세
