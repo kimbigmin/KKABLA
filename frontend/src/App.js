@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Reset } from 'styled-reset';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
@@ -24,7 +23,6 @@ import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import UpdatePage from 'pages/postPage/UpdatePage';
 import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
-import AdminPageMoreBoard from 'pages/myPage/AdminPageMoreBoard';
 
 function App() {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
@@ -60,7 +58,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <>
       <Reset />
       <Header isLogin={isLogin} isAdmin={isAdmin} />
       <ContentContainer>
@@ -68,96 +66,40 @@ function App() {
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
           {/* <Route path="/board" element={<BoardForm />} /> */}
           <Route path="/" element={<MainContents isLogin={isLogin} />}></Route>
-          <Route
-            path="/board/review"
-            element={<ReviewPage isLogin={isLogin} />}
-          ></Route>
-          <Route
-            path="/board/review/detail/:id"
-            element={<ReviewDetailPage isLogin={isLogin} />}
-          />
-          <Route
-            path="/board/free"
-            element={<FreeBoardPage isLogin={isLogin} />}
-          />
-          <Route
-            path="/board/free/:id"
-            element={<BoardDetailPage isLogin={isLogin} isAdmin={isAdmin}/>}
-          />
-          <Route
-            path="/board/free/update/:id"
-            element={<UpdatePage isLogin={isLogin} />}
-          />
-          <Route
-            path="/board/develop"
-            element={<DevelopBoardPage isLogin={isLogin} />}
-          />
-          <Route
-            path="/board/develop/:id"
-            element={<BoardDetailPage isLogin={isLogin} isAdmin={isAdmin} />}
-          />
-          <Route
-            path="/board/develop/update/:id"
-            element={<UpdatePage isLogin={isLogin} />}
-          />
+          <Route path="/board/review" element={<ReviewPage isLogin={isLogin} />}></Route>
+          <Route path="/board/review/detail/:id" element={<ReviewDetailPage isLogin={isLogin} />} />
+          <Route path="/board/free" element={<FreeBoardPage isLogin={isLogin} />} />
+          <Route path="/board/free/:id" element={<BoardDetailPage isLogin={isLogin} />} />
+          <Route path="/board/free/update/:id" element={<UpdatePage isLogin={isLogin} />} />
+          <Route path="/board/develop" element={<DevelopBoardPage isLogin={isLogin} />} />
+          <Route path="/board/develop/:id" element={<BoardDetailPage isLogin={isLogin} />} />
+          <Route path="/board/develop/update/:id" element={<UpdatePage isLogin={isLogin} />} />
 
-          <Route
-            path="/login"
-            element={<Login setisLogin={setisLogin} isLogin={isLogin} />}
-          />
+          <Route path="/login" element={<Login setisLogin={setisLogin} isLogin={isLogin} />} />
           <Route path="/logout" element={<Logout setisLogin={setisLogin} />} />
-          <Route
-            path="/search/"
-            element={<SearchResult isLogin={isLogin} />}
-          ></Route>
+
+          <Route path="/mypage" element={<MyPage isLogin={isLogin} />}></Route>
+          <Route path="/mypage/auth" element={<AuthPage isLogin={isLogin} />}></Route>
+          <Route path="/mypage/boards" element={<MyPageMoreBoards isLogin={isLogin} />}></Route>
+          <Route path="/mypage/likes" element={<MyPageMoreBoards isLogin={isLogin} />}></Route>
           {isLogin && (
             <>
-              <Route
-                path="/mypage"
-                element={<MyPage isLogin={isLogin} />}
-              ></Route>
-              <Route
-                path="/mypage/auth"
-                element={<AuthPage isLogin={isLogin} />}
-              ></Route>
-              <Route
-                path="/mypage/boards"
-                element={<MyPageMoreBoards isLogin={isLogin} />}
-              ></Route>
-              <Route
-                path="/mypage/likes"
-                element={<MyPageMoreBoards isLogin={isLogin} />}
-              ></Route>
-              <Route
-                path="/post/:board"
-                element={<PostPage isLogin={isLogin} />}
-              ></Route>
-              <Route
-                path="/post/review/:id"
-                element={<PostReviewPage isLogin={isLogin} />}
-              ></Route>
+              <Route path="/post/:board" element={<PostPage isLogin={isLogin} />}></Route>
             </>
           )}
-          {isAdmin && (
+          {isLogin && (
             <>
-              <Route
-                path="/admin"
-                element={<AdminPage isAdmin={isAdmin} />}
-              ></Route>
-              <Route
-                path="/admin/board"
-                element={<AdminPageMoreBoard isAdmin={isAdmin} />}
-              ></Route>
-              <Route
-                path="/admin/comment"
-                element={<AdminPageMoreComment isAdmin={isAdmin} />}
-              ></Route>
+              <Route path="/post/review/:id" element={<PostReviewPage isLogin={isLogin} />}></Route>
             </>
           )}
+          <Route path="/search/" element={<SearchResult isLogin={isLogin} />}></Route>
+          <Route path="/admin" element={<AdminPage isAdmin={isAdmin} />}></Route>
+          <Route path="/admin/board" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
+          <Route path="/admin/comment" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
         </Routes>
-      </ContentContainer>
+        </ContentContainer>
       <Footer />
-    </BrowserRouter>
+      </>
   );
 }
 
