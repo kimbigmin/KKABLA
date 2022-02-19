@@ -5,6 +5,12 @@ import Dotenv from 'dotenv';
 import login from './routes/login.js';
 import cookieParser from 'cookie-parser';
 import auth from './routes/auth.js';
+import search from './routes/search.js';
+import post from './routes/post.js';
+import board from './routes/board.js';
+import mypage from './routes/mypage.js';
+import home from './routes/home.js';
+import findUser from './middlewares/findUser.js';
 
 //env setting
 Dotenv.config();
@@ -12,18 +18,23 @@ Dotenv.config();
 const app = express();
 
 //setting
+app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: 'http://elice-kdt-sw-1st-team10.elicecoding.com/',
   }),
 );
-app.use(cookieParser());
 
 //Routes
-app.use('/login', login);
 app.use('/auth', auth);
+app.use('/post', findUser, post);
+app.use('/mypage', findUser, mypage);
+app.use('/login', login);
+app.use('/search', search);
+app.use('/board', board);
+app.use('/', home);
 
 try {
   app.listen(5000, () => {

@@ -8,11 +8,12 @@ function Logout({ setisLogin }) {
   useEffect(() => {
     const logout = async () => {
       await axios
-        .delete('http://localhost:5000/auth/logout', {
+        .delete('/auth/logout', {
           withCredentials: true,
         })
         .then((res) => setisLogin(res.data))
-        .then(() => navigater('http://localhost:3000'))
+        .then(() => navigater('/'))
+        .then(() => localStorage.removeItem('nickName'))
         .catch((err) => console.log(err));
     };
     logout();
