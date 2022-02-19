@@ -28,7 +28,7 @@ import SearchResultSeeMore from 'components/SearchResult/SearchResultSeeMore';
 import AdminPageMoreBoard from 'pages/myPage/AdminPageMoreBoard';
 
 function App() {
-  axios.defaults.baseURL = 'http://localhost:5000';
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
   const [isLogin, setisLogin] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
