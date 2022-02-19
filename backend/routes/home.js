@@ -5,6 +5,10 @@ import BootCamp from '../models/BootCamp.js';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  res.header("Access-Control-Allow-Methods', 'GET,POST");
+
   const a = await Board.find({});
   const [boards, develop, like, bootCamps] = await Promise.all([
     Board.find({ type: 'free' })
