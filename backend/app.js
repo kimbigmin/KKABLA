@@ -28,6 +28,14 @@ app.use(
 );
 
 //Routes
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  );
+  next();
+});
 app.use('/auth', auth);
 app.use('/post', findUser, post);
 app.use('/mypage', findUser, mypage);
