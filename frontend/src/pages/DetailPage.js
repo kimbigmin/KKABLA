@@ -12,22 +12,33 @@ function DetailPage({ isLogin }) {
   const location = useLocation();
   const { data } = location.state;
   const [reviews, setReviews] = useState([]);
+  const [star, setStar] = useState(data.star);
 
+  // console.log(data);
   const getReviews = async () => {
     await axios.get(`/board/review/${data._id}`).then((res) => {
       setReviews(res.data.review);
     });
   };
 
+  // console.log(reviews);
+  const list = reviews.map((review) => {
+    return <ReviewList isLogin={isLogin} review={review} />;
+  });
+
   useEffect(() => {
     getReviews();
   }, []);
 
-  console.log(reviews);
+  useEffect(() => {
+    let totalStars = 0;
+    reviews.forEach((review) => {
+      totalStars += review.star;
+    });
 
-  const list = reviews.map((review) => {
-    return <ReviewList isLogin={isLogin} review={review} />;
-  });
+    const newStar = totalStars / reviews.length;
+    setStar(newStar);
+  }, [reviews]);
 
   return (
     <Container
@@ -48,8 +59,8 @@ function DetailPage({ isLogin }) {
           <img src={data.image} alt="logo" />
           <div className="info">
             <h3>{data.name}</h3>
-            <span>{getStars(data.star)}</span>
-            <p>{data.star}점</p>
+            <span>{getStars(star)}</span>
+            <div>{star}점</div>
           </div>
         </Info>
         <Grid container spacing={3} sx={{ textAlign: 'left' }}>
@@ -84,7 +95,9 @@ function DetailPage({ isLogin }) {
           {!isLogin && data.review.length !== 0 && (
             <div className="blind">로그인 후 이용이 가능합니다. 😢</div>
           )}
-          {list}
+          {reviews.map((review) => (
+            <ReviewList isLogin={isLogin} review={review} />
+          ))}
         </div>
       </Blind>
     </Container>

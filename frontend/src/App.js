@@ -28,14 +28,14 @@ import SearchResultSeeMore from 'components/SearchResult/SearchResultSeeMore';
 import AdminPageMoreBoard from 'pages/myPage/AdminPageMoreBoard';
 
 function App() {
-  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+  axios.defaults.baseURL = 'http://localhost:5000';
 
   const [isLogin, setisLogin] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const getData = async () => {
     await axios
-      .get('/mypage/', {
+      .get('/mypage', {
         withCredentials: true,
       })
       .then((res) => setIsAdmin(res.data.isAdmin));
