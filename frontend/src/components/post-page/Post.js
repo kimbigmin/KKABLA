@@ -98,6 +98,7 @@ function Post({ isLogin, name }) {
             setContents(editorRef.current.getInstance().getHTML())
           }
           ref={editorRef}
+          height="450px"
           toolbarItems={[
             ['bold', 'italic', 'strike'],
             ['hr'],

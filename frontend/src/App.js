@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Reset } from 'styled-reset';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
@@ -24,7 +23,6 @@ import PostReviewPage from './pages/postPage/PostReviewPage';
 import MyPageMoreBoards from './pages/myPage/MyPageMoreBoards';
 import UpdatePage from 'pages/postPage/UpdatePage';
 import AdminPageMoreComment from 'pages/myPage/AdminPageMoreComment';
-import ScrollToTop from 'components/scrollToTop/scrollToTop';
 
 function App() {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
@@ -99,7 +97,7 @@ function App() {
           <Route path="/admin/board" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
           <Route path="/admin/comment" element={<AdminPageMoreComment isAdmin={isAdmin} />}></Route>
         </Routes>
-      </ContentContainer>
+        </ContentContainer>
       <Footer />
       </>
   );

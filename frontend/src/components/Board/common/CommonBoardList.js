@@ -131,7 +131,7 @@ function CommonBoardList({ type, title, isLogin }) {
               margin: '3rem',
             }}
           >
-            Loding...💤
+            Loading...💤
           </h4>
         }
         scrollableTarget="svrollableDiv"

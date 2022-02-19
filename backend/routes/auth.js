@@ -35,7 +35,7 @@ router.get('/kakao', async (req, res) => {
   const token = jwt.sign(kakaoUser, process.env.JWT_SECRET);
 
   res.cookie('auth_token', token, {
-    maxAge: 900000,
+    maxAge: 9000000,
     httpOnly: true,
     secure: false,
   });
@@ -71,7 +71,7 @@ router.get('/google', async (req, res) => {
   const token = jwt.sign(googleUser, process.env.JWT_SECRET);
 
   res.cookie('auth_token', token, {
-    maxAge: 900000,
+    maxAge: 9000000,
     httpOnly: true,
     // secure: false,
   });
