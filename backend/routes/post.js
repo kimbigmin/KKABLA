@@ -114,7 +114,7 @@ router.post('/board/comment/:id', async (req, res) => {
 
   const comments = await Comment.create({
     boardId: id,
-    boadType: b[0].type,
+    boardType: b[0].type,
     type: 'comment',
     creator: res.locals.user.nickName,
     contents,
