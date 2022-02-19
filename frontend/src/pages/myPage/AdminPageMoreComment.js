@@ -1,12 +1,12 @@
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+//style
 import { Container, Grid } from '@mui/material';
-import AdminPageReport from 'components/AdminPage/AdminPageReportComment';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import MyPageGrid from '../../components/MyPage/MyPageGrid';
-import MyPagePosts from '../../components/MyPage/MyPagePosts';
+//component
+import MyPageGrid from 'components/MyPage/MyPageGrid';
+import AdminPageReportComment from 'components/AdminPage/AdminPageReportComment';
 
-function AdminPageMoreComment({ isLogin }) {
+function AdminPageMoreComment() {
   const location = useLocation();
   const content = location.state;
 
@@ -14,8 +14,8 @@ function AdminPageMoreComment({ isLogin }) {
   const [develop, setDevelop] = useState(null);
 
   useEffect(() => {
-    setFree(content.filter((el) => el.type === 'free'));
-    setDevelop(content.filter((el) => el.type === 'develop'));
+    setFree(content.filter((el) => el.boardType === 'free'));
+    setDevelop(content.filter((el) => el.boardType === 'develop'));
   }, []);
 
   return (
@@ -26,7 +26,7 @@ function AdminPageMoreComment({ isLogin }) {
             title={`자유게시판 ${
               free === null || free === undefined ? 0 : free.length
             }개`}
-            children={<AdminPageReport content={free} />}
+            children={<AdminPageReportComment content={free} />}
           />
         </Grid>
         <Grid item xs={6}>
@@ -34,7 +34,7 @@ function AdminPageMoreComment({ isLogin }) {
             title={`개발게시판 ${
               develop === null || develop === undefined ? 0 : develop.length
             }개`}
-            children={<AdminPageReport content={develop} />}
+            children={<AdminPageReportComment content={develop} />}
           />
         </Grid>
       </Grid>
