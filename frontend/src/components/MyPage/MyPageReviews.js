@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { Children, useState } from 'react';
 import { Link } from 'react-router-dom';
 //style
 import styled from 'styled-components';
@@ -7,8 +7,8 @@ import { Box, Rating, Grid } from '@mui/material';
 import moment from 'moment';
 
 function MyPageReviews({ content, bootcampData }) {
-  console.log(bootcampData);
   console.log(content);
+  console.log(bootcampData);
 
   const findBootcampName = (id) => {
     const item = bootcampData.filter((el) => el._id === id)[0].name;
@@ -57,7 +57,7 @@ function MyPageReviews({ content, bootcampData }) {
                   </GridItem>
                   <Grid item xs={3}>
                     <BootCampImg
-                      src={findBootCampImg(el._id)}
+                      src={findBootCampImg(el.bootCamp)}
                       alt="부트캠프 이미지"
                     />
                   </Grid>
@@ -65,7 +65,7 @@ function MyPageReviews({ content, bootcampData }) {
                     <RatingDate>
                       {moment(el.updatedAt).format('YYYY년 MM월 DD일')}
                     </RatingDate>
-                    <RatingName>{findBootcampName(el._id)}</RatingName>
+                    <RatingName>{findBootcampName(el.bootCamp)}</RatingName>
                   </GridItem>
                 </GridContainer>
               </Link>
@@ -113,7 +113,7 @@ const ReviewRating = styled(Rating)`
 
 const BootCampImg = styled.img`
   width: 100%;
-  height: 100%;
+  height: 100px;
   object-fit: contain;
 `;
 
