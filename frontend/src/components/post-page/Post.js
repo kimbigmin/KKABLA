@@ -10,6 +10,11 @@ import { Button, Box, TextField } from '@mui/material';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
+//Toast Ui Plugin
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+
 function Post({ isLogin, name }) {
   const navigate = useNavigate();
 
@@ -103,7 +108,10 @@ function Post({ isLogin, name }) {
             ['bold', 'italic', 'strike'],
             ['hr'],
             ['image', 'link'],
+            ['ul', 'ol'],
+            ['code', 'codeblock'],
           ]}
+          plugins={[colorSyntax]}
         />
       </ContentsWrapper>
       <SubmitButton

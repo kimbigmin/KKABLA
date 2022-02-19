@@ -7,6 +7,10 @@ import { Button, Box, TextField, Typography, Rating } from '@mui/material';
 //Toast UI
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+//Toast Ui Plugin
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 function PostReview({ isLogin }) {
   const navigate = useNavigate();
@@ -95,7 +99,13 @@ function PostReview({ isLogin }) {
           onChange={() => setPros(editorPosRef.current.getInstance().getHTML())}
           ref={editorPosRef}
           height="250px"
-          toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
+          toolbarItems={[
+            ['bold', 'italic', 'strike'],
+            ['hr'],
+            ['link'],
+            ['ul', 'ol'],
+          ]}
+          plugins={[colorSyntax]}
         />
       </ContentsWrapper>
       <ContentsWrapper>
@@ -107,7 +117,12 @@ function PostReview({ isLogin }) {
           onChange={() => setCons(editorNegRef.current.getInstance().getHTML())}
           ref={editorNegRef}
           height="250px"
-          toolbarItems={[['bold', 'italic', 'strike'], ['hr'], ['link']]}
+          toolbarItems={[
+            ['bold', 'italic', 'strike'],
+            ['hr'],
+            ['link'],
+            ['ul', 'ol'],
+          ]}
         />
       </ContentsWrapper>
       <SubmitButton onClick={onPostReviewHandler} variant="contained">

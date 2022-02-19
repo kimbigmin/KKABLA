@@ -48,7 +48,7 @@ function AdminPage({ isAdmin }) {
                     content={
                       reportBoard === undefined || reportBoard === null
                         ? reportBoard
-                        : reportBoard.slice(0, 4)
+                        : reportBoard.slice(0, 7)
                     }
                   />
                 }
