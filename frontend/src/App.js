@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+//style
 import styled from 'styled-components';
 import { Reset } from 'styled-reset';
-import { Routes, Route } from 'react-router-dom';
 
 import Header from 'components/common/Header';
 import Footer from 'components/common/Footer';
