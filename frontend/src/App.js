@@ -35,7 +35,7 @@ function App() {
 
   const getData = async () => {
     await axios
-      .get('/mypage/', {
+      .get('/mypage', {
         withCredentials: true,
       })
       .then((res) => setIsAdmin(res.data.isAdmin));
