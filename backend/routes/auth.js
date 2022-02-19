@@ -16,7 +16,7 @@ router.get('/kakao', async (req, res) => {
     code,
     clientId: 'ca25925040f30318f70fb3c066f9444d',
     clientSecret: 'sGP8spDrGTl9d4ooxxeEhSOcaHkOHuQF',
-    redirectUri: 'http://localhost:5000/auth/kakao',
+    redirectUri: `${process.env.BASE_URL}/auth/kakao`,
   });
 
   const kakaoUser = await axios
@@ -40,7 +40,7 @@ router.get('/kakao', async (req, res) => {
     secure: false,
   });
 
-  res.redirect('http://localhost:3000/');
+  res.redirect(`${process.env.CLIENT_URL}`);
 });
 
 router.get('/google', async (req, res) => {
@@ -76,7 +76,7 @@ router.get('/google', async (req, res) => {
     // secure: false,
   });
 
-  res.redirect('http://localhost:3000');
+  res.redirect(`${process.env.CLIENT_URL}`);
 });
 
 router.get('/user', async (req, res) => {
