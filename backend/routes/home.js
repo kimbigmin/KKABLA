@@ -6,7 +6,11 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const a = await Board.find({});
-
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  );
   const [boards, develop, like, bootCamps] = await Promise.all([
     Board.find({ type: 'free' })
       .sort({
