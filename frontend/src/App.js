@@ -45,17 +45,18 @@ function App() {
       });
   };
 
+  const getMe = async () => {
+    await axios
+      .get('/auth/user', {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setisLogin(res.data);
+        localStorage.setItem('nickName', JSON.stringify(res.data));
+      });
+  };
+
   useEffect(() => {
-    const getMe = async () => {
-      await axios
-        .get('/auth/user', {
-          withCredentials: true,
-        })
-        .then((res) => {
-          setisLogin(res.data);
-          localStorage.setItem('nickName', JSON.stringify(res.data));
-        });
-    };
     if (!isLogin) {
       getData();
       getMe();
@@ -63,6 +64,12 @@ function App() {
       localStorage.removeItem('nickName');
     }
   }, []);
+
+  useEffect(()=>{
+    getMe()
+  },[isLogin]);
+  
+  console.log(`isLogin:${isLogin}`);
 
   return (
     <>
