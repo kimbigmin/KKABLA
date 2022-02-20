@@ -32,13 +32,17 @@ function App() {
 
   const [isLogin, setisLogin] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userAuth, setUserAuth] = useState([]);
 
   const getData = async () => {
     await axios
       .get('/mypage', {
         withCredentials: true,
       })
-      .then((res) => setIsAdmin(res.data.isAdmin));
+      .then((res) => {
+        setUserAuth(res.data.userAuth);
+        setIsAdmin(res.data.isAdmin);
+      });
   };
 
   useEffect(() => {
@@ -77,7 +81,7 @@ function App() {
           {/* 리뷰페이지 */}
           <Route
             path="/board/review"
-            element={<ReviewPage isLogin={isLogin} />}
+            element={<ReviewDetailPage isLogin={isLogin} userAuth={userAuth} />}
           ></Route>
           <Route
             path="/board/review/detail/:id"
