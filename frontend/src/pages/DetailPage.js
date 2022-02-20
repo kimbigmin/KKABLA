@@ -8,13 +8,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-function DetailPage({ isLogin, userAuth }) {
+function DetailPage({ isLogin }) {
   const location = useLocation();
   const { data } = location.state;
   const [reviews, setReviews] = useState([]);
   const [star, setStar] = useState(data.star);
 
-  const isAuth = userAuth.includes(data.name);
+  // const isAuth = userAuth.includes(data.name);
 
   useEffect(() => {
     const getReviews = async () => {
@@ -80,7 +80,8 @@ function DetailPage({ isLogin, userAuth }) {
       <ListTopBar>
         <div className="list-topbar">
           <h3>{reviews.length}개의 리뷰</h3>
-          {isLogin && isAuth && (
+          {isLogin && (
+            // {isLogin && isAuth && (
             <Link to={`/post/review/${data._id}`} state={{ data: data }}>
               <button>리뷰작성하기</button>
             </Link>

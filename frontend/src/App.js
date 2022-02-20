@@ -30,9 +30,9 @@ import AdminPageMoreBoard from 'pages/myPage/AdminPageMoreBoard';
 function App() {
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
-  const [isLogin, setisLogin] = useState(null);
+  const [isLogin, setisLogin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [userAuth, setUserAuth] = useState([]);
+  // const [userAuth, setUserAuth] = useState([]);
 
   const getData = async () => {
     await axios
@@ -40,7 +40,7 @@ function App() {
         withCredentials: true,
       })
       .then((res) => {
-        setUserAuth(res.data.userAuth);
+        // setUserAuth(res.data.userAuth);
         setIsAdmin(res.data.isAdmin);
       });
   };
@@ -56,13 +56,13 @@ function App() {
           localStorage.setItem('nickName', JSON.stringify(res.data));
         });
     };
-    getData();
-    getMe();
+    if (!isLogin) {
+      getData();
+      getMe();
+    } else {
+      localStorage.removeItem('nickName');
+    }
   }, []);
-
-  if (isLogin === null) {
-    localStorage.removeItem('nickName');
-  }
 
   return (
     <>
@@ -81,7 +81,8 @@ function App() {
           {/* 리뷰페이지 */}
           <Route
             path="/board/review"
-            element={<ReviewDetailPage isLogin={isLogin} userAuth={userAuth} />}
+            // element={<ReviewDetailPage isLogin={isLogin} userAuth={userAuth} />}
+            element={<ReviewDetailPage isLogin={isLogin} />}
           ></Route>
           <Route
             path="/board/review/detail/:id"

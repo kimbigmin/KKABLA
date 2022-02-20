@@ -15,17 +15,19 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const user = res.locals.user;
   let data;
-  if (user.isAdmin) {
-    // const admin = await Admin.findOne({})
-    //   .populate('boards')
-    //   // .populate('comments')
-    //   .lean();
-    const [reportBoard, reportComment] = await Promise.all([
-      Board.find({ isBlind: true }),
-      Comment.find({ isBlind: true }),
-    ]);
+  if (user) {
+    if (user.isAdmin) {
+      // const admin = await Admin.findOne({})
+      //   .populate('boards')
+      //   // .populate('comments')
+      //   .lean();
+      const [reportBoard, reportComment] = await Promise.all([
+        Board.find({ isBlind: true }),
+        Comment.find({ isBlind: true }),
+      ]);
 
-    data = { reportBoard, reportComment, isAdmin: true };
+      data = { reportBoard, reportComment, isAdmin: true };
+    }
   } else {
     const [boards, likeBoard, reviews] = await Promise.all([
       Board.find({ creator: user.nickName }).lean(),
