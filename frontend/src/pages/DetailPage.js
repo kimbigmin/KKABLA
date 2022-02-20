@@ -14,29 +14,24 @@ function DetailPage({ isLogin }) {
   const [reviews, setReviews] = useState([]);
   const [star, setStar] = useState(data.star);
 
-  // console.log(data);
-  const getReviews = async () => {
-    await axios.get(`/board/review/${data._id}`).then((res) => {
-      setReviews(res.data.review);
-    });
-  };
-
-  // console.log(reviews);
-  const list = reviews.map((review) => {
-    return <ReviewList isLogin={isLogin} review={review} />;
-  });
-
   useEffect(() => {
+    const getReviews = async () => {
+      await axios.get(`/board/review/${data._id}`).then((res) => {
+        setReviews(res.data.review);
+      });
+    };
     getReviews();
-  }, []);
+  }, [data._id]);
 
   useEffect(() => {
-    let totalStars = 0;
-    reviews.forEach((review) => {
-      totalStars += review.star;
-    });
-
-    const newStar = totalStars / reviews.length;
+    let newStar = 0;
+    if (reviews.length === 0) {
+      newStar = 0;
+    } else {
+      let totalStars = 0;
+      reviews.forEach((review) => (totalStars += review.star));
+      newStar = totalStars / reviews.length;
+    }
     setStar(newStar);
   }, [reviews]);
 
