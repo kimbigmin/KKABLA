@@ -17,8 +17,8 @@ function DetailPage({ isLogin }) {
   // const isAuth = userAuth.includes(data.name);
 
   useEffect(() => {
-    const getReviews = async () => {
-      await axios.get(`/board/review/${data._id}`).then((res) => {
+    const getReviews = () => {
+      axios.get(`/board/review/${data._id}`).then((res) => {
         setReviews(res.data.review);
       });
     };

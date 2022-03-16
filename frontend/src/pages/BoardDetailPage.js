@@ -45,8 +45,8 @@ function BoardDetailPage({ isLogin, isAdmin }) {
     getData();
   }, []);
 
-  const handleCreate = async (newComment) => {
-    await axios
+  const handleCreate = (newComment) => {
+    axios
       .post(`/post/board/comment/${dataFromBoard._id}`, newComment, {
         withCredentials: true,
       })

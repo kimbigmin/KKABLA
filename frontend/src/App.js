@@ -45,8 +45,8 @@ function App() {
       });
   };
 
-  const getMe = async () => {
-    await axios
+  const getMe = () => {
+    axios
       .get('/auth/user', {
         withCredentials: true,
       })
@@ -65,10 +65,10 @@ function App() {
     }
   }, []);
 
-  useEffect(()=>{
-    getMe()
-  },[isLogin]);
-  
+  useEffect(() => {
+    getMe();
+  }, [isLogin]);
+
   console.log(`isLogin:${isLogin}`);
 
   return (
